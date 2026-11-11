@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decisions | Analysis model</title>
+<meta name="description" content="Conflicts found while consolidating the design, and decisions made with the user.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <button class="menu-btn" aria-expanded="false" aria-controls="sidebar">Menu</button>
+  <a class="brand" href="/">Analysis model</a>
+  <div class="search" role="search">
+    <label for="q" class="sr">Search the documentation</label>
+    <input id="q" type="search" autocomplete="off" placeholder="Search pages and techniques" aria-controls="results">
+    <ul id="results" hidden></ul>
+  </div>
+</header>
+<div class="shell">
+  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/">Overview</a></li></ul><details><summary>Process</summary><ul><li><a href="/process/">The process</a></li><li><a href="/process/intake/">Intake</a></li><li><a href="/process/selection/">Selection</a></li><li><a href="/process/sequencing/">Sequencing</a></li><li><a href="/process/technique-application/">Technique application</a></li><li><a href="/process/synthesis-and-review/">Synthesis and review</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details><summary>Reference</summary><ul><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Artefact types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Phases, tiers and relations</a></li></ul></details><details open><summary>Project record</summary><ul><li><a href="/project/decisions/" aria-current="page">Decisions</a></li><li><a href="/project/open-items/">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></details></nav></aside>
+  <main id="main" class="content">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Overview</a></li><li aria-current="page">Decisions</li></ol></nav>
+    <h1>Decisions</h1>
+    <div class="prose"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Conflict found</th>
+<th>Decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>The schema called claim ceiling a hard gate. The script uses it as a count and warning, because as a gate it removed structuring and appraisal techniques (8 of 32 expected picks passed, then 30 of 32 after the change).</td>
+<td>Claim ceiling is advisory. <code>schema.json</code> is changed.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>The schema said to return a shortlist of 5 to 15 by score. A score-ranked list of 15 found 8 of 32 expected picks, and the model reading the index found 22 of 32.</td>
+<td>The model reads the index of everything that passed the gates. Scores order it only.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>The schema said the model chooses techniques and orders them by the artefacts they consume. The sequencing rule orders by stage.</td>
+<td>Stage rules decide the order. Artefact dependencies apply only inside the prepare stage.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Frame techniques consume the agreed brief and produce a draft, so the state falls.</td>
+<td>Frame techniques (reframing, decision-first framing, definitions, multiple models, SMART check) are additive. Each shows what the question looks like from one angle and produces a finding that goes to the synthesis next to the others. They do not change the brief and nothing returns to selection. They now produce a result, not a revised brief.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>The schema fields used <code>technique_id</code> and <code>technique_name</code>, and lacked five CSV columns.</td>
+<td>The schema now lists all columns and maps the two names to <code>id</code> and <code>technique</code>. The validator skips the text columns.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Family names are capitalised in the CSV, and the schema said value ids are lower case.</td>
+<td>Family names are labels in sentence case. The convention is reworded.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Test jobs used <code>language: English</code>, which is not a schema value.</td>
+<td>Language is <code>single</code> or <code>multiple</code>. The two jobs are corrected.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>The Schema report described the older design (234 techniques, three input types replaced, no sequencing or synthesis).</td>
+<td>This document replaces it. The old report is kept as <code>Schema report (superseded).md</code>.</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Early wording called selection tags "input values".</td>
+<td>Material profile (facts about the material) and job settings (question, claim level, stakes, insight). The selection rules are the tags on each technique.</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Intake first offered only document and claim as units for text, which removed 82 techniques that the hand-written test job kept.</td>
+<td>Intake offers every unit the material can support.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Decision 4 is a design choice made here and has not been reviewed.</p>
+<p>Decisions made with the user after the first version:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Question</th>
+<th>Decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>11</td>
+<td>Does the brief need a specific question?</td>
+<td>No. The brief is one request, which can have several parts or be open-ended. One set of techniques serves it, and each pick states which part it serves.</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Should the process loop?</td>
+<td>Only when the user asks after reading the synthesis. The skill then selects again for the gaps found.</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Should correlated errors between techniques be handled?</td>
+<td>No. The techniques share one material and one model by design. The synthesis states this as a limit.</td>
+</tr>
+<tr>
+<td>14</td>
+<td>What does the process do when a technique needs material outside the input?</td>
+<td>It gathers only what that technique needs to run (a comparator, a reference structure or an earlier period), never material in general.</td>
+</tr>
+<tr>
+<td>15</td>
+<td>How much should the output say about certainty?</td>
+<td>One confidence label and a one-line reason per conclusion. The reviewer redoes the work if it does not feel right, so likelihood terms and roll-ups are dropped.</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Do challenge techniques challenge the brief?</td>
+<td>No. The user has standing over the brief and the skill does not. Challenge techniques (devil's advocacy, premortem, red team, steelmanning, key assumptions check and similar) examine the findings of the analysis, so they run in stage 3. Nine techniques (CH-01 to CH-05, CH-08, CH-10 to CH-12) now list the result as an input.</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Should the claim level be limited by what the material can support?</td>
+<td>No. The output describes its basis as facts and does not judge the material.</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Should intake ask about classification and licence?</td>
+<td>No. No technique uses them, so asking changes nothing. Both fields stay in the schema, marked not applicable, in case a deployment needs them. Personal data is still asked, because it adds the de-identification step and removes the few techniques that cannot take personal information.</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Which checks need a person?</td>
+<td>The model states it for each check in the check library (field human_involvement). Needed: human review sample, independent review, expert review. Conditional: gold standard agreement, needed unless the material already has labels made by trained people. Optional: spot check, which code or a person can do. All others need no person. A check that needs a person is not done by the process, and the answer basis lists it as not done. The user reviews the whole answer.</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Is there a limit on techniques?</td>
+<td>Yes. The model picks at most 10 in the first round, in priority order. Preparation steps added for a pick, de-identification and checks do not count. Extra picks are held and offered at the review step, and each review round adds at most 5. The numbers are defaults chosen here, not measured.</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Do challenge findings affect confidence?</td>
+<td>No. A challenge technique adds a finding. It does not reduce the validity of what was found, and anything can be challenged. The finding goes into the synthesis next to the conclusion it examines.</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Leftover text from the earlier design</td>
+<td>Removed: the three-way gate at the end of preparation, the four-output set (claim level achieved, certainty, likelihood term), and the wording "claim level the evidence supports". The claim level needed now adds checks and triggers a warning when no technique reaches it.</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Selection judged only the material as given, so a technique that needs a table of coded themes was removed for a text input even though a coding technique could produce it.</td>
+<td>A content type or representation failure is waived when every prepared artefact the technique consumes is produced by a technique that passed the gates. On the five test jobs this restores 0 to 6 techniques, because most of them also fail on access depth or unit of analysis, which are not waived.</td>
+</tr>
+</tbody>
+</table></div></div>
+    <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/reference/phases-and-tiers/"><span>Previous</span>Phases, tiers and relations</a><a class="next" href="/project/open-items/"><span>Next</span>Open items</a></nav>
+  </main>
+  <aside class="rail"></aside>
+</div>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

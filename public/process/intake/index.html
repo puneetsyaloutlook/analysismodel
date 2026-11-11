@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intake | Analysis model</title>
+<meta name="description" content="How four kinds of input become a brief and a material profile, and which questions the user is asked.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <button class="menu-btn" aria-expanded="false" aria-controls="sidebar">Menu</button>
+  <a class="brand" href="/">Analysis model</a>
+  <div class="search" role="search">
+    <label for="q" class="sr">Search the documentation</label>
+    <input id="q" type="search" autocomplete="off" placeholder="Search pages and techniques" aria-controls="results">
+    <ul id="results" hidden></ul>
+  </div>
+</header>
+<div class="shell">
+  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/">Overview</a></li></ul><details open><summary>Process</summary><ul><li><a href="/process/">The process</a></li><li><a href="/process/intake/" aria-current="page">Intake</a></li><li><a href="/process/selection/">Selection</a></li><li><a href="/process/sequencing/">Sequencing</a></li><li><a href="/process/technique-application/">Technique application</a></li><li><a href="/process/synthesis-and-review/">Synthesis and review</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details><summary>Reference</summary><ul><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Artefact types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Phases, tiers and relations</a></li></ul></details><details><summary>Project record</summary><ul><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/open-items/">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></details></nav></aside>
+  <main id="main" class="content">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Overview</a></li><li><a href="/process/">Process</a></li><li aria-current="page">Intake</li></ol></nav>
+    <h1>Intake</h1>
+    <div class="prose"><p>Intake accepts four kinds of input. For each it records what was measured by code, what the model inferred, and what is unknown.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Input</th>
+<th>How it is read</th>
+<th>Limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Link to an article or report</td>
+<td>The model fetches the page and saves the text with the URL, publisher and date.</td>
+<td>The fetch tool can summarise long pages, so quotes cannot be checked against the page. Intake flags this. Above exploratory stakes, ask for the document as a file.</td>
+</tr>
+<tr>
+<td>Content pasted from an article or report</td>
+<td>Saved as text.</td>
+<td>Publisher, author and date are unknown unless the user says.</td>
+</tr>
+<tr>
+<td>Typed text</td>
+<td>Under 40 words it is the question. Longer text is material.</td>
+<td>A question with no material produces a question asking for material.</td>
+</tr>
+<tr>
+<td>Collection of documents, such as transcripts</td>
+<td>Files or a folder (txt, md, html, docx, pdf, csv, tsv, xlsx).</td>
+<td>Unreadable files are listed and the user is asked to paste the text.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The output is two objects.</p>
+<ul>
+<li><strong>The brief:</strong> one request, claim level needed, stakes tier and insight wanted. Each field is marked stated, inferred or missing. The request can have several parts or be open-ended, such as "tell me what insights I can get from this article". It is handled as one request and gets one set of techniques. Each pick states which part of the request it serves. For an open request the insight wanted is left empty, so it neither filters nor scores, and the claim level defaults to describe.</li>
+<li><strong>The material profile:</strong> one value for each gate facet, per source where the facet belongs to a source. Code fills content type, representation, access depth, unit of analysis, source count, linkage, volume, document genre, language, personal and sensitive information signals, and data condition (duplicates, blank share). Units of analysis are offered broadly, because the unit depends on the question: text is offered as document, claim and topic, and as source when there are several.</li>
+</ul>
+<p>Questions to the user:</p>
+<ul>
+<li>At most four at once, in this order: missing material or question, stakes, claim level, personal data, insight, linking, duplicates. The rest are held back.</li>
+<li>Each question has a recommended answer where one exists and a one-line reason.</li>
+<li>Time structure, collection basis, origin, producer interest and source dependence are never asked. They stay unknown unless the material states them.</li>
+</ul>
+<p>Inferred without asking, and shown when the user confirms the brief: personal information as none for report-type documents with no emails, phone numbers or sensitive words; claim level and insight from the wording of the question. An open request such as "what insights can I get" leaves the insight empty.</p></div>
+    <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/process/"><span>Previous</span>The process</a><a class="next" href="/process/selection/"><span>Next</span>Selection</a></nav>
+  </main>
+  <aside class="rail"></aside>
+</div>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

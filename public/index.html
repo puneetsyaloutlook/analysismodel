@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analysis model: documentation</title>
+<meta name="description" content="Documentation of the analysis model and its catalogue of techniques.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <button class="menu-btn" aria-expanded="false" aria-controls="sidebar">Menu</button>
+  <a class="brand" href="/">Analysis model</a>
+  <div class="search" role="search">
+    <label for="q" class="sr">Search the documentation</label>
+    <input id="q" type="search" autocomplete="off" placeholder="Search pages and techniques" aria-controls="results">
+    <ul id="results" hidden></ul>
+  </div>
+</header>
+<div class="shell">
+  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/" aria-current="page">Overview</a></li></ul><details><summary>Process</summary><ul><li><a href="/process/">The process</a></li><li><a href="/process/intake/">Intake</a></li><li><a href="/process/selection/">Selection</a></li><li><a href="/process/sequencing/">Sequencing</a></li><li><a href="/process/technique-application/">Technique application</a></li><li><a href="/process/synthesis-and-review/">Synthesis and review</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details><summary>Reference</summary><ul><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Artefact types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Phases, tiers and relations</a></li></ul></details><details><summary>Project record</summary><ul><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/open-items/">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></details></nav></aside>
+  <main id="main" class="content">
+    
+    <h1>Analysis model</h1>
+    <div class="prose">
+<p class="lede">The analysis model takes a request and some material, picks the analytical techniques that can run on that material, runs them in order with checks, and combines the results into one answer with a confidence label for each conclusion.</p>
+<p>The catalogue holds 236 techniques in 12 families. This site documents the process and the catalogue. It is generated from the design document, the schema and the catalogue file in the repository, so it changes only when those change.</p>
+<div class="cards">
+  <a class="card" href="/process/"><p class="card-title">Process</p><p>Intake, selection, sequencing, technique application and synthesis.</p></a>
+  <a class="card" href="/catalogue/"><p class="card-title">Catalogue</p><p>236 techniques in 12 families, with a page for each.</p></a>
+  <a class="card" href="/reference/fields/"><p class="card-title">Reference</p><p>The 52 fields, 21 artefact types, 18 checks, phases and stakes tiers.</p></a>
+  <a class="card" href="/project/decisions/"><p class="card-title">Project record</p><p>Decisions, open items and test evidence.</p></a>
+</div>
+<h2 id="purpose-and-status">Purpose and status</h2>
+<p>The catalogue lists 236 analytical techniques in 12 families. It will become a skill that a chat or agent calls, and a website built from the same CSV. Neither is built, and the user has said the skill is not to be built yet.</p>
+<p>Given a brief (one request plus material), the process picks the techniques that fit, runs them in a sensible order with the checks the stakes require, and combines the results into one answer.</p>
+<p>Status: every part has been built and tested on small cases. No part has been run end to end on a real brief. All tag values are inference unless a row or a named source says otherwise.</p>
+<h2 id="catalogue-at-a-glance">Catalogue at a glance</h2>
+<div class="table-wrap"><table><thead><tr><th>Family</th><th>Techniques</th></tr></thead><tbody>
+<tr><td><a href="/catalogue/frame-the-question/">Frame the question</a></td><td>6</td></tr><tr><td><a href="/catalogue/decompose-and-map/">Decompose and map</a></td><td>21</td></tr><tr><td><a href="/catalogue/compare/">Compare</a></td><td>17</td></tr><tr><td><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims</a></td><td>34</td></tr><tr><td><a href="/catalogue/handle-evidence/">Handle evidence</a></td><td>29</td></tr><tr><td><a href="/catalogue/project-forward/">Project forward</a></td><td>25</td></tr><tr><td><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks</a></td><td>19</td></tr><tr><td><a href="/catalogue/challenge/">Challenge</a></td><td>15</td></tr><tr><td><a href="/catalogue/prepare-and-extract/">Prepare and extract</a></td><td>14</td></tr><tr><td><a href="/catalogue/measure-and-model/">Measure and model</a></td><td>16</td></tr><tr><td><a href="/catalogue/integrate-across-sources/">Integrate across sources</a></td><td>11</td></tr><tr><td><a href="/catalogue/check-extracted-results/">Check extracted results</a></td><td>29</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>236</strong></td></tr></tbody></table></div>
+</div>
+    <nav class="pager" aria-label="Previous and next page"><span></span><a class="next" href="/process/"><span>Next</span>The process</a></nav>
+  </main>
+  <aside class="rail"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#purpose-and-status">Purpose and status</a></li><li class="l2"><a href="#catalogue-at-a-glance">Catalogue at a glance</a></li></ul></nav></aside>
+</div>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>
