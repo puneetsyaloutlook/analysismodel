@@ -1,0 +1,68 @@
+{
+ "typed_question": null,
+ "sources": [
+  {
+   "source_id": "S1",
+   "file": "source_material.md",
+   "read_status": "ok",
+   "origin_type": "file",
+   "metadata": {},
+   "stats": {
+    "words": 507,
+    "characters": 2841,
+    "lines": 32,
+    "speaker_label_share": 0.0
+   },
+   "suggest_ask": [
+    "document_genre"
+   ],
+   "language_note": "English by stopword share",
+   "personal_information_signals": [],
+   "sensitive_word_hits": [],
+   "facets": {
+    "content_type": [
+     "text"
+    ],
+    "representation": "unstructured",
+    "unit_of_analysis": [
+     "document",
+     "claim",
+     "topic"
+    ],
+    "access_depth": "narrative only",
+    "document_genre": "unknown",
+    "language": "single",
+    "privacy": "unknown",
+    "volume_class": "readable by a person",
+    "time_structure": "not applicable",
+    "collection_basis": "unknown"
+   },
+   "flags": []
+  }
+ ],
+ "collection": {
+  "content_type": [
+   "text"
+  ],
+  "unit_of_analysis": [
+   "claim",
+   "document",
+   "topic"
+  ],
+  "access_depth": "narrative only",
+  "source_count": "one",
+  "linkage": "not applicable",
+  "volume_class": "readable by a person",
+  "representation": "unstructured",
+  "language": "single",
+  "privacy": "unknown",
+  "security_classification": "unknown",
+  "licence": "unknown",
+  "data_condition_flags": [
+   "unknown"
+  ]
+ },
+ "duplicate_pairs": [],
+ "inferred_notes": {},
+ "unreadable": []
+}

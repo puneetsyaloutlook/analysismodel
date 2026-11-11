@@ -1,0 +1,30 @@
+{
+ "method": "Convergence matrix, then narrative synthesis. Quantitative pooling was not offered because no finding estimates a quantity.",
+ "techniques": ["FQ-03","DM-02","HE1-02","CM1-05","CM1-14","HE1-14","TC1-13","TC1-16","TC1-17"],
+ "legend": {"A":"agrees","P":"partly agrees","D":"dissonant (points the other way or changes with a definition)","S":"silent"},
+ "conclusions": [
+  {"id":"C1","text":"H1 cannot be tested as worded. No quote compares the AI with traditional voice automation: Q1 compares it with website chatbots and Q2 with a robot voice.",
+   "cells":{"FQ-03":"A","DM-02":"A","HE1-02":"A","CM1-05":"A","CM1-14":"A","HE1-14":"A","TC1-13":"A","TC1-16":"A","TC1-17":"A"},
+   "label":"high","reason":"Nine techniques that read the quotes in different ways agree and their checks passed. They share one material and one model, and the human review sample on the framework analysis was not done."},
+  {"id":"C2","text":"Reactions to the AI are mixed. P1 (Q1), P2 (Q2) and P3 (Q3) are positive. P10 (Q4), P1 (Q6) and P5 (Q7) are negative. P4 (Q5) moves from wanting a person to a positive view. The negative remarks concern the voice, the accent, the length of the introduction and a car accident scenario.",
+   "cells":{"FQ-03":"A","DM-02":"A","HE1-02":"A","CM1-05":"A","CM1-14":"S","HE1-14":"A","TC1-13":"A","TC1-16":"S","TC1-17":"A"},
+   "label":"medium","reason":"Several techniques agree, but the sensitivity analysis shows the overall lean flips when P2 or P3 (toward negative) or P5 or P10 (toward positive) is dropped."},
+  {"id":"C3","text":"H2 is neither confirmed nor refuted. P10 (Q8) says they would have hung up at the introduction and P5 (Q10) would probably hang up. Q8 gives the length of the introduction as the reason, and Q10 follows a refused request for a human, so neither is an immediate hang-up on learning it is an AI.",
+   "cells":{"FQ-03":"P","DM-02":"D","HE1-02":"P","CM1-05":"D","CM1-14":"P","HE1-14":"P","TC1-13":"P","TC1-16":"A","TC1-17":"A"},
+   "label":"medium","reason":"The first-pass analyses called H2 contradicted. The disconfirmation search and the strict definition run in the sensitivity analysis moved it to not supported, so the verdict depends on whether hypothetical statements count."},
+  {"id":"C4","text":"Statements from P4 (Q5, Q9) and P5 (Q10) run against H3: they say they would ask for a human, or wanted one at first. Q9 is hedged (\"probably\"), Q10 gives no timing and Q5 is a wish that fades.",
+   "cells":{"FQ-03":"P","DM-02":"A","HE1-02":"A","CM1-05":"A","CM1-14":"A","HE1-14":"A","TC1-13":"A","TC1-16":"A","TC1-17":"D"},
+   "label":"medium","reason":"Eight techniques agree, but under a strict definition (an unhedged request during the introduction) no quote contradicts H3, and the evidence comes from two participants."},
+  {"id":"C5","text":"P8 and P9 have no quote in the material, so no technique could read a reaction from them. Every statement about hanging up or asking for a human is about prerecorded scenarios, so it is a stated intention.",
+   "cells":{"FQ-03":"A","DM-02":"A","HE1-02":"A","CM1-05":"A","CM1-14":"A","HE1-14":"A","TC1-13":"A","TC1-16":"A","TC1-17":"A"},
+   "label":"high","reason":"This is stated in the material and every technique that touched it reports it the same way."}
+ ],
+ "answer": {
+  "lead": "Not one of the three hypotheses is shown to hold. H1 cannot be tested as worded, and the quotes split between positive and negative reactions. H2 and H3 each have statements from two or three participants that run against them, and whether those count as contradiction depends on how strictly \"immediately\" is read.",
+  "paragraphs": [
+   "H1 (more satisfying than traditional voice automation): no quote compares the AI with voice automation, so the hypothesis cannot be confirmed or refuted from this material. P1, P2 and P3 describe the AI as dynamic, natural and seamless. P10, P1 (in a second remark) and P5 are negative, and cite the voice, the accent, the introduction and a car accident scenario. Confidence: medium on the split, high that H1 is untested.",
+   "H2 (no immediate hang-up on learning it is an AI): P10 and P5 say they would hang up. Neither is an immediate hang-up caused by learning it is an AI. On a loose reading H2 is contradicted by two participants. On a strict reading no quote tests it. Confidence: medium.",
+   "H3 (no immediate request for a human): P4 and P5 say they would ask for a human, and P4 says the wish fades as the call goes on. This runs against H3 on a loose reading and does not on a strict one. Confidence: medium."
+  ]
+ }
+}
