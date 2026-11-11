@@ -8,6 +8,7 @@ Static documentation site for the analysis model: the process (intake, selection
 - `data/schema.json`: field vocabularies, artefact types, check library, phases, stakes tiers.
 - `data/catalogue.csv`: the 236 techniques (52 columns). Each row becomes a technique page.
 - `data/test-*.md`: test evidence pages.
+- `data/simulator.json`: the five recorded test jobs for the simulator page (gate counts, picks, stages, checks, answer basis). Regenerate it from the model working directory with `python3 build/export_simulator.py <model dir> data/simulator.json`. It needs the process scripts, which are not in this repository.
 - `build/build.py`: generates `public/` from the files above.
 - `build/check.py`: checks internal links, anchors, dashes, and banned words on authored pages.
 - `build/assets/`: CSS and JavaScript copied to `public/assets/`.
