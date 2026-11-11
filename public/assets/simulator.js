@@ -222,24 +222,30 @@
     current = i; mark(i, 'run');
     title.textContent = (i + 1) + '. ' + NAMES[i];
     bar.style.width = '0';
-    var wrap = document.createElement('div'); out.innerHTML = ''; out.appendChild(wrap);
+    if (i === 0) out.innerHTML = '';
+    var sec = document.createElement('section'); sec.className = 'stepblock'; sec.id = 'sim-step-' + i;
+    var hd = document.createElement('h3'); hd.className = 'stephead'; hd.textContent = (i + 1) + '. ' + NAMES[i]; sec.appendChild(hd);
+    var wrap = document.createElement('div'); sec.appendChild(wrap); out.appendChild(sec);
+    if (!reduce && sec.scrollIntoView) sec.scrollIntoView({ block: 'start', behavior: 'smooth' });
     var blocks = builders(i), k = 0;
     return (function next() {
       if (k >= blocks.length) { bar.style.width = '100%'; return Promise.resolve(true); }
       var blk = blocks[k++], d = document.createElement('div');
       d.className = 'rv'; d.innerHTML = blk.html; wrap.appendChild(d);
+      if (d.getBoundingClientRect().bottom > window.innerHeight - 20 && d.scrollIntoView) d.scrollIntoView({ block: 'end', behavior: reduce ? 'auto' : 'smooth' });
       if (blk.tally) setTally(blk.tally[0], blk.tally[1]);
       bar.style.width = Math.round(k / blocks.length * 100) + '%';
       return wait(blk.fast ? 120 : 420).then(function (ok) { return ok && t === token ? next() : false; });
     })().then(function (ok) {
       if (!ok || t !== token) return false;
-      mark(i, 'done'); done = i; cache[i] = wrap.innerHTML; return true;
+      mark(i, 'done'); done = i; cache[i] = true; return true;
     });
   }
 
   function show(i) {
-    if (running || !cache[i]) return;
-    title.textContent = (i + 1) + '. ' + NAMES[i]; out.innerHTML = '<div class="static">' + cache[i] + '</div>'; bar.style.width = '100%';
+    var el = document.getElementById('sim-step-' + i);
+    if (!el) return;
+    el.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' });
     steps.forEach(function (li, n) { li.querySelector('button').toggleAttribute('data-view', n === i); });
   }
 
