@@ -136,7 +136,7 @@
   function radios(levels, sel, name) {
     return '<ol class="scale">' + levels.map(function (l, n) {
       var on = l[0] === sel;
-      return '<li' + (on ? ' class="on"' : '') + '><label><input type="radio" name="' + name + '" disabled' + (on ? ' checked' : '') + '><span class="sl">' + esc(sentence(l[0])) + '</span><span class="sd">' + esc(l[1]) + '</span></label></li>';
+      return '<li' + (on ? ' class="on"' : '') + '><label><input type="radio" name="' + name + '" value="' + esc(l[0]) + '"' + (on ? ' checked' : '') + '><span class="sl">' + esc(sentence(l[0])) + '</span><span class="sd">' + esc(l[1]) + '</span></label></li>';
     }).join('') + '</ol>';
   }
   var INSIGHTS = [['pattern', 'what repeats across the material'], ['difference', 'what differs between groups or cases'], ['contradiction', 'where statements conflict'], ['gap', 'what is missing']];
@@ -149,16 +149,25 @@
       '<span class="fl">Content</span><div class="doc"><span class="doc-name">Voice AI interview study</span><span class="small">1 document, ' + j.source.words + ' words</span> <a href="/simulator/material/">Open the submitted content</a></div>' +
       '<fieldset><legend>Stakes</legend><p class="small">What the result will be used for. Higher stakes add more checks.</p>' + radios(STAKES, j.stakes, 'stakes') + '</fieldset>' +
       '<fieldset><legend>Strongest claim needed</legend><p class="small">The strongest statement the answer has to be able to make. It adds checks and shows how many techniques can reach it.</p>' + radios(CLAIMS, j.claim, 'claim') + '</fieldset>' +
-      '<fieldset><legend>Insight wanted</legend><div class="checks">' + INSIGHTS.map(function (x) { return '<label><input type="checkbox" disabled' + (j.insight.indexOf(x[0]) > -1 ? ' checked' : '') + '> <strong>' + esc(sentence(x[0])) + '</strong> <span class="small">' + esc(x[1]) + '</span></label>'; }).join('') + '</div></fieldset>' +
+      '<fieldset><legend>Insight wanted</legend><div class="checks">' + INSIGHTS.map(function (x) { return '<label><input type="checkbox" name="insight" value="' + x[0] + '"' + (j.insight.indexOf(x[0]) > -1 ? ' checked' : '') + '> <strong>' + esc(sentence(x[0])) + '</strong> <span class="small">' + esc(x[1]) + '</span></label>'; }).join('') + '</div></fieldset>' +
       '<div class="form-actions"><button type="submit" class="btn primary" id="sim-submit">Submit</button><label class="small"><input type="checkbox" id="sim-stepwise"> Step through one step at a time</label></div>';
-    f.addEventListener('submit', function (e) { e.preventDefault(); submitIntake(f); });
+    f.addEventListener('submit', function (e) { e.preventDefault(); submitIntake(f, j); });
+    f.addEventListener('change', function () { markOn(f); });
     sec.appendChild(f);
     return sec;
   }
-  function submitIntake(f) {
+  function markOn(f) {
+    Array.prototype.forEach.call(f.querySelectorAll('ol.scale li'), function (li) { li.classList.toggle('on', li.querySelector('input').checked); });
+  }
+  function submitIntake(f, j) {
     if (submitted) return;
     submitted = true;
     var stepwise = $('sim-stepwise').checked;
+    // The stored run used one set of answers, so any change reverts to them on submit.
+    Array.prototype.forEach.call(f.querySelectorAll('input[name=stakes], input[name=claim]'), function (i) { i.checked = (i.value === (i.name === 'stakes' ? j.stakes : j.claim)); });
+    Array.prototype.forEach.call(f.querySelectorAll('input[name=insight]'), function (i) { i.checked = j.insight.indexOf(i.value) > -1; });
+    markOn(f);
+    Array.prototype.forEach.call(f.querySelectorAll('input:not(#sim-stepwise), textarea'), function (i) { i.disabled = true; });
     f.classList.add('locked'); $('sim-submit').disabled = true; $('sim-submit').textContent = 'Submitted'; $('sim-stepwise').disabled = true;
     focusApp();
     if (stepwise) { stepOnce().then(function () { setBusy(false); }); } else { runAll(); }
