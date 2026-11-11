@@ -171,6 +171,11 @@ def make_simulator():
 </div>
 <script type="application/json" id="sim-data">{blob}</script>
 """
+    mat = (DATA / "run1" / "source_material.md").read_text(encoding="utf-8")
+    mat = re.sub(r"^# .*\n", "", mat, count=1)
+    add_page("/simulator/material/", "Submitted content: voice AI interviews", "Overview",
+             "<p>This is the content submitted for the run in the simulator. <a href=\"/simulator/\">Back to the simulator</a>.</p>" + md_block(demote(mat)),
+             "The content submitted for the simulator run.", toc=False, wide=True)
     add_page("/simulator/", "Simulator", "Overview", body,
              "Run the analysis process on one screen, step by step, using the five recorded test jobs.", toc=False, wide=True,
              scripts=("/assets/simulator.js",))
