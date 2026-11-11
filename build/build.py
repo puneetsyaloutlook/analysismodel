@@ -144,12 +144,12 @@ def make_simulator():
     steps = ["Intake", "Gates", "Pick", "Sequence", "Apply", "Check", "Synthesise", "Answer basis and review"]
     rail = "".join(f'<li data-step="{i}"><button type="button" class="step-btn"><span class="dot" aria-hidden="true"></span><span class="lbl">{i + 1}. {esc(t)}</span><span class="st sr"></span></button></li>' for i, t in enumerate(steps))
     body = f"""
-<p class="lede">Run the process from intake to answer, one step at a time. This is an actual run on eight interview quotes: every technique in the plan ran, and the findings are in the cards.</p>
+<p class="lede">This is an actual run on eight interview quotes. Submit the intake form to start it. Every technique in the plan ran, and the findings are in the cards.</p>
 <div class="sim-note" id="sim-note"></div>
 <div class="sim-controls">
   <label for="sim-job">Run</label>
   <select id="sim-job">{opts}</select>
-  <button type="button" id="sim-run" class="btn primary">Run</button>
+  <button type="button" id="sim-run" class="btn">Run to end</button>
   <button type="button" id="sim-step" class="btn">Next step</button>
   <button type="button" id="sim-reset" class="btn">Reset</button>
   <label for="sim-speed">Speed</label>

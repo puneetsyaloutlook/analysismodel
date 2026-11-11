@@ -176,3 +176,18 @@ ol.scale li.on{border-color:var(--teal-600);background:var(--teal-50);color:var(
 ol.scale .sn{font-weight:600;color:var(--teal-700)}
 ol.scale .sl{font-weight:600}
 @media (max-width:760px){ol.scale li{grid-template-columns:1.6rem 1fr}ol.scale .sd{grid-column:2}}
+
+.intake-form{display:grid;gap:.9rem}
+.intake-form .fl{font-weight:600;font-size:.95rem}
+.intake-form textarea{width:100%;font:inherit;padding:.55rem .75rem;border:1px solid var(--line);border-radius:6px;background:var(--bg-2);resize:none}
+.intake-form fieldset{border:1px solid var(--line);border-radius:8px;padding:.6rem .9rem .8rem;margin:0}
+.intake-form legend{font-weight:600;padding:0 .4rem}
+.intake-form .doc{display:flex;flex-wrap:wrap;gap:.3rem .8rem;align-items:baseline;padding:.55rem .75rem;border:1px solid var(--line);border-radius:6px;background:var(--bg-2)}
+.doc-name{font-weight:600}
+.intake-form .checks{display:grid;gap:.3rem}
+.intake-form ol.scale li{display:block;padding:0}
+.intake-form ol.scale label{display:grid;grid-template-columns:1.4rem 14rem 1fr;gap:.6rem;align-items:baseline;padding:.4rem .6rem;cursor:default}
+.intake-form ol.scale .sd{color:var(--ink-2)}
+.form-actions{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
+.intake-form.locked{opacity:.9}
+@media (max-width:760px){.intake-form ol.scale label{grid-template-columns:1.4rem 1fr}.intake-form ol.scale .sd{grid-column:2}}
