@@ -153,8 +153,22 @@
       '<div class="form-actions"><button type="submit" class="btn primary" id="sim-submit">Submit</button><label class="small"><input type="checkbox" id="sim-stepwise"> Step through one step at a time</label></div>';
     f.addEventListener('submit', function (e) { e.preventDefault(); submitIntake(f, j); });
     f.addEventListener('change', function () { markOn(f); });
+    f.querySelector('.doc a').addEventListener('click', function (e) { e.preventDefault(); openMaterial(j, e.currentTarget); });
     sec.appendChild(f);
     return sec;
+  }
+  function openMaterial(j, opener) {
+    var d = document.getElementById('mat-modal');
+    if (!d) {
+      d = document.createElement('dialog'); d.id = 'mat-modal'; d.className = 'modal'; d.setAttribute('aria-labelledby', 'mat-title');
+      d.innerHTML = '<div class="modal-head"><h2 id="mat-title">Submitted content: voice AI interview study</h2><button type="button" class="btn" id="mat-close">Close</button></div><div class="modal-body result-md"></div>';
+      document.body.appendChild(d);
+      d.addEventListener('click', function (e) { if (e.target === d || e.target.id === 'mat-close') d.close(); });
+      d.addEventListener('close', function () { if (d._opener) d._opener.focus(); });
+    }
+    d.querySelector('.modal-body').innerHTML = j.material_html || '';
+    d._opener = opener;
+    if (d.showModal) d.showModal(); else d.setAttribute('open', '');
   }
   function markOn(f) {
     Array.prototype.forEach.call(f.querySelectorAll('ol.scale li'), function (li) { li.classList.toggle('on', li.querySelector('input').checked); });

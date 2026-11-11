@@ -191,3 +191,9 @@ ol.scale .sl{font-weight:600}
 .form-actions{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
 .intake-form.locked{opacity:.9}
 @media (max-width:760px){.intake-form ol.scale label{grid-template-columns:1.4rem 1fr}.intake-form ol.scale .sd{grid-column:2}}
+
+dialog.modal{width:min(46rem,calc(100vw - 2rem));max-height:calc(100vh - 3rem);padding:0;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);box-shadow:0 12px 40px rgba(0,0,0,.25)}
+dialog.modal::backdrop{background:rgba(15,30,30,.55)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.8rem 1.1rem;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg)}
+.modal-head h2{margin:0;font-size:1.05rem;border:0;padding:0}
+.modal-body{padding:1rem 1.1rem 1.3rem;overflow:auto}

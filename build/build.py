@@ -137,6 +137,8 @@ def make_simulator():
     data = json.loads((DATA / "simulator.json").read_text(encoding="utf-8"))
     data = []  # The five recorded test jobs (data/simulator.json) are not shown: they hold no technique results.
     run = json.loads((DATA / "run.json").read_text(encoding="utf-8"))
+    _mat = re.sub(r"^# .*\n", "", (DATA / "run1" / "source_material.md").read_text(encoding="utf-8"), count=1)
+    run["material_html"] = md_block(demote(_mat))
     run["results_html"] = {k: md_block(demote(v)) for k, v in run.pop("results").items()}
     data.insert(0, run)
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
