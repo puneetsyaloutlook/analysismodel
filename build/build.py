@@ -93,8 +93,8 @@ for p in parts[1:]:
 PAGES = []
 
 
-def add_page(path, title, group, body_html, desc="", toc=True, extra_head=""):
-    PAGES.append(dict(path=path, title=title, group=group, body=body_html, desc=desc, toc=toc))
+def add_page(path, title, group, body_html, desc="", toc=True, wide=False, scripts=()):
+    PAGES.append(dict(path=path, title=title, group=group, body=body_html, desc=desc, toc=toc, wide=wide, scripts=scripts))
 
 
 SECTION_PAGE = {
@@ -131,6 +131,45 @@ def section_html(n):
 def split_h3(body):
     """Return list of (heading, body) for a block that uses ### headings."""
     return re.split(r"^### ", body, flags=re.M)
+
+
+def make_simulator():
+    data = json.loads((DATA / "simulator.json").read_text(encoding="utf-8"))
+    blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    opts = "".join(f'<option value="{esc(d["id"])}">{esc(d["name"])}</option>' for d in data)
+    steps = ["Intake", "Gates", "Pick", "Sequence", "Apply", "Check", "Synthesise", "Answer basis and review"]
+    rail = "".join(f'<li data-step="{i}"><button type="button" class="step-btn"><span class="dot" aria-hidden="true"></span><span class="lbl">{i + 1}. {esc(t)}</span><span class="st sr"></span></button></li>' for i, t in enumerate(steps))
+    body = f"""
+<p class="lede">Pick a recorded test job and run the process from intake to answer, one step at a time.</p>
+<div class="sim-note"><strong>What is real here.</strong> Gate counts, stages, checks and the answer basis are the output of the process scripts on the five test jobs. The picks and their reasons are the model's picks from the recorded test runs. <strong>What is not.</strong> No technique has run on the test material, so the simulator shows the form of each result and not findings. It produces no confidence labels, because those depend on findings.</div>
+<div class="sim-controls">
+  <label for="sim-job">Test job</label>
+  <select id="sim-job">{opts}</select>
+  <button type="button" id="sim-run" class="btn primary">Run</button>
+  <button type="button" id="sim-step" class="btn">Next step</button>
+  <button type="button" id="sim-reset" class="btn">Reset</button>
+  <label for="sim-speed">Speed</label>
+  <select id="sim-speed"><option value="1">Normal</option><option value="0.4">Fast</option><option value="2.2">Slow</option></select>
+</div>
+<div class="tally" aria-label="Running totals">
+  <div><span class="n" id="t-cat">{len(rows)}</span><span class="k">techniques in the catalogue</span></div>
+  <div><span class="n" id="t-pass">-</span><span class="k">passed the gates</span></div>
+  <div><span class="n" id="t-pick">-</span><span class="k">picked (limit 10)</span></div>
+  <div><span class="n" id="t-run">-</span><span class="k">techniques in the plan</span></div>
+  <div><span class="n" id="t-person">-</span><span class="k">checks that need a person</span></div>
+</div>
+<div class="sim-app">
+  <ol class="sim-steps" aria-label="Process steps">{rail}</ol>
+  <section class="sim-stage" aria-live="polite" aria-labelledby="sim-title">
+    <header><h2 id="sim-title">Ready</h2><div class="bar" aria-hidden="true"><i id="sim-bar"></i></div></header>
+    <div id="sim-out"><p class="small">Choose a test job and select Run, or step through with Next step.</p></div>
+  </section>
+</div>
+<script type="application/json" id="sim-data">{blob}</script>
+"""
+    add_page("/simulator/", "Simulator", "Overview", body,
+             "Run the analysis process on one screen, step by step, using the five recorded test jobs.", toc=False, wide=True,
+             scripts=("/assets/simulator.js",))
 
 
 # ---------------------------------------------------------------- pages
@@ -419,7 +458,7 @@ def make_reference():
 
 # ------------------------------------------------------------------ nav
 NAV = [
-    ("Overview", [("/", "Overview")]),
+    ("Overview", [("/", "Overview"), ("/simulator/", "Simulator")]),
     ("Process", [("/process/", "The process"), ("/process/intake/", "Intake"), ("/process/selection/", "Selection"),
                  ("/process/sequencing/", "Sequencing"), ("/process/technique-application/", "Technique application"),
                  ("/process/synthesis-and-review/", "Synthesis and review")]),
@@ -543,7 +582,7 @@ TEMPLATE = """<!doctype html>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
 </head>
-<body>
+<body class="{bodycls}">
 <a class="skip" href="#main">Skip to content</a>
 <header class="top">
   <button class="menu-btn" aria-expanded="false" aria-controls="sidebar">Menu</button>
@@ -565,6 +604,7 @@ TEMPLATE = """<!doctype html>
   <aside class="rail">{toc}</aside>
 </div>
 <script src="/assets/site.js" defer></script>
+{scripts}
 </body>
 </html>
 """
@@ -579,7 +619,8 @@ def render(page):
     html_out = TEMPLATE.format(
         title=esc(full_title), desc=esc(page["desc"][:200]), site=esc(SITE), nav=nav_html(page["path"]),
         crumbs=crumbs(page), h1=esc(page["title"] if page["path"] != "/" else SITE), body=body,
-        pager=prev_next(page), toc=toc_html(body) if page["toc"] else "")
+        pager=prev_next(page) if not page.get("wide") else "", toc=toc_html(body) if page["toc"] else "",
+        bodycls="wide" if page.get("wide") else "", scripts="".join(f'<script src="{u}" defer></script>' for u in page.get("scripts", ())))
     dest = OUT / page["path"].strip("/") / "index.html" if page["path"] != "/" else OUT / "index.html"
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(html_out, encoding="utf-8")
@@ -611,13 +652,14 @@ def main():
         make_technique_page(r)
     make_reference()
     make_project_pages()
+    make_simulator()
     for p in PAGES:
         render(p)
     make_search_index()
     (OUT / "404.html").write_text(
         TEMPLATE.format(title="Page not found | " + SITE, desc="Page not found", site=SITE, nav=nav_html("/404"), crumbs="",
                         h1="Page not found", body='<p>This page does not exist. Use the search box or the menu, or go to the <a href="/">overview</a>.</p>',
-                        pager="", toc=""), encoding="utf-8")
+                        pager="", toc="", bodycls="", scripts=""), encoding="utf-8")
     print(f"Wrote {len(PAGES)} pages and search index to {OUT}")
 
 
