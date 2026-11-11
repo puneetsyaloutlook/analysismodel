@@ -169,3 +169,10 @@ table.matrix th{font-size:.8rem}
 .sim-stage{min-height:0}
 .tally{scroll-margin-top:calc(var(--top) + .5rem)}
 .sim-app{scroll-margin-top:calc(var(--top) + .5rem)}
+
+ol.scale{list-style:none;margin:.4rem 0 0;padding:0;display:grid;gap:.35rem}
+ol.scale li{display:grid;grid-template-columns:1.6rem 14rem 1fr;gap:.6rem;align-items:baseline;padding:.4rem .6rem;border:1px solid var(--line);border-radius:8px;color:var(--ink-2);font-size:.9rem}
+ol.scale li.on{border-color:var(--teal-600);background:var(--teal-50);color:var(--ink);box-shadow:inset 3px 0 var(--teal-600)}
+ol.scale .sn{font-weight:600;color:var(--teal-700)}
+ol.scale .sl{font-weight:600}
+@media (max-width:760px){ol.scale li{grid-template-columns:1.6rem 1fr}ol.scale .sd{grid-column:2}}

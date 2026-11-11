@@ -37,7 +37,7 @@
 
   // Each step builds an array of "blocks": {html, pause}. Blocks appear one at a time inside a wrapper.
   var NOTES = {
-    real: '<strong>This is an actual run.</strong> The scripts ran intake, the gates and sequencing on the material. Claude picked the techniques, and each technique ran as a separate agent on the brief and the material (stage 3 techniques ran on the findings). The quotation check and the matrix recount ran as code. <strong>Limits.</strong> The stakes tier, claim level, insight wanted and privacy answers were not given by the user: the recommended defaults were used and are marked as assumed. The human review sample was not done because it needs a person. Selecting Run replays the stored output with a loading delay. Nothing is computed in your browser.',
+    real: '<strong>This is an actual run.</strong> The scripts ran intake, the gates and sequencing on the material. Claude picked the techniques, and each technique ran as a separate agent on the brief and the material (stage 3 techniques ran on the findings). The quotation check and the matrix recount ran as code. <strong>Limits.</strong> The request wording, stakes, strongest claim needed, insight wanted and privacy answer were set by Claude from the recommended defaults and were not given by the user. The human review sample was not done because it needs a person. Selecting Run replays the stored output with a loading delay. Nothing is computed in your browser.',
     rec: '<strong>What is real here.</strong> Gate counts, stages, checks and the answer basis are the output of the process scripts on this recorded test job. The picks and their reasons are the model\'s picks from the recorded test run. <strong>What is not.</strong> No technique has run on the test material, so the simulator shows the form of each result and not findings, and it produces no confidence labels.'
   };
 
@@ -114,6 +114,24 @@
   }
 
 
+  var STAKES = [
+    ['exploratory', 'The result decides what to look at next. A wrong result costs little and is corrected before anyone relies on it.'],
+    ['decision-informing', 'The result is one input to a decision that can be reversed or revisited at moderate cost.'],
+    ['high-stakes', 'The decision is costly or hard to reverse, affects rights, safety or finances, or the result will be published as authoritative.']
+  ];
+  var CLAIMS = [
+    ['describe', 'Summarise what is in the material.'],
+    ['associate', 'Show that things go together, without saying why.'],
+    ['predict without implying cause', 'Forecast or classify new cases from patterns.'],
+    ['estimate an intervention effect', 'Estimate how an outcome changes when something is done.'],
+    ['explain mechanism or counterfactual', 'Say how or why, or what would have happened otherwise.']
+  ];
+  function scale(levels, sel) {
+    return '<ol class="scale">' + levels.map(function (l, n) {
+      var on = l[0] === sel;
+      return '<li' + (on ? ' class="on" aria-current="true"' : '') + '><span class="sn">' + (n + 1) + '</span><span class="sl">' + esc(sentence(l[0])) + (on ? ' <span class="pill">selected</span>' : '') + '</span><span class="sd">' + esc(l[1]) + '</span></li>';
+    }).join('') + '</ol>';
+  }
   function assumed(basis) { return basis === 'stated' ? '' : ' <span class="pill warn">assumed, not confirmed by the user</span>'; }
   function res(j, id) { return '<details class="resbox" open><summary>Result</summary><div class="result-md">' + (j.results_html[id] || '') + '</div></details>'; }
   function runRow(j, x, uses) { return '<div class="run"><div class="rh"><strong>' + link(x) + '</strong><span class="pill">runs on: ' + esc(uses) + '</span></div>' + res(j, x.id) + '</div>'; }
@@ -121,15 +139,13 @@
   function realBuilders(i) {
     var j = job, b = [], S = j.stages, bm = j.basis_map;
     if (i === 0) {
-      b.push({ html: '<h3>Brief</h3><table class="kv"><tbody>' +
-        '<tr><th scope="row">Request</th><td>' + esc(j.request) + ' <span class="pill warn">worded by Claude from the hypothesis list in the material, not typed by the user</span></td></tr>' +
-        '<tr><th scope="row">Claim level needed</th><td>' + esc(j.claim) + assumed(bm.claim_level_needed) + '</td></tr>' +
-        '<tr><th scope="row">Stakes tier</th><td>' + esc(j.stakes) + assumed(bm.stakes_tier) + '</td></tr>' +
-        '<tr><th scope="row">Insight wanted</th><td>' + esc(j.insight.join(', ')) + assumed(bm.insight_wanted) + '</td></tr></tbody></table>' });
-      b.push({ html: '<h3>Material read by code</h3><p>One file, <code>' + esc(j.source.file) + '</code>: ' + j.source.words + ' words, ' + j.source.characters + ' characters, ' + j.source.lines + ' lines. It holds three hypotheses and ten quotes from eight participants.</p>' });
-      b.push({ html: '<h3>Material profile</h3>' });
-      Object.keys(j.profile).forEach(function (k) { b.push({ html: '<div class="row2"><span>' + esc(sentence(k)) + '</span><span>' + esc(list(j.profile[k])) + (k === 'privacy' ? ' <span class="pill warn">assumed: participant codes only</span>' : '') + '</span></div>', fast: true }); });
-      b.push({ html: '<p class="result">Intake asked two questions (stakes tier and claim level) and flagged privacy and insight. In this run they were answered with the recommended values and marked as assumed, so confirm or change them.</p>' });
+      b.push({ html: '<h3>Request</h3><p>' + esc(j.request) + '</p>' });
+      b.push({ html: '<h3>Submitted content</h3><p><a href="/simulator/material/">Voice AI interview study</a> (1 document, ' + j.source.words + ' words). <a href="/simulator/material/">Open the submitted content</a>.</p>' });
+      b.push({ html: '<h3>Stakes</h3><p class="small">What the result will be used for. Higher stakes add more checks.</p>' + scale(STAKES, j.stakes) });
+      b.push({ html: '<h3>Strongest claim needed</h3><p class="small">The strongest statement the answer has to be able to make. It adds checks and shows how many techniques can reach it.</p>' + scale(CLAIMS, j.claim) });
+      b.push({ html: '<h3>Insight wanted</h3><p>' + esc(j.insight.join(' and ')) + '</p><p class="small">Pattern: what repeats across the material. Contradiction: where statements conflict.</p>' });
+      b.push({ html: '<h3>Material profile</h3><p class="small">Facts about the content that decide which techniques can run.</p>' });
+      Object.keys(j.profile).forEach(function (k) { b.push({ html: '<div class="row2"><span>' + esc(sentence(k)) + '</span><span>' + esc(list(j.profile[k])) + '</span></div>', fast: true }); });
     } else if (i === 1) {
       return builders_gates(j);
     } else if (i === 2) {
@@ -181,8 +197,7 @@
       a.paragraphs.forEach(function (p) { b.push({ html: '<p>' + esc(p) + '</p>' }); });
       b.push({ html: '<h3>Basis (facts only)</h3>' });
       var basis = [
-        'Material given: one file, ' + j.source.file + ', ' + j.source.words + ' words. It contains three hypotheses and ten quotes (Q1 to Q10) from eight participants (P1, P2, P3, P4, P5, P8, P9, P10). The material does not say how the quotes were chosen.',
-        'Brief: the request was worded by Claude from the material. Claim level, stakes tier, insight wanted and privacy were assumed from the recommended defaults and not confirmed by the user.',
+        'Material given: one document (Voice AI interview study), ' + j.source.words + ' words. It contains three hypotheses and ten quotes (Q1 to Q10) from eight participants (P1, P2, P3, P4, P5, P8, P9, P10). The material does not say how the quotes were chosen.',
         'External material gathered: none. The reference structure for CM1-14 was taken from the material.',
         'Techniques run, and what each used: FQ-03, DM-02, HE1-02, CM1-05, CM1-14, HE1-14 and TC1-13 (the brief and the material); CK-17 by code, TC1-16 and TC1-17 (the findings of the analysis).',
         'Checks done: source-span check by code (' + j.ck17.checked + ' quoted spans, ' + (j.ck17.checked - j.ck17.failed.length) + ' matched, ' + j.ck17.failed.length + ' phrases read by hand); recount of the competing hypotheses matrix by code; assumption and limitation sections and alternative explanations sections present in all nine results.',
