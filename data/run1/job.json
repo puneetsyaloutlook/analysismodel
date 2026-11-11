@@ -1,0 +1,42 @@
+{
+ "name": "Do the eight interviews support the three hypotheses H1 to H",
+ "question": "Do the eight interviews support the three hypotheses H1 to H3 about voice AI customer support?",
+ "material_profile": {
+  "content_type": [
+   "text"
+  ],
+  "unit_of_analysis": [
+   "claim",
+   "document",
+   "topic"
+  ],
+  "access_depth": "narrative only",
+  "source_count": "one",
+  "linkage": "not applicable",
+  "volume_class": "readable by a person",
+  "representation": "unstructured",
+  "language": "single",
+  "privacy": "no personal information",
+  "security_classification": "unknown",
+  "licence": "unknown",
+  "data_condition_flags": [
+   "unknown"
+  ]
+ },
+ "claim_level_needed": "associate",
+ "stakes_tier": "decision-informing",
+ "insight_wanted": [
+  "pattern",
+  "contradiction"
+ ],
+ "basis": {
+  "question": "stated",
+  "claim_level_needed": "inferred",
+  "stakes_tier": "inferred",
+  "insight_wanted": "inferred"
+ },
+ "unconfirmed": [
+  "stakes_tier",
+  "claim_level_needed"
+ ]
+}

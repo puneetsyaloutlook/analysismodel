@@ -135,15 +135,20 @@ def split_h3(body):
 
 def make_simulator():
     data = json.loads((DATA / "simulator.json").read_text(encoding="utf-8"))
+    for d in data:
+        d["name"] = "Recorded test job: " + d["name"]
+    run = json.loads((DATA / "run.json").read_text(encoding="utf-8"))
+    run["results_html"] = {k: md_block(demote(v)) for k, v in run.pop("results").items()}
+    data.insert(0, run)
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     opts = "".join(f'<option value="{esc(d["id"])}">{esc(d["name"])}</option>' for d in data)
     steps = ["Intake", "Gates", "Pick", "Sequence", "Apply", "Check", "Synthesise", "Answer basis and review"]
     rail = "".join(f'<li data-step="{i}"><button type="button" class="step-btn"><span class="dot" aria-hidden="true"></span><span class="lbl">{i + 1}. {esc(t)}</span><span class="st sr"></span></button></li>' for i, t in enumerate(steps))
     body = f"""
-<p class="lede">Pick a recorded test job and run the process from intake to answer, one step at a time.</p>
-<div class="sim-note"><strong>What is real here.</strong> Gate counts, stages, checks and the answer basis are the output of the process scripts on the five test jobs. The picks and their reasons are the model's picks from the recorded test runs. <strong>What is not.</strong> No technique has run on the test material, so the simulator shows the form of each result and not findings. It produces no confidence labels, because those depend on findings.</div>
+<p class="lede">Run the process from intake to answer, one step at a time. The first option is an actual run on eight interview quotes. The others replay recorded test jobs.</p>
+<div class="sim-note" id="sim-note"></div>
 <div class="sim-controls">
-  <label for="sim-job">Test job</label>
+  <label for="sim-job">Run</label>
   <select id="sim-job">{opts}</select>
   <button type="button" id="sim-run" class="btn primary">Run</button>
   <button type="button" id="sim-step" class="btn">Next step</button>
@@ -611,9 +616,16 @@ TEMPLATE = """<!doctype html>
 
 
 def render(page):
-    body = add_heading_ids(page["body"])
+    # Keep JSON data blocks out of the table wrapping and heading id passes.
+    blocks = re.findall(r'<script type="application/json".*?</script>', page["body"], flags=re.S)
+    body = page["body"]
+    for n, blk in enumerate(blocks):
+        body = body.replace(blk, f"@@JSON{n}@@")
+    body = add_heading_ids(body)
     body = re.sub(r"<table", '<div class="table-wrap"><table', body)
     body = body.replace("</table>", "</table></div>")
+    for n, blk in enumerate(blocks):
+        body = body.replace(f"@@JSON{n}@@", blk)
     title = page["title"] if page["path"] != "/" else f"{SITE}: documentation"
     full_title = f"{page['title']} | {SITE}" if page["path"] != "/" else f"{SITE}: documentation"
     html_out = TEMPLATE.format(

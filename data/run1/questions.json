@@ -1,0 +1,32 @@
+{
+ "ask_now": [
+  {
+   "id": "stakes_tier",
+   "priority": 1,
+   "header": "Stakes",
+   "question": "What will the result be used for?",
+   "options": [
+    "decide what to look at next (exploratory)",
+    "inform a decision (decision-informing)",
+    "support a decision that is costly or hard to reverse (high-stakes)"
+   ],
+   "recommended": "inform a decision (decision-informing)",
+   "why": "Sets how many checks the skill runs on each technique."
+  },
+  {
+   "id": "claim_level_needed",
+   "priority": 2,
+   "header": "Claim level",
+   "question": "What is the strongest claim you need to make from the result?",
+   "options": [
+    "associate",
+    "describe",
+    "predict without implying cause",
+    "estimate an intervention effect"
+   ],
+   "recommended": "associate",
+   "why": "Techniques that cannot support this claim are removed. Inferred from the question wording."
+  }
+ ],
+ "ask_if_needed_later": []
+}

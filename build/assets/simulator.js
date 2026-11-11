@@ -27,6 +27,7 @@
   function reset() {
     token = (token || 0) + 1; running = false; done = -1; current = -1; cache = {};
     job = DATA.filter(function (d) { return d.id === $('sim-job').value; })[0];
+    $('sim-note').innerHTML = job.real ? NOTES.real : NOTES.rec;
     steps.forEach(function (_, i) { mark(i, 'wait'); });
     title.textContent = 'Ready'; bar.style.width = '0';
     out.innerHTML = '<p class="small">Selected: <strong>' + esc(job.name) + '</strong>. Select Run, or step through with Next step.</p>';
@@ -35,7 +36,13 @@
   }
 
   // Each step builds an array of "blocks": {html, pause}. Blocks appear one at a time inside a wrapper.
+  var NOTES = {
+    real: '<strong>This is an actual run.</strong> The scripts ran intake, the gates and sequencing on the material. Claude picked the techniques, and each technique ran as a separate agent on the brief and the material (stage 3 techniques ran on the findings). The quotation check and the matrix recount ran as code. <strong>Limits.</strong> The stakes tier, claim level, insight wanted and privacy answers were not given by the user: the recommended defaults were used and are marked as assumed. The human review sample was not done because it needs a person. Selecting Run replays the stored output with a loading delay. Nothing is computed in your browser.',
+    rec: '<strong>What is real here.</strong> Gate counts, stages, checks and the answer basis are the output of the process scripts on this recorded test job. The picks and their reasons are the model\'s picks from the recorded test run. <strong>What is not.</strong> No technique has run on the test material, so the simulator shows the form of each result and not findings, and it produces no confidence labels.'
+  };
+
   function builders(i) {
+    if (job.real) return realBuilders(i);
     var j = job, b = [];
     if (i === 0) {
       b.push({ html: '<h3>Brief</h3><table class="kv"><tbody>' +
@@ -103,6 +110,110 @@
       b.push({ html: '<h3>Review</h3><p>After the synthesis the process offers to reassess. The user decides. If they accept, the process selects again for the gaps, silences and conflicts the synthesis found, leaves out techniques already run, and adds at most 5 more.' + (j.held.length ? ' Held back by the limit: ' + j.held.map(link).join(', ') + '.' : '') + '</p>' });
       b.push({ html: '<p class="result">End of the simulated run for <strong>' + esc(j.name) + '</strong>.</p>' });
     }
+    return b;
+  }
+
+
+  function assumed(basis) { return basis === 'stated' ? '' : ' <span class="pill warn">assumed, not confirmed by the user</span>'; }
+  function res(j, id) { return '<details class="resbox"><summary>Result</summary><div class="result-md">' + (j.results_html[id] || '') + '</div></details>'; }
+  function runRow(j, x, uses) { return '<div class="run"><div class="rh"><strong>' + link(x) + '</strong><span class="pill">runs on: ' + esc(uses) + '</span></div>' + res(j, x.id) + '</div>'; }
+
+  function realBuilders(i) {
+    var j = job, b = [], S = j.stages, bm = j.basis_map;
+    if (i === 0) {
+      b.push({ html: '<h3>Brief</h3><table class="kv"><tbody>' +
+        '<tr><th scope="row">Request</th><td>' + esc(j.request) + ' <span class="pill warn">worded by Claude from the hypothesis list in the material, not typed by the user</span></td></tr>' +
+        '<tr><th scope="row">Claim level needed</th><td>' + esc(j.claim) + assumed(bm.claim_level_needed) + '</td></tr>' +
+        '<tr><th scope="row">Stakes tier</th><td>' + esc(j.stakes) + assumed(bm.stakes_tier) + '</td></tr>' +
+        '<tr><th scope="row">Insight wanted</th><td>' + esc(j.insight.join(', ')) + assumed(bm.insight_wanted) + '</td></tr></tbody></table>' });
+      b.push({ html: '<h3>Material read by code</h3><p>One file, <code>' + esc(j.source.file) + '</code>: ' + j.source.words + ' words, ' + j.source.characters + ' characters, ' + j.source.lines + ' lines. It holds three hypotheses and ten quotes from eight participants.</p>' });
+      b.push({ html: '<h3>Material profile</h3>' });
+      Object.keys(j.profile).forEach(function (k) { b.push({ html: '<div class="row2"><span>' + esc(sentence(k)) + '</span><span>' + esc(list(j.profile[k])) + (k === 'privacy' ? ' <span class="pill warn">assumed: participant codes only</span>' : '') + '</span></div>', fast: true }); });
+      b.push({ html: '<p class="result">Intake asked two questions (stakes tier and claim level) and flagged privacy and insight. In this run they were answered with the recommended values and marked as assumed, so confirm or change them.</p>' });
+    } else if (i === 1) {
+      return builders_gates(j);
+    } else if (i === 2) {
+      return builders_pick(j);
+    } else if (i === 3) {
+      var n = 0;
+      b.push({ html: '<p>Stage rules decide the order. Techniques in the analyse stage are independent of each other. No personal information was found, so no de-identification step was added.</p>' });
+      [['0 Frame', S.frame], ['1 Prepare', S.prepare], ['2 Analyse', S.analyse], ['3 Check', S.check]].forEach(function (c) {
+        n += c[1].length;
+        b.push({ html: '<div class="stage"><h3>' + esc(c[0]) + '</h3><ul>' + c[1].map(function (x) { return '<li>' + link(x) + '</li>'; }).join('') + '</ul></div>', tally: ['t-run', n] });
+      });
+      b.push({ html: '<div class="stage"><h3>External material to gather in stage 1</h3><ul><li>CM1-14 needs a reference structure. <strong>Resolved from the material:</strong> the material states four scenarios, eight participants and three hypotheses, and that was used. Nothing was gathered from outside.</li></ul></div>' });
+    } else if (i === 4) {
+      b.push({ html: '<p>Each technique ran as a separate agent that saw only the brief, the material and its own technique record. Results are shown as written. Select Result to read one.</p>' });
+      S.frame.concat(S.prepare, S.analyse).forEach(function (x) { b.push({ html: runRow(j, x, 'the brief and the material') }); });
+    } else if (i === 5) {
+      var ck = j.ck17;
+      b.push({ html: '<p>Check techniques ran on the findings of the seven analyses. The source-span check ran as code.</p>' });
+      b.push({ html: '<div class="run"><div class="rh"><strong><a href="/catalogue/check-extracted-results/ck-17/">CK-17 Source-span and quotation check by code</a></strong><span class="pill">runs on: the findings of the analysis</span></div><p class="small">' + ck.checked + ' double-quoted spans found in the nine results. ' + (ck.checked - ck.failed.length) + ' matched the source text. ' + ck.failed.length + ' did not match and were read by hand: ' + ck.failed.map(function (f) { return esc(f.file) + ' "' + esc(f.span) + '"'; }).join(', ') + '. These are the analysts\' own phrases in quotation marks and were not attributed to a participant, so no quotation failed.</p></div>', tally: ['t-run', S.frame.length + S.prepare.length + S.analyse.length + S.check.length] });
+      S.check.filter(function (x) { return x.id !== 'CK-17'; }).forEach(function (x) { b.push({ html: runRow(j, x, 'the findings of the analysis') }); });
+      b.push({ html: '<div class="run"><div class="rh"><strong>Matrix recount by code</strong></div><p class="small">The competing hypotheses result states that H1 has three inconsistent ratings and H1r four, H2 and H2r one each, H3 three and H3r none. Counting the cells in its table by code gave the same figures.</p></div>' });
+      var needed = {};
+      j.checks.forEach(function (c) {
+        var lis = c.list.map(function (k) {
+          var st;
+          if (k.code === 'assumption and limitation statement') st = '<span class="pill">present in the result</span>';
+          else if (k.code === 'alternative explanations check') st = '<span class="pill">section present, quality not rated</span>';
+          else if (k.code === 'source-span citation') st = '<span class="pill">done by code (CK-17)</span>';
+          else if (k.code === 'spot check') st = '<span class="pill warn">not done</span>';
+          else if (k.code === 'human review sample') { st = '<span class="pill warn">not done: person needed</span>'; needed[k.code] = 1; }
+          else st = '';
+          return '<li>' + esc(k.code) + ' ' + st + '</li>';
+        }).join('');
+        b.push({ html: '<div class="stage"><h3>Checks on ' + link(c) + '</h3><ul>' + lis + '</ul></div>', tally: ['t-person', Object.keys(needed).length] });
+      });
+      b.push({ html: '<p class="result">Checks that need a person were not done. They are listed in the answer basis.</p>' });
+    } else if (i === 6) {
+      var sy = j.synthesis, T = sy.techniques;
+      b.push({ html: '<p>' + esc(sy.method) + '</p>' });
+      var head = '<tr><th>Conclusion</th>' + T.map(function (t) { return '<th>' + esc(t) + '</th>'; }).join('') + '</tr>';
+      var body = sy.conclusions.map(function (c) { return '<tr><th scope="row">' + esc(c.id) + '</th>' + T.map(function (t) { var v = c.cells[t] || 'S'; return '<td class="cell-' + v + '" title="' + esc(sy.legend[v]) + '">' + v + '</td>'; }).join('') + '</tr>'; }).join('');
+      b.push({ html: '<h3>Convergence matrix</h3><div class="table-wrap"><table class="matrix"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div><p class="small">A agrees. P partly agrees. D dissonant. S silent.</p>' });
+      sy.conclusions.forEach(function (c) {
+        b.push({ html: '<div class="concl"><div class="rh"><strong>' + esc(c.id) + '</strong><span class="pill conf-' + c.label + '">' + esc(sentence(c.label)) + ' confidence</span></div><p>' + esc(c.text) + '</p><p class="small"><strong>Reason.</strong> ' + esc(c.reason) + '</p></div>' });
+      });
+    } else if (i === 7) {
+      var a = j.synthesis.answer;
+      b.push({ html: '<h3>Answer</h3><p class="lead-answer">' + esc(a.lead) + '</p>' });
+      a.paragraphs.forEach(function (p) { b.push({ html: '<p>' + esc(p) + '</p>' }); });
+      b.push({ html: '<h3>Basis (facts only)</h3>' });
+      var basis = [
+        'Material given: one file, ' + j.source.file + ', ' + j.source.words + ' words. It contains three hypotheses and ten quotes (Q1 to Q10) from eight participants (P1, P2, P3, P4, P5, P8, P9, P10). The material does not say how the quotes were chosen.',
+        'Brief: the request was worded by Claude from the material. Claim level, stakes tier, insight wanted and privacy were assumed from the recommended defaults and not confirmed by the user.',
+        'External material gathered: none. The reference structure for CM1-14 was taken from the material.',
+        'Techniques run, and what each used: FQ-03, DM-02, HE1-02, CM1-05, CM1-14, HE1-14 and TC1-13 (the brief and the material); CK-17 by code, TC1-16 and TC1-17 (the findings of the analysis).',
+        'Checks done: source-span check by code (' + j.ck17.checked + ' quoted spans, ' + (j.ck17.checked - j.ck17.failed.length) + ' matched, ' + j.ck17.failed.length + ' phrases read by hand); recount of the competing hypotheses matrix by code; assumption and limitation sections and alternative explanations sections present in all nine results.',
+        'Checks not done because they need a person: human review sample (framework analysis).',
+        'Run notes: five results ran over the 450 word limit given to the agents (CM1-14, HE1-14, TC1-13, TC1-16, TC1-17). Techniques dropped: none. Files that could not be read: none.'
+      ];
+      basis.forEach(function (x) { b.push({ html: '<div class="row1">' + esc(x) + '</div>', fast: true }); });
+      b.push({ html: '<h3>Review</h3><p>The user can ask for another round. The process would then select again for the silences and conflicts above (the H2 and H3 verdicts depend on definitions, and nothing is known about P8 and P9). Held back by the limit of 10: ' + j.held.map(link).join(', ') + '. At most 5 more techniques per round.</p>' });
+      b.push({ html: '<p class="result">End of the run.</p>' });
+    }
+    return b;
+  }
+
+  function builders_gates(j) {
+    var b = [], left = j.total;
+    b.push({ html: '<p>The gates remove techniques that cannot run on this material. Security classification and licence are not used.</p>' });
+    Object.keys(j.removed).forEach(function (g) {
+      left -= j.removed[g];
+      b.push({ html: '<div class="gate"><span class="g">' + esc(sentence(g)) + '</span><span class="meter"><i style="width:' + Math.round(j.removed[g] / j.total * 100) + '%"></i></span><span class="r">removes ' + j.removed[g] + '</span><span class="l">' + left + ' left</span></div>', tally: ['t-pass', left] });
+    });
+    b.push({ html: '<p class="result"><strong>' + j.passed + ' of ' + j.total + '</strong> techniques passed all gates. <strong>' + j.reach_claim + '</strong> of them reach the claim level needed (' + esc(j.claim) + '). The claim level only raises a warning when none does.</p>', tally: ['t-pass', j.passed] });
+    return b;
+  }
+  function builders_pick(j) {
+    var b = [];
+    b.push({ html: '<p>Claude read a one-line index of the ' + j.passed + ' techniques that passed and picked at most 10, in priority order.</p>' });
+    j.picks.slice(0, 10).forEach(function (p, n) {
+      b.push({ html: '<div class="pick"><span class="no">' + (n + 1) + '</span><div><strong>' + link(p) + '</strong><p>' + esc(p.reason) + '</p></div></div>', tally: ['t-pick', n + 1] });
+    });
+    if (j.held.length) b.push({ html: '<p class="small"><strong>Held for review:</strong> ' + j.held.map(link).join(', ') + '.</p>' });
+    if (j.gaps) b.push({ html: '<details><summary>Gaps reported for this job</summary><p>' + esc(j.gaps) + '</p></details>' });
     return b;
   }
 
