@@ -122,10 +122,10 @@
   ];
   var CLAIMS = [
     ['describe', 'Summarise what is in the material.'],
-    ['associate', 'Show that things go together, without saying why.'],
-    ['predict without implying cause', 'Forecast or classify new cases from patterns.'],
-    ['estimate an intervention effect', 'Estimate how an outcome changes when something is done.'],
-    ['explain mechanism or counterfactual', 'Say how or why, or what would have happened otherwise.']
+    ['associate', 'Show that things go together, without saying why.', 'Show a link between things'],
+    ['predict without implying cause', 'Forecast or classify new cases from patterns.', 'Predict, without claiming a cause'],
+    ['estimate an intervention effect', 'Estimate how an outcome changes when something is done.', 'Estimate the effect of an action'],
+    ['explain mechanism or counterfactual', 'Say how or why, or what would have happened otherwise.', 'Explain how or why']
   ];
   function scale(levels, sel) {
     return '<ol class="scale">' + levels.map(function (l, n) {
@@ -136,7 +136,7 @@
   function radios(levels, sel, name) {
     return '<ol class="scale">' + levels.map(function (l, n) {
       var on = l[0] === sel;
-      return '<li' + (on ? ' class="on"' : '') + '><label><input type="radio" name="' + name + '" value="' + esc(l[0]) + '"' + (on ? ' checked' : '') + '><span class="sl">' + esc(sentence(l[0])) + '</span><span class="sd">' + esc(l[1]) + '</span></label></li>';
+      return '<li' + (on ? ' class="on"' : '') + '><label><input type="radio" name="' + name + '" value="' + esc(l[0]) + '"' + (on ? ' checked' : '') + '><span class="sl">' + esc(l[2] || sentence(l[0])) + '</span><span class="sd">' + esc(l[1]) + '</span></label></li>';
     }).join('') + '</ol>';
   }
   var INSIGHTS = [['pattern', 'what repeats across the material'], ['difference', 'what differs between groups or cases'], ['contradiction', 'where statements conflict'], ['gap', 'what is missing']];
@@ -145,11 +145,11 @@
     var hd = document.createElement('h3'); hd.className = 'stephead'; hd.textContent = '1. Intake'; sec.appendChild(hd);
     var f = document.createElement('form'); f.className = 'intake-form';
     f.innerHTML =
-      '<label class="fl" for="in-request">Request</label><textarea id="in-request" rows="2" readonly>' + esc(j.request) + '</textarea>' +
-      '<span class="fl">Content</span><div class="doc"><span class="doc-name">Voice AI interview study</span><span class="small">1 document, ' + j.source.words + ' words</span> <a href="/simulator/material/">Open the submitted content</a></div>' +
-      '<fieldset><legend>Stakes</legend><p class="small">What the result will be used for. Higher stakes add more checks.</p>' + radios(STAKES, j.stakes, 'stakes') + '</fieldset>' +
-      '<fieldset><legend>Strongest claim needed</legend><p class="small">The strongest statement the answer has to be able to make. It adds checks and shows how many techniques can reach it.</p>' + radios(CLAIMS, j.claim, 'claim') + '</fieldset>' +
-      '<fieldset><legend>Insight wanted</legend><div class="checks">' + INSIGHTS.map(function (x) { return '<label><input type="checkbox" name="insight" value="' + x[0] + '"' + (j.insight.indexOf(x[0]) > -1 ? ' checked' : '') + '> <strong>' + esc(sentence(x[0])) + '</strong> <span class="small">' + esc(x[1]) + '</span></label>'; }).join('') + '</div></fieldset>' +
+      '<label class="fl" for="in-request">What do you want to analyse?</label><textarea id="in-request" rows="2" readonly>' + esc(j.request) + '</textarea>' +
+      '<span class="fl">What material should the analysis use?</span><div class="doc"><span class="doc-name">Voice AI interview study</span><span class="small">1 document, ' + j.source.words + ' words</span> <a href="/simulator/material/">Open the submitted content</a></div>' +
+      '<fieldset><legend>What will the result be used for?</legend><p class="small">Higher stakes add more checks before a conclusion is labelled.</p>' + radios(STAKES, j.stakes, 'stakes') + '</fieldset>' +
+      '<fieldset><legend>What is the strongest statement you need to make?</legend><p class="small">Choose the strongest one the answer must support. Stronger statements need more checks, and fewer techniques can reach them.</p>' + radios(CLAIMS, j.claim, 'claim') + '</fieldset>' +
+      '<fieldset><legend>What kind of finding are you after?</legend><p class="small">Tick all that apply.</p><div class="checks">' + INSIGHTS.map(function (x) { return '<label><input type="checkbox" name="insight" value="' + x[0] + '"' + (j.insight.indexOf(x[0]) > -1 ? ' checked' : '') + '> <strong>' + esc(sentence(x[0])) + '</strong> <span class="small">' + esc(x[1]) + '</span></label>'; }).join('') + '</div></fieldset>' +
       '<div class="form-actions"><button type="submit" class="btn primary" id="sim-submit">Submit</button><label class="small"><input type="checkbox" id="sim-stepwise"> Step through one step at a time</label></div>';
     f.addEventListener('submit', function (e) { e.preventDefault(); submitIntake(f, j); });
     f.addEventListener('change', function () { markOn(f); });
