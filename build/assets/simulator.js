@@ -115,7 +115,7 @@
 
 
   function assumed(basis) { return basis === 'stated' ? '' : ' <span class="pill warn">assumed, not confirmed by the user</span>'; }
-  function res(j, id) { return '<details class="resbox"><summary>Result</summary><div class="result-md">' + (j.results_html[id] || '') + '</div></details>'; }
+  function res(j, id) { return '<details class="resbox" open><summary>Result</summary><div class="result-md">' + (j.results_html[id] || '') + '</div></details>'; }
   function runRow(j, x, uses) { return '<div class="run"><div class="rh"><strong>' + link(x) + '</strong><span class="pill">runs on: ' + esc(uses) + '</span></div>' + res(j, x.id) + '</div>'; }
 
   function realBuilders(i) {
@@ -143,7 +143,7 @@
       });
       b.push({ html: '<div class="stage"><h3>External material to gather in stage 1</h3><ul><li>CM1-14 needs a reference structure. <strong>Resolved from the material:</strong> the material states four scenarios, eight participants and three hypotheses, and that was used. Nothing was gathered from outside.</li></ul></div>' });
     } else if (i === 4) {
-      b.push({ html: '<p>Each technique ran as a separate agent that saw only the brief, the material and its own technique record. Results are shown as written. Select Result to read one.</p>' });
+      b.push({ html: '<p>Each technique ran as a separate agent that saw only the brief, the material and its own technique record. Results are shown as written. Each result is shown in full below its technique.</p>' });
       S.frame.concat(S.prepare, S.analyse).forEach(function (x) { b.push({ html: runRow(j, x, 'the brief and the material') }); });
     } else if (i === 5) {
       var ck = j.ck17;
