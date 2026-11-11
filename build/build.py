@@ -135,8 +135,7 @@ def split_h3(body):
 
 def make_simulator():
     data = json.loads((DATA / "simulator.json").read_text(encoding="utf-8"))
-    for d in data:
-        d["name"] = "Recorded test job: " + d["name"]
+    data = []  # The five recorded test jobs (data/simulator.json) are not shown: they hold no technique results.
     run = json.loads((DATA / "run.json").read_text(encoding="utf-8"))
     run["results_html"] = {k: md_block(demote(v)) for k, v in run.pop("results").items()}
     data.insert(0, run)
@@ -145,7 +144,7 @@ def make_simulator():
     steps = ["Intake", "Gates", "Pick", "Sequence", "Apply", "Check", "Synthesise", "Answer basis and review"]
     rail = "".join(f'<li data-step="{i}"><button type="button" class="step-btn"><span class="dot" aria-hidden="true"></span><span class="lbl">{i + 1}. {esc(t)}</span><span class="st sr"></span></button></li>' for i, t in enumerate(steps))
     body = f"""
-<p class="lede">Run the process from intake to answer, one step at a time. The first option is an actual run on eight interview quotes. The others replay recorded test jobs.</p>
+<p class="lede">Run the process from intake to answer, one step at a time. This is an actual run on eight interview quotes: every technique in the plan ran, and the findings are in the cards.</p>
 <div class="sim-note" id="sim-note"></div>
 <div class="sim-controls">
   <label for="sim-job">Run</label>
