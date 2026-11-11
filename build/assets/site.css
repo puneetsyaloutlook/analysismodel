@@ -162,3 +162,8 @@ table.matrix th{font-size:.8rem}
 .pill.conf-low{background:#fdecec;border-color:#f3b8b8;color:#7a1f1f}
 .lead-answer{font-size:1.05rem;font-weight:500}
 .concl .rh{display:flex;gap:.6rem;align-items:center}
+
+.stepblock{padding-top:.5rem;margin-top:1.25rem;border-top:2px solid var(--teal-200);scroll-margin-top:calc(var(--top) + 1rem)}
+.stepblock:first-child{margin-top:0;border-top:0}
+.stephead{margin:0 0 .5rem;font:600 1.15rem var(--serif);color:var(--teal-900)}
+.sim-stage{min-height:0}
