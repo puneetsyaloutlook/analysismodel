@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open items | Analysis model</title>
+<meta name="description" content="What is untested, unbuilt or known to be wrong in the catalogue data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <button class="menu-btn" aria-expanded="false" aria-controls="sidebar">Menu</button>
+  <a class="brand" href="/">Analysis model</a>
+  <div class="search" role="search">
+    <label for="q" class="sr">Search the documentation</label>
+    <input id="q" type="search" autocomplete="off" placeholder="Search pages and techniques" aria-controls="results">
+    <ul id="results" hidden></ul>
+  </div>
+</header>
+<div class="shell">
+  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/">Overview</a></li></ul><details><summary>Process</summary><ul><li><a href="/process/">The process</a></li><li><a href="/process/intake/">Intake</a></li><li><a href="/process/selection/">Selection</a></li><li><a href="/process/sequencing/">Sequencing</a></li><li><a href="/process/technique-application/">Technique application</a></li><li><a href="/process/synthesis-and-review/">Synthesis and review</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details><summary>Reference</summary><ul><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Artefact types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Phases, tiers and relations</a></li></ul></details><details open><summary>Project record</summary><ul><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/open-items/" aria-current="page">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></details></nav></aside>
+  <main id="main" class="content">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Overview</a></li><li><a href="/project/decisions/">Project record</a></li><li aria-current="page">Open items</li></ol></nav>
+    <h1>Open items</h1>
+    <div class="prose"><p>Design:</p>
+<ul>
+<li><code>select.py</code> notes techniques that need external material, and <code>sequence.py</code> lists what to gather. Neither script finds the material. The skill does that at run time. The minimum-material field (<code>requires_minimum</code>) is still not applied by the script.</li>
+<li>The deployment settings (highest permitted privacy class, code execution, human reviewer) are in the schema and not in <code>select.py</code>.</li>
+<li>Selection recall (22 of 32) was measured before the catalogue changes and has not been re-run. AO-09 and AO-15 were missed on job 5. Their use-when text was improved and not retested.</li>
+<li>Origin, producer interest and source dependence are not inferred from the publisher, so appraisal techniques see unknown.</li>
+<li>The confidence rule is untested.</li>
+<li>The review step is described in the sequencer output and not tested.</li>
+<li>Synthesis has never run on real results. Confidence labels are untested.</li>
+<li>Output specifications are tested on five of 236 techniques.</li>
+<li>The skill, the website and an end-to-end run on a real brief are not built.</li>
+<li>Intake does not read images, audio or video. Genre, language and privacy rules are untested on long documents, scanned PDFs and non-English text. Claim level and insight rules are keyword matches.</li>
+</ul>
+<p>Catalogue data (from the spot check; the first six were fixed):</p>
+<ul>
+<li>Fixed: TC1-08 (claim ceiling), TC-03 (access depth), HE-05 and CK-12 (model suitability), CM1-12 (source count), HE1-11 (consumes appraised evidence base).</li>
+<li>Not fixed: PE-02 (consumes and produces no result artefact), CH-03 and CH-11 (inconsistent consumes and produces), IS-06 (linkage requirement).</li>
+<li>Frame family: FQ-01 to FQ-06 share one identical minimum-checks string, including a second technique at high stakes.</li>
+<li>Input validation is listed for deterministic techniques but used by 22 non-deterministic rows. HE-06 (deterministic) uses repeat runs.</li>
+<li>Only 14 of 236 rows use <code>not_for_rules</code>. HE1-06 and IS-05 use source dependence, a weight, as a hard exclusion, which conflicts with the rule that weights never remove a technique.</li>
+<li>Access depth is written two ways for the same meaning (<code>any</code> and <code>requires=narrative only</code>). Pick <code>any</code>.</li>
+<li>About 30 relation targets in other families were chosen from titles or short descriptions.</li>
+<li>No artefact type for diagrams, argument maps, personas, a labelled gold set, an event table or a provenance graph. No unit of analysis for actor, case, option, text span or event.</li>
+<li>Review the 15 techniques at the intervention effect ceiling and the 12 at the mechanism or counterfactual ceiling.</li>
+<li>Some frameworks could not be confirmed (the PHIA technique list, Heuer and Pherson names). Most opened sources were abstracts or secondary pages. No framework specifies checks per stakes tier, so that field is entirely inference.</li>
+</ul></div>
+    <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/project/decisions/"><span>Previous</span>Decisions</a><a class="next" href="/project/test-evidence/"><span>Next</span>Test evidence</a></nav>
+  </main>
+  <aside class="rail"></aside>
+</div>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Synthesis and review | Analysis model</title>
+<meta name="description" content="How findings are combined, how confidence is labelled, and when the user can ask for another round.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <button class="menu-btn" aria-expanded="false" aria-controls="sidebar">Menu</button>
+  <a class="brand" href="/">Analysis model</a>
+  <div class="search" role="search">
+    <label for="q" class="sr">Search the documentation</label>
+    <input id="q" type="search" autocomplete="off" placeholder="Search pages and techniques" aria-controls="results">
+    <ul id="results" hidden></ul>
+  </div>
+</header>
+<div class="shell">
+  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/">Overview</a></li></ul><details open><summary>Process</summary><ul><li><a href="/process/">The process</a></li><li><a href="/process/intake/">Intake</a></li><li><a href="/process/selection/">Selection</a></li><li><a href="/process/sequencing/">Sequencing</a></li><li><a href="/process/technique-application/">Technique application</a></li><li><a href="/process/synthesis-and-review/" aria-current="page">Synthesis and review</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details><summary>Reference</summary><ul><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Artefact types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Phases, tiers and relations</a></li></ul></details><details><summary>Project record</summary><ul><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/open-items/">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></details></nav></aside>
+  <main id="main" class="content">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Overview</a></li><li><a href="/process/">Process</a></li><li aria-current="page">Synthesis and review</li></ol></nav>
+    <h1>Synthesis and review</h1>
+    <div class="prose"><p>Synthesis takes the findings of the independent analyses as its input. The skill offers the methods that apply and recommends one. It runs the recommended method if the user does not reply.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Applies when</th>
+<th>Recommended when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Convergence matrix (agreement, partial agreement, dissonance, silence)</td>
+<td>Two or more techniques were run.</td>
+<td>Findings are textual or mixed.</td>
+</tr>
+<tr>
+<td>Narrative synthesis</td>
+<td>Always.</td>
+<td>Findings are textual or mixed, after the convergence matrix.</td>
+</tr>
+<tr>
+<td>Quantitative pooling</td>
+<td>The user confirms that two or more estimates measure the same quantity on the same scale.</td>
+<td>Findings are numeric and the user has confirmed.</td>
+</tr>
+<tr>
+<td>Decision analysis and weighting</td>
+<td>Option ranking is wanted.</td>
+<td>Option ranking is wanted.</td>
+</tr>
+</tbody>
+</table></div>
+<p>After the synthesis the skill offers to reassess. The user decides. If the user accepts, the skill selects again using the gaps, silences and conflicts the synthesis found, leaves out techniques already run, runs the new ones and synthesises again. The skill never loops on its own.</p>
+<p>The answer also states its basis as facts: what the user gave (each source, its type and size), any external material gathered and where from, which techniques ran and what each used, which techniques were dropped and why, any files that could not be read, and any checks not done because they need a person. It makes no judgement about whether the material is representative or sufficient, because the user chose the material and knows its limits.</p>
+<p>Each conclusion in the answer gets one confidence label (high, medium or low) and a one-line reason. The reviewer reads the label to decide whether to trust the item or redo it. The rule is simple and is a design choice, not a published method:</p>
+<ul>
+<li>High: two or more techniques that count as corroboration (they differ in assumptions, data or direction of bias) support the conclusion and the checks for the stakes tier passed.</li>
+<li>Medium: one technique supports it and its checks passed, or several support it and a check failed.</li>
+<li>Low: one technique supports it and it was not checked, or its checks failed.</li>
+</ul>
+<p>A challenge finding does not change the label. Challenging adds a finding and takes nothing away from what was already found, and anything can be challenged. The finding appears in the answer next to the conclusion it examines.</p>
+<p>A check that failed or was skipped is named in the reason. The checks still run in stage 3 by stakes tier. They are not reported one by one.</p>
+<p>The synthesis methods come from reviews of how to combine evidence from studies. Using them to combine the findings of techniques within one job is an extrapolation, and only abstracts and summary pages were read.</p></div>
+    <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/process/technique-application/"><span>Previous</span>Technique application</a><a class="next" href="/catalogue/"><span>Next</span>All techniques</a></nav>
+  </main>
+  <aside class="rail"></aside>
+</div>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

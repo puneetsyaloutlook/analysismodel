@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The process | Analysis model</title>
+<meta name="description" content="Seven stages from the user&#x27;s input to the answer, and the three rules that apply throughout.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <button class="menu-btn" aria-expanded="false" aria-controls="sidebar">Menu</button>
+  <a class="brand" href="/">Analysis model</a>
+  <div class="search" role="search">
+    <label for="q" class="sr">Search the documentation</label>
+    <input id="q" type="search" autocomplete="off" placeholder="Search pages and techniques" aria-controls="results">
+    <ul id="results" hidden></ul>
+  </div>
+</header>
+<div class="shell">
+  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/">Overview</a></li></ul><details open><summary>Process</summary><ul><li><a href="/process/" aria-current="page">The process</a></li><li><a href="/process/intake/">Intake</a></li><li><a href="/process/selection/">Selection</a></li><li><a href="/process/sequencing/">Sequencing</a></li><li><a href="/process/technique-application/">Technique application</a></li><li><a href="/process/synthesis-and-review/">Synthesis and review</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details><summary>Reference</summary><ul><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Artefact types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Phases, tiers and relations</a></li></ul></details><details><summary>Project record</summary><ul><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/open-items/">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></details></nav></aside>
+  <main id="main" class="content">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Overview</a></li><li aria-current="page">The process</li></ol></nav>
+    <h1>The process</h1>
+    <div class="prose"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>What happens</th>
+<th>Who decides</th>
+<th>Implemented in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Intake</td>
+<td>The user's input becomes a brief and a material profile. Gaps become questions.</td>
+<td>Code and model fill in what they can see. The user answers the rest.</td>
+<td><code>scripts/intake.py</code></td>
+</tr>
+<tr>
+<td>Selection</td>
+<td>Gates remove techniques that cannot run on the material. The model picks from those that remain.</td>
+<td>Script for gates, model for the pick.</td>
+<td><code>scripts/select.py</code>, model</td>
+</tr>
+<tr>
+<td>Sequencing</td>
+<td>The picks are ordered into stages, preparation steps are added, and checks are attached.</td>
+<td>Script.</td>
+<td><code>scripts/sequence.py</code></td>
+</tr>
+<tr>
+<td>Technique application</td>
+<td>Each technique runs on the brief, independently of the others.</td>
+<td>Model, using the technique record and its output specification.</td>
+<td>Model</td>
+</tr>
+<tr>
+<td>Checking</td>
+<td>Each result gets the checks for the stakes tier and claim level.</td>
+<td>Model, with code where the check is arithmetic or string matching.</td>
+<td>Model, code</td>
+</tr>
+<tr>
+<td>Synthesis</td>
+<td>The findings are combined into an answer, with a confidence label and a one-line reason for each conclusion.</td>
+<td>The user chooses the method, with a recommended default.</td>
+<td>Model</td>
+</tr>
+<tr>
+<td>Review</td>
+<td>Only if the user asks: the skill selects again for the gaps the synthesis found, runs the new techniques and synthesises again.</td>
+<td>The user.</td>
+<td>Model, <code>select.py</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Three rules apply throughout.</p>
+<ol>
+<li>Each analytical technique runs on the brief. It does not analyse another technique's output. Preparation steps (their output is still the brief's material), checks (they apply to one result) and challenge techniques (they examine the findings, never the brief) are the only exceptions.</li>
+<li>Synthesis is a fixed final step, not a technique. The catalogue lists analytical techniques only.</li>
+<li>Stakes and claim level are set from the job. They are never stored per technique.</li>
+</ol></div>
+    <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/"><span>Previous</span>Overview</a><a class="next" href="/process/intake/"><span>Next</span>Intake</a></nav>
+  </main>
+  <aside class="rail"></aside>
+</div>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

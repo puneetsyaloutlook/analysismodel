@@ -1,0 +1,3836 @@
+{
+ "version": "1.1.0",
+ "title": "Metadata schema and process design for a catalogue of 236 analytical techniques",
+ "conventions": {
+  "language": "Australian English. Sentence case for headings, field labels and value names. No em dashes, en dashes or double hyphens.",
+  "value_ids": "Value ids are lower case strings, written with spaces and without the characters ; : = | & and the sequence ::, because those are used in cell syntax. The display name is the id with its first letter capitalised. Evidence status keeps the capitalised values used in the earlier reports.",
+  "any_and_unknown": "any means the facet does not matter for the technique. It is written only in a technique's cell and is never a value of the material. unknown is a real state of the material and is listed as a value only where it can occur. A material with unknown on a facet cannot meet a requires on that facet; the skill asks the user or reports the requirement as unmet.",
+  "single_valued_fields": "A field with values_mutually_exclusive true has categories that do not overlap, so a material takes exactly one value (material_cardinality exactly one). Where values_mutually_exclusive is false, the material may take several values at once and the tagger lists each one the technique needs.",
+  "technique_cell_type": "For input profile facets the technique's cell type is multiple values even when the material takes one value, because a technique can accept several alternatives.",
+  "terms": "One term per concept: technique, topic, family, phase.",
+  "status": "Draft. Gate classes, tag values and the process design are inference unless a basis says sourced. Tested on five hand-written jobs and four intake inputs; not tested on real jobs end to end.",
+  "family_names": "Family names are sentence case labels (for example Frame the question) and are not value ids, so the lower case rule for value ids does not apply to them."
+ },
+ "gate_classes": [
+  {
+   "value": "hard gate",
+   "definition": "The technique is removed when the material or job does not meet its requires value, or when the material is unknown on that facet and the user cannot supply it."
+  },
+  {
+   "value": "conditional",
+   "definition": "The requirement applies only under the condition stated in the field definition; otherwise the field is ignored."
+  },
+  {
+   "value": "weight",
+   "definition": "Never removes a technique. It changes ranking only."
+  },
+  {
+   "value": "advisory",
+   "definition": "Never removes a technique. It raises a warning shown with the shortlist."
+  },
+  {
+   "value": "not applicable",
+   "definition": "The field is not used for matching."
+  }
+ ],
+ "cell_syntax": {
+  "facet cell": "A cell is either the single word any, or items separated by ; where each item is requires=<value> or prefers=<value>. Several requires items in one cell are alternatives (the material needs at least one). A prefers item never excludes; it raises the technique in ranking when matched. Values come from the field's value list. For an ordered field, requires=X means X or any value after it in the list.",
+  "plain": "Plain value or values, separated by ; where the field allows several.",
+  "artefact": "Items separated by ;, each written as <artefact type>:<state>, with type and state from the artefact_types list.",
+  "relation": "Items separated by ;. Each item is written as relation :: target :: reason for related_techniques, where target is a technique ID or family:<family name>. In requires, items are technique IDs or artefact:<type>:<state>. none if empty.",
+  "rule": "Exclusions separated by ;. Each exclusion is clauses joined by &; a clause is <key>=<value> or <key>=<value1>|<value2>. The technique is removed when every clause of any one exclusion is true for the job. An optional :: reason follows the last clause. none if empty.",
+  "tier_check": "Items separated by ;, each written as <tier>:<check code>, with tier from the tiers list and the code from the check library."
+ },
+ "fields": [
+  {
+   "key": "technique_id",
+   "group": "identity",
+   "label": "Technique ID",
+   "definition": "Stable identifier of one technique: the family prefix and a running number, as used in the two earlier reports.",
+   "type": "free text",
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Identifier format follows the two earlier reports. It is a catalogue convention, not a standard."
+   },
+   "tagging_rule": "Copy the identifier from the earlier report. Never renumber or reuse an identifier.",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "plain",
+   "csv_column": "id"
+  },
+  {
+   "key": "technique_name",
+   "group": "identity",
+   "label": "Technique name",
+   "definition": "Preferred name of the technique, followed by alternative names in brackets, separated by semicolons.",
+   "type": "free text",
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Agent Skills overview",
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview"
+     }
+    ],
+    "note": "Distinctive names and the words users use help selection (Anthropic tool search guidance); the effect on technique catalogues is untested."
+   },
+   "tagging_rule": "Use the name in the earlier report. Put alternative names and common abbreviations in brackets so that a search on the user's own words can match.",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "plain",
+   "csv_column": "technique"
+  },
+  {
+   "key": "family",
+   "group": "identity",
+   "label": "Family",
+   "definition": "The family the technique belongs to. A technique has exactly one family, which groups techniques by the operation they perform and does not order them.",
+   "type": "single value",
+   "values": [
+    {
+     "value": "frame the question",
+     "definition": "Acts on the question and its terms before evidence is examined."
+    },
+    {
+     "value": "decompose and map",
+     "definition": "Splits a topic into parts, sorts items, places them in a structure or models relationships."
+    },
+    {
+     "value": "compare",
+     "definition": "Sets one case, period, standard or forecaster against another."
+    },
+    {
+     "value": "trace cause and test claims",
+     "definition": "Traces causal chains, estimates effects or tests whether a claim is true."
+    },
+    {
+     "value": "handle evidence",
+     "definition": "Grades sources, combines evidence and analyses documents, text or data."
+    },
+    {
+     "value": "project forward",
+     "definition": "Projects a quantity, generates alternative futures or monitors for change."
+    },
+    {
+     "value": "assess actors, options and risks",
+     "definition": "Assesses who matters, which option is best and what could go wrong."
+    },
+    {
+     "value": "challenge",
+     "definition": "Tests the current view or plan by arguing against it."
+    },
+    {
+     "value": "prepare and extract",
+     "definition": "Turns raw text, tables or reports into a form that can be analysed."
+    },
+    {
+     "value": "measure and model",
+     "definition": "Measures, summarises or models prepared data or text."
+    },
+    {
+     "value": "integrate across sources",
+     "definition": "Combines or reconciles results from two or more sources."
+    },
+    {
+     "value": "check extracted results",
+     "definition": "Checks the accuracy, reliability or validity of extracted or modelled results."
+    }
+   ],
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "The eight earlier families are the note authors' reconciliation of ten groupings, and the four later families are an extension. No source supplies this taxonomy."
+   },
+   "tagging_rule": "Use the family given in the earlier report. Do not infer a new family.",
+   "material_cardinality": "not applicable",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "free"
+  },
+  {
+   "key": "purpose",
+   "group": "identity",
+   "label": "Purpose",
+   "definition": "One plain sentence stating what the technique does and what artefact it produces.",
+   "type": "free text",
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Skill authoring best practices",
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices"
+     },
+     {
+      "name": "Hasan et al., arXiv 2602.14878 (abstract only)",
+      "url": "https://arxiv.org/abs/2602.14878"
+     }
+    ],
+    "note": "A clear statement of purpose and of when to use it is the best-supported description element (Hasan et al., abstract only)."
+   },
+   "tagging_rule": "Write one sentence in plain words that starts with a verb. Name the artefact produced.",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "use_when",
+   "group": "identity",
+   "label": "Use when",
+   "definition": "A short phrase, in the words a user would use, describing the situations in which the technique is the right choice.",
+   "type": "free text",
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Agent Skills overview",
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview"
+     },
+     {
+      "name": "Skill authoring best practices",
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices"
+     }
+    ],
+    "note": "The skills documentation requires a statement of when to use a skill; per-technique use of this text is untested."
+   },
+   "tagging_rule": "Write one phrase starting with a user situation, for example a question a user might ask. Do not repeat the purpose.",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "representation",
+   "group": "input profile",
+   "label": "Representation",
+   "definition": "How the material is stored: whether it has a fixed schema, a loose structure or none. This is a different property from content type and from document genre.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "structured",
+     "definition": "Fixed fields or columns with a declared schema, such as a database table or CSV file."
+    },
+    {
+     "value": "semi-structured",
+     "definition": "Self-describing records with variable fields, such as JSON, XML, or documents with headings and tables."
+    },
+    {
+     "value": "unstructured",
+     "definition": "No schema; free text or media in which structure must be extracted."
+    }
+   ],
+   "gate_class": "conditional",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "DCMI Metadata Terms",
+      "url": "https://www.dublincore.org/specifications/dublin-core/dcmi-terms/"
+     }
+    ],
+    "note": "The DCMI Dataset type is the nearest standard definition of structured. No standard defines the three-way split, so every value here is inference."
+   },
+   "tagging_rule": "List the representations the technique needs as requires, and any it handles better as prefers. Write any when the technique runs on whatever form the material is in.",
+   "material_cardinality": "exactly one",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "content_type",
+   "group": "input profile",
+   "label": "Content type",
+   "definition": "The kind of content in the material. Values are not mutually exclusive, because one item can have several (a geospatial time series is geospatial and a time series); tag every value the technique needs.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "text",
+     "definition": "Natural language words."
+    },
+    {
+     "value": "tabular",
+     "definition": "Rows and columns of values."
+    },
+    {
+     "value": "time series",
+     "definition": "Values indexed by time order."
+    },
+    {
+     "value": "geospatial",
+     "definition": "Values tied to coordinates or areas."
+    },
+    {
+     "value": "network",
+     "definition": "Nodes and the links between them."
+    },
+    {
+     "value": "image",
+     "definition": "Still images."
+    },
+    {
+     "value": "audio",
+     "definition": "Sound recordings."
+    },
+    {
+     "value": "video",
+     "definition": "Moving images with or without sound."
+    }
+   ],
+   "gate_class": "hard gate",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "DCMI Metadata Terms",
+      "url": "https://www.dublincore.org/specifications/dublin-core/dcmi-terms/"
+     },
+     {
+      "name": "DataCite 4.5 resourceTypeGeneral",
+      "url": "https://datacite-metadata-schema.readthedocs.io/en/4.5/appendices/appendix-1/resourceTypeGeneral/"
+     }
+    ],
+    "note": "Carrier values (text, image, audio, video) and data form values (tabular, time series, geospatial, network) mix in the standards. They are kept in one field and tagged as a set."
+   },
+   "tagging_rule": "List each content type the technique operates on as requires. Write any only if the technique works on every content type.",
+   "material_cardinality": "one or more",
+   "values_mutually_exclusive": false,
+   "ordered": false,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "unit_of_analysis",
+   "group": "input profile",
+   "label": "Unit of analysis",
+   "definition": "The unit that one output of the technique describes and that the material must supply or allow to be extracted. Each value names a different unit; one material can offer several.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "record",
+     "definition": "One row, case or respondent."
+    },
+    {
+     "value": "variable",
+     "definition": "One measured attribute across records."
+    },
+    {
+     "value": "document",
+     "definition": "One report, article, page or file."
+    },
+    {
+     "value": "claim",
+     "definition": "One assertion that can be true or false."
+    },
+    {
+     "value": "source",
+     "definition": "One origin of information, such as a publisher, dataset or person."
+    },
+    {
+     "value": "dataset",
+     "definition": "A whole table or collection treated as one object."
+    },
+    {
+     "value": "topic",
+     "definition": "A subject or question, not tied to one item."
+    }
+   ],
+   "gate_class": "hard gate",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "schema.org Dataset",
+      "url": "https://schema.org/Dataset"
+     }
+    ],
+    "note": "DDI has an analysis unit element, but its vocabulary was not opened. The value list is carried over from the earlier reports with variable added."
+   },
+   "tagging_rule": "List the unit the technique works on as requires. A claim-level technique requires claim unless the material is already split into claims.",
+   "material_cardinality": "one or more",
+   "values_mutually_exclusive": false,
+   "ordered": false,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "variable_types",
+   "group": "input profile",
+   "label": "Variable types",
+   "definition": "The measurement types present among the variables. Advisory and applied per variable, not as a dataset-level gate, because scale type depends on the question and the extra information available.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "nominal",
+     "definition": "Unordered categories, including binary."
+    },
+    {
+     "value": "ordinal",
+     "definition": "Ordered categories with unequal or unknown spacing."
+    },
+    {
+     "value": "interval",
+     "definition": "Equal spacing with an arbitrary zero."
+    },
+    {
+     "value": "ratio",
+     "definition": "Equal spacing with a true zero."
+    },
+    {
+     "value": "counts or fractions",
+     "definition": "Non-negative integer counts, or fractions bounded by 0 and 1 such as percentages."
+    }
+   ],
+   "gate_class": "advisory",
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Velleman and Wilkinson 1993",
+      "url": "https://faculty.ucmerced.edu/jvevea/classes/290_21/readings/week%208/Velleman%20and%20Wilkinson%201993.pdf"
+     }
+    ],
+    "note": "Stevens' four types plus counts and counted fractions from Mosteller and Tukey. Velleman and Wilkinson dispute using scale type as a hard gate, so this field only raises a warning."
+   },
+   "tagging_rule": "List the types the technique's estimator assumes as prefers. Write any if the technique does not depend on measurement type. Binary variables are tagged nominal.",
+   "material_cardinality": "one or more",
+   "values_mutually_exclusive": false,
+   "ordered": false,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "time_structure",
+   "group": "input profile",
+   "label": "Time structure",
+   "definition": "How observations relate to time. The DDI Time Method terms are the base, flattened so that no value contains another; continuous stream is not a DDI term.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "cross-section",
+     "definition": "One observation of each unit at one point in time."
+    },
+    {
+     "value": "repeated cross-section",
+     "definition": "Different samples of the same population at several points in time."
+    },
+    {
+     "value": "panel",
+     "definition": "The same sample of units observed at several points in time."
+    },
+    {
+     "value": "cohort",
+     "definition": "A group defined by a shared event or birth period, followed over time."
+    },
+    {
+     "value": "aggregate time series",
+     "definition": "Externally observable aggregate indicators recorded in time order, such as economic indicators or vital statistics."
+    },
+    {
+     "value": "continuous stream",
+     "definition": "Observations arriving without a fixed period (not a DDI term)."
+    },
+    {
+     "value": "not applicable",
+     "definition": "No time dimension is relevant to the material."
+    },
+    {
+     "value": "unknown",
+     "definition": "The time structure cannot be determined."
+    }
+   ],
+   "gate_class": "conditional",
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "DDI Time Method 1.2",
+      "url": "https://ddialliance.org/Specification/DDI-CV/TimeMethod_1.2.html"
+     }
+    ],
+    "note": "DDI Time Method 1.2 terms. Continuous stream is added as inference because DDI has no value for it. The gate is conditional: it applies only when the question concerns change over time."
+   },
+   "tagging_rule": "Require panel or cohort if the technique follows the same units over time. Write any if the technique does not use time.",
+   "material_cardinality": "exactly one",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "collection_basis",
+   "group": "input profile",
+   "label": "Collection basis",
+   "definition": "How the units in the material were selected. It decides whether estimates for a population are valid; descriptive use is unaffected.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "probability",
+     "definition": "Units selected with known, non-zero chances by a random mechanism."
+    },
+    {
+     "value": "quota",
+     "definition": "Units selected non-randomly to fill preset group counts."
+    },
+    {
+     "value": "purposive",
+     "definition": "Units chosen by the researcher for stated characteristics."
+    },
+    {
+     "value": "availability or convenience",
+     "definition": "Units chosen because they were easy for the researcher to reach."
+    },
+    {
+     "value": "respondent-assisted",
+     "definition": "Units recruited through referrals from earlier units, such as snowball sampling."
+    },
+    {
+     "value": "self-selected or opt-in",
+     "definition": "Units that chose to take part, including opt-in panels and volunteer responses."
+    },
+    {
+     "value": "mixed probability and non-probability",
+     "definition": "A design that combines both kinds."
+    },
+    {
+     "value": "census",
+     "definition": "Every unit in the universe is included."
+    },
+    {
+     "value": "non-sampled",
+     "definition": "Not collected as a sample: administrative, transactional, sensor or scraped data."
+    },
+    {
+     "value": "unknown",
+     "definition": "The selection process is not documented."
+    }
+   ],
+   "gate_class": "conditional",
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "DDI Sampling Procedure 1.1",
+      "url": "https://ddialliance.org/Specification/DDI-CV/SamplingProcedure_1.1.html"
+     },
+     {
+      "name": "AAPOR Non-probability Sampling Task Force report 2013",
+      "url": "https://www.aapor.org/wp-content/uploads/2022/11/NPS_TF_Report_Final_7_revised_FNL_6_22_13.pdf"
+     }
+    ],
+    "note": "DDI Sampling Procedure and AAPOR terms. Non-sampled is added as inference: DDI has no value for administrative, transactional, sensor or scraped data beyond Other. Availability or convenience, and self-selected or opt-in, overlap in AAPOR usage, so the definitions here separate them by who initiates selection."
+   },
+   "tagging_rule": "Require probability or census if the technique produces population estimates with confidence intervals. Write any for descriptive techniques.",
+   "material_cardinality": "exactly one",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "access_depth",
+   "group": "input profile",
+   "label": "Access depth",
+   "definition": "The deepest level of detail the material gives access to. Values are ordered from narrative only to record-level, and a requirement means that level or deeper.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "narrative only",
+     "definition": "Prose description with no tables of figures."
+    },
+    {
+     "value": "aggregate tables",
+     "definition": "Published totals, rates or summary tables."
+    },
+    {
+     "value": "record-level",
+     "definition": "Underlying rows or records."
+    }
+   ],
+   "gate_class": "hard gate",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "W3C DCAT 3",
+      "url": "https://www.w3.org/TR/vocab-dcat-3/"
+     },
+     {
+      "name": "Cochrane Handbook ch. 4",
+      "url": "https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current/chapter-04"
+     }
+    ],
+    "note": "No standard facet exists. Cochrane shows that depth differs by document type; DCAT records who may access, not depth."
+   },
+   "tagging_rule": "Require the shallowest level the technique can work from. Record-level techniques such as regression or deduplication require record-level.",
+   "material_cardinality": "exactly one",
+   "values_mutually_exclusive": true,
+   "ordered": true,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "source_count",
+   "group": "input profile",
+   "label": "Number of sources",
+   "definition": "Whether the technique works within one source or needs several. Separate from linkage.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "one",
+     "definition": "A single source."
+    },
+    {
+     "value": "two or more",
+     "definition": "Two or more separate sources."
+    }
+   ],
+   "gate_class": "hard gate",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Cochrane Handbook ch. 4",
+      "url": "https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current/chapter-04"
+     }
+    ],
+    "note": "No standard value set exists. Carried over from the earlier reports, where it was called sources needed."
+   },
+   "tagging_rule": "Write requires=two or more for cross-source techniques. Write any if the technique works with one source or many.",
+   "material_cardinality": "exactly one",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "linkage",
+   "group": "input profile",
+   "label": "Linkage",
+   "definition": "Whether units in different sources can be joined through a shared identifier. Separate from the number of sources.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "shared identifier available",
+     "definition": "A key such as an ID, code or name exists in both sources."
+    },
+    {
+     "value": "no shared identifier",
+     "definition": "No usable key; matching would need inexact matching."
+    },
+    {
+     "value": "not applicable",
+     "definition": "Only one source."
+    },
+    {
+     "value": "unknown",
+     "definition": "Not yet checked."
+    }
+   ],
+   "gate_class": "hard gate",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "W3C DCAT 3",
+      "url": "https://www.w3.org/TR/vocab-dcat-3/"
+     }
+    ],
+    "note": "No standard value set exists; dcat:inSeries and dcterms:source are the nearest terms."
+   },
+   "tagging_rule": "Require shared identifier available for joins and record linkage. Write any if the technique does not join sources.",
+   "material_cardinality": "exactly one",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "volume_class",
+   "group": "input profile",
+   "label": "Volume class",
+   "definition": "Whether a person can read the whole material or it needs automation. It is separate from unit of analysis.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "readable by a person",
+     "definition": "Small enough for a person to read in full in the time available."
+    },
+    {
+     "value": "needs automation",
+     "definition": "Too large to read in full; processing needs code or a model."
+    }
+   ],
+   "gate_class": "conditional",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "W3C DCAT 3",
+      "url": "https://www.w3.org/TR/vocab-dcat-3/"
+     }
+    ],
+    "note": "DCAT byteSize is the standard volume term; this two-value class is derived from it and from format."
+   },
+   "tagging_rule": "Require needs automation for techniques that only work at scale, or readable by a person for techniques done by hand. Write any otherwise.",
+   "material_cardinality": "exactly one",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "data_condition_flags",
+   "group": "input profile",
+   "label": "Data condition flags",
+   "definition": "Known quality problems in the material, from the ABS Data Quality Framework dimensions. None known and unknown cannot be combined with other values. A technique that repairs a problem requires its flag.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "none known",
+     "definition": "No problem has been identified."
+    },
+    {
+     "value": "unknown",
+     "definition": "Condition has not been assessed."
+    },
+    {
+     "value": "missing data",
+     "definition": "Values or records are absent."
+    },
+    {
+     "value": "inconsistent",
+     "definition": "The material contradicts itself or other sources."
+    },
+    {
+     "value": "undocumented",
+     "definition": "Variable meaning, units or collection process are not documented."
+    },
+    {
+     "value": "out of date",
+     "definition": "The reference period is too old for the question."
+    },
+    {
+     "value": "duplicated",
+     "definition": "Units appear more than once."
+    },
+    {
+     "value": "measurement error",
+     "definition": "Values are known or suspected to be inaccurate or imprecise."
+    }
+   ],
+   "gate_class": "conditional",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "ABS Data Quality Framework",
+      "url": "https://www.abs.gov.au/websitedbs/d3310114.nsf/home/quality:+the+abs+data+quality+framework"
+     },
+     {
+      "name": "ISO 25000 portal, ISO/IEC 25012",
+      "url": "https://iso25000.com/index.php/en/iso-25000-standards/iso-25012"
+     },
+     {
+      "name": "ABS Data Quality Framework, timeliness",
+      "url": "https://www.abs.gov.au/ausstats/abs@.nsf/Latestproducts/1520.0Main%20Features5May%202009"
+     }
+    ],
+    "note": "Nearest ABS dimensions: timeliness (out of date), coherence (inconsistent), interpretability (undocumented), accuracy (measurement error). ABS definitions beyond timeliness were not obtained. Duplicated and measurement error are added from the ISO 25012 gap analysis."
+   },
+   "tagging_rule": "Require a flag if the technique exists to handle it, for example imputation requires missing data. Use not_for_rules to exclude a technique that fails when a flag is present. Write any if condition does not matter.",
+   "material_cardinality": "one or more",
+   "values_mutually_exclusive": false,
+   "ordered": false,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "producer_interest",
+   "group": "input profile",
+   "label": "Producer interest",
+   "definition": "The relationship of the producer of a source to its funder or subject. It changes how much weight a result deserves, not whether a technique runs.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "independent",
+     "definition": "The producer has no stake in the finding."
+    },
+    {
+     "value": "sponsored",
+     "definition": "Funded by a party with an interest in the finding."
+    },
+    {
+     "value": "self-interested seller",
+     "definition": "The producer sells a product or service the finding supports."
+    },
+    {
+     "value": "unknown",
+     "definition": "Not determined."
+    }
+   ],
+   "gate_class": "weight",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "AACODS checklist",
+      "url": "https://oxfordhealth.nhs.uk/wp-content/uploads/sites/3/2024/01/AACODS_Checklist.pdf"
+     },
+     {
+      "name": "Adams, Smart and Huff 2017 via CORE",
+      "url": "https://core.ac.uk/download/74409890.pdf"
+     },
+     {
+      "name": "Cochrane Handbook ch. 4",
+      "url": "https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current/chapter-04"
+     }
+    ],
+    "note": "No standard value set exists. AACODS objectivity and Cochrane vested interests are the nearest published criteria."
+   },
+   "tagging_rule": "Write any for nearly all techniques. Require a value only if the technique appraises it, in which case set appraises_source_credibility to yes.",
+   "material_cardinality": "exactly one",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "source_dependence",
+   "group": "input profile",
+   "label": "Source dependence",
+   "definition": "Whether sources rest on the same upstream origin. It changes the weight of agreement between sources.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "independent",
+     "definition": "Sources were produced separately from different evidence."
+    },
+    {
+     "value": "copied or derived",
+     "definition": "One source copies, cites or is built from another."
+    },
+    {
+     "value": "unknown",
+     "definition": "Not determined."
+    }
+   ],
+   "gate_class": "weight",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Kuorikoski and Marchionni 2016",
+      "url": "https://core.ac.uk/download/157587939.pdf"
+     },
+     {
+      "name": "Treur et al. 2024, guide for planning triangulation studies",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7616800"
+     }
+    ],
+    "note": "No standard term exists. Kuorikoski and Marchionni treat independence as relative to the claim."
+   },
+   "tagging_rule": "Write any for nearly all techniques. Require independent only for corroboration techniques that count agreement between sources.",
+   "material_cardinality": "exactly one",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "origin",
+   "group": "input profile",
+   "label": "Origin",
+   "definition": "How close the source is to the original event or data. It changes the weight of a result.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "primary",
+     "definition": "Original account, data or research."
+    },
+    {
+     "value": "secondary",
+     "definition": "Interprets or reports primary material."
+    },
+    {
+     "value": "tertiary",
+     "definition": "Collects and distils primary and secondary sources, such as an encyclopedia or handbook."
+    },
+    {
+     "value": "unknown",
+     "definition": "Not determined."
+    }
+   ],
+   "gate_class": "weight",
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "JCU Library, tertiary sources",
+      "url": "https://libguides.jcu.edu.au/scholarly-sources/tertiary"
+     },
+     {
+      "name": "JCU Library, examples",
+      "url": "https://libguides.jcu.edu.au/scholarly-sources/examples"
+     }
+    ],
+    "note": "Primary, secondary and tertiary follow the library definitions; no archival definition was verified. Unknown is added as inference."
+   },
+   "tagging_rule": "Write any unless the technique appraises provenance. Record derived-from links in the data source inventory, not here.",
+   "material_cardinality": "exactly one",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "document_genre",
+   "group": "input profile",
+   "label": "Document genre",
+   "definition": "The form of a document, chosen by the document's form and not by its publisher. Where two values fit, use the earlier one in the list.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "evidence synthesis",
+     "definition": "Systematic review, meta-analysis or overview of reviews."
+    },
+    {
+     "value": "research article",
+     "definition": "Report of original research, peer reviewed or preprint."
+    },
+    {
+     "value": "legal or regulatory text",
+     "definition": "Legislation, regulation or court decision."
+    },
+    {
+     "value": "government or agency report",
+     "definition": "Report or statistical release by a public body."
+    },
+    {
+     "value": "organisation report",
+     "definition": "Report by a company, think tank, industry body or non-government organisation."
+    },
+    {
+     "value": "reference work",
+     "definition": "Encyclopedia, textbook or handbook."
+    },
+    {
+     "value": "news or commentary",
+     "definition": "Journalism, opinion or blog post."
+    },
+    {
+     "value": "transcript or testimony",
+     "definition": "Interview, hearing or meeting record."
+    },
+    {
+     "value": "social media or forum post",
+     "definition": "Short public posts and replies."
+    },
+    {
+     "value": "data release",
+     "definition": "A dataset or table with at most brief documentation."
+    },
+    {
+     "value": "other",
+     "definition": "Fits none of the above."
+    }
+   ],
+   "gate_class": "weight",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "DCMI Metadata Terms",
+      "url": "https://www.dublincore.org/specifications/dublin-core/dcmi-terms/"
+     },
+     {
+      "name": "DataCite 4.5 resourceTypeGeneral",
+      "url": "https://datacite-metadata-schema.readthedocs.io/en/4.5/appendices/appendix-1/resourceTypeGeneral/"
+     },
+     {
+      "name": "Adams, Smart and Huff 2017 via CORE",
+      "url": "https://core.ac.uk/download/74409890.pdf"
+     },
+     {
+      "name": "ECU Library, grey literature",
+      "url": "https://ecu.au.libguides.com/systematic-reviews/grey-literature"
+     }
+    ],
+    "note": "Informed by DataCite resource types and grey literature tiers. The list and the precedence rule are the schema designer's inference."
+   },
+   "tagging_rule": "Write any for nearly all techniques. List genres only for appraisal techniques that apply to one genre, for example a systematic review appraisal tool.",
+   "material_cardinality": "exactly one",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "appraises_source_credibility",
+   "group": "input profile",
+   "label": "Appraises source credibility",
+   "definition": "Whether the technique appraises source credibility, independence or sponsorship. When yes, producer interest, source dependence and origin become required inputs for this technique.",
+   "type": "single value",
+   "values": [
+    {
+     "value": "yes",
+     "definition": "The technique appraises credibility, independence or sponsorship."
+    },
+    {
+     "value": "no",
+     "definition": "The technique does not."
+    }
+   ],
+   "gate_class": "conditional",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "AACODS checklist",
+      "url": "https://oxfordhealth.nhs.uk/wp-content/uploads/sites/3/2024/01/AACODS_Checklist.pdf"
+     },
+     {
+      "name": "Cochrane Handbook ch. 4",
+      "url": "https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current/chapter-04"
+     }
+    ],
+    "note": "Follows the research finding that the weight facets gate only techniques that test credibility."
+   },
+   "tagging_rule": "Write yes if the technique's purpose is to grade, test or compare the credibility, independence or sponsorship of sources. Otherwise write no.",
+   "material_cardinality": "not applicable",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "language",
+   "group": "input profile",
+   "label": "Language",
+   "definition": "Whether the material is in one language or several. Language-specific tools are recorded in requires_minimum.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "single",
+     "definition": "All material is in one language."
+    },
+    {
+     "value": "multiple",
+     "definition": "The material has more than one language."
+    }
+   ],
+   "gate_class": "conditional",
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "W3C DCAT 3",
+      "url": "https://www.w3.org/TR/vocab-dcat-3/"
+     }
+    ],
+    "note": "DCAT recommends ISO 639 language codes. The two-value class is inference; text-analysis preconditions such as language support were not researched."
+   },
+   "tagging_rule": "Require multiple only for cross-language techniques such as translation checks. Write any for all others.",
+   "material_cardinality": "exactly one",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "privacy",
+   "group": "input profile",
+   "label": "Privacy",
+   "definition": "Whether the material contains personal information, applied as a pre-filter before matching. On a technique, the cell lists the classes the technique may run on; any means all.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "no personal information",
+     "definition": "Nothing that could identify an individual."
+    },
+    {
+     "value": "personal information",
+     "definition": "Information or an opinion that could identify an individual."
+    },
+    {
+     "value": "sensitive information",
+     "definition": "Personal information about racial or ethnic origin, political opinions, religion, union membership, sexual orientation, criminal record, health or genetic data, or some biometric data."
+    },
+    {
+     "value": "unknown",
+     "definition": "Not assessed."
+    }
+   ],
+   "gate_class": "hard gate",
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "OAIC, what is personal information",
+      "url": "https://www.oaic.gov.au/privacy/your-privacy-rights/your-personal-information/what-is-personal-information"
+     },
+     {
+      "name": "OAIC, Australian Privacy Principles quick reference",
+      "url": "https://www.oaic.gov.au/privacy/australian-privacy-principles/australian-privacy-principles-quick-reference"
+     }
+    ],
+    "note": "Categories follow OAIC definitions under the Australian Privacy Principles. Unknown is added as inference and is treated as the most restrictive class."
+   },
+   "tagging_rule": "Write any unless the technique links, discloses or re-identifies individuals, in which case list only the classes it may run on, using requires.",
+   "material_cardinality": "exactly one",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "security_classification",
+   "group": "input profile",
+   "label": "Security classification",
+   "definition": "The protective marking of the material, applied as a pre-filter before matching. On a technique, the cell lists the markings it may be used with. Not used in matching or asked at intake: all 236 techniques are tagged any. Kept so that a deployment can add a requirement later.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "unclassified",
+     "definition": "No protective marking."
+    },
+    {
+     "value": "official",
+     "definition": "Marked OFFICIAL under the PSPF."
+    },
+    {
+     "value": "official sensitive",
+     "definition": "Marked OFFICIAL: Sensitive under the PSPF."
+    },
+    {
+     "value": "higher than official sensitive",
+     "definition": "Any marking above OFFICIAL: Sensitive; the full list is unconfirmed."
+    },
+    {
+     "value": "unknown",
+     "definition": "Not assessed."
+    }
+   ],
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "PSPF Policy 8, classification system",
+      "url": "https://www.protectivesecurity.gov.au/publications-library/policy-8-classification-system"
+     },
+     {
+      "name": "PSPF Policy 8, sensitive and classified information",
+      "url": "https://www.protectivesecurity.gov.au/publications-library/policy-8-sensitive-and-classified-information"
+     }
+    ],
+    "note": "OFFICIAL and OFFICIAL: Sensitive are confirmed. The two PSPF pages disagree on the number of classifications, so the higher value is not subdivided. Unclassified and unknown are added as inference."
+   },
+   "tagging_rule": "Write any unless the technique requires copying material to an uncontrolled service, in which case list only the lowest markings using requires.",
+   "material_cardinality": "exactly one",
+   "values_mutually_exclusive": true,
+   "ordered": true,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "licence",
+   "group": "input profile",
+   "label": "Licence",
+   "definition": "The terms under which the material may be used, applied as a pre-filter before matching. It is a different instrument from privacy and security. Not used in matching or asked at intake: all 236 techniques are tagged any. Kept so that a deployment can add a requirement later.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "open",
+     "definition": "Open licence that allows the intended use."
+    },
+    {
+     "value": "restricted by copyright",
+     "definition": "Copyright limits copying or adaptation."
+    },
+    {
+     "value": "restricted by contract",
+     "definition": "A contract or terms of use limit use."
+    },
+    {
+     "value": "unknown",
+     "definition": "Terms not checked."
+    }
+   ],
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Creative Commons licences",
+      "url": "https://creativecommons.org/share-your-work/cclicenses/"
+     },
+     {
+      "name": "W3C DCAT 3",
+      "url": "https://www.w3.org/TR/vocab-dcat-3/"
+     }
+    ],
+    "note": "Creative Commons elements (no derivatives, non-commercial) restrict adaptation and commercial use. The three-value class is inference."
+   },
+   "tagging_rule": "Write any unless the technique copies, adapts or republishes the material, in which case require open.",
+   "material_cardinality": "exactly one",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "facet cell"
+  },
+  {
+   "key": "primary_phase",
+   "group": "selection",
+   "label": "Primary phase",
+   "definition": "The one phase in which the technique is normally used. Phases are ordered; the seven-phase list replaces the five steps in the earlier draft.",
+   "type": "single value",
+   "values": [
+    {
+     "value": "frame",
+     "definition": "Settle the question, scope, terms and assumptions before evidence is examined."
+    },
+    {
+     "value": "gather",
+     "definition": "Find, collect and inventory the material."
+    },
+    {
+     "value": "verify and prepare",
+     "definition": "Check quality and fitness of the material, then clean, extract and structure it. Ends when the material is ready for analysis. Material that cannot be read is reported in the answer basis and the techniques that need it are dropped."
+    },
+    {
+     "value": "analyse",
+     "definition": "Explore, measure, model, compare or trace relationships in the prepared material."
+    },
+    {
+     "value": "validate",
+     "definition": "Check the result before concluding: held-out validation, agreement with a standard, sensitivity and alternative techniques."
+    },
+    {
+     "value": "conclude",
+     "definition": "State what the findings support, with a confidence label and a one-line reason for each conclusion."
+    },
+    {
+     "value": "report",
+     "definition": "Communicate the conclusion, its limits and the assumptions behind it."
+    }
+   ],
+   "gate_class": "conditional",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Fayyad, Piatetsky-Shapiro and Smyth 1996",
+      "url": "https://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf"
+     },
+     {
+      "name": "Microsoft TDSP lifecycle detail (GitHub copy, secondary)",
+      "url": "https://github.com/rajashekarmandadi/Microsoft-DataScience-Process/blob/master/Docs/team-data-science-process-lifecycle-detail.md"
+     },
+     {
+      "name": "Egami et al. 2022 via PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9581481"
+     }
+    ],
+    "note": "Seven phases are better supported than five because the process models separate verification from gathering and validation from concluding. Phase is a coarse label; the artefact fields enforce order."
+   },
+   "tagging_rule": "Pick the phase in which the technique produces its main artefact. If a technique is used equally in two phases, pick the earlier one and list the other in other_phases.",
+   "material_cardinality": "not applicable",
+   "values_mutually_exclusive": true,
+   "ordered": true,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "other_phases",
+   "group": "selection",
+   "label": "Other permitted phases",
+   "definition": "Further phases in which the technique may be used. Excludes the primary phase.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "frame",
+     "definition": "Settle the question, scope, terms and assumptions before evidence is examined."
+    },
+    {
+     "value": "gather",
+     "definition": "Find, collect and inventory the material."
+    },
+    {
+     "value": "verify and prepare",
+     "definition": "Check quality and fitness of the material, then clean, extract and structure it. Ends when the material is ready for analysis. Material that cannot be read is reported in the answer basis and the techniques that need it are dropped."
+    },
+    {
+     "value": "analyse",
+     "definition": "Explore, measure, model, compare or trace relationships in the prepared material."
+    },
+    {
+     "value": "validate",
+     "definition": "Check the result before concluding: held-out validation, agreement with a standard, sensitivity and alternative techniques."
+    },
+    {
+     "value": "conclude",
+     "definition": "State what the findings support, with a confidence label and a one-line reason for each conclusion."
+    },
+    {
+     "value": "report",
+     "definition": "Communicate the conclusion, its limits and the assumptions behind it."
+    },
+    {
+     "value": "none",
+     "definition": "No other phase."
+    }
+   ],
+   "gate_class": "conditional",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "CIA, A Tradecraft Primer",
+      "url": "https://www.cia.gov/resources/csi/static/Tradecraft-Primer-apr09.pdf"
+     },
+     {
+      "name": "Fayyad, Piatetsky-Shapiro and Smyth 1996",
+      "url": "https://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf"
+     }
+    ],
+    "note": "The CIA Primer and KDD show that some techniques are used at the start and revisited later, so one phase is not enough."
+   },
+   "tagging_rule": "List every other phase in which the technique is a normal choice. Write none if it is used in the primary phase only.",
+   "material_cardinality": "not applicable",
+   "values_mutually_exclusive": false,
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "insight_type",
+   "group": "selection",
+   "label": "Insight type",
+   "definition": "What the output is read for. Several values are allowed; matching uses it as a weight because tags are inferred.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "pattern",
+     "definition": "A regularity in the material."
+    },
+    {
+     "value": "difference",
+     "definition": "How cases, periods or sources differ."
+    },
+    {
+     "value": "contradiction",
+     "definition": "Statements or sources that cannot both be true."
+    },
+    {
+     "value": "cause",
+     "definition": "A cause or effect relationship."
+    },
+    {
+     "value": "trend",
+     "definition": "Direction of change over time."
+    },
+    {
+     "value": "gap",
+     "definition": "Something expected that is missing."
+    },
+    {
+     "value": "risk",
+     "definition": "What could go wrong or where a source is weak."
+    },
+    {
+     "value": "option ranking",
+     "definition": "Options placed in order."
+    }
+   ],
+   "gate_class": "weight",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Carried over from the earlier reports; all values are the note authors' inference."
+   },
+   "tagging_rule": "List every insight type the output is read for, with the main one first. Write any only if the technique is general purpose.",
+   "material_cardinality": "not applicable",
+   "values_mutually_exclusive": false,
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "question_answered",
+   "group": "selection",
+   "label": "Question answered",
+   "definition": "The question the output addresses. Several values are allowed.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "what",
+     "definition": "What is the case, or what is in the material."
+    },
+    {
+     "value": "why",
+     "definition": "Why something happened."
+    },
+    {
+     "value": "how much",
+     "definition": "The size of a quantity or effect."
+    },
+    {
+     "value": "what next",
+     "definition": "What is likely to happen."
+    },
+    {
+     "value": "who",
+     "definition": "Which actors matter."
+    },
+    {
+     "value": "which option",
+     "definition": "Which choice is best."
+    }
+   ],
+   "gate_class": "weight",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Carried over from the earlier reports; all values are the note authors' inference."
+   },
+   "tagging_rule": "List every question the output answers, with the main one first.",
+   "material_cardinality": "not applicable",
+   "values_mutually_exclusive": false,
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "claim_ceiling",
+   "group": "selection",
+   "label": "Claim ceiling",
+   "definition": "The strongest claim the technique can support under ideal conditions. It is a maximum for the technique. The answer does not lower it or judge the material. In the matching step this field never removes a technique. The skill reports how many techniques that passed the other gates reach the claim level needed, and warns when none does, because preparation and appraisal techniques support a stronger final claim without reaching it themselves. The claim level needed also adds checks by stakes tier.",
+   "type": "single value",
+   "values": [
+    {
+     "value": "describe",
+     "definition": "Summarise what is in the material or the world without relating variables."
+    },
+    {
+     "value": "associate",
+     "definition": "Show that variables, events or claims go together, without saying why."
+    },
+    {
+     "value": "predict without implying cause",
+     "definition": "Forecast or classify new cases from patterns. The prediction never supports a causal reading."
+    },
+    {
+     "value": "estimate an intervention effect",
+     "definition": "Estimate how an outcome changes when an intervention is applied (Pearl rung 2, Maryland levels 3 to 5, Nesta level 3)."
+    },
+    {
+     "value": "explain mechanism or counterfactual",
+     "definition": "Say how or why, or what would have happened otherwise in a case (Pearl rung 3, Nesta level 4)."
+    }
+   ],
+   "gate_class": "advisory",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Changed from hard gate to advisory in consolidation. As a hard gate it removed structuring and appraisal techniques and cut recall (8 of 32 expected picks passed the filter in the first run; 30 of 32 after the change)."
+   },
+   "tagging_rule": "Pick the highest claim level the technique can support if every assumption is met. A technique that only summarises is describe, even if users misuse it for cause.",
+   "material_cardinality": "not applicable",
+   "values_mutually_exclusive": true,
+   "ordered": true,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "requires_minimum",
+   "group": "selection",
+   "label": "Requires minimum amounts",
+   "definition": "Minimum amounts the technique needs, such as sample size, number of variables, number of sources or number of periods. Free text so that each can carry its own unit.",
+   "type": "free text",
+   "gate_class": "conditional",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "No source specifies minimums for the catalogue. Stationarity and minimum sample size preconditions were not researched."
+   },
+   "tagging_rule": "Write each minimum with its unit, for example at least 30 records per group. Write none if no minimum is known.",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "external_material_needed",
+   "group": "selection",
+   "label": "Material needed from outside the input",
+   "definition": "What the user must supply that the input does not contain. None cannot be combined with other values.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "none",
+     "definition": "Nothing beyond the input."
+    },
+    {
+     "value": "comparator",
+     "definition": "A second case, group, period or standard to compare with."
+    },
+    {
+     "value": "reference structure",
+     "definition": "A codebook, schema, rule set, protocol or population benchmark."
+    },
+    {
+     "value": "earlier period",
+     "definition": "Data or documents from before the period of interest."
+    }
+   ],
+   "gate_class": "conditional",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Carried over from the earlier reports."
+   },
+   "tagging_rule": "List what must be supplied. Write none if the input is enough.",
+   "material_cardinality": "not applicable",
+   "values_mutually_exclusive": false,
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "not_for_rules",
+   "group": "selection",
+   "label": "Not for rules",
+   "definition": "Machine-checkable exclusions. The technique is removed when all clauses of any one exclusion are true for the job.",
+   "type": "free text",
+   "gate_class": "hard gate",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "BiasBusters, arXiv 2510.00307 (abstract only)",
+      "url": "https://arxiv.org/abs/2510.00307"
+     },
+     {
+      "name": "Liu et al., lost in the middle, arXiv 2307.03172",
+      "url": "https://arxiv.org/abs/2307.03172"
+     }
+    ],
+    "note": "Encoding exclusions as rules is based on the finding that models handle negated conditions poorly; the benefit is untested."
+   },
+   "tagging_rule": "Write each exclusion as clauses of the form facet=value or facet=value1|value2 joined by &, exclusions separated by ;, and a reason after ::. Keys may be any facet key or claim_level_needed, stakes_tier, insight_wanted. Write none if there are no exclusions.",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "rule"
+  },
+  {
+   "key": "not_for_text",
+   "group": "selection",
+   "label": "Not for, in words",
+   "definition": "Fit test and misuse signs that cannot be written as rules, in words. Carried over from the fit test column of the earlier reports.",
+   "type": "free text",
+   "gate_class": "advisory",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Fit tests in the earlier reports are the note authors' inference except where a row cited a source."
+   },
+   "tagging_rule": "Write signs that the technique is the wrong choice or is being misused, in one or two sentences. Do not repeat anything already in not_for_rules.",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "consumes",
+   "group": "sequencing",
+   "label": "Consumes",
+   "definition": "Artefacts the technique reads, each with the state it needs, written as type:state. An artefact type marked single use is spent by the first technique that consumes it.",
+   "type": "multiple values",
+   "values_ref": "artefact_types",
+   "gate_class": "hard gate",
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "CWL v1.2 Workflow",
+      "url": "https://www.commonwl.org/v1.2/Workflow.html"
+     },
+     {
+      "name": "W3C PROV-O",
+      "url": "https://www.w3.org/TR/prov-o/"
+     },
+     {
+      "name": "Egami et al. 2022 via PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9581481"
+     }
+    ],
+    "note": "Order follows from artefact preconditions as in CWL data links and PROV used. Single use follows Egami et al.: the test set is used once. Typed artefact list is partly design choice."
+   },
+   "tagging_rule": "List each artefact the technique needs before it can start, as type:state. If the technique starts from the user's question alone, write charter or question:agreed.",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "artefact"
+  },
+  {
+   "key": "produces",
+   "group": "sequencing",
+   "label": "Produces",
+   "definition": "Artefacts the technique creates, each with the state it reaches, written as type:state.",
+   "type": "multiple values",
+   "values_ref": "artefact_types",
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Microsoft TDSP lifecycle detail (GitHub copy, secondary)",
+      "url": "https://github.com/rajashekarmandadi/Microsoft-DataScience-Process/blob/master/Docs/team-data-science-process-lifecycle-detail.md"
+     },
+     {
+      "name": "W3C PROV-O",
+      "url": "https://www.w3.org/TR/prov-o/"
+     }
+    ],
+    "note": "Mirrors TDSP stage artefacts and PROV generated entities."
+   },
+   "tagging_rule": "List each artefact the technique outputs, as type:state. Every technique produces at least one artefact.",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "artefact"
+  },
+  {
+   "key": "requires",
+   "group": "sequencing",
+   "label": "Requires",
+   "definition": "Hard prerequisites beyond the artefacts consumed: technique IDs that must have run, or artefact types that must exist, written as artefact:type:state. The technique must not run until all are met.",
+   "type": "technique IDs",
+   "gate_class": "hard gate",
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "CWL v1.2 Workflow",
+      "url": "https://www.commonwl.org/v1.2/Workflow.html"
+     }
+    ],
+    "note": "After CWL requirements, which must be met before a process runs, as distinct from hints."
+   },
+   "tagging_rule": "Write technique IDs or artefact:type:state items separated by ;. Do not repeat artefacts already in consumes. Write none if there is no extra prerequisite.",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "relation"
+  },
+  {
+   "key": "related_techniques",
+   "group": "sequencing",
+   "label": "Related techniques",
+   "definition": "Soft and conditional relations to other techniques, one item per relation, written as relation :: ID :: reason. Relations are should follow, substitutes for, pairs with and conflicts with, defined in the relations section.",
+   "type": "technique IDs",
+   "values": [
+    {
+     "value": "should follow",
+     "definition": "Better run after the named technique or family, for the reason given."
+    },
+    {
+     "value": "substitutes for",
+     "definition": "Gives the same artefact with different assumptions, under the condition named."
+    },
+    {
+     "value": "pairs with",
+     "definition": "Covers a named weakness of the other technique when run alongside it."
+    },
+    {
+     "value": "conflicts with",
+     "definition": "Cannot both be applied to the same artefact instance, or one consumes what the other needs."
+    }
+   ],
+   "gate_class": "advisory",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "CIA, A Tradecraft Primer",
+      "url": "https://www.cia.gov/resources/csi/static/Tradecraft-Primer-apr09.pdf"
+     },
+     {
+      "name": "Grimmer and Stewart 2013",
+      "url": "https://web.stanford.edu/~jgrimmer/tad2.pdf"
+     },
+     {
+      "name": "Egami et al. 2022 via PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9581481"
+     }
+    ],
+    "note": "No standard defines these relations for analytical techniques. The only evidence is prose in the CIA Primer and the Futures Toolkit, and the test-set rule in Egami et al."
+   },
+   "tagging_rule": "Write each item as relation :: ID or family name :: one-line reason, items separated by ;. Substitutes for must name the facet condition in the reason. Write none if there are no relations.",
+   "material_cardinality": "not applicable",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "relation"
+  },
+  {
+   "key": "loop_target",
+   "group": "sequencing",
+   "label": "Loop target",
+   "definition": "What happens when the technique's fit test fails. Exactly one outcome.",
+   "type": "single value",
+   "values": [
+    {
+     "value": "proceed with limit stated",
+     "definition": "Continue and record the failed fit test as a limit on the claim."
+    },
+    {
+     "value": "return to frame",
+     "definition": "Rework the question or scope."
+    },
+    {
+     "value": "return to gather",
+     "definition": "Collect more or different material."
+    },
+    {
+     "value": "return to verify and prepare",
+     "definition": "Clean, extract or restructure the material again."
+    },
+    {
+     "value": "return to analyse",
+     "definition": "Try another technique or settings on the same prepared material."
+    },
+    {
+     "value": "stop because the data cannot answer the question",
+     "definition": "Report the limit; do not continue."
+    }
+   ],
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Microsoft TDSP lifecycle detail (GitHub copy, secondary)",
+      "url": "https://github.com/rajashekarmandadi/Microsoft-DataScience-Process/blob/master/Docs/team-data-science-process-lifecycle-detail.md"
+     },
+     {
+      "name": "Fayyad, Piatetsky-Shapiro and Smyth 1996",
+      "url": "https://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf"
+     }
+    ],
+    "note": "Three-way outcome after TDSP checkpoints; named return targets follow TDSP, whereas KDD allows loops between any steps."
+   },
+   "tagging_rule": "Pick the outcome that follows a failed fit test. Use stop only when no earlier phase can repair the failure.",
+   "material_cardinality": "not applicable",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "model_suitability",
+   "group": "robustness",
+   "label": "Model suitability",
+   "definition": "The most demanding level of support the whole technique needs, from least to most oversight. The skill compares it with what the deployment offers.",
+   "type": "single value",
+   "values": [
+    {
+     "value": "model alone",
+     "definition": "A language model can do every step with no code and no person."
+    },
+    {
+     "value": "model plus code",
+     "definition": "Needs code execution for at least one step, such as arithmetic or sampling."
+    },
+    {
+     "value": "human judgement required",
+     "definition": "Needs a person to supply or confirm a judgement."
+    }
+   ],
+   "gate_class": "conditional",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Carried over from the earlier reports; all values are the note authors' inference."
+   },
+   "tagging_rule": "Pick the most demanding level any step needs. If one step needs a human judgement, write human judgement required.",
+   "material_cardinality": "not applicable",
+   "values_mutually_exclusive": true,
+   "ordered": true,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "typical_model_failure",
+   "group": "robustness",
+   "label": "Typical model failure",
+   "definition": "The most likely way an AI model gets this technique wrong, in words.",
+   "type": "free text",
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Grimmer and Stewart 2013",
+      "url": "https://web.stanford.edu/~jgrimmer/tad2.pdf"
+     }
+    ],
+    "note": "Grimmer and Stewart: all quantitative models of language are wrong, so validation is required. Failure descriptions are the tagger's inference."
+   },
+   "tagging_rule": "Write one or two sentences naming a specific failure, for example inventing a source or miscounting. Write unknown if no failure is known.",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "repeatability",
+   "group": "robustness",
+   "label": "Repeatability",
+   "definition": "How far the same input gives the same output.",
+   "type": "single value",
+   "values": [
+    {
+     "value": "deterministic",
+     "definition": "The same input always gives the same output."
+    },
+    {
+     "value": "repeatable with fixed settings",
+     "definition": "The same input gives the same output when settings such as seed or temperature are fixed."
+    },
+    {
+     "value": "judgement dependent",
+     "definition": "Output depends on a person's or a model's judgement and varies between runs or between people."
+    }
+   ],
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "No published framework uses this classification."
+   },
+   "tagging_rule": "Pick deterministic if code gives the same output every time. Pick repeatable with fixed settings if a model or seed gives the same output when its settings are fixed. Otherwise pick judgement dependent.",
+   "material_cardinality": "not applicable",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "minimum_checks",
+   "group": "robustness",
+   "label": "Minimum checks by tier",
+   "definition": "For each stakes tier, the full list of check codes required at that tier (not an increment), written as tier:code. Codes come from the check library. Tier contents are the schema designer's design.",
+   "type": "multiple values",
+   "values_ref": "check_library",
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "HM Treasury, Magenta Book",
+      "url": "https://assets.publishing.service.gov.uk/media/6a3157a0141f0690ad5fa438/CCS0126982978-001_PN10541411_Magenta_Book_Update_V2_Accessible_2__1_.pdf"
+     },
+     {
+      "name": "NIST AI RMF 1.0 (NIST AI 100-1)",
+      "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+     },
+     {
+      "name": "ODNI, ICD 203",
+      "url": "https://archive.dni.gov/files/documents/ICD/ICD-203.pdf"
+     }
+    ],
+    "note": "The sources state that rigour should rise with risk but none specifies checks per tier, so tier contents are design. Repeat runs add nothing for deterministic techniques; use input validation instead."
+   },
+   "tagging_rule": "Give at least one check per tier, and each higher tier must contain every check of the tier below. For a deterministic technique use input validation, not repeat runs.",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "tier_check"
+  },
+  {
+   "key": "error_sources",
+   "group": "robustness",
+   "label": "Error sources",
+   "definition": "What the technique's errors depend on. Used to test whether a second technique is independent corroboration. Values are not mutually exclusive.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "input data",
+     "definition": "The same underlying records or documents."
+    },
+    {
+     "value": "data transformation",
+     "definition": "The same cleaning, coding or extraction step."
+    },
+    {
+     "value": "statistical assumptions",
+     "definition": "The same modelling assumptions, such as linearity."
+    },
+    {
+     "value": "coder or rater judgement",
+     "definition": "One person's or one rater group's judgement."
+    },
+    {
+     "value": "language model",
+     "definition": "The same language model or model family."
+    },
+    {
+     "value": "source selection",
+     "definition": "The same choice of which sources to include."
+    },
+    {
+     "value": "expert opinion",
+     "definition": "The same experts or panel."
+    }
+   ],
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Treur et al. 2024, guide for planning triangulation studies",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7616800"
+     },
+     {
+      "name": "Kuorikoski and Marchionni 2016",
+      "url": "https://core.ac.uk/download/157587939.pdf"
+     }
+    ],
+    "note": "Independence depends on whether biases are shared (Treur et al.; Kuorikoski and Marchionni). The value list is inference."
+   },
+   "tagging_rule": "List every source of error the technique depends on, at least input data.",
+   "material_cardinality": "not applicable",
+   "values_mutually_exclusive": false,
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "certainty_limits",
+   "group": "robustness",
+   "label": "Certainty limits",
+   "definition": "What can make a conclusion from this technique less reliable, in words, mapped where possible to GRADE domains: risk of bias, inconsistency, indirectness, imprecision and reporting bias. Used to write the one-line reason for the confidence label.",
+   "type": "free text",
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "GRADE Handbook",
+      "url": "https://gdt.gradepro.org/app/handbook/handbook.html"
+     }
+    ],
+    "note": "Rating down by domain follows GRADE. Technique-level wording is the tagger's inference."
+   },
+   "tagging_rule": "Write one or two sentences naming the conditions under which confidence in the result drops. Write none known only if the tagger has no basis.",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "evidence_status",
+   "group": "robustness",
+   "label": "Evidence status",
+   "definition": "How well the technique itself is supported. The four values are unchanged from the earlier reports.",
+   "type": "single value",
+   "values": [
+    {
+     "value": "Tested",
+     "definition": "At least one published study in the notes measured the technique's effect or accuracy."
+    },
+    {
+     "value": "Documented",
+     "definition": "Described in a text on the technique, official guidance or secondary summary, without a test."
+    },
+    {
+     "value": "Practice",
+     "definition": "Used in practice with no published description found."
+    },
+    {
+     "value": "Unconfirmed",
+     "definition": "No source was opened or a source failed to load."
+    }
+   ],
+   "gate_class": "advisory",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Defined in the earlier reports: Tested means a published study in the notes measured the effect; Documented means described in a text on the technique or in guidance."
+   },
+   "tagging_rule": "Copy the status from the earlier report. Do not upgrade it.",
+   "material_cardinality": "not applicable",
+   "values_mutually_exclusive": true,
+   "ordered": true,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "tag_basis",
+   "group": "robustness",
+   "label": "Tag basis",
+   "definition": "For each field group, whether the tags for this technique were taken from a source or inferred. Exactly one entry per group.",
+   "type": "multiple values",
+   "values": [
+    {
+     "value": "input profile sourced",
+     "definition": "Input profile values for this technique come from a source."
+    },
+    {
+     "value": "input profile inference",
+     "definition": "Input profile values for this technique are inferred."
+    },
+    {
+     "value": "selection sourced",
+     "definition": "Selection values come from a source."
+    },
+    {
+     "value": "selection inference",
+     "definition": "Selection values are inferred."
+    },
+    {
+     "value": "sequencing sourced",
+     "definition": "Sequencing values come from a source."
+    },
+    {
+     "value": "sequencing inference",
+     "definition": "Sequencing values are inferred."
+    },
+    {
+     "value": "robustness sourced",
+     "definition": "Robustness values come from a source."
+    },
+    {
+     "value": "robustness inference",
+     "definition": "Robustness values are inferred."
+    }
+   ],
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Required because nearly all tags in the earlier reports are the note authors' inference."
+   },
+   "tagging_rule": "Write one entry per group: input profile, selection, sequencing, robustness. Write sourced only if a source states the values for the technique itself; otherwise write inference.",
+   "material_cardinality": "not applicable",
+   "values_mutually_exclusive": false,
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "subgroup",
+   "group": "identity",
+   "label": "Subgroup",
+   "definition": "Subgroup within the family, copied from the earlier reports. Used for display only.",
+   "type": "free text",
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Added in consolidation to match the catalogue columns. Text from the earlier reports."
+   },
+   "tagging_rule": "Not tagged by the schema taggers; carried from the master text file.",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "what_it_does",
+   "group": "identity",
+   "label": "What it does",
+   "definition": "Longer description of the technique and its artefact, copied from the earlier reports. Read by the model after selection.",
+   "type": "free text",
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Added in consolidation to match the catalogue columns. Text from the earlier reports."
+   },
+   "tagging_rule": "Not tagged by the schema taggers; carried from the master text file.",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "fit_test",
+   "group": "identity",
+   "label": "Fit test",
+   "definition": "Condition that tells whether the technique fits, and the misfit cases. Copied from the earlier reports.",
+   "type": "free text",
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Added in consolidation to match the catalogue columns. Text from the earlier reports."
+   },
+   "tagging_rule": "Not tagged by the schema taggers; carried from the master text file.",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "status_and_evidence",
+   "group": "identity",
+   "label": "Status and evidence",
+   "definition": "Source and standing of the technique as given in the earlier reports. Evidence status is copied, not upgraded.",
+   "type": "free text",
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Added in consolidation to match the catalogue columns. Text from the earlier reports."
+   },
+   "tagging_rule": "Not tagged by the schema taggers; carried from the master text file.",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "plain"
+  },
+  {
+   "key": "output_spec",
+   "group": "application",
+   "label": "Output specification",
+   "definition": "Two to three sentences describing the shape of the result: its parts, tables or lists, what each row or cell holds, and what it must name or end with. Describes the result only, not how to run the technique.",
+   "type": "free text",
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Added in consolidation to match the catalogue columns. Output specifications were written for all 236 techniques from each row's text and tested on five."
+   },
+   "tagging_rule": "Written from what_it_does and produces. Starts with \"The result\".",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "plain"
+  }
+ ],
+ "artefact_types": [
+  {
+   "name": "charter or question",
+   "definition": "The question, scope and success criteria for the work.",
+   "states": [
+    "draft",
+    "agreed"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Microsoft TDSP lifecycle detail (GitHub copy, secondary)",
+      "url": "https://github.com/rajashekarmandadi/Microsoft-DataScience-Process/blob/master/Docs/team-data-science-process-lifecycle-detail.md"
+     },
+     {
+      "name": "Fayyad, Piatetsky-Shapiro and Smyth 1996",
+      "url": "https://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf"
+     }
+    ],
+    "note": "TDSP charter document; KDD step 1."
+   },
+   "kind": "brief"
+  },
+  {
+   "name": "data source inventory",
+   "definition": "List of the sources to be used, with owner, access and licence.",
+   "states": [
+    "draft",
+    "checked"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Microsoft TDSP lifecycle detail (GitHub copy, secondary)",
+      "url": "https://github.com/rajashekarmandadi/Microsoft-DataScience-Process/blob/master/Docs/team-data-science-process-lifecycle-detail.md"
+     }
+    ],
+    "note": "TDSP data sources."
+   },
+   "kind": "prepared material"
+  },
+  {
+   "name": "raw dataset or corpus",
+   "definition": "Documents or records exactly as gathered.",
+   "states": [
+    "raw"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Fayyad, Piatetsky-Shapiro and Smyth 1996",
+      "url": "https://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf"
+     }
+    ],
+    "note": "KDD target data set."
+   },
+   "kind": "prepared material"
+  },
+  {
+   "name": "data dictionary",
+   "definition": "Definitions of fields, units and codes in a dataset.",
+   "states": [
+    "draft",
+    "checked"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Microsoft TDSP lifecycle detail (GitHub copy, secondary)",
+      "url": "https://github.com/rajashekarmandadi/Microsoft-DataScience-Process/blob/master/Docs/team-data-science-process-lifecycle-detail.md"
+     }
+    ],
+    "note": "TDSP data dictionaries."
+   },
+   "kind": "prepared material"
+  },
+  {
+   "name": "codebook",
+   "definition": "Categories and rules for coding text or records, fixed before testing.",
+   "states": [
+    "draft",
+    "fixed"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Egami et al. 2022 via PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9581481"
+     }
+    ],
+    "note": "Egami et al.: codebook function and labels fixed in advance."
+   },
+   "kind": "prepared material"
+  },
+  {
+   "name": "data quality report",
+   "definition": "Findings of the quality check on the material, including problems found.",
+   "states": [
+    "complete"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Microsoft TDSP lifecycle detail (GitHub copy, secondary)",
+      "url": "https://github.com/rajashekarmandadi/Microsoft-DataScience-Process/blob/master/Docs/team-data-science-process-lifecycle-detail.md"
+     }
+    ],
+    "note": "TDSP data quality report."
+   },
+   "kind": "prepared material"
+  },
+  {
+   "name": "screening log",
+   "definition": "Record of items included and excluded, with reasons.",
+   "states": [
+    "complete"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "PRISMA 2020 flow diagram",
+      "url": "https://www.prisma-statement.org/prisma-2020-flow-diagram"
+     }
+    ],
+    "note": "PRISMA flow diagram records exclusions and reasons."
+   },
+   "kind": "prepared material"
+  },
+  {
+   "name": "cleaned dataset",
+   "definition": "Dataset after cleaning, deduplication and standardising.",
+   "states": [
+    "cleaned"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Fayyad, Piatetsky-Shapiro and Smyth 1996",
+      "url": "https://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf"
+     }
+    ],
+    "note": "KDD preprocessed data."
+   },
+   "kind": "prepared material"
+  },
+  {
+   "name": "feature set",
+   "definition": "Variables or representations built from the cleaned data for analysis.",
+   "states": [
+    "built"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Microsoft TDSP lifecycle detail (GitHub copy, secondary)",
+      "url": "https://github.com/rajashekarmandadi/Microsoft-DataScience-Process/blob/master/Docs/team-data-science-process-lifecycle-detail.md"
+     },
+     {
+      "name": "Fayyad, Piatetsky-Shapiro and Smyth 1996",
+      "url": "https://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf"
+     }
+    ],
+    "note": "TDSP feature sets; KDD reduction and projection."
+   },
+   "kind": "prepared material"
+  },
+  {
+   "name": "training sample",
+   "definition": "Part of the data used to develop codes, features or models.",
+   "states": [
+    "drawn"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Egami et al. 2022 via PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9581481"
+     }
+    ],
+    "note": "Egami et al. split sample."
+   },
+   "kind": "prepared material"
+  },
+  {
+   "name": "held-out test sample",
+   "definition": "Part of the data kept unseen until final testing. Single use: once opened for a test it cannot be reused after the technique is changed.",
+   "states": [
+    "sealed",
+    "opened"
+   ],
+   "single_use": true,
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Egami et al. 2022 via PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9581481"
+     },
+     {
+      "name": "Kapoor and Narayanan, leakage taxonomy",
+      "url": "https://ar5iv.labs.arxiv.org/html/2207.07048"
+     }
+    ],
+    "note": "Egami et al.: the test set is used once, solely for estimation. Kapoor and Narayanan list leakage types."
+   },
+   "kind": "prepared material"
+  },
+  {
+   "name": "coded corpus",
+   "definition": "Documents or records with codes or labels applied.",
+   "states": [
+    "coded",
+    "validated"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Egami et al. 2022 via PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9581481"
+     }
+    ],
+    "note": "Extension of the codebook applied to a corpus."
+   },
+   "kind": "prepared material"
+  },
+  {
+   "name": "entity table",
+   "definition": "Table of the people, organisations, places or other entities found, with one row per entity.",
+   "states": [
+    "draft",
+    "resolved"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Design choice. No opened source names this artefact."
+   },
+   "kind": "prepared material"
+  },
+  {
+   "name": "evidence base",
+   "definition": "The set of sourced items with a quality or credibility grade.",
+   "states": [
+    "collected",
+    "appraised"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "ODNI, ICD 203",
+      "url": "https://archive.dni.gov/files/documents/ICD/ICD-203.pdf"
+     }
+    ],
+    "note": "ICD 203 standard 1 on source quality and credibility."
+   },
+   "kind": "prepared material"
+  },
+  {
+   "name": "assumptions register",
+   "definition": "List of working assumptions, with what changes if each is wrong.",
+   "states": [
+    "draft",
+    "reviewed"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "CIA, A Tradecraft Primer",
+      "url": "https://www.cia.gov/resources/csi/static/Tradecraft-Primer-apr09.pdf"
+     },
+     {
+      "name": "ODNI, ICD 203",
+      "url": "https://archive.dni.gov/files/documents/ICD/ICD-203.pdf"
+     }
+    ],
+    "note": "CIA key assumptions check; ICD 203 linchpin assumptions."
+   },
+   "kind": "finding"
+  },
+  {
+   "name": "hypotheses matrix",
+   "definition": "Hypotheses scored against evidence.",
+   "states": [
+    "draft",
+    "scored"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "CIA, A Tradecraft Primer",
+      "url": "https://www.cia.gov/resources/csi/static/Tradecraft-Primer-apr09.pdf"
+     }
+    ],
+    "note": "CIA analysis of competing hypotheses."
+   },
+   "kind": "finding"
+  },
+  {
+   "name": "comparison matrix",
+   "definition": "Cases, periods or options side by side on the same dimensions.",
+   "states": [
+    "draft",
+    "reviewed"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Design choice. No opened source names this artefact."
+   },
+   "kind": "finding"
+  },
+  {
+   "name": "claims register",
+   "definition": "List of the claims made, each with its evidence, claim level and confidence label.",
+   "states": [
+    "draft",
+    "checked"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Design choice, supported by ICD 203 standards 2 and 3, which separate information, assumptions and judgements."
+   },
+   "kind": "prepared material"
+  },
+  {
+   "name": "result",
+   "definition": "The output of an analysis technique: a model, estimate, ranking, map or synthesis.",
+   "states": [
+    "draft",
+    "checked",
+    "validated"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Microsoft TDSP lifecycle detail (GitHub copy, secondary)",
+      "url": "https://github.com/rajashekarmandadi/Microsoft-DataScience-Process/blob/master/Docs/team-data-science-process-lifecycle-detail.md"
+     },
+     {
+      "name": "Fayyad, Piatetsky-Shapiro and Smyth 1996",
+      "url": "https://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf"
+     }
+    ],
+    "note": "TDSP modelling report; KDD patterns or models."
+   },
+   "kind": "finding"
+  },
+  {
+   "name": "validation report",
+   "definition": "Findings of the checks on a result, including checks that failed.",
+   "states": [
+    "complete"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Egami et al. 2022 via PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9581481"
+     },
+     {
+      "name": "Wikipedia, CRISP-DM (secondary)",
+      "url": "https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining"
+     }
+    ],
+    "note": "Egami et al. validation; CRISP-DM evaluation is secondary only."
+   },
+   "kind": "finding"
+  },
+  {
+   "name": "final report",
+   "definition": "The communicated conclusion with limits and assumptions.",
+   "states": [
+    "draft",
+    "reviewed"
+   ],
+   "single_use": false,
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Microsoft TDSP lifecycle detail (GitHub copy, secondary)",
+      "url": "https://github.com/rajashekarmandadi/Microsoft-DataScience-Process/blob/master/Docs/team-data-science-process-lifecycle-detail.md"
+     },
+     {
+      "name": "Fayyad, Piatetsky-Shapiro and Smyth 1996",
+      "url": "https://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf"
+     }
+    ],
+    "note": "TDSP project final report; KDD step 9."
+   },
+   "kind": "report"
+  }
+ ],
+ "check_library": [
+  {
+   "code": "spot check",
+   "definition": "A person or code compares a few outputs with the source by hand.",
+   "tests": "accuracy",
+   "counts_as_corroboration": "no",
+   "useful_for_repeatability": [
+    "deterministic",
+    "repeatable with fixed settings",
+    "judgement dependent"
+   ],
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Draft check from the earlier design; no framework specifies it."
+   },
+   "human_involvement": {
+    "level": "optional",
+    "detail": "A person or code can do it. Without a person the process does it by code or by re-reading the source."
+   }
+  },
+  {
+   "code": "input validation",
+   "definition": "Code checks that the input meets the technique's declared format, ranges and units.",
+   "tests": "validity of input",
+   "counts_as_corroboration": "no",
+   "useful_for_repeatability": [
+    "deterministic"
+   ],
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Microsoft TDSP lifecycle detail (GitHub copy, secondary)",
+      "url": "https://github.com/rajashekarmandadi/Microsoft-DataScience-Process/blob/master/Docs/team-data-science-process-lifecycle-detail.md"
+     }
+    ],
+    "note": "Replaces repeat runs for deterministic techniques; TDSP data quality checks are the nearest sourced practice."
+   },
+   "human_involvement": {
+    "level": "none",
+    "detail": ""
+   }
+  },
+  {
+   "code": "repeat runs",
+   "definition": "Run the same technique several times with the same settings or different seeds.",
+   "tests": "stability",
+   "counts_as_corroboration": "no",
+   "useful_for_repeatability": [
+    "repeatable with fixed settings",
+    "judgement dependent"
+   ],
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Treur et al. 2024, guide for planning triangulation studies",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7616800"
+     }
+    ],
+    "note": "Repeat runs test stability, not independence (Treur et al.: consistent bias in the technique remains)."
+   },
+   "human_involvement": {
+    "level": "none",
+    "detail": ""
+   }
+  },
+  {
+   "code": "prompt variation",
+   "definition": "Rephrase the instruction or reorder the input and compare outputs.",
+   "tests": "stability",
+   "counts_as_corroboration": "no",
+   "useful_for_repeatability": [
+    "judgement dependent",
+    "repeatable with fixed settings"
+   ],
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "BiasBusters, arXiv 2510.00307 (abstract only)",
+      "url": "https://arxiv.org/abs/2510.00307"
+     },
+     {
+      "name": "Liu et al., lost in the middle, arXiv 2307.03172",
+      "url": "https://arxiv.org/abs/2307.03172"
+     }
+    ],
+    "note": "Position and wording effects on model choices are documented; a check by variation is a design."
+   },
+   "human_involvement": {
+    "level": "none",
+    "detail": ""
+   }
+  },
+  {
+   "code": "human review sample",
+   "definition": "A person reviews a random sample of outputs and records the error rate.",
+   "tests": "accuracy",
+   "counts_as_corroboration": "no",
+   "useful_for_repeatability": [
+    "deterministic",
+    "repeatable with fixed settings",
+    "judgement dependent"
+   ],
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "NIST AI RMF 1.0 (NIST AI 100-1)",
+      "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+     }
+    ],
+    "note": "NIST asks for testing before and during operation; sample size rules are not specified by any source."
+   },
+   "human_involvement": {
+    "level": "needed",
+    "detail": "A person reviews the sample."
+   }
+  },
+  {
+   "code": "gold standard agreement",
+   "definition": "Compare outputs with labels made by trained people, and report agreement.",
+   "tests": "accuracy",
+   "counts_as_corroboration": "no",
+   "useful_for_repeatability": [
+    "deterministic",
+    "repeatable with fixed settings",
+    "judgement dependent"
+   ],
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Grimmer and Stewart 2013",
+      "url": "https://web.stanford.edu/~jgrimmer/tad2.pdf"
+     }
+    ],
+    "note": "Grimmer and Stewart: validate, validate, validate."
+   },
+   "human_involvement": {
+    "level": "conditional",
+    "detail": "Needed unless the material already contains labels made by trained people, when it can be computed."
+   }
+  },
+  {
+   "code": "second technique with different assumptions",
+   "definition": "Apply a second technique that differs in assumptions, data or direction of bias, and compare results.",
+   "tests": "independence",
+   "counts_as_corroboration": "conditional",
+   "useful_for_repeatability": [
+    "deterministic",
+    "repeatable with fixed settings",
+    "judgement dependent"
+   ],
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Treur et al. 2024, guide for planning triangulation studies",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7616800"
+     },
+     {
+      "name": "Kuorikoski and Marchionni 2016",
+      "url": "https://core.ac.uk/download/157587939.pdf"
+     }
+    ],
+    "note": "Counts as corroboration only if the error sources differ in a way that matters for the claim."
+   },
+   "human_involvement": {
+    "level": "none",
+    "detail": ""
+   }
+  },
+  {
+   "code": "sensitivity analysis",
+   "definition": "Change key assumptions, thresholds or inclusion rules and report how the result moves.",
+   "tests": "robustness",
+   "counts_as_corroboration": "no",
+   "useful_for_repeatability": [
+    "deterministic",
+    "repeatable with fixed settings",
+    "judgement dependent"
+   ],
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "HM Treasury, Magenta Book",
+      "url": "https://assets.publishing.service.gov.uk/media/6a3157a0141f0690ad5fa438/CCS0126982978-001_PN10541411_Magenta_Book_Update_V2_Accessible_2__1_.pdf"
+     }
+    ],
+    "note": "Magenta Book: robustness of results to alternative analytical approaches."
+   },
+   "human_involvement": {
+    "level": "none",
+    "detail": ""
+   }
+  },
+  {
+   "code": "source-span citation",
+   "definition": "Tie each statement to the exact passage or cell that supports it.",
+   "tests": "traceability",
+   "counts_as_corroboration": "no",
+   "useful_for_repeatability": [
+    "deterministic",
+    "repeatable with fixed settings",
+    "judgement dependent"
+   ],
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "ODNI, ICD 203",
+      "url": "https://archive.dni.gov/files/documents/ICD/ICD-203.pdf"
+     }
+    ],
+    "note": "ICD 203 asks for sources to be described; span-level citation is a design."
+   },
+   "human_involvement": {
+    "level": "none",
+    "detail": ""
+   }
+  },
+  {
+   "code": "code execution for arithmetic",
+   "definition": "Do calculations in code, not in the model's text.",
+   "tests": "accuracy",
+   "counts_as_corroboration": "no",
+   "useful_for_repeatability": [
+    "deterministic",
+    "repeatable with fixed settings",
+    "judgement dependent"
+   ],
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Design; no source tested it."
+   },
+   "human_involvement": {
+    "level": "none",
+    "detail": ""
+   }
+  },
+  {
+   "code": "held-out validation",
+   "definition": "Test on data kept unseen during development, once.",
+   "tests": "validity",
+   "counts_as_corroboration": "no",
+   "useful_for_repeatability": [
+    "deterministic",
+    "repeatable with fixed settings",
+    "judgement dependent"
+   ],
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Egami et al. 2022 via PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9581481"
+     }
+    ],
+    "note": "Egami et al.: the test set is used once."
+   },
+   "human_involvement": {
+    "level": "none",
+    "detail": ""
+   }
+  },
+  {
+   "code": "leakage check",
+   "definition": "Check for information from the test data reaching development: preprocessing across sets, duplicates, features unavailable at prediction time, time order.",
+   "tests": "validity",
+   "counts_as_corroboration": "no",
+   "useful_for_repeatability": [
+    "deterministic",
+    "repeatable with fixed settings",
+    "judgement dependent"
+   ],
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Kapoor and Narayanan, leakage taxonomy",
+      "url": "https://ar5iv.labs.arxiv.org/html/2207.07048"
+     }
+    ],
+    "note": "Eight leakage types in Kapoor and Narayanan."
+   },
+   "human_involvement": {
+    "level": "none",
+    "detail": ""
+   }
+  },
+  {
+   "code": "multiple comparison correction",
+   "definition": "Adjust results when many tests or subgroups are examined.",
+   "tests": "validity",
+   "counts_as_corroboration": "no",
+   "useful_for_repeatability": [
+    "deterministic",
+    "repeatable with fixed settings"
+   ],
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Standard statistical practice; no opened source."
+   },
+   "human_involvement": {
+    "level": "none",
+    "detail": ""
+   }
+  },
+  {
+   "code": "provenance log",
+   "definition": "Record the input, technique, settings and time for each result.",
+   "tests": "traceability",
+   "counts_as_corroboration": "no",
+   "useful_for_repeatability": [
+    "deterministic",
+    "repeatable with fixed settings",
+    "judgement dependent"
+   ],
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "W3C PROV-O",
+      "url": "https://www.w3.org/TR/prov-o/"
+     }
+    ],
+    "note": "PROV records which activity generated an entity."
+   },
+   "human_involvement": {
+    "level": "none",
+    "detail": ""
+   }
+  },
+  {
+   "code": "assumption and limitation statement",
+   "definition": "State linchpin assumptions, what happens if they are wrong, and what would change the finding.",
+   "tests": "transparency",
+   "counts_as_corroboration": "no",
+   "useful_for_repeatability": [
+    "deterministic",
+    "repeatable with fixed settings",
+    "judgement dependent"
+   ],
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "ODNI, ICD 203",
+      "url": "https://archive.dni.gov/files/documents/ICD/ICD-203.pdf"
+     }
+    ],
+    "note": "ICD 203 uncertainty and assumption requirements."
+   },
+   "human_involvement": {
+    "level": "none",
+    "detail": ""
+   }
+  },
+  {
+   "code": "alternative explanations check",
+   "definition": "List and assess plausible alternative hypotheses or explanations.",
+   "tests": "validity",
+   "counts_as_corroboration": "no",
+   "useful_for_repeatability": [
+    "deterministic",
+    "repeatable with fixed settings",
+    "judgement dependent"
+   ],
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "ODNI, ICD 203",
+      "url": "https://archive.dni.gov/files/documents/ICD/ICD-203.pdf"
+     },
+     {
+      "name": "Wikipedia, Bradford Hill criteria",
+      "url": "https://en.wikipedia.org/wiki/Bradford_Hill_criteria"
+     }
+    ],
+    "note": "ICD 203 analysis of alternatives; Hill's viewpoints as considerations, not gates."
+   },
+   "human_involvement": {
+    "level": "none",
+    "detail": ""
+   }
+  },
+  {
+   "code": "independent review",
+   "definition": "A reviewer who did not produce the result checks it.",
+   "tests": "independence",
+   "counts_as_corroboration": "no",
+   "useful_for_repeatability": [
+    "deterministic",
+    "repeatable with fixed settings",
+    "judgement dependent"
+   ],
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "NIST AI RMF 1.0 (NIST AI 100-1)",
+      "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+     }
+    ],
+    "note": "NIST: independent review improves testing; separation of verification from test roles."
+   },
+   "human_involvement": {
+    "level": "needed",
+    "detail": "A person who did not produce the result reviews it."
+   }
+  },
+  {
+   "code": "expert review",
+   "definition": "A subject expert reviews the result and its interpretation.",
+   "tests": "validity",
+   "counts_as_corroboration": "no",
+   "useful_for_repeatability": [
+    "deterministic",
+    "repeatable with fixed settings",
+    "judgement dependent"
+   ],
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "NIST AI RMF 1.0 (NIST AI 100-1)",
+      "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+     }
+    ],
+    "note": "Expert review is not tied to tiers by any source."
+   },
+   "human_involvement": {
+    "level": "needed",
+    "detail": "A subject expert reviews it."
+   }
+  }
+ ],
+ "phases": [
+  {
+   "name": "frame",
+   "definition": "Settle the question, scope, terms and assumptions before evidence is examined.",
+   "aigroundwork_step": "frame",
+   "maps_to_models": "KDD step 1, CRISP-DM and TDSP business understanding, CIA assumptions check",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Fayyad, Piatetsky-Shapiro and Smyth 1996",
+      "url": "https://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf"
+     },
+     {
+      "name": "Microsoft TDSP lifecycle detail (GitHub copy, secondary)",
+      "url": "https://github.com/rajashekarmandadi/Microsoft-DataScience-Process/blob/master/Docs/team-data-science-process-lifecycle-detail.md"
+     },
+     {
+      "name": "CIA, A Tradecraft Primer",
+      "url": "https://www.cia.gov/resources/csi/static/Tradecraft-Primer-apr09.pdf"
+     }
+    ],
+    "note": "Seven phases are inference from process models; the mapping to the five steps is the schema designer's."
+   }
+  },
+  {
+   "name": "gather",
+   "definition": "Find, collect and inventory the material.",
+   "aigroundwork_step": "gather and verify",
+   "maps_to_models": "KDD step 2, TDSP data acquisition, DCC create or receive",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Fayyad, Piatetsky-Shapiro and Smyth 1996",
+      "url": "https://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf"
+     },
+     {
+      "name": "Microsoft TDSP lifecycle detail (GitHub copy, secondary)",
+      "url": "https://github.com/rajashekarmandadi/Microsoft-DataScience-Process/blob/master/Docs/team-data-science-process-lifecycle-detail.md"
+     },
+     {
+      "name": "DCC Curation Lifecycle Model",
+      "url": "https://www.dcc.ac.uk/sites/default/files/documents/publications/DCCLifecycle.pdf"
+     }
+    ],
+    "note": "Seven phases are inference from process models; the mapping to the five steps is the schema designer's."
+   }
+  },
+  {
+   "name": "verify and prepare",
+   "definition": "Check quality and fitness of the material, then clean, extract and structure it. Ends when the material is ready for analysis. Material that cannot be read is reported in the answer basis and the techniques that need it are dropped.",
+   "aigroundwork_step": "gather and verify",
+   "maps_to_models": "KDD step 3, TDSP data quality report checkpoint, ICD 203 standard 1",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Fayyad, Piatetsky-Shapiro and Smyth 1996",
+      "url": "https://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf"
+     },
+     {
+      "name": "Microsoft TDSP lifecycle detail (GitHub copy, secondary)",
+      "url": "https://github.com/rajashekarmandadi/Microsoft-DataScience-Process/blob/master/Docs/team-data-science-process-lifecycle-detail.md"
+     },
+     {
+      "name": "ODNI, ICD 203",
+      "url": "https://archive.dni.gov/files/documents/ICD/ICD-203.pdf"
+     }
+    ],
+    "note": "Seven phases are inference from process models; the mapping to the five steps is the schema designer's."
+   }
+  },
+  {
+   "name": "analyse",
+   "definition": "Explore, measure, model, compare or trace relationships in the prepared material.",
+   "aigroundwork_step": "analyse",
+   "maps_to_models": "KDD steps 4 to 7, CRISP-DM and TDSP modelling",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Fayyad, Piatetsky-Shapiro and Smyth 1996",
+      "url": "https://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf"
+     },
+     {
+      "name": "Microsoft TDSP lifecycle detail (GitHub copy, secondary)",
+      "url": "https://github.com/rajashekarmandadi/Microsoft-DataScience-Process/blob/master/Docs/team-data-science-process-lifecycle-detail.md"
+     }
+    ],
+    "note": "Seven phases are inference from process models; the mapping to the five steps is the schema designer's."
+   }
+  },
+  {
+   "name": "validate",
+   "definition": "Check the result before concluding: held-out validation, agreement with a standard, sensitivity and alternative techniques.",
+   "aigroundwork_step": "conclude",
+   "maps_to_models": "Egami et al. validation on a test set, CRISP-DM evaluation (secondary); the five step list has no separate step for this",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Egami et al. 2022 via PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9581481"
+     },
+     {
+      "name": "Wikipedia, CRISP-DM (secondary)",
+      "url": "https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining"
+     }
+    ],
+    "note": "Seven phases are inference from process models; the mapping to the five steps is the schema designer's."
+   }
+  },
+  {
+   "name": "conclude",
+   "definition": "State what the findings support, with a confidence label and a one-line reason for each conclusion.",
+   "aigroundwork_step": "conclude",
+   "maps_to_models": "KDD step 8, ICD 203 standards 2 to 4 and 6",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Fayyad, Piatetsky-Shapiro and Smyth 1996",
+      "url": "https://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf"
+     },
+     {
+      "name": "ODNI, ICD 203",
+      "url": "https://archive.dni.gov/files/documents/ICD/ICD-203.pdf"
+     }
+    ],
+    "note": "Seven phases are inference from process models; the mapping to the five steps is the schema designer's."
+   }
+  },
+  {
+   "name": "report",
+   "definition": "Communicate the conclusion, its limits and the assumptions behind it.",
+   "aigroundwork_step": "report",
+   "maps_to_models": "KDD step 9, TDSP customer acceptance, ICD 203 standard 9",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Fayyad, Piatetsky-Shapiro and Smyth 1996",
+      "url": "https://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf"
+     },
+     {
+      "name": "Microsoft TDSP lifecycle detail (GitHub copy, secondary)",
+      "url": "https://github.com/rajashekarmandadi/Microsoft-DataScience-Process/blob/master/Docs/team-data-science-process-lifecycle-detail.md"
+     },
+     {
+      "name": "ODNI, ICD 203",
+      "url": "https://archive.dni.gov/files/documents/ICD/ICD-203.pdf"
+     }
+    ],
+    "note": "Seven phases are inference from process models; the mapping to the five steps is the schema designer's."
+   }
+  }
+ ],
+ "phase_mapping_note": "Five steps in the AIGroundwork framework: frame, gather and verify, analyse, conclude, report. Verify and prepare and gather both map to gather and verify. Validate maps to conclude because the five steps have no separate step for checking a result.",
+ "tiers": {
+  "basis": {
+   "type": "inference",
+   "sources": [
+    {
+     "name": "HM Treasury, Magenta Book",
+     "url": "https://assets.publishing.service.gov.uk/media/6a3157a0141f0690ad5fa438/CCS0126982978-001_PN10541411_Magenta_Book_Update_V2_Accessible_2__1_.pdf"
+    },
+    {
+     "name": "NIST AI RMF 1.0 (NIST AI 100-1)",
+     "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+    },
+    {
+     "name": "OIA, Step 1: Preliminary analysis",
+     "url": "https://oia.pmc.gov.au/resources/australian-government-impact-analysis-framework/step-1-preliminary-analysis"
+    }
+   ],
+   "note": "Proportionality is stated as a principle in the Magenta Book and NIST. No framework specifies checks per tier, so tier contents, the number of tiers and the rules below are the schema designer's design."
+  },
+  "definitions": [
+   {
+    "tier": "exploratory",
+    "definition": "The output decides what to look at next. A wrong result costs little and is corrected before anyone relies on it."
+   },
+   {
+    "tier": "decision-informing",
+    "definition": "The output is one input to a decision that can be reversed or revisited at moderate cost."
+   },
+   {
+    "tier": "high-stakes",
+    "definition": "The output supports a decision that is costly or hard to reverse, affects people's rights, safety or finances materially, or will be published as authoritative."
+   }
+  ],
+  "tier_rule": "Each technique lists its own minimum checks per tier in minimum_checks. Each higher tier contains every check of the tier below. Pick the tier from what the decision costs if wrong and whether it can be reversed, using criteria the user can answer.",
+  "claim_level_rule": {
+   "definition": "The checks required for a job are the union of the technique's list for the tier and the additions below for the claim level needed. Additions are codes from the check library.",
+   "additions": {
+    "describe": {
+     "exploratory": [],
+     "decision-informing": [
+      "source-span citation"
+     ],
+     "high-stakes": [
+      "source-span citation",
+      "provenance log",
+      "independent review"
+     ]
+    },
+    "associate": {
+     "exploratory": [],
+     "decision-informing": [
+      "sensitivity analysis"
+     ],
+     "high-stakes": [
+      "sensitivity analysis",
+      "second technique with different assumptions",
+      "multiple comparison correction"
+     ]
+    },
+    "predict without implying cause": {
+     "exploratory": [],
+     "decision-informing": [
+      "held-out validation"
+     ],
+     "high-stakes": [
+      "held-out validation",
+      "leakage check",
+      "sensitivity analysis"
+     ]
+    },
+    "estimate an intervention effect": {
+     "exploratory": [
+      "assumption and limitation statement"
+     ],
+     "decision-informing": [
+      "alternative explanations check",
+      "sensitivity analysis"
+     ],
+     "high-stakes": [
+      "alternative explanations check",
+      "sensitivity analysis",
+      "second technique with different assumptions",
+      "expert review"
+     ]
+    },
+    "explain mechanism or counterfactual": {
+     "exploratory": [
+      "assumption and limitation statement"
+     ],
+     "decision-informing": [
+      "alternative explanations check",
+      "second technique with different assumptions"
+     ],
+     "high-stakes": [
+      "alternative explanations check",
+      "second technique with different assumptions",
+      "expert review",
+      "independent review"
+     ]
+    }
+   }
+  },
+  "stop_rule": "If a check required at the high-stakes tier fails, the confidence label for each conclusion that rests on it is low and the reason names the check. A check that needs a person and cannot be done is listed in the answer basis as not done.",
+  "stop_rule_basis": {
+   "type": "inference",
+   "sources": [
+    {
+     "name": "NIST AI RMF 1.0 (NIST AI 100-1)",
+     "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+    }
+   ],
+   "note": "NIST states that development should cease until risks are managed; the specific rule is design."
+  },
+  "corroboration_rule": {
+   "definition": "A second technique counts as corroboration only if it differs from the first in assumptions, data or direction of bias, and its error sources do not overlap with the first technique's on any source the claim depends on. Repeat runs and prompt variation test stability and are reported as consistency. Agreement between techniques that share error sources is reported as consistency, not corroboration, and disagreement lowers the certainty label by inconsistency.",
+   "machine_test": "Two techniques are independent for a claim when their error_sources lists do not share input data, data transformation or language model, and at least one of assumptions, data or direction of bias differs.",
+   "hypothesis_not_tested": "Outputs from one language model reviewing another may share training-related biases. No source was found; this is a hypothesis.",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Treur et al. 2024, guide for planning triangulation studies",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7616800"
+     },
+     {
+      "name": "Kuorikoski and Marchionni 2016",
+      "url": "https://core.ac.uk/download/157587939.pdf"
+     }
+    ],
+    "note": "Treur et al. and Kuorikoski and Marchionni give principles, not an operational test; the machine test is design."
+   }
+  }
+ },
+ "relations": [
+  {
+   "name": "requires",
+   "strength": "hard",
+   "stored_in_field": "requires and consumes",
+   "definition": "The technique must not start until the named technique has run or the named artefact exists in the named state. Every artefact in consumes is also required. Order between techniques follows from artefacts, so direct technique to technique edges are used only when no artefact carries the dependency.",
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "CWL v1.2 Workflow",
+      "url": "https://www.commonwl.org/v1.2/Workflow.html"
+     },
+     {
+      "name": "Wikipedia, STRIPS (secondary)",
+      "url": "https://en.wikipedia.org/wiki/Stanford_Research_Institute_Problem_Solver"
+     },
+     {
+      "name": "W3C PROV-O",
+      "url": "https://www.w3.org/TR/prov-o/"
+     }
+    ],
+    "note": "After CWL requirements and data links, STRIPS preconditions and PROV used."
+   }
+  },
+  {
+   "name": "should follow",
+   "strength": "soft",
+   "stored_in_field": "related_techniques",
+   "definition": "The technique is better run after the named technique or family, for the stated reason, but can run without it. The skill warns when it is skipped.",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "CIA, A Tradecraft Primer",
+      "url": "https://www.cia.gov/resources/csi/static/Tradecraft-Primer-apr09.pdf"
+     },
+     {
+      "name": "Fayyad, Piatetsky-Shapiro and Smyth 1996",
+      "url": "https://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf"
+     }
+    ],
+    "note": "After CWL hints versus requirements. Specific soft orderings come from CIA Primer timing advice and KDD order."
+   }
+  },
+  {
+   "name": "substitutes for",
+   "strength": "conditional",
+   "stored_in_field": "related_techniques",
+   "definition": "The technique gives the same artefact as the named technique with different assumptions, and can replace it when the stated facet condition is met. It is not a symmetric relation unless both techniques record it.",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "Grimmer and Stewart 2013",
+      "url": "https://web.stanford.edu/~jgrimmer/tad2.pdf"
+     }
+    ],
+    "note": "No standard defines it. Grimmer and Stewart state that no technique is globally best."
+   }
+  },
+  {
+   "name": "pairs with",
+   "strength": "soft",
+   "stored_in_field": "related_techniques",
+   "definition": "Running the two techniques together covers a weakness of one of them, named in the reason. Pairing does not by itself make the second technique corroboration; the corroboration rule applies.",
+   "basis": {
+    "type": "inference",
+    "sources": [
+     {
+      "name": "CIA, A Tradecraft Primer",
+      "url": "https://www.cia.gov/resources/csi/static/Tradecraft-Primer-apr09.pdf"
+     }
+    ],
+    "note": "No standard defines it. The CIA contrarian techniques are the nearest example."
+   }
+  },
+  {
+   "name": "conflicts with",
+   "strength": "hard when both would act on the same artefact instance",
+   "stored_in_field": "related_techniques",
+   "definition": "The two techniques cannot both be applied to the same artefact instance, or one consumes what the other needs, as when a single use held-out sample has already been opened.",
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Egami et al. 2022 via PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9581481"
+     }
+    ],
+    "note": "The test-set rule is the verified example; the general definition is design."
+   }
+  },
+  {
+   "name": "loop target",
+   "strength": "outcome rule",
+   "stored_in_field": "loop_target",
+   "definition": "The outcome when the technique's fit test fails: proceed with the limit stated, return to a named phase, or stop because the data cannot answer the question.",
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "Microsoft TDSP lifecycle detail (GitHub copy, secondary)",
+      "url": "https://github.com/rajashekarmandadi/Microsoft-DataScience-Process/blob/master/Docs/team-data-science-process-lifecycle-detail.md"
+     },
+     {
+      "name": "Fayyad, Piatetsky-Shapiro and Smyth 1996",
+      "url": "https://www.kdnuggets.com/gpspubs/aimag-kdd-overview-1996-Fayyad.pdf"
+     }
+    ],
+    "note": "Three-way checkpoint outcomes in TDSP; KDD allows loops between any steps."
+   }
+  },
+  {
+   "name": "parallel safe",
+   "strength": "derived",
+   "stored_in_field": "none (computed)",
+   "definition": "Two techniques are parallel safe when they share no produced or consumed artefact instance. It is computed from consumes and produces and is never stored.",
+   "basis": {
+    "type": "sourced",
+    "sources": [
+     {
+      "name": "CWL v1.2 Workflow",
+      "url": "https://www.commonwl.org/v1.2/Workflow.html"
+     }
+    ],
+    "note": "CWL: independent steps may execute in any order or concurrently."
+   }
+  }
+ ],
+ "run_time_inputs": {
+  "definition": "Information the skill collects about the job. None of it is stored per technique.",
+  "inputs": [
+   {
+    "key": "material_profile",
+    "label": "Input profile of the material",
+    "collect": "One value or set of values for each input profile facet in the fields list, recorded per source for the source-level facets (collection basis, producer interest, source dependence, origin, document genre, language). Ask the user only for facets the material does not show.",
+    "type": "object keyed by facet key",
+    "basis": {
+     "type": "inference",
+     "sources": [
+      {
+       "name": "W3C DCAT 3",
+       "url": "https://www.w3.org/TR/vocab-dcat-3/"
+      }
+     ],
+     "note": "Facet list from the fields array."
+    }
+   },
+   {
+    "key": "question",
+    "label": "Question",
+    "collect": "The user's question in their own words, restated in one sentence and confirmed.",
+    "type": "free text",
+    "basis": {
+     "type": "inference",
+     "sources": [],
+     "note": "Frame phase artefact: charter or question."
+    }
+   },
+   {
+    "key": "insight_wanted",
+    "label": "Insight type wanted",
+    "collect": "One or more values of the insight_type field.",
+    "type": "multiple values",
+    "values_ref": "fields.insight_type",
+    "basis": {
+     "type": "inference",
+     "sources": [],
+     "note": "From the earlier reports."
+    }
+   },
+   {
+    "key": "claim_level_needed",
+    "label": "Claim level needed",
+    "collect": "One value of the claim_ceiling field: the strongest claim the user needs to make. Techniques with a lower ceiling are removed.",
+    "type": "single value",
+    "values_ref": "fields.claim_ceiling",
+    "basis": {
+     "type": "sourced",
+     "sources": [
+      {
+       "name": "Wikipedia, The Book of Why (secondary summary of Pearl and Mackenzie)",
+       "url": "https://en.wikipedia.org/wiki/The_Book_of_Why"
+      },
+      {
+       "name": "GRADE Handbook",
+       "url": "https://gdt.gradepro.org/app/handbook/handbook.html"
+      }
+     ],
+     "note": "Ordered set from the notes."
+    }
+   },
+   {
+    "key": "stakes_tier",
+    "label": "Stakes tier",
+    "collect": "One tier from the tiers section, chosen from what the decision costs if wrong and whether it can be reversed.",
+    "type": "single value",
+    "values_ref": "tiers.definitions",
+    "basis": {
+     "type": "inference",
+     "sources": [
+      {
+       "name": "HM Treasury, Magenta Book",
+       "url": "https://assets.publishing.service.gov.uk/media/6a3157a0141f0690ad5fa438/CCS0126982978-001_PN10541411_Magenta_Book_Update_V2_Accessible_2__1_.pdf"
+      },
+      {
+       "name": "NIST AI RMF 1.0 (NIST AI 100-1)",
+       "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      }
+     ],
+     "note": "Three tiers are a design choice."
+    }
+   }
+  ],
+  "deployment_settings": {
+   "definition": "Settings of the deployment, not of the job. They are read once and used to apply the handling pre-filter and the model suitability field.",
+   "items": [
+    "highest permitted privacy class",
+    "whether code execution is available",
+    "whether a human reviewer is available"
+   ],
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "The five job inputs came from the design brief; this addition is needed so the handling pre-filter and model suitability have something to compare with."
+   }
+  },
+  "outputs": {
+   "definition": "Two outputs are attached to each conclusion in the answer: a confidence label and a one-line reason. Neither is stored per technique.",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Replaces the earlier four-output design (claim level achieved, GRADE-style certainty, ICD 203 likelihood term and a fourth item), simplified with the user on 11 November 2026. The rule for the label is in synthesis.certainty_rating."
+   },
+   "items": [
+    {
+     "key": "confidence_label",
+     "definition": "High, medium or low, set by the rule in synthesis.certainty_rating.",
+     "values": [
+      {
+       "value": "high",
+       "definition": "Two or more techniques support the conclusion and the checks for the stakes tier passed."
+      },
+      {
+       "value": "medium",
+       "definition": "One technique supports it and its checks passed, or several support it and a check failed."
+      },
+      {
+       "value": "low",
+       "definition": "One technique supports it and it was not checked, or its checks failed."
+      }
+     ]
+    },
+    {
+     "key": "confidence_reason",
+     "definition": "One line naming what supports the conclusion and any failed or skipped check."
+    }
+   ]
+  }
+ },
+ "matching": {
+  "basis": {
+   "type": "inference",
+   "sources": [
+    {
+     "name": "BiasBusters, arXiv 2510.00307 (abstract only)",
+     "url": "https://arxiv.org/abs/2510.00307"
+    },
+    {
+     "name": "Liu et al., lost in the middle, arXiv 2307.03172",
+     "url": "https://arxiv.org/abs/2307.03172"
+    },
+    {
+     "name": "SkillDAG, arXiv 2606.03056 (abstract only)",
+     "url": "https://arxiv.org/abs/2606.03056"
+    }
+   ],
+   "note": "Filter first, then let the model choose is supported for tools; it is untested for technique catalogues. Index reading result: 22 of 32 expected picks on five test jobs, before the catalogue changes of 11 November 2026."
+  },
+  "steps": [
+   "Intake: turn the user input into a brief and a material profile (intake section). Unknown handling or gate facets become gap questions before matching.",
+   "Apply the privacy gate against the material profile. Security classification and licence are not used: every technique is tagged any.",
+   "Apply hard gates on content type, unit of analysis, access depth, number of sources and linkage. Units of analysis that a preparation step can derive (document to claim or source, record to variable or dataset, dataset to variable, source to document) pass with a note. A technique that fails only on content type or representation passes when every prepared artefact it consumes is produced by a technique that passed the gates. It carries a note naming the technique that must run first. Access depth, units and the other gates are not waived.",
+   "Apply conditional gates when their conditions are met: representation, time structure, collection basis, volume class, data condition flags, language, requires_minimum and material needed from outside the input.",
+   "Apply not_for_rules and requires. A technique whose consumed artefact cannot exist yet, or that needs external material (comparator, reference structure, earlier period), is kept with a note naming what is missing. The external material is gathered in stage 1 only for techniques that were picked.",
+   "Claim ceiling is advisory: count the techniques that reach the claim level needed and warn when none does.",
+   "Give the model a one-line index (ID, name, purpose, use when) of every technique that passed. The model picks the techniques. A score by insight type, prefers items and evidence status is shown but does not cut the list, because a score-ranked shortlist of 15 found 8 of 32 expected picks and the model reading the index found 22 of 32. The model picks at most 10 (sequencing limits), in priority order.",
+   "Order the picks into stages (sequencing section) and attach checks from the stakes tier and claim level rules."
+  ],
+  "multiple_sources": "When source-level facets differ between sources, a requires is met only if every source meets it. A prefers is scored by the share of sources that meet it."
+ },
+ "packaging": {
+  "status": "All recommendations below are inference and untested. No source tested a 234 technique catalogue, a CSV queried by script, or contraindication fields.",
+  "basis": {
+   "type": "inference",
+   "sources": [
+    {
+     "name": "Agent Skills overview",
+     "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview"
+    },
+    {
+     "name": "Skill authoring best practices",
+     "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices"
+    },
+    {
+     "name": "Claude Code skills docs",
+     "url": "https://code.claude.com/docs/en/skills"
+    },
+    {
+     "name": "SkillDAG, arXiv 2606.03056 (abstract only)",
+     "url": "https://arxiv.org/abs/2606.03056"
+    },
+    {
+     "name": "Hasan et al., arXiv 2602.14878 (abstract only)",
+     "url": "https://arxiv.org/abs/2602.14878"
+    }
+   ],
+   "note": "Sourced facts are listed under documented_limits; the design built on them is inference."
+  },
+  "documented_limits": [
+   "SKILL.md body should be under 500 lines (Anthropic skills guidance).",
+   "Reference files should be one level deep from SKILL.md, and files over 100 lines should start with a table of contents.",
+   "The description must be non-empty, at most 1,024 characters, and state what the skill does and when to use it.",
+   "Custom frontmatter such as metadata is not acted on by Claude Code, so per-technique fields cannot affect whether the skill triggers.",
+   "The Claude API runtime has no network access and no package installation, so a filtering script must use only installed packages."
+  ],
+  "recommendations": [
+   "SKILL.md contains the procedure and a compact index of one line per technique (ID, name, family, purpose, use when). It does not contain the full records.",
+   "Full records (what it does, fit test, output specification, checks, failure modes) are in reference files, one per family, one level deep, each with a table of contents.",
+   "A CSV with one column per field key is queried by scripts: intake.py (profile and gap questions), select.py (gates), sequence.py (stages, checks, synthesis block). Only script output enters context.",
+   "Contraindications are stored as not_for_rules so code applies them. Only 14 of 236 rows use them so far.",
+   "Add a full method card to a technique only where a test run shows the output specification is not enough. The first test found it unnecessary for five techniques.",
+   "Build a larger test set of briefs with known correct techniques, and measure the index-reading recall and final choice accuracy against a baseline without the skill, with more than one model size."
+  ],
+  "draft_skill_description": "Selects analytical techniques for a research question and the material available, puts them in a workable order, and states the checks each result needs. Use when a user asks which analysis or approach to apply to documents, reports, survey data, tables, interviews or web sources, how to sequence several analyses, how reliable a finding is, or how much checking an AI-assisted analysis needs. Covers 234 techniques for framing, comparison, causal and claim testing, evidence handling, forecasting, risk assessment, text and data preparation, modelling, source integration and result checking."
+ },
+ "sequencing": {
+  "rule": "Each analytical technique runs on the brief, which is the question plus the material. It does not analyse another technique's output. The exceptions are preparation steps, checks on a result, and challenge techniques, which examine the findings of the analysis and never the brief. The catalogue holds analytical techniques only. Synthesis is a fixed process step, not a technique.",
+  "stages": [
+   "0 frame: techniques whose phase is frame.",
+   "1 prepare: techniques whose phase is gather or verify and prepare, and any technique that produces prepared material a chosen technique consumes. Prepared material is still the brief's material. When a pick needs external material (a comparator, a reference structure or an earlier period), the skill gathers only that item, from a source that is not marketing or personal opinion, shows it to the user, or asks the user for it. If none is found the technique is dropped and the plan says so.",
+   "2 analyse: independent techniques, run in any order, each on the brief.",
+   "3 check: techniques whose phase is validate, plus the minimum checks for the stakes tier, each applied to one result.",
+   "4 synthesise (process step, always last): collect each technique's finding; run a synthesis method from the synthesis section (the skill offers those that apply and recommends one); name the cause of each conflict or state that it stays unresolved; answer the request, with a confidence label and a one-line reason for each conclusion, and the answer basis.",
+   "5 review (only if the user asks): after the user reads the synthesis, the skill offers to reassess. If the user accepts, it selects again using the gaps, silences and conflicts the synthesis found, leaves out techniques already run, runs the new ones and synthesises again."
+  ],
+  "basis": {
+   "type": "inference",
+   "sources": [],
+   "note": "Designed with the user in this session; untested on real jobs."
+  },
+  "limits": {
+   "definition": "The model picks at most 10 techniques in the first round, listed in priority order. Preparation steps added for a pick, de-identification and checks do not count. Picks beyond the limit are held and offered at the review step. Each review round adds at most 5.",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Limit set with the user on 11 November 2026. The numbers are defaults chosen by the schema designer, not measured."
+   }
+  }
+ },
+ "synthesis": {
+  "definition": "Synthesis is the final process step. It takes the findings of the independent analyses as its input, not the brief's material. No single agreed framework exists for synthesising diverse findings, and the choice of method depends on the aim and the form of the findings, so the skill offers the methods that apply and recommends one.",
+  "basis": {
+   "type": "sourced",
+   "sources": [
+    {
+     "name": "Dixon-Woods et al. 2005, Synthesising qualitative and quantitative evidence: a review of possible methods (PubMed abstract)",
+     "url": "https://pubmed.ncbi.nlm.nih.gov/15667704/"
+    },
+    {
+     "name": "Mays, Pope and Popay 2005, methodological appendix on approaches to synthesis (LSHTM repository abstract)",
+     "url": "https://researchonline.lshtm.ac.uk/id/eprint/19432"
+    }
+   ],
+   "note": "The sources review methods for synthesising evidence from studies. Applying them to the findings of techniques within one job is an extrapolation by the schema designer. Abstracts and summary pages only were read."
+  },
+  "job_conditions": {
+   "findings_form": {
+    "definition": "Derived from the material content types: textual (text only), numeric (tabular, time series or similar only), mixed (both).",
+    "values": [
+     "textual",
+     "numeric",
+     "mixed"
+    ]
+   },
+   "commensurable_estimates": {
+    "definition": "Asked of the user. Yes only if two or more findings are estimates of the same quantity on the same scale.",
+    "values": [
+     "yes",
+     "no",
+     "unknown"
+    ]
+   }
+  },
+  "methods": [
+   {
+    "name": "convergence matrix",
+    "what_it_does": "Lists each technique's findings side by side by theme or question, and marks each as agreement, partial agreement, dissonance or silence. Disagreement is kept as information. Two analysts compare the matrix and resolve differences by discussion.",
+    "applies_when": "Two or more analytical techniques were run. Any findings_form.",
+    "recommended_when": "findings_form is textual or mixed",
+    "output": "A matrix of findings against techniques, with a global assessment of convergence and a list of dissonant findings.",
+    "limits": "It marks agreement but does not weigh findings. Counting how many techniques mention a theme is not a measure of strength.",
+    "basis": {
+     "type": "sourced",
+     "sources": [
+      {
+       "name": "O'Cathain, Murphy and Nicholl 2010, Three techniques for integrating data in mixed methods studies, BMJ",
+       "url": "https://doi.org/10.1136/bmj.c4587"
+      },
+      {
+       "name": "Tonkin-Crine et al. 2016, triangulation protocol applied to a trial process evaluation, Implementation Science (PMC)",
+       "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4866290"
+      }
+     ],
+     "note": "Triangulation protocol and convergence coding matrix, from mixed methods health research. Applying it across techniques is an extrapolation."
+    }
+   },
+   {
+    "name": "narrative synthesis",
+    "what_it_does": "Summarises, compares, explains and interprets the findings in words, keeping each finding in its own terms. Used to write the answer to the question once the matrix shows where findings agree and conflict.",
+    "applies_when": "Any job. Any findings_form.",
+    "recommended_when": "findings_form is textual or mixed, after the convergence matrix",
+    "output": "A written answer that states each conclusion, the findings behind it and the conflicts left unresolved.",
+    "limits": "Without a stated structure it can hide which findings were given more weight. State the weighting rule used.",
+    "basis": {
+     "type": "sourced",
+     "sources": [
+      {
+       "name": "Mays, Pope and Popay 2005, methodological appendix on approaches to synthesis (LSHTM repository abstract)",
+       "url": "https://researchonline.lshtm.ac.uk/id/eprint/19432"
+      }
+     ],
+     "note": "Narrative synthesis described as one of four basic approaches."
+    }
+   },
+   {
+    "name": "quantitative pooling",
+    "what_it_does": "Combines findings that are estimates of the same quantity into one estimate, by meta-analysis or Bayesian updating, with an interval.",
+    "applies_when": "commensurable_estimates is yes.",
+    "recommended_when": "findings_form is numeric and commensurable_estimates is yes",
+    "output": "A pooled estimate with an interval, and a measure of how much the findings differ.",
+    "limits": "Findings that share a scale but not a design or a population should not be pooled. The pooled interval is too narrow when the estimates are not independent.",
+    "basis": {
+     "type": "sourced",
+     "sources": [
+      {
+       "name": "Dixon-Woods et al. 2005, Synthesising qualitative and quantitative evidence: a review of possible methods (PubMed abstract)",
+       "url": "https://pubmed.ncbi.nlm.nih.gov/15667704/"
+      }
+     ],
+     "note": "Quantitative and Bayesian approaches named among the available methods."
+    }
+   },
+   {
+    "name": "decision analysis and weighting",
+    "what_it_does": "Turns findings and stated preferences into weights and scores for the options, and ranks the options.",
+    "applies_when": "insight_wanted includes option ranking.",
+    "recommended_when": "insight_wanted includes option ranking",
+    "output": "A ranking of the options with the weights and scores shown.",
+    "limits": "The weights come from the decision maker, not the evidence. Show how the ranking changes when the weights change.",
+    "basis": {
+     "type": "sourced",
+     "sources": [
+      {
+       "name": "Mays, Pope and Popay 2005, methodological appendix on approaches to synthesis (LSHTM repository abstract)",
+       "url": "https://researchonline.lshtm.ac.uk/id/eprint/19432"
+      }
+     ],
+     "note": "Decision analysis named among the four basic approaches."
+    }
+   }
+  ],
+  "certainty_rating": {
+   "definition": "Not a synthesis method. Each conclusion in the answer gets one confidence label (high, medium or low) and a one-line reason. The reviewer reads the label to decide whether to trust the item or redo it. No likelihood terms and no roll-up across conclusions.",
+   "rule": "High: two or more techniques that count as corroboration (tiers.corroboration_rule) support the conclusion and the checks for the stakes tier passed. Medium: one technique supports it and its checks passed, or several support it and a check failed. Low: one technique supports it and it was not checked, or its checks failed. A check that failed or was skipped is named in the reason. A challenge finding does not change the label. It is an added finding and appears in the answer next to the conclusion it examines.",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Simplified with the user on 11 November 2026, because the whole answer is reviewed by a person who redoes it if it does not feel right. The earlier design used GRADE-style certainty and ICD 203 likelihood terms. The rule above is the schema designer's and is untested."
+   }
+  },
+  "offer_to_user": "The skill lists the methods whose applies_when is met, marks the recommended one with its reason, and asks the user to choose or accept the recommendation. It runs the recommended method if the user does not reply.",
+  "answer_basis": {
+   "definition": "The answer states its basis as facts, and makes no judgement about the material. It lists what the user gave (each source, its type and size), any external material the skill gathered and where from, which techniques ran and what each used (the brief and the material, or the findings of the analysis), which techniques were dropped and why, any files that could not be read, and any checks that were not done because they need a person, taken from the check library field human_involvement (needed, or conditional when the condition holds). It does not say whether the material is representative or sufficient.",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Decided with the user on 11 November 2026. Replaces the earlier idea of a material ceiling on the claim level."
+   }
+  }
+ },
+ "interaction": {
+  "definition": "Where the skill asks the user and where it decides.",
+  "asks": [
+   {
+    "point": "confirm the brief",
+    "what": "The question restated in one sentence, the claim level needed and the stakes tier. The skill asks only for material facets the material does not show."
+   },
+   {
+    "point": "choose the synthesis method",
+    "what": "The skill lists the methods whose applies_when is met, marks the recommended one with its reason, and runs it if the user does not reply."
+   },
+   {
+    "point": "confirm commensurable estimates",
+    "what": "Asked only when two or more numeric findings could estimate the same quantity. Pooling is left out of the list otherwise."
+   },
+   {
+    "point": "review the synthesis",
+    "what": "After the synthesis the skill offers to reassess for more techniques. It never loops without the user asking."
+   }
+  ],
+  "decides": [
+   {
+    "point": "choose the techniques",
+    "what": "The skill picks the techniques, orders them into stages, and shows the picks with a one-line reason for each. The user can change the list but is not asked to choose from the shortlist."
+   }
+  ],
+  "basis": {
+   "type": "inference",
+   "sources": [],
+   "note": "Agreed with the user in this session. Untested with real users."
+  }
+ },
+ "intake": {
+  "definition": "Turns the user input into a brief and a material profile, and lists the gaps as questions. It runs before matching. The brief is one request. It can have several parts or be open-ended (for example \"tell me what insights I can get from this article\"), and selection returns one set of techniques for it. Each pick states which part of the request it serves. For an open request the insight wanted is left empty, so it does not filter or score, and the claim level defaults to describe.",
+  "inputs": [
+   {
+    "input": "link to an article or report",
+    "acquired_by": "The model reads the page with the page fetch tool and saves the text with a sidecar file (URL, title, publisher, date, fetched_by). The fetch tool can summarise long pages, so intake flags that quotes are unverified against the page and asks for the document as a file when the stakes are above exploratory."
+   },
+   {
+    "input": "content pasted from an article or report",
+    "acquired_by": "Saved as text with origin_type pasted."
+   },
+   {
+    "input": "typed text",
+    "acquired_by": "Under 40 words it is the question. Longer typed text is material."
+   },
+   {
+    "input": "collection of documents",
+    "acquired_by": "Files or a folder: txt, md, html, docx, pdf, csv, tsv, xlsx. Unreadable files are listed."
+   }
+  ],
+  "filled_by_code": [
+   "content_type",
+   "representation",
+   "access_depth",
+   "unit_of_analysis",
+   "source_count",
+   "linkage",
+   "volume_class",
+   "document_genre",
+   "language",
+   "privacy (personal and sensitive signals)",
+   "data_condition_flags (duplicates, blank share)"
+  ],
+  "inferred_with_note": [
+   "privacy as none for report-type documents with no personal signals",
+   "claim_level_needed and insight_wanted from question wording"
+  ],
+  "asked": [
+   "question",
+   "stakes_tier",
+   "claim_level_needed",
+   "insight_wanted",
+   "privacy when unknown",
+   "linkage for several tables",
+   "duplicates",
+   "material when none was given"
+  ],
+  "never_asked": [
+   "time_structure",
+   "collection_basis",
+   "origin",
+   "producer_interest",
+   "source_dependence",
+   "security_classification",
+   "licence"
+  ],
+  "question_rules": "At most four questions at once, in priority order, each with a recommended answer where one exists and a one-line reason. The rest are held back.",
+  "implemented_in": "scripts/intake.py (profile and gaps commands)",
+  "basis": {
+   "type": "inference",
+   "sources": [],
+   "note": "Designed with the user on 11 November 2026. Run on four small test inputs; one used made-up transcripts."
+  }
+ },
+ "application": {
+  "definition": "Each selected technique runs on the brief, independently of the others. The model is given the technique record and its output specification and writes a result in that shape.",
+  "rule": "A full method card is not written for any technique unless a test run shows the record and output specification produce a wrong or incomplete result.",
+  "test": "Five techniques were each run with the row only and with the row plus an output specification, and scored blind against eight-item checklists written by the schema designer: 33 of 40 without and 37 of 40 with. One run per cell, so the gap is within noise. The specification helped most for absence analysis and disconfirmation search.",
+  "basis": {
+   "type": "inference",
+   "sources": [],
+   "note": "Test of 11 November 2026. The specifications and checklists were written by the same author, so the result may favour the specification."
+  }
+ },
+ "check_library_note": "human_involvement says whether a check needs a person. needed: the process cannot do it and lists it in the answer basis as not done. optional: code or the model can do it, and a person can too. conditional: needed only when the stated condition holds. none: the process does it."
+}
