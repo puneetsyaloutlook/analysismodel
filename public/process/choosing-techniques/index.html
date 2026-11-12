@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steps 2 and 3: Rule out and choose techniques | Analysis model</title>
+<meta name="description" content="Code removes techniques that cannot run on the material. The model chooses from the eligible ones.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <button class="menu-btn" aria-expanded="false" aria-controls="sidebar">Menu</button>
+  <a class="brand" href="/">Analysis model</a>
+  <div class="search" role="search">
+    <label for="q" class="sr">Search the documentation</label>
+    <input id="q" type="search" autocomplete="off" placeholder="Search pages and techniques" aria-controls="results">
+    <ul id="results" hidden></ul>
+  </div>
+</header>
+<div class="shell">
+  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/">Overview</a></li><li><a href="/simulator/">Simulator</a></li></ul><details open><summary>Process</summary><ul><li><a href="/process/">The process</a></li><li><a href="/process/intake/">1. Intake</a></li><li><a href="/process/choosing-techniques/" aria-current="page">2 and 3. Rule out and choose</a></li><li><a href="/process/planning-the-order/">4. Plan the order</a></li><li><a href="/process/running-the-techniques/">5. Run the techniques</a></li><li><a href="/process/checks-and-answer/">6 to 8. Check, combine and answer</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details><summary>Reference</summary><ul><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Working document types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Steps, kinds, stakes and relations</a></li></ul></details><details><summary>Project record</summary><ul><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/open-items/">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></details></nav></aside>
+  <main id="main" class="content">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Overview</a></li><li><a href="/process/">Process</a></li><li aria-current="page">Steps 2 and 3: Rule out and choose techniques</li></ol></nav>
+    <h1>Steps 2 and 3: Rule out and choose techniques</h1>
+    <div class="prose"><h3 id="step-2-rule-out-techniques">Step 2: Rule out techniques</h3>
+<p>Code tests every technique against the description of the material. A technique that fails a requirement is removed. The requirements are applied in this order.</p>
+<ol>
+<li><strong>Personal information.</strong> A technique that cannot take personal information is removed when the material has it. It is kept, with a note, when de-identification is in the plan and runs before it. It is removed when the material is marked sensitive and the user has not agreed to de-identify.</li>
+<li><strong>Requirements that always apply:</strong> content type, unit of analysis, level of detail available, number of sources and whether sources can be joined. A unit that a preparation technique can derive passes with a note.</li>
+<li><strong>Requirements that apply in some cases:</strong> structure, time structure, how the sample was chosen, amount of material, known data problems, language, minimum amounts and material needed from outside the input. Each applies only when its stated condition is met.</li>
+<li><strong>Each technique's own exclusions and inputs.</strong> A technique whose input cannot exist yet, or that needs outside material (a comparator, a reference structure or an earlier period), is kept with a note naming what is missing.</li>
+</ol>
+<p>One waiver applies. A technique that fails only on content type or structure is kept, with a note, when every prepared input it needs is produced by an eligible technique. The level of detail, the unit of analysis and the other requirements are never waived.</p>
+<p>Step 2 also counts the eligible techniques that reach the strength of statement needed, and warns when none does.</p>
+<h3 id="step-3-choose-techniques">Step 3: Choose techniques</h3>
+<p>The model receives the brief and a one-line entry (ID, name, purpose, use when) for every eligible technique. The entries are ordered by a score for kind of finding and evidence status. The score changes the order only.</p>
+<p>The model chooses at most 10 techniques, using these criteria in order:</p>
+<ol>
+<li>Every part of the request has at least one technique.</li>
+<li>At least one technique reaches the strength of statement needed, when an eligible one fits the request. If none fits, the model says so and gives the reason.</li>
+<li>The techniques match the kind of finding wanted, where the user gave one.</li>
+<li>Where two techniques serve the same part of the request, prefer a pair with different methods, so that their agreement adds confidence (<a href="/process/checks-and-answer/">section 7</a>).</li>
+</ol>
+<p>The process shows each chosen technique with a one-line reason that names the part of the request it serves. The user can change the list but is not asked to choose from it.</p>
+<p>Limits. All kinds of technique count towards the 10. Preparation techniques added for a chosen technique, de-identification and library checks do not count. Techniques the model wanted beyond the limit go on the reserve list. A follow-up round adds at most 5. The numbers are defaults chosen here, not measured.</p></div>
+    <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/process/intake/"><span>Previous</span>1. Intake</a><a class="next" href="/process/planning-the-order/"><span>Next</span>4. Plan the order</a></nav>
+  </main>
+  <aside class="rail"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l3"><a href="#step-2-rule-out-techniques">Step 2: Rule out techniques</a></li><li class="l3"><a href="#step-3-choose-techniques">Step 3: Choose techniques</a></li></ul></nav></aside>
+</div>
+<script src="/assets/site.js" defer></script>
+
+</body>
+</html>

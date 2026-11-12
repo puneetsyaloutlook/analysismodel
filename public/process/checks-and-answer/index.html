@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steps 6 to 8: Check, combine and answer | Analysis model</title>
+<meta name="description" content="How findings are checked and combined, how confidence is labelled, and what the answer states.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <button class="menu-btn" aria-expanded="false" aria-controls="sidebar">Menu</button>
+  <a class="brand" href="/">Analysis model</a>
+  <div class="search" role="search">
+    <label for="q" class="sr">Search the documentation</label>
+    <input id="q" type="search" autocomplete="off" placeholder="Search pages and techniques" aria-controls="results">
+    <ul id="results" hidden></ul>
+  </div>
+</header>
+<div class="shell">
+  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/">Overview</a></li><li><a href="/simulator/">Simulator</a></li></ul><details open><summary>Process</summary><ul><li><a href="/process/">The process</a></li><li><a href="/process/intake/">1. Intake</a></li><li><a href="/process/choosing-techniques/">2 and 3. Rule out and choose</a></li><li><a href="/process/planning-the-order/">4. Plan the order</a></li><li><a href="/process/running-the-techniques/">5. Run the techniques</a></li><li><a href="/process/checks-and-answer/" aria-current="page">6 to 8. Check, combine and answer</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details><summary>Reference</summary><ul><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Working document types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Steps, kinds, stakes and relations</a></li></ul></details><details><summary>Project record</summary><ul><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/open-items/">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></details></nav></aside>
+  <main id="main" class="content">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Overview</a></li><li><a href="/process/">Process</a></li><li aria-current="page">Steps 6 to 8: Check, combine and answer</li></ol></nav>
+    <h1>Steps 6 to 8: Check, combine and answer</h1>
+    <div class="prose"><h3 id="step-6-check-the-findings">Step 6: Check the findings</h3>
+<p>Three things happen, in this order.</p>
+<ol>
+<li><strong>Verification techniques</strong> run on the findings of the analysis, for example a search for disconfirming statements or a sensitivity analysis.</li>
+<li><strong>Challenge techniques</strong> run on the findings of the analysis, for example devil's advocacy or a premortem. They never challenge the brief.</li>
+<li><strong>Library checks</strong> are applied to each result, as set by the stakes and the strength of statement.</li>
+</ol>
+<p>A library check that needs a person is not done by the process. Human review sample, independent review and expert review always need a person. Gold standard agreement needs a person unless the material already has labels made by trained people. A spot check can be done by code or a person. The answer lists every check that was not done.</p>
+<h3 id="step-7-combine-the-findings">Step 7: Combine the findings</h3>
+<p>The process offers the methods that apply and recommends one. It runs the recommended method if the user does not reply.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Applies when</th>
+<th>Recommended when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agreement table (agree, partly agree, conflict, not covered)</td>
+<td>Two or more techniques ran.</td>
+<td>Findings are text or mixed.</td>
+</tr>
+<tr>
+<td>Narrative summary</td>
+<td>Always.</td>
+<td>Findings are text or mixed, after the agreement table.</td>
+</tr>
+<tr>
+<td>Pooling of estimates</td>
+<td>The user confirms that two or more estimates measure the same thing on the same scale.</td>
+<td>Findings are numeric and the user has confirmed.</td>
+</tr>
+<tr>
+<td>Decision analysis and weighting</td>
+<td>An option ranking is wanted.</td>
+<td>An option ranking is wanted.</td>
+</tr>
+</tbody>
+</table></div>
+<p>For each conflict between findings, the process names the cause or states that the conflict is unresolved.</p>
+<p>Each conclusion gets one confidence label (high, medium or low) and a one-line reason. The user reads the label to decide whether to trust the conclusion or redo the work. The rule is a design choice, not a published method, and is untested.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Label</th>
+<th>When it is given</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>High</td>
+<td>Two or more techniques with different methods agree, and their checks passed.</td>
+</tr>
+<tr>
+<td>Medium</td>
+<td>One technique supports the conclusion and its checks passed. Or two or more techniques agree, and a check failed or was not done, or a verification finding limits the conclusion, or the techniques do not have different methods.</td>
+</tr>
+<tr>
+<td>Low</td>
+<td>One technique supports the conclusion and none of its checks passed. Or techniques conflict and the conflict is unresolved.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Different methods. Every technique in a run reads the same material and is run by the same model, so two techniques cannot be independent in data or model. They count as having different methods when they read the material in different ways, for example one counts cases and one searches for disconfirming statements. The model states the difference in the reason. Two techniques tagged as substitutes for each other do not count. The answer states the shared material and model as a limit.</p>
+<p>Checks that need a person. A check that was not done because it needs a person is named in the reason. At high stakes it limits the label to medium until a person does it. At lower stakes it does not change the label.</p>
+<p>Failed checks at high stakes. At high stakes a failed check makes the label low for each conclusion that depends on it, and the reason names the check.</p>
+<p>Challenge findings do not change the label. A challenge finding is an added finding and appears in the answer next to the conclusion it examines.</p>
+<h3 id="step-8-answer">Step 8: Answer</h3>
+<p>The answer gives the conclusions with their labels and reasons. It then states three things as facts.</p>
+<p><strong>Strength of statement reached.</strong> Which chosen techniques reach the strength of statement the user needed, and which conclusions they support. When none did, the answer says so in its first lines.</p>
+<p><strong>What the answer is based on.</strong></p>
+<ul>
+<li>What the user gave: each source, its type and size.</li>
+<li>Any outside material gathered, and where from.</li>
+<li>Which techniques ran and what each worked on.</li>
+<li>Which techniques were dropped, and why.</li>
+<li>Any files that could not be read.</li>
+<li>Any checks that were not done.</li>
+<li>Whether the user confirmed the request after 5.1.</li>
+</ul>
+<p>The answer makes no judgement about whether the material is representative or sufficient, because the user chose the material and knows its limits.</p>
+<p><strong>Follow-up round.</strong> The process offers one. If the user accepts, steps 2 to 4 run again for the gaps and unresolved conflicts found in step 7, leaving out techniques that already ran and starting from the reserve list. The new techniques run, and steps 6 to 8 are repeated with all the findings.</p>
+<p>The methods in step 7 come from reviews of how to combine evidence from studies. Using them to combine the findings of techniques within one run is an extrapolation, and only abstracts and summary pages were read.</p></div>
+    <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/process/running-the-techniques/"><span>Previous</span>5. Run the techniques</a><a class="next" href="/catalogue/"><span>Next</span>All techniques</a></nav>
+  </main>
+  <aside class="rail"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l3"><a href="#step-6-check-the-findings">Step 6: Check the findings</a></li><li class="l3"><a href="#step-7-combine-the-findings">Step 7: Combine the findings</a></li><li class="l3"><a href="#step-8-answer">Step 8: Answer</a></li></ul></nav></aside>
+</div>
+<script src="/assets/site.js" defer></script>
+
+</body>
+</html>

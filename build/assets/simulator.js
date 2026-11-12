@@ -3,7 +3,11 @@
   var $ = function (id) { return document.getElementById(id); };
   var out = $('sim-out'), title = $('sim-title'), bar = $('sim-bar');
   var steps = Array.prototype.slice.call(document.querySelectorAll('.sim-steps li'));
-  var NAMES = ['Intake', 'Rule out', 'Pick', 'Sequence', 'Apply', 'Check', 'Synthesise', 'Answer basis and review'];
+  var NAMES = ['Intake', 'Rule out techniques', 'Choose techniques', 'Plan the order', 'Run the techniques', 'Check the findings', 'Combine the findings', 'Answer'];
+  var PROP = { content_type: 'Content type', unit_of_analysis: 'Unit of analysis', access_depth: 'Level of detail available', source_count: 'Number of sources', linkage: 'Whether sources can be joined', volume_class: 'Amount of material', representation: 'Structure', language: 'Language', privacy: 'Personal information', security_classification: 'Security classification', licence: 'Licence', data_condition_flags: 'Known data problems' };
+  function prop(k) { return PROP[k] || sentence(k); }
+  var CLAIM_PLAIN = { 'describe': 'describe', 'associate': 'show a link between things', 'predict without implying cause': 'predict, without claiming a cause', 'estimate an intervention effect': 'estimate the effect of an action', 'explain mechanism or counterfactual': 'explain how or why' };
+  var CLAIM_ORDER = ['describe', 'associate', 'predict without implying cause', 'estimate an intervention effect', 'explain mechanism or counterfactual'];
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var job, done, current, running, token, cache, submitted = false;
 
@@ -27,7 +31,7 @@
   function reset() {
     token = (token || 0) + 1; running = false; done = -1; current = -1; cache = {};
     job = DATA.filter(function (d) { return d.id === $('sim-job').value; })[0];
-    $('sim-note').innerHTML = job.real ? NOTES.real : NOTES.rec;
+    $('sim-note').innerHTML = NOTES.real;
     steps.forEach(function (_, i) { mark(i, 'wait'); });
     bar.style.width = '0';
     submitted = false; title.textContent = '1. Intake';
@@ -38,82 +42,10 @@
 
   // Each step builds an array of "blocks": {html, pause}. Blocks appear one at a time inside a wrapper.
   var NOTES = {
-    real: '<strong>This is an actual run.</strong> The scripts ran intake, the tests that rule out techniques, and sequencing on the material. Claude picked the techniques, and each technique ran as a separate agent on the brief and the material (stage 3 techniques ran on the findings). The quotation check and the matrix recount ran as code. <strong>Limits.</strong> The request wording, stakes, strongest claim needed, insight wanted and privacy answer were set by Claude from the recommended defaults and were not given by the user. The human review sample was not done because it needs a person. Submit replays the stored output of the run with a loading delay. Nothing is computed in your browser.',
-    rec: '<strong>What is real here.</strong> Gate counts, stages, checks and the answer basis are the output of the process scripts on this recorded test job. The picks and their reasons are the model\'s picks from the recorded test run. <strong>What is not.</strong> No technique has run on the test material, so the simulator shows the form of each result and not findings, and it produces no confidence labels.'
+    real: '<strong>This is an actual run.</strong> Code ran steps 1, 2 and 4 on the material. The model chose the techniques, and each technique ran as a separate agent on the brief. The verification techniques ran on the findings. The quotation check and the recount of the hypotheses table ran as code. <strong>Limits.</strong> The request wording, stakes, strength of statement, kind of finding and personal information answer were set by the model from the recommended defaults and were not given by the user. The human review sample was not done because it needs a person. The run followed version 1.1 of the design. The request confirmation after 5.1 and the strength of statement line in the answer were added in version 1.2 and are shown here as the process now works. Submit replays the stored output of the run with a loading delay. Nothing is computed in your browser.'
   };
 
-  function builders(i) {
-    if (job.real) return realBuilders(i);
-    var j = job, b = [];
-    if (i === 0) {
-      b.push({ html: '<h3>Brief</h3><table class="kv"><tbody>' +
-        '<tr><th scope="row">Request</th><td>' + esc(j.name) + '</td></tr>' +
-        '<tr><th scope="row">Claim level needed</th><td>' + esc(j.claim) + '</td></tr>' +
-        '<tr><th scope="row">Stakes tier</th><td>' + esc(j.stakes) + '</td></tr>' +
-        '<tr><th scope="row">Insight wanted</th><td>' + esc(j.insight.join(', ') || 'Not set') + '</td></tr></tbody></table>' });
-      var keys = Object.keys(j.profile), rows = '';
-      b.push({ html: '<h3>Material profile</h3><p class="small">In this recorded job the profile was written by hand. In a live run <code>intake.py</code> builds it from the user\'s input and asks up to four questions about gaps.</p>' });
-      keys.forEach(function (k) { b.push({ html: '<div class="row2"><span>' + esc(sentence(k)) + '</span><span>' + esc(list(j.profile[k])) + '</span></div>', fast: true }); });
-    } else if (i === 1) {
-      b.push({ html: '<p>Each test rules out techniques that cannot run on this material. Security classification and licence are not used.</p>' });
-      var left = j.total;
-      Object.keys(j.removed).forEach(function (g) {
-        left -= j.removed[g];
-        b.push({ html: '<div class="gate"><span class="g">' + esc(sentence(g)) + '</span><span class="meter"><i style="width:' + Math.round(j.removed[g] / j.total * 100) + '%"></i></span><span class="r">removes ' + j.removed[g] + '</span><span class="l">' + left + ' left</span></div>', tally: ['t-pass', left] });
-      });
-      b.push({ html: '<p class="result"><strong>' + j.passed + ' of ' + j.total + '</strong> techniques remain after every test. <strong>' + j.reach_claim + '</strong> of them reach the claim level needed (' + esc(j.claim) + '). The claim level only raises a warning when none does. It never removes a technique.</p>', tally: ['t-pass', j.passed] });
-    } else if (i === 2) {
-      b.push({ html: '<p>The model reads a one-line index of the ' + j.passed + ' techniques that passed and picks at most 10, in priority order. These picks are from the recorded test run, not made live.</p>' });
-      j.picks.slice(0, 10).forEach(function (p, n) {
-        b.push({ html: '<div class="pick"><span class="no">' + (n + 1) + '</span><div><strong>' + link(p) + '</strong><p>' + esc(p.reason) + '</p></div></div>', tally: ['t-pick', n + 1] });
-      });
-      if (j.held.length) b.push({ html: '<p class="small"><strong>Held for review:</strong> ' + j.held.map(link).join(', ') + '. Offered first if the user asks for another round.</p>' });
-      if (j.gaps) b.push({ html: '<details><summary>Gaps the model reported for this job</summary><p>' + esc(j.gaps) + '</p></details>' });
-    } else if (i === 3) {
-      var S = j.stages, n = 0;
-      var cols = [['0 Frame', S.frame], ['1 Prepare', S.prepare], ['2 Analyse', S.analyse], ['3 Check', S.check]];
-      b.push({ html: '<p>Stage rules decide the order. Techniques inside the analyse stage are independent, so their order does not matter. Preparation steps are added when a pick needs prepared material or the material holds personal information.</p>' });
-      cols.forEach(function (c) {
-        n += c[1].length;
-        b.push({ html: '<div class="stage"><h3>' + esc(c[0]) + '</h3>' + (c[1].length ? '<ul>' + c[1].map(function (x) { return '<li>' + link(x) + (x.note ? ' <span class="pill">added: ' + esc(x.note) + '</span>' : '') + '</li>'; }).join('') + '</ul>' : '<p class="small">No technique in this stage.</p>') + '</div>', tally: ['t-run', n] });
-      });
-      if (j.external.length) b.push({ html: '<div class="stage"><h3>External material to gather in stage 1</h3><ul>' + j.external.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' });
-    } else if (i === 4) {
-      var S2 = j.stages, all = S2.frame.concat(S2.prepare, S2.analyse);
-      b.push({ html: '<p>Each technique runs on the brief and the material, never on another technique\'s output. The simulator shows the form each result must take. It does not produce findings.</p>' });
-      all.forEach(function (x) {
-        b.push({ html: '<div class="run"><div class="rh"><strong>' + link(x) + '</strong><span class="pill">runs on: ' + esc(j.uses[x.id] || 'the brief and the material') + '</span></div><details><summary>Output specification</summary><p>' + esc(j.specs[x.id] || '') + '</p></details></div>' });
-      });
-    } else if (i === 5) {
-      b.push({ html: '<p>Check techniques examine the findings, never the brief. Each analysis result also gets the minimum checks for the stakes tier (' + esc(j.stakes) + ') and the claim level.</p>' });
-      j.stages.check.forEach(function (x) {
-        b.push({ html: '<div class="run"><div class="rh"><strong>' + link(x) + '</strong><span class="pill">runs on: ' + esc(j.uses[x.id] || 'the findings of the analysis') + '</span></div><details><summary>Output specification</summary><p>' + esc(j.specs[x.id] || '') + '</p></details></div>' });
-      });
-      var needed = {};
-      j.checks.forEach(function (c) {
-        var lis = c.list.map(function (k) {
-          if (k.person === 'needed') needed[k.code] = 1;
-          return '<li>' + esc(k.code) + (k.person === 'needed' ? ' <span class="pill warn">person needed</span>' : k.person === 'conditional' ? ' <span class="pill">person conditional</span>' : k.person === 'optional' ? ' <span class="pill">person optional</span>' : '') + '</li>';
-        }).join('');
-        b.push({ html: '<div class="stage"><h3>' + link(c) + '</h3><ul>' + lis + '</ul></div>', tally: ['t-person', Object.keys(needed).length] });
-      });
-      b.push({ html: '<p class="result">Checks that need a person are not done by the process. They are listed in the answer basis as not done.</p>' });
-    } else if (i === 6) {
-      b.push({ html: '<p>Findings are <strong>' + esc(j.findings_form) + '</strong>. The user chooses a method. The process runs the recommended one if the user does not reply.</p>' });
-      j.methods.forEach(function (m) {
-        b.push({ html: '<div class="run"><div class="rh"><strong>' + esc(sentence(m.name)) + '</strong>' + (m.recommended ? '<span class="pill">recommended: ' + esc(m.recommended) + '</span>' : '') + (m.condition ? '<span class="pill">' + esc(m.condition) + '</span>' : '') + '</div></div>' });
-      });
-      b.push({ html: '<h3>Confidence label for each conclusion</h3><div class="table-wrap"><table><thead><tr><th>Label</th><th>Rule</th></tr></thead><tbody><tr><td>High</td><td>Two or more techniques that count as corroboration support the conclusion, and the checks for the stakes tier passed.</td></tr><tr><td>Medium</td><td>One technique supports it and its checks passed, or several support it and a check failed.</td></tr><tr><td>Low</td><td>One technique supports it and it was not checked, or its checks failed.</td></tr></tbody></table></div>' });
-      b.push({ html: '<p class="result">Not produced here: no technique has run, so there are no conclusions to label. A challenge finding adds a finding next to the conclusion it examines and does not change the label.</p>' });
-    } else if (i === 7) {
-      b.push({ html: '<p>The answer states its basis as facts. It does not judge whether the material is representative or sufficient.</p>' });
-      j.basis.forEach(function (x) { b.push({ html: '<div class="row1">' + esc(x) + '</div>', fast: true }); });
-      b.push({ html: '<h3>Review</h3><p>After the synthesis the process offers to reassess. The user decides. If they accept, the process selects again for the gaps, silences and conflicts the synthesis found, leaves out techniques already run, and adds at most 5 more.' + (j.held.length ? ' Held back by the limit: ' + j.held.map(link).join(', ') + '.' : '') + '</p>' });
-      b.push({ html: '<p class="result">End of the simulated run for <strong>' + esc(j.name) + '</strong>.</p>' });
-    }
-    return b;
-  }
-
+  function builders(i) { return realBuilders(i); }
 
   var STAKES = [
     ['exploratory', 'The result decides what to look at next. A wrong result costs little and is corrected before anyone relies on it.'],
@@ -194,29 +126,35 @@
   function realBuilders(i) {
     var j = job, b = [], S = j.stages, bm = j.basis_map;
     if (i === 0) {
-      b.push({ html: '<h3>Material read by code</h3><p class="small">Facts about the content that decide which techniques can run.</p>' });
-      Object.keys(j.profile).forEach(function (k) { b.push({ html: '<div class="row2"><span>' + esc(sentence(k)) + '</span><span>' + esc(list(j.profile[k])) + '</span></div>', fast: true }); });
+      b.push({ html: '<h3>Material read by code</h3><p class="small">The description of the material. These properties decide which techniques can run.</p>' });
+      Object.keys(j.profile).forEach(function (k) { b.push({ html: '<div class="row2"><span>' + esc(prop(k)) + '</span><span>' + esc(list(j.profile[k])) + '</span></div>', fast: true }); });
     } else if (i === 1) {
       return builders_gates(j);
     } else if (i === 2) {
       return builders_pick(j);
     } else if (i === 3) {
       var n = 0;
-      b.push({ html: '<p>Stage rules decide the order. Techniques in the analyse stage are independent of each other. No personal information was found, so no de-identification step was added.</p>' });
-      [['0 Frame', S.frame], ['1 Prepare', S.prepare], ['2 Analyse', S.analyse], ['3 Check', S.check]].forEach(function (c) {
+      b.push({ html: '<p>Code places the chosen techniques in run order by kind. Analysis techniques are independent of each other. No personal information was found, so de-identification was not added.</p>' });
+      [['5.1 Examine the question', S.frame], ['5.2 Prepare the material', S.prepare], ['5.3 Analyse the material', S.analyse], ['6 Check the findings', S.check]].forEach(function (c) {
         n += c[1].length;
         b.push({ html: '<div class="stage"><h3>' + esc(c[0]) + '</h3><ul>' + c[1].map(function (x) { return '<li>' + link(x) + '</li>'; }).join('') + '</ul></div>', tally: ['t-run', n] });
       });
-      b.push({ html: '<div class="stage"><h3>External material to gather in stage 1</h3><ul><li>CM1-14 needs a reference structure. <strong>Resolved from the material:</strong> the material states four scenarios, eight participants and three hypotheses, and that was used. Nothing was gathered from outside.</li></ul></div>' });
+      b.push({ html: '<div class="stage"><h3>Outside material to gather in 5.2</h3><ul><li>CM1-14 needs a reference structure. <strong>Resolved from the material:</strong> the material states four scenarios, eight participants and three hypotheses, and that was used. Nothing was gathered from outside.</li></ul></div>' });
     } else if (i === 4) {
-      b.push({ html: '<p>Each technique ran as a separate agent that saw only the brief, the material and its own technique record. Results are shown as written. Each result is shown in full below its technique.</p>' });
-      S.frame.concat(S.prepare, S.analyse).forEach(function (x) { b.push({ html: runRow(j, x, 'the brief and the material') }); });
+      b.push({ html: '<p>Each technique ran as a separate agent that saw only the brief and its own technique record. Each result is shown in full below its technique.</p>' });
+      b.push({ html: '<h3 class="substep">5.1 Examine the question</h3>' });
+      S.frame.forEach(function (x) { b.push({ html: runRow(j, x, 'the request') }); });
+      b.push({ confirm: true, html: '<div class="confirm"><h3>Do you want to change your request?</h3><p>The techniques in 5.1 examined the wording of the request. Their results are above.</p><p class="req">' + esc(j.request) + '</p><div class="form-actions"><button type="button" class="btn primary" data-keep>Keep the request</button><button type="button" class="btn" disabled title="Not available in this replay">Edit the request</button></div></div>' });
+      b.push({ html: '<h3 class="substep">5.2 Prepare the material</h3>' });
+      S.prepare.forEach(function (x) { b.push({ html: runRow(j, x, 'the material') }); });
+      b.push({ html: '<h3 class="substep">5.3 Analyse the material</h3>' });
+      S.analyse.forEach(function (x) { b.push({ html: runRow(j, x, 'the material') }); });
     } else if (i === 5) {
       var ck = j.ck17;
-      b.push({ html: '<p>Check techniques ran on the findings of the seven analyses. The source-span check ran as code.</p>' });
+      b.push({ html: '<p>Verification techniques ran on the findings from step 5. The quotation check ran as code. The library checks follow.</p>' });
       b.push({ html: '<div class="run"><div class="rh"><strong><a href="/catalogue/check-extracted-results/ck-17/">CK-17 Source-span and quotation check by code</a></strong><span class="pill">runs on: the findings of the analysis</span></div><p class="small">' + ck.checked + ' double-quoted spans found in the nine results. ' + (ck.checked - ck.failed.length) + ' matched the source text. ' + ck.failed.length + ' did not match and were read by hand: ' + ck.failed.map(function (f) { return esc(f.file) + ' "' + esc(f.span) + '"'; }).join(', ') + '. These are the analysts\' own phrases in quotation marks and were not attributed to a participant, so no quotation failed.</p></div>', tally: ['t-run', S.frame.length + S.prepare.length + S.analyse.length + S.check.length] });
       S.check.filter(function (x) { return x.id !== 'CK-17'; }).forEach(function (x) { b.push({ html: runRow(j, x, 'the findings of the analysis') }); });
-      b.push({ html: '<div class="run"><div class="rh"><strong>Matrix recount by code</strong></div><p class="small">The competing hypotheses result states that H1 has three inconsistent ratings and H1r four, H2 and H2r one each, H3 three and H3r none. Counting the cells in its table by code gave the same figures.</p></div>' });
+      b.push({ html: '<div class="run"><div class="rh"><strong>Recount of the hypotheses table by code</strong></div><p class="small">The competing hypotheses result states that H1 has three inconsistent ratings and H1r four, H2 and H2r one each, H3 three and H3r none. Counting the cells in its table by code gave the same figures.</p></div>' });
       var needed = {};
       j.checks.forEach(function (c) {
         var lis = c.list.map(function (k) {
@@ -229,15 +167,15 @@
           else st = '';
           return '<li>' + esc(k.code) + ' ' + st + '</li>';
         }).join('');
-        b.push({ html: '<div class="stage"><h3>Checks on ' + link(c) + '</h3><ul>' + lis + '</ul></div>', tally: ['t-person', Object.keys(needed).length] });
+        b.push({ html: '<div class="stage"><h3>Library checks on ' + link(c) + '</h3><ul>' + lis + '</ul></div>', tally: ['t-person', Object.keys(needed).length] });
       });
-      b.push({ html: '<p class="result">Checks that need a person were not done. They are listed in the answer basis.</p>' });
+      b.push({ html: '<p class="result">Checks that need a person were not done. They are listed with the answer.</p>' });
     } else if (i === 6) {
       var sy = j.synthesis, T = sy.techniques;
       b.push({ html: '<p>' + esc(sy.method) + '</p>' });
       var head = '<tr><th>Conclusion</th>' + T.map(function (t) { return '<th>' + esc(t) + '</th>'; }).join('') + '</tr>';
-      var body = sy.conclusions.map(function (c) { return '<tr><th scope="row">' + esc(c.id) + '</th>' + T.map(function (t) { var v = c.cells[t] || 'S'; return '<td class="cell-' + v + '" title="' + esc(sy.legend[v]) + '">' + v + '</td>'; }).join('') + '</tr>'; }).join('');
-      b.push({ html: '<h3>Convergence matrix</h3><div class="table-wrap"><table class="matrix"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div><p class="small">A agrees. P partly agrees. D dissonant. S silent.</p>' });
+      var body = sy.conclusions.map(function (c) { return '<tr><th scope="row">' + esc(c.id) + '</th>' + T.map(function (t) { var v = c.cells[t] || 'S'; return '<td class="cell-' + v + '" title="' + esc(sy.legend[v]) + '">' + ({ D: 'C', S: 'N' }[v] || v) + '</td>'; }).join('') + '</tr>'; }).join('');
+      b.push({ html: '<h3>Agreement table</h3><div class="table-wrap"><table class="matrix"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div><p class="small">A agrees. P partly agrees. C conflict. N not covered.</p>' });
       sy.conclusions.forEach(function (c) {
         b.push({ html: '<div class="concl"><div class="rh"><strong>' + esc(c.id) + '</strong><span class="pill conf-' + c.label + '">' + esc(sentence(c.label)) + ' confidence</span></div><p>' + esc(c.text) + '</p><p class="small"><strong>Reason.</strong> ' + esc(c.reason) + '</p></div>' });
       });
@@ -245,17 +183,21 @@
       var a = j.synthesis.answer;
       b.push({ html: '<h3>Answer</h3><p class="lead-answer">' + esc(a.lead) + '</p>' });
       a.paragraphs.forEach(function (p) { b.push({ html: '<p>' + esc(p) + '</p>' }); });
-      b.push({ html: '<h3>Basis (facts only)</h3>' });
+      var need = CLAIM_ORDER.indexOf(j.claim), reach = j.picks.slice(0, 10).filter(function (p) { return CLAIM_ORDER.indexOf(p.ceiling) >= need; });
+      var supported = j.synthesis.conclusions.filter(function (c) { return reach.some(function (p) { return c.cells[p.id] === 'A' || c.cells[p.id] === 'P'; }); }).map(function (c) { return c.id; });
+      b.push({ html: '<h3>Strength of statement reached</h3><p>Needed: ' + esc(CLAIM_PLAIN[j.claim]) + '. ' + (reach.length ? reach.length + ' of the chosen techniques reach it: ' + reach.map(link).join(', ') + '. They support ' + esc(supported.join(', ')) + '.' : 'No chosen technique reaches it.') + '</p>' });
+      b.push({ html: '<h3>What the answer is based on</h3>' });
       var basis = [
         'Material given: one document (Voice AI interview study), ' + j.source.words + ' words. It contains three hypotheses and ten quotes (Q1 to Q10) from eight participants (P1, P2, P3, P4, P5, P8, P9, P10). The material does not say how the quotes were chosen.',
-        'External material gathered: none. The reference structure for CM1-14 was taken from the material.',
-        'Techniques run, and what each used: FQ-03, DM-02, HE1-02, CM1-05, CM1-14, HE1-14 and TC1-13 (the brief and the material); CK-17 by code, TC1-16 and TC1-17 (the findings of the analysis).',
-        'Checks done: source-span check by code (' + j.ck17.checked + ' quoted spans, ' + (j.ck17.checked - j.ck17.failed.length) + ' matched, ' + j.ck17.failed.length + ' phrases read by hand); recount of the competing hypotheses matrix by code; assumption and limitation sections and alternative explanations sections present in all nine results.',
+        'Outside material gathered: none. The reference structure for CM1-14 was taken from the material.',
+        'Techniques run, and what each worked on: FQ-03 and DM-02 (the request); HE1-02, CM1-05, CM1-14, HE1-14 and TC1-13 (the material); CK-17 by code, TC1-16 and TC1-17 (the findings of the analysis).',
+        'Checks done: quotation check by code (' + j.ck17.checked + ' quoted spans, ' + (j.ck17.checked - j.ck17.failed.length) + ' matched, ' + j.ck17.failed.length + ' phrases read by hand); recount of the competing hypotheses table by code; assumption and limitation sections and alternative explanations sections present in all nine results.',
         'Checks not done because they need a person: human review sample (framework analysis).',
+        'Request after 5.1: kept as submitted.',
         'Run notes: five results ran over the 450 word limit given to the agents (CM1-14, HE1-14, TC1-13, TC1-16, TC1-17). Techniques dropped: none. Files that could not be read: none.'
       ];
       basis.forEach(function (x) { b.push({ html: '<div class="row1">' + esc(x) + '</div>', fast: true }); });
-      b.push({ html: '<h3>Review</h3><p>The user can ask for another round. The process would then select again for the silences and conflicts above (the H2 and H3 verdicts depend on definitions, and nothing is known about P8 and P9). Held back by the limit of 10: ' + j.held.map(link).join(', ') + '. At most 5 more techniques per round.</p>' });
+      b.push({ html: '<h3>Follow-up round</h3><p>You can ask for a follow-up round. The process would then choose again for the gaps and unresolved conflicts above (the H2 and H3 verdicts depend on definitions, and nothing is known about P8 and P9). On the reserve list: ' + j.held.map(link).join(', ') + '. A follow-up round adds at most 5 techniques.</p>' });
       b.push({ html: '<p class="result">End of the run.</p>' });
     }
     return b;
@@ -263,22 +205,22 @@
 
   function builders_gates(j) {
     var b = [], left = j.total;
-    b.push({ html: '<p>Each test rules out techniques that cannot run on this material. Security classification and licence are not used.</p>' });
+    b.push({ html: '<p>Each requirement removes techniques that cannot run on this material. The techniques that remain are eligible.</p>' });
     Object.keys(j.removed).forEach(function (g) {
       left -= j.removed[g];
-      b.push({ html: '<div class="gate"><span class="g">' + esc(sentence(g)) + '</span><span class="meter"><i style="width:' + Math.round(j.removed[g] / j.total * 100) + '%"></i></span><span class="r">removes ' + j.removed[g] + '</span><span class="l">' + left + ' left</span></div>', tally: ['t-pass', left] });
+      b.push({ html: '<div class="gate"><span class="g">' + esc(prop(g)) + '</span><span class="meter"><i style="width:' + Math.round(j.removed[g] / j.total * 100) + '%"></i></span><span class="r">removes ' + j.removed[g] + '</span><span class="l">' + left + ' left</span></div>', tally: ['t-pass', left] });
     });
-    b.push({ html: '<p class="result"><strong>' + j.passed + ' of ' + j.total + '</strong> techniques remain after every test. <strong>' + j.reach_claim + '</strong> of them reach the claim level needed (' + esc(j.claim) + '). The claim level only raises a warning when none does.</p>', tally: ['t-pass', j.passed] });
+    b.push({ html: '<p class="result"><strong>' + j.passed + ' of ' + j.total + '</strong> techniques are eligible. <strong>' + j.reach_claim + '</strong> of them reach the strength of statement needed (' + esc(CLAIM_PLAIN[j.claim]) + ').</p>', tally: ['t-pass', j.passed] });
     return b;
   }
   function builders_pick(j) {
     var b = [];
-    b.push({ html: '<p>Claude read a one-line index of the ' + j.passed + ' techniques that passed and picked at most 10, in priority order.</p>' });
+    b.push({ html: '<p>The model read a one-line entry for each of the ' + j.passed + ' eligible techniques and chose at most 10, in priority order.</p>' });
     j.picks.slice(0, 10).forEach(function (p, n) {
       b.push({ html: '<div class="pick"><span class="no">' + (n + 1) + '</span><div><strong>' + link(p) + '</strong><p>' + esc(p.reason) + '</p></div></div>', tally: ['t-pick', n + 1] });
     });
-    if (j.held.length) b.push({ html: '<p class="small"><strong>Held for review:</strong> ' + j.held.map(link).join(', ') + '.</p>' });
-    if (j.gaps) b.push({ html: '<details><summary>Gaps reported for this job</summary><p>' + esc(j.gaps) + '</p></details>' });
+    if (j.held.length) b.push({ html: '<p class="small"><strong>Reserve list:</strong> ' + j.held.map(link).join(', ') + '.</p>' });
+    if (j.gaps) b.push({ html: '<details><summary>Gaps reported for this brief</summary><p>' + esc(j.gaps) + '</p></details>' });
     return b;
   }
 
@@ -301,6 +243,13 @@
       d.className = 'rv'; d.innerHTML = blk.html; wrap.appendChild(d);
       if (blk.tally) setTally(blk.tally[0], blk.tally[1]);
       bar.style.width = Math.round(k / blocks.length * 100) + '%';
+      if (blk.confirm) {
+        return new Promise(function (resolve) {
+          var keep = d.querySelector('[data-keep]');
+          d.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+          keep.addEventListener('click', function () { keep.disabled = true; keep.textContent = 'Request kept'; resolve(t === token); });
+        }).then(function (ok) { return ok ? next() : false; });
+      }
       return wait(blk.fast ? 120 : 420).then(function (ok) { return ok && t === token ? next() : false; });
     })().then(function (ok) {
       if (!ok || t !== token) return false;

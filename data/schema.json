@@ -1,5 +1,5 @@
 {
- "version": "1.1.0",
+ "version": "1.2.0",
  "title": "Metadata schema and process design for a catalogue of 236 analytical techniques",
  "conventions": {
   "language": "Australian English. Sentence case for headings, field labels and value names. No em dashes, en dashes or double hyphens.",
@@ -14,23 +14,28 @@
  "gate_classes": [
   {
    "value": "hard gate",
-   "definition": "The technique is removed when the material or job does not meet its requires value, or when the material is unknown on that facet and the user cannot supply it."
+   "definition": "The technique is removed when the material or job does not meet its requires value, or when the material is unknown on that facet and the user cannot supply it.",
+   "label": "Always applies"
   },
   {
    "value": "conditional",
-   "definition": "The requirement applies only under the condition stated in the field definition; otherwise the field is ignored."
+   "definition": "The requirement applies only under the condition stated in the field definition; otherwise the field is ignored.",
+   "label": "Applies in some cases"
   },
   {
    "value": "weight",
-   "definition": "Never removes a technique. It changes ranking only."
+   "definition": "Never removes a technique. It changes ranking only.",
+   "label": "Changes the order"
   },
   {
    "value": "advisory",
-   "definition": "Never removes a technique. It raises a warning shown with the shortlist."
+   "definition": "Never removes a technique. It raises a warning shown with the shortlist.",
+   "label": "Raises a warning"
   },
   {
    "value": "not applicable",
-   "definition": "The field is not used for matching."
+   "definition": "The field is not used for matching.",
+   "label": "Not used"
   }
  ],
  "cell_syntax": {
@@ -238,7 +243,8 @@
    "material_cardinality": "exactly one",
    "values_mutually_exclusive": true,
    "ordered": false,
-   "cell_syntax": "facet cell"
+   "cell_syntax": "facet cell",
+   "plain_label": "Structure"
   },
   {
    "key": "content_type",
@@ -523,7 +529,8 @@
    "material_cardinality": "exactly one",
    "values_mutually_exclusive": true,
    "ordered": false,
-   "cell_syntax": "facet cell"
+   "cell_syntax": "facet cell",
+   "plain_label": "How the sample was chosen"
   },
   {
    "key": "access_depth",
@@ -564,7 +571,8 @@
    "material_cardinality": "exactly one",
    "values_mutually_exclusive": true,
    "ordered": true,
-   "cell_syntax": "facet cell"
+   "cell_syntax": "facet cell",
+   "plain_label": "Level of detail available"
   },
   {
    "key": "source_count",
@@ -638,7 +646,8 @@
    "material_cardinality": "exactly one",
    "values_mutually_exclusive": true,
    "ordered": false,
-   "cell_syntax": "facet cell"
+   "cell_syntax": "facet cell",
+   "plain_label": "Whether sources can be joined"
   },
   {
    "key": "volume_class",
@@ -671,7 +680,8 @@
    "material_cardinality": "exactly one",
    "values_mutually_exclusive": true,
    "ordered": false,
-   "cell_syntax": "facet cell"
+   "cell_syntax": "facet cell",
+   "plain_label": "Amount of material"
   },
   {
    "key": "data_condition_flags",
@@ -736,7 +746,8 @@
    "material_cardinality": "one or more",
    "values_mutually_exclusive": false,
    "ordered": false,
-   "cell_syntax": "facet cell"
+   "cell_syntax": "facet cell",
+   "plain_label": "Known data problems"
   },
   {
    "key": "producer_interest",
@@ -1067,7 +1078,8 @@
    "material_cardinality": "exactly one",
    "values_mutually_exclusive": true,
    "ordered": false,
-   "cell_syntax": "facet cell"
+   "cell_syntax": "facet cell",
+   "plain_label": "Personal information"
   },
   {
    "key": "security_classification",
@@ -1222,7 +1234,8 @@
    "material_cardinality": "not applicable",
    "values_mutually_exclusive": true,
    "ordered": true,
-   "cell_syntax": "plain"
+   "cell_syntax": "plain",
+   "plain_label": "Kind of technique (main phase)"
   },
   {
    "key": "other_phases",
@@ -1335,7 +1348,8 @@
    "material_cardinality": "not applicable",
    "values_mutually_exclusive": false,
    "ordered": false,
-   "cell_syntax": "plain"
+   "cell_syntax": "plain",
+   "plain_label": "Kind of finding"
   },
   {
    "key": "question_answered",
@@ -1419,7 +1433,8 @@
    "material_cardinality": "not applicable",
    "values_mutually_exclusive": true,
    "ordered": true,
-   "cell_syntax": "plain"
+   "cell_syntax": "plain",
+   "plain_label": "Strongest statement the technique supports"
   },
   {
    "key": "requires_minimum",
@@ -1472,7 +1487,8 @@
    "material_cardinality": "not applicable",
    "values_mutually_exclusive": false,
    "ordered": false,
-   "cell_syntax": "plain"
+   "cell_syntax": "plain",
+   "plain_label": "Outside material needed"
   },
   {
    "key": "not_for_rules",
@@ -1546,7 +1562,8 @@
    "tagging_rule": "List each artefact the technique needs before it can start, as type:state. If the technique starts from the user's question alone, write charter or question:agreed.",
    "material_cardinality": "not applicable",
    "ordered": false,
-   "cell_syntax": "artefact"
+   "cell_syntax": "artefact",
+   "plain_label": "Needs as input"
   },
   {
    "key": "produces",
@@ -1573,7 +1590,8 @@
    "tagging_rule": "List each artefact the technique outputs, as type:state. Every technique produces at least one artefact.",
    "material_cardinality": "not applicable",
    "ordered": false,
-   "cell_syntax": "artefact"
+   "cell_syntax": "artefact",
+   "plain_label": "Makes as output"
   },
   {
    "key": "requires",
@@ -2066,7 +2084,8 @@
    "tagging_rule": "Written from what_it_does and produces. Starts with \"The result\".",
    "material_cardinality": "not applicable",
    "ordered": false,
-   "cell_syntax": "plain"
+   "cell_syntax": "plain",
+   "plain_label": "Result format"
   }
  ],
  "artefact_types": [
@@ -3203,7 +3222,7 @@
     }
    }
   },
-  "stop_rule": "If a check required at the high-stakes tier fails, the confidence label for each conclusion that rests on it is low and the reason names the check. A check that needs a person and cannot be done is listed in the answer basis as not done.",
+  "stop_rule": "If a library check required at the high-stakes level fails, the confidence label for each conclusion that depends on it is low and the reason names the check. A check that needs a person and was not done is listed in the answer as not done. At the high-stakes level it limits the label to medium until a person does it. At lower levels it is named in the reason and does not change the label.",
   "stop_rule_basis": {
    "type": "inference",
    "sources": [
@@ -3215,8 +3234,8 @@
    "note": "NIST states that development should cease until risks are managed; the specific rule is design."
   },
   "corroboration_rule": {
-   "definition": "A second technique counts as corroboration only if it differs from the first in assumptions, data or direction of bias, and its error sources do not overlap with the first technique's on any source the claim depends on. Repeat runs and prompt variation test stability and are reported as consistency. Agreement between techniques that share error sources is reported as consistency, not corroboration, and disagreement lowers the certainty label by inconsistency.",
-   "machine_test": "Two techniques are independent for a claim when their error_sources lists do not share input data, data transformation or language model, and at least one of assumptions, data or direction of bias differs.",
+   "definition": "Every technique in a run reads the same material and is run by the same model, so two techniques cannot be independent in data or model. Two techniques count as having different methods when they read the material in different ways, for example one counts cases and one searches for disconfirming statements. The model states the difference in the reason for the confidence label. Agreement between techniques with different methods supports a high label. Agreement between techniques that do not have different methods is reported as consistency and supports a medium label at most. Repeat runs and prompt variation test stability and are reported as consistency. The answer states the shared material and model as a limit.",
+   "machine_test": "Two techniques do not have different methods when either is tagged as substitutes for the other in related_techniques, or when they are the same technique run twice. Otherwise the model decides and states the difference in one line.",
    "hypothesis_not_tested": "Outputs from one language model reviewing another may share training-related biases. No source was found; this is a hypothesis.",
    "basis": {
     "type": "inference",
@@ -3230,7 +3249,7 @@
       "url": "https://core.ac.uk/download/157587939.pdf"
      }
     ],
-    "note": "Treur et al. and Kuorikoski and Marchionni give principles, not an operational test; the machine test is design."
+    "note": "Treur et al. and Kuorikoski and Marchionni give principles, not an operational test. The test by method is a design choice made with the user on 12 November 2026, because the earlier test (no shared input data or language model) could never be met within one run. Untested."
    }
   }
  },
@@ -3515,14 +3534,14 @@
    "note": "Filter first, then let the model choose is supported for tools; it is untested for technique catalogues. Index reading result: 22 of 32 expected picks on five test jobs, before the catalogue changes of 11 November 2026."
   },
   "steps": [
-   "Intake: turn the user input into a brief and a material profile (intake section). Unknown handling or gate facets become gap questions before matching.",
-   "Apply the privacy gate against the material profile. Security classification and licence are not used: every technique is tagged any.",
+   "Step 1, intake: turn the user input into a brief (request, settings, material and description of the material). Unknown properties that a requirement tests become questions before step 2.",
+   "Step 2: apply the personal information requirement against the description of the material. A technique that cannot take personal information is kept, with a note, when de-identification is in the plan and runs before it. It is removed when the material is marked sensitive and the user has not agreed to de-identify. Security classification and licence are not used: every technique is tagged any.",
    "Apply hard gates on content type, unit of analysis, access depth, number of sources and linkage. Units of analysis that a preparation step can derive (document to claim or source, record to variable or dataset, dataset to variable, source to document) pass with a note. A technique that fails only on content type or representation passes when every prepared artefact it consumes is produced by a technique that passed the gates. It carries a note naming the technique that must run first. Access depth, units and the other gates are not waived.",
    "Apply conditional gates when their conditions are met: representation, time structure, collection basis, volume class, data condition flags, language, requires_minimum and material needed from outside the input.",
    "Apply not_for_rules and requires. A technique whose consumed artefact cannot exist yet, or that needs external material (comparator, reference structure, earlier period), is kept with a note naming what is missing. The external material is gathered in stage 1 only for techniques that were picked.",
-   "Claim ceiling is advisory: count the techniques that reach the claim level needed and warn when none does.",
-   "Give the model a one-line index (ID, name, purpose, use when) of every technique that passed. The model picks the techniques. A score by insight type, prefers items and evidence status is shown but does not cut the list, because a score-ranked shortlist of 15 found 8 of 32 expected picks and the model reading the index found 22 of 32. The model picks at most 10 (sequencing limits), in priority order.",
-   "Order the picks into stages (sequencing section) and attach checks from the stakes tier and claim level rules."
+   "Claim ceiling raises a warning only: count the eligible techniques that reach the strength of statement needed and warn when none does.",
+   "Step 3: give the model the brief and a one-line entry (ID, name, purpose, use when) for every eligible technique, ordered by a score for insight type, prefers items and evidence status. The score does not cut the list, because a score-ranked shortlist of 15 found 8 of 32 expected picks and the model reading the full list found 22 of 32. The model chooses at most 10 (sequencing limits), using four criteria in order: (1) every part of the request has at least one technique; (2) at least one technique reaches the strength of statement needed when an eligible one fits the request, and if none fits the model says so with the reason; (3) the techniques match the kind of finding wanted, where given; (4) where two techniques serve the same part of the request, prefer a pair with different methods. Each choice has a one-line reason naming the part of the request it serves.",
+   "Step 4: place the chosen techniques in run order by kind (sequencing section) and attach library checks from the stakes and strength of statement rules."
   ],
   "multiple_sources": "When source-level facets differ between sources, a requires is met only if every source meets it. A prefers is scored by the share of sources that meet it."
  },
@@ -3572,14 +3591,14 @@
   "draft_skill_description": "Selects analytical techniques for a research question and the material available, puts them in a workable order, and states the checks each result needs. Use when a user asks which analysis or approach to apply to documents, reports, survey data, tables, interviews or web sources, how to sequence several analyses, how reliable a finding is, or how much checking an AI-assisted analysis needs. Covers 234 techniques for framing, comparison, causal and claim testing, evidence handling, forecasting, risk assessment, text and data preparation, modelling, source integration and result checking."
  },
  "sequencing": {
-  "rule": "Each analytical technique runs on the brief, which is the question plus the material. It does not analyse another technique's output. The exceptions are preparation steps, checks on a result, and challenge techniques, which examine the findings of the analysis and never the brief. The catalogue holds analytical techniques only. Synthesis is a fixed process step, not a technique.",
+  "rule": "Every technique belongs to one of five kinds, and the kind decides what it works on. A question technique works on the request (5.1). A preparation technique works on the material and produces prepared material (5.2). An analysis technique works on the material, including prepared material, and never on another analysis technique's result (5.3). Verification and challenge techniques work on the findings of the analysis (step 6). Combining the findings (step 7) is a fixed process step, not a technique. Only the user changes the request.",
   "stages": [
-   "0 frame: techniques whose phase is frame.",
-   "1 prepare: techniques whose phase is gather or verify and prepare, and any technique that produces prepared material a chosen technique consumes. Prepared material is still the brief's material. When a pick needs external material (a comparator, a reference structure or an earlier period), the skill gathers only that item, from a source that is not marketing or personal opinion, shows it to the user, or asks the user for it. If none is found the technique is dropped and the plan says so.",
-   "2 analyse: independent techniques, run in any order, each on the brief.",
-   "3 check: techniques whose phase is validate, plus the minimum checks for the stakes tier, each applied to one result.",
-   "4 synthesise (process step, always last): collect each technique's finding; run a synthesis method from the synthesis section (the skill offers those that apply and recommends one); name the cause of each conflict or state that it stays unresolved; answer the request, with a confidence label and a one-line reason for each conclusion, and the answer basis.",
-   "5 review (only if the user asks): after the user reads the synthesis, the skill offers to reassess. If the user accepts, it selects again using the gaps, silences and conflicts the synthesis found, leaves out techniques already run, runs the new ones and synthesises again."
+   "5.1 examine the question: chosen techniques whose phase is frame. When they produce findings, the process shows them and asks the user to keep or edit the request. Keep: the run continues at 5.2. Edit: steps 2 to 4 run again on the new request, and question techniques that already ran are not chosen again. No reply: the request stays as it is and the answer says it was not confirmed. The findings are kept in every case and go to step 7.",
+   "5.2 prepare the material: chosen techniques whose phase is gather or verify and prepare, any technique that produces prepared material a chosen technique consumes, and de-identification when the material has personal information. Prepared material is still the brief's material. When a chosen technique needs outside material (a comparator, a reference structure or an earlier period), the process gathers only that item, from a source that is not marketing or personal opinion, shows it to the user, or asks the user for it. If none is found the technique is dropped and the plan says so.",
+   "5.3 analyse the material: chosen analysis techniques, independent of each other, run in any order, each on the brief.",
+   "6 check the findings: chosen verification techniques, then chosen challenge techniques, each on the findings of the analysis, then the library checks for the stakes and the strength of statement, each applied to one result.",
+   "7 combine the findings (process step): collect the findings; run a method from the synthesis section (the process offers those that apply and recommends one); name the cause of each conflict or state that it is unresolved; give each conclusion a confidence label and a one-line reason.",
+   "8 answer: give the conclusions, the strength of statement reached, and what the answer is based on. Offer a follow-up round. If the user accepts, steps 2 to 4 run again for the gaps and unresolved conflicts found in step 7, leaving out techniques that already ran and starting from the reserve list, then the new techniques run and steps 6 to 8 are repeated with all the findings. The process never starts a follow-up round on its own."
   ],
   "basis": {
    "type": "inference",
@@ -3587,7 +3606,7 @@
    "note": "Designed with the user in this session; untested on real jobs."
   },
   "limits": {
-   "definition": "The model picks at most 10 techniques in the first round, listed in priority order. Preparation steps added for a pick, de-identification and checks do not count. Picks beyond the limit are held and offered at the review step. Each review round adds at most 5.",
+   "definition": "The model chooses at most 10 techniques in the first round, listed in priority order. All kinds of technique count. Preparation techniques added for a chosen technique, de-identification and library checks do not count. Techniques the model wanted beyond the limit go on the reserve list and are offered in a follow-up round. Each follow-up round adds at most 5.",
    "basis": {
     "type": "inference",
     "sources": [],
@@ -3708,17 +3727,17 @@
    }
   ],
   "certainty_rating": {
-   "definition": "Not a synthesis method. Each conclusion in the answer gets one confidence label (high, medium or low) and a one-line reason. The reviewer reads the label to decide whether to trust the item or redo it. No likelihood terms and no roll-up across conclusions.",
-   "rule": "High: two or more techniques that count as corroboration (tiers.corroboration_rule) support the conclusion and the checks for the stakes tier passed. Medium: one technique supports it and its checks passed, or several support it and a check failed. Low: one technique supports it and it was not checked, or its checks failed. A check that failed or was skipped is named in the reason. A challenge finding does not change the label. It is an added finding and appears in the answer next to the conclusion it examines.",
+   "definition": "Not a synthesis method. Each conclusion in the answer gets one confidence label (high, medium or low) and a one-line reason. The user reads the label to decide whether to trust the conclusion or redo the work. No likelihood terms and no roll-up across conclusions.",
+   "rule": "High: two or more techniques with different methods (tiers.corroboration_rule) agree, and their checks passed. Medium: one technique supports the conclusion and its checks passed; or two or more techniques agree and a check failed or was not done, or a verification finding limits the conclusion, or the techniques do not have different methods. Low: one technique supports the conclusion and none of its checks passed; or techniques conflict and the conflict is unresolved. A check that failed or was not done is named in the reason. A check not done because it needs a person limits the label to medium at the high-stakes level only. At the high-stakes level a failed check makes the label low (tiers.stop_rule). A challenge finding does not change the label. It is an added finding and appears in the answer next to the conclusion it examines.",
    "basis": {
     "type": "inference",
     "sources": [],
-    "note": "Simplified with the user on 11 November 2026, because the whole answer is reviewed by a person who redoes it if it does not feel right. The earlier design used GRADE-style certainty and ICD 203 likelihood terms. The rule above is the schema designer's and is untested."
+    "note": "Simplified with the user on 11 November 2026 and completed on 12 November 2026 (conflicts, checks not done, different methods). The earlier design used GRADE-style certainty and ICD 203 likelihood terms. The rule is a design choice and is untested."
    }
   },
-  "offer_to_user": "The skill lists the methods whose applies_when is met, marks the recommended one with its reason, and asks the user to choose or accept the recommendation. It runs the recommended method if the user does not reply.",
+  "offer_to_user": "The process lists the methods whose applies_when is met, marks the recommended one with its reason, and asks the user to choose or accept the recommendation. It runs the recommended method if the user does not reply.",
   "answer_basis": {
-   "definition": "The answer states its basis as facts, and makes no judgement about the material. It lists what the user gave (each source, its type and size), any external material the skill gathered and where from, which techniques ran and what each used (the brief and the material, or the findings of the analysis), which techniques were dropped and why, any files that could not be read, and any checks that were not done because they need a person, taken from the check library field human_involvement (needed, or conditional when the condition holds). It does not say whether the material is representative or sufficient.",
+   "definition": "The answer states three things as facts and makes no judgement about the material. (1) Strength of statement reached: which chosen techniques reach the strength of statement the user needed and which conclusions they support; when none did, the answer says so in its first lines. (2) What the answer is based on: what the user gave (each source, its type and size), any outside material gathered and where from, which techniques ran and what each worked on (the request, the material, or the findings of the analysis), which techniques were dropped and why, any files that could not be read, any checks that were not done, taken from the check library field human_involvement (needed, or conditional when the condition applies), and whether the user confirmed the request after 5.1. (3) The offer of a follow-up round. It does not say whether the material is representative or sufficient.",
    "basis": {
     "type": "inference",
     "sources": [],
@@ -3731,7 +3750,11 @@
   "asks": [
    {
     "point": "confirm the brief",
-    "what": "The question restated in one sentence, the claim level needed and the stakes tier. The skill asks only for material facets the material does not show."
+    "what": "The request restated in one sentence, the strength of statement needed and the stakes. The process asks only for properties the material does not show."
+   },
+   {
+    "point": "confirm the request after 5.1",
+    "what": "Asked only when question techniques ran and produced findings. The process shows the findings and asks the user to keep or edit the request. An edit runs steps 2 to 4 again. With no reply the request stays as it is and the answer says it was not confirmed."
    },
    {
     "point": "choose the synthesis method",
@@ -3742,14 +3765,14 @@
     "what": "Asked only when two or more numeric findings could estimate the same quantity. Pooling is left out of the list otherwise."
    },
    {
-    "point": "review the synthesis",
-    "what": "After the synthesis the skill offers to reassess for more techniques. It never loops without the user asking."
+    "point": "follow-up round",
+    "what": "With the answer the process offers a follow-up round for the gaps and unresolved conflicts. It never starts one without the user asking."
    }
   ],
   "decides": [
    {
     "point": "choose the techniques",
-    "what": "The skill picks the techniques, orders them into stages, and shows the picks with a one-line reason for each. The user can change the list but is not asked to choose from the shortlist."
+    "what": "The model chooses the techniques by the four criteria in matching, code places them in run order, and the process shows each choice with a one-line reason. The user can change the list but is not asked to choose from it."
    }
   ],
   "basis": {
@@ -3759,7 +3782,7 @@
   }
  },
  "intake": {
-  "definition": "Turns the user input into a brief and a material profile, and lists the gaps as questions. It runs before matching. The brief is one request. It can have several parts or be open-ended (for example \"tell me what insights I can get from this article\"), and selection returns one set of techniques for it. Each pick states which part of the request it serves. For an open request the insight wanted is left empty, so it does not filter or score, and the claim level defaults to describe.",
+  "definition": "Step 1. Turns the user input into a brief and lists the gaps as questions. The brief is the request, the settings (stakes, strength of statement needed, kind of finding wanted), the material and the description of the material. The request can have several parts or be open-ended (for example \"tell me what insights I can get from this article\"), and step 3 returns one set of techniques for it. Each chosen technique states which part of the request it serves. For an open-ended request the kind of finding is left empty and the strength of statement defaults to describe.",
   "inputs": [
    {
     "input": "link to an article or report",
@@ -3832,5 +3855,183 @@
    "note": "Test of 11 November 2026. The specifications and checklists were written by the same author, so the result may favour the specification."
   }
  },
- "check_library_note": "human_involvement says whether a check needs a person. needed: the process cannot do it and lists it in the answer basis as not done. optional: code or the model can do it, and a person can too. conditional: needed only when the stated condition holds. none: the process does it."
+ "check_library_note": "human_involvement says whether a check needs a person. needed: the process cannot do it and lists it in the answer basis as not done. optional: code or the model can do it, and a person can too. conditional: needed only when the stated condition holds. none: the process does it.",
+ "steps": [
+  {
+   "number": "1",
+   "name": "Intake",
+   "does": "The user's input becomes a brief. Gaps become questions to the user."
+  },
+  {
+   "number": "2",
+   "name": "Rule out techniques",
+   "does": "Each technique is tested against the brief. Techniques that cannot run on the material are removed. The rest are eligible."
+  },
+  {
+   "number": "3",
+   "name": "Choose techniques",
+   "does": "The model reads a list of the eligible techniques and chooses at most 10."
+  },
+  {
+   "number": "4",
+   "name": "Plan the order",
+   "does": "The chosen techniques are placed in run order. Preparation techniques and checks are added."
+  },
+  {
+   "number": "5",
+   "name": "Run the techniques",
+   "does": "5.1 Examine the question. 5.2 Prepare the material. 5.3 Analyse the material.",
+   "sub_steps": [
+    {
+     "number": "5.1",
+     "name": "Examine the question",
+     "phase": [
+      "frame"
+     ]
+    },
+    {
+     "number": "5.2",
+     "name": "Prepare the material",
+     "phase": [
+      "gather",
+      "verify and prepare"
+     ]
+    },
+    {
+     "number": "5.3",
+     "name": "Analyse the material",
+     "phase": [
+      "analyse"
+     ]
+    }
+   ]
+  },
+  {
+   "number": "6",
+   "name": "Check the findings",
+   "does": "Verification and challenge techniques run on the findings. The library checks are applied to each result.",
+   "phase": [
+    "validate"
+   ]
+  },
+  {
+   "number": "7",
+   "name": "Combine the findings",
+   "does": "The findings become conclusions. Each conclusion gets a confidence label and a one-line reason."
+  },
+  {
+   "number": "8",
+   "name": "Answer",
+   "does": "The answer is given with a list of what it is based on. The user can ask for a follow-up round."
+  }
+ ],
+ "terms": {
+  "note": "The schema and scripts keep their original field names and values. This list gives the name used in the design document and on the site for each.",
+  "map": [
+   [
+    "gate, gate class",
+    "requirement, requirement type"
+   ],
+   [
+    "hard gate",
+    "always applies"
+   ],
+   [
+    "conditional",
+    "applies in some cases"
+   ],
+   [
+    "weight",
+    "changes the order"
+   ],
+   [
+    "advisory",
+    "raises a warning"
+   ],
+   [
+    "not applicable",
+    "not used"
+   ],
+   [
+    "material profile, facet",
+    "description of the material, property"
+   ],
+   [
+    "claim level needed, claim ceiling",
+    "strength of statement needed, strongest statement a technique supports"
+   ],
+   [
+    "associate",
+    "show a link between things"
+   ],
+   [
+    "predict without implying cause",
+    "predict, without claiming a cause"
+   ],
+   [
+    "estimate an intervention effect",
+    "estimate the effect of an action"
+   ],
+   [
+    "explain mechanism or counterfactual",
+    "explain how or why"
+   ],
+   [
+    "stakes tier",
+    "stakes"
+   ],
+   [
+    "insight type",
+    "kind of finding"
+   ],
+   [
+    "representation",
+    "structure"
+   ],
+   [
+    "access depth",
+    "level of detail available"
+   ],
+   [
+    "linkage",
+    "whether sources can be joined"
+   ],
+   [
+    "collection basis",
+    "how the sample was chosen"
+   ],
+   [
+    "volume class",
+    "amount of material"
+   ],
+   [
+    "data condition flags",
+    "known data problems"
+   ],
+   [
+    "artefact; consumes; produces",
+    "working document; needs as input; makes as output"
+   ],
+   [
+    "output specification",
+    "result format"
+   ],
+   [
+    "answer basis",
+    "what the answer is based on"
+   ],
+   [
+    "convergence matrix; dissonance; silence",
+    "agreement table; conflict; not covered"
+   ],
+   [
+    "pick, held",
+    "chosen technique, reserve list"
+   ],
+   [
+    "review",
+    "follow-up round"
+   ]
+  ]
+ }
 }

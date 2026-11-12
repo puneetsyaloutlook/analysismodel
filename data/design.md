@@ -1,113 +1,252 @@
 # Analysis methods: design document
 
-Version 1.1, 11 November 2026. This document replaces the Schema report. It describes the whole process, from the user's input to the final answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
+Version 1.2, 12 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
 
 ## 1. Purpose and status
 
-The catalogue lists 236 analytical techniques in 12 families. It will become a skill that a chat or agent calls, and a website built from the same CSV. Neither is built, and the user has said the skill is not to be built yet.
+The catalogue lists 236 analytical techniques in 12 families. It will become a skill that a chat or agent calls. The user has said the skill is not to be built yet.
 
-Given a brief (one request plus material), the process picks the techniques that fit, runs them in a sensible order with the checks the stakes require, and combines the results into one answer.
+Given a brief, the process chooses the techniques that fit, runs them in order, checks their findings and combines them into one answer.
 
-Status: every part has been built and tested on small cases. No part has been run end to end on a real brief. All tag values are inference unless a row or a named source says otherwise.
+Status:
+
+- Every part has been built and tested on small cases.
+- One complete run was done on 11 November 2026, on ten interview quotes, under version 1.1 of this design. Its output is shown in the simulator on the documentation site.
+- The documentation site is built from this document, the schema and the catalogue.
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). The scripts and the stored run still follow version 1.1. Section 10 lists what has to change.
+- All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
 
-| Stage | What happens | Who decides | Implemented in |
+The process has eight steps. The numbers are used the same way in this document, the schema and the simulator.
+
+| Step | What happens | Who does it |
+|---|---|---|
+| 1. Intake | The user's input becomes a brief. Gaps become questions to the user. | Code and the model fill in what they can read. The user answers the rest. |
+| 2. Rule out techniques | Each technique is tested against the brief. Techniques that cannot run on the material are removed. The rest are eligible. | Code |
+| 3. Choose techniques | The model reads a list of the eligible techniques and chooses at most 10. | The model. The user can change the list. |
+| 4. Plan the order | The chosen techniques are placed in run order. Preparation techniques and checks are added. | Code |
+| 5. Run the techniques | 5.1 Examine the question. 5.2 Prepare the material. 5.3 Analyse the material. | The model, with code for arithmetic and text matching. The user confirms the request after 5.1. |
+| 6. Check the findings | Verification and challenge techniques run on the findings. The library checks are applied to each result. | The model and code. Checks that need a person are listed as not done. |
+| 7. Combine the findings | The findings become conclusions. Each conclusion gets a confidence label and a one-line reason. | The model. The user can choose the method. |
+| 8. Answer | The answer is given with a list of what it is based on. The user can ask for a follow-up round. | The model. The user decides on a follow-up round. |
+
+### Terms
+
+Each term below has one meaning in this document.
+
+| Term | Meaning |
+|---|---|
+| Request | What the user asks, in their words. It can have several parts or be open-ended. |
+| Settings | The three answers that shape the run: stakes, strength of statement needed, and kind of finding wanted. |
+| Material | The content the user gives for analysis. |
+| Description of the material | The properties of the material that requirements are tested against, such as content type and number of sources. |
+| Brief | The request, the settings, the material and the description of the material. |
+| Requirement | A condition a technique places on the brief. A technique that fails a requirement is removed. |
+| Eligible technique | A technique that meets every requirement that applies. |
+| Chosen technique | An eligible technique the model selected in step 3. |
+| Reserve list | Techniques the model wanted beyond the limit. They are offered in a follow-up round. |
+| Removed, dropped | Removed: failed a requirement in step 2. Dropped: chosen, then left out because outside material it needs was not found. |
+| Result | Everything one technique produces. |
+| Finding | One statement in a result. |
+| Conclusion | One statement in the answer, drawn from the findings. |
+| Library check | One of the 18 checks in the check library, such as a spot check or repeat runs. It is applied to one result. |
+| Follow-up round | A second pass through steps 2 to 8, run only when the user asks for it after reading the answer. |
+
+### Kinds of technique
+
+Every technique belongs to one of five kinds. The kind decides what the technique works on and when it runs.
+
+| Kind | Works on | Produces | Runs in |
 |---|---|---|---|
-| Intake | The user's input becomes a brief and a material profile. Gaps become questions. | Code and model fill in what they can see. The user answers the rest. | `scripts/intake.py` |
-| Selection | Gates remove techniques that cannot run on the material. The model picks from those that remain. | Script for gates, model for the pick. | `scripts/select.py`, model |
-| Sequencing | The picks are ordered into stages, preparation steps are added, and checks are attached. | Script. | `scripts/sequence.py` |
-| Technique application | Each technique runs on the brief, independently of the others. | Model, using the technique record and its output specification. | Model |
-| Checking | Each result gets the checks for the stakes tier and claim level. | Model, with code where the check is arithmetic or string matching. | Model, code |
-| Synthesis | The findings are combined into an answer, with a confidence label and a one-line reason for each conclusion. | The user chooses the method, with a recommended default. | Model |
-| Review | Only if the user asks: the skill selects again for the gaps the synthesis found, runs the new techniques and synthesises again. | The user. | Model, `select.py` |
+| Question technique | The request | Findings about the request | 5.1 |
+| Preparation technique | The material | Prepared material | 5.2 |
+| Analysis technique | The material, including prepared material | Findings | 5.3 |
+| Verification technique | The findings of the analysis | Findings about those findings | 6 |
+| Challenge technique | The findings of the analysis | Findings that question them | 6 |
 
-Three rules apply throughout.
+The kind comes from the technique's phase tag: frame gives a question technique, gather or verify and prepare gives a preparation technique, analyse gives an analysis technique, and validate gives a verification technique or, in the Challenge family, a challenge technique.
 
-1. Each analytical technique runs on the brief. It does not analyse another technique's output. Preparation steps (their output is still the brief's material), checks (they apply to one result) and challenge techniques (they examine the findings, never the brief) are the only exceptions.
-2. Synthesis is a fixed final step, not a technique. The catalogue lists analytical techniques only.
-3. Stakes and claim level are set from the job. They are never stored per technique.
+### Rules that apply throughout
 
-## 3. Intake
+1. An analysis technique works on the material. It never works on another analysis technique's result. Analysis techniques are independent of each other and can run in any order.
+2. Combining the findings (step 7) is a fixed step, not a technique. The catalogue lists techniques only.
+3. Stakes and strength of statement are set for the brief. They are never stored per technique.
+4. Only the user changes the request. The process can show the user what it found about the request and ask. It never rewrites the request itself.
+5. The process never starts a follow-up round on its own.
 
-Intake accepts four kinds of input. For each it records what was measured by code, what the model inferred, and what is unknown.
+## 3. Step 1: Intake
+
+Intake accepts four kinds of input. For each it records what code measured, what the model inferred and what is unknown.
 
 | Input | How it is read | Limit |
 |---|---|---|
 | Link to an article or report | The model fetches the page and saves the text with the URL, publisher and date. | The fetch tool can summarise long pages, so quotes cannot be checked against the page. Intake flags this. Above exploratory stakes, ask for the document as a file. |
 | Content pasted from an article or report | Saved as text. | Publisher, author and date are unknown unless the user says. |
-| Typed text | Under 40 words it is the question. Longer text is material. | A question with no material produces a question asking for material. |
+| Typed text | Under 40 words it is the request. Longer text is material. | A request with no material produces a question asking for material. |
 | Collection of documents, such as transcripts | Files or a folder (txt, md, html, docx, pdf, csv, tsv, xlsx). | Unreadable files are listed and the user is asked to paste the text. |
 
-The output is two objects.
+The output is the brief. Each part is marked stated, inferred or missing.
 
-- **The brief:** one request, claim level needed, stakes tier and insight wanted. Each field is marked stated, inferred or missing. The request can have several parts or be open-ended, such as "tell me what insights I can get from this article". It is handled as one request and gets one set of techniques. Each pick states which part of the request it serves. For an open request the insight wanted is left empty, so it neither filters nor scores, and the claim level defaults to describe.
-- **The material profile:** one value for each gate facet, per source where the facet belongs to a source. Code fills content type, representation, access depth, unit of analysis, source count, linkage, volume, document genre, language, personal and sensitive information signals, and data condition (duplicates, blank share). Units of analysis are offered broadly, because the unit depends on the question: text is offered as document, claim and topic, and as source when there are several.
+**The request.** One request, which can have several parts or be open-ended, such as "tell me what insights I can get from this article". It is treated as one request and gets one set of techniques.
+
+**The settings.**
+
+| Setting | Question to the user | Values | What it changes |
+|---|---|---|---|
+| Stakes | What will the result be used for? | Exploratory: the result decides what to look at next. Decision-informing: one input to a decision that can be revisited at moderate cost. High-stakes: a costly or hard to reverse decision, one that affects rights, safety or finances, or an authoritative publication. | Higher stakes add library checks. |
+| Strength of statement needed | What is the strongest statement you need to make? | Describe. Show a link between things. Predict, without claiming a cause. Estimate the effect of an action. Explain how or why. | It adds library checks, guides the choice in step 3 and is reported in the answer. It never removes a technique. |
+| Kind of finding wanted | What kind of finding are you after? | Pattern, difference, contradiction, cause, trend, gap, risk, option ranking. More than one can apply. | It guides the choice in step 3. It never removes a technique. |
+
+For an open-ended request the kind of finding is left empty and the strength of statement defaults to describe.
+
+**The description of the material.** One value for each property that a requirement tests, recorded per source where the property belongs to a source. Code fills content type, structure, level of detail available, unit of analysis, number of sources, whether sources can be joined, amount of material, document type, language, signs of personal and sensitive information, and known data problems (duplicates, share of blanks). Units of analysis are offered broadly, because the unit depends on the request: text is offered as document, claim and topic, and as source when there are several.
 
 Questions to the user:
 
-- At most four at once, in this order: missing material or question, stakes, claim level, personal data, insight, linking, duplicates. The rest are held back.
+- At most four at once, in this order: missing material or request, stakes, strength of statement, personal information, kind of finding, joining of sources, duplicates. The rest are not asked in that round.
 - Each question has a recommended answer where one exists and a one-line reason.
-- Time structure, collection basis, origin, producer interest and source dependence are never asked. They stay unknown unless the material states them.
+- Time structure, how the sample was chosen, origin, the producer's interest and whether sources depend on each other are never asked. They stay unknown unless the material states them.
+- Security classification and licence are not asked, because no technique uses them.
 
-Inferred without asking, and shown when the user confirms the brief: personal information as none for report-type documents with no emails, phone numbers or sensitive words; claim level and insight from the wording of the question. An open request such as "what insights can I get" leaves the insight empty.
+Inferred without asking, and shown when the user confirms the brief: no personal information, for report-type documents with no emails, phone numbers or sensitive words; strength of statement and kind of finding, from the wording of the request.
 
-## 4. Selection
+## 4. Steps 2 and 3: Rule out and choose techniques
 
-1. Apply the privacy gate against the material profile. Security classification and licence are not used, because every technique is tagged any.
-2. Apply the hard gates: content type, unit of analysis, access depth, source count and linkage. Units that a preparation step can derive pass with a note. A technique that fails only on content type or representation also passes with a note when every prepared artefact it consumes is produced by a technique that passed the gates. The check reads the technique records, not the input.
-3. Apply the conditional gates when their condition is met: representation, time structure, collection basis, volume, data condition, language, minimum material and material needed from outside the input.
-4. Apply `not_for_rules` and `requires`. A technique whose input artefact cannot exist yet, or that needs external material (a comparator, a reference structure or an earlier period), is kept with a note naming what is missing.
-5. Count the techniques that reach the claim level needed. Warn if none does. The claim ceiling never removes a technique.
-6. Give the model a one-line index (ID, name, purpose, use when) of every technique that passed. The model picks at most 10, in priority order, and the skill shows each pick with a one-line reason. Extra picks are held for the review step. The user can change the list but is not asked to choose from a shortlist.
+### Step 2: Rule out techniques
 
-Weights (insight type, prefers items, evidence status, source facets) change the order of the index only. They never remove a technique.
+Code tests every technique against the description of the material. A technique that fails a requirement is removed. The requirements are applied in this order.
 
-## 5. Sequencing
+1. **Personal information.** A technique that cannot take personal information is removed when the material has it. It is kept, with a note, when de-identification is in the plan and runs before it. It is removed when the material is marked sensitive and the user has not agreed to de-identify.
+2. **Requirements that always apply:** content type, unit of analysis, level of detail available, number of sources and whether sources can be joined. A unit that a preparation technique can derive passes with a note.
+3. **Requirements that apply in some cases:** structure, time structure, how the sample was chosen, amount of material, known data problems, language, minimum amounts and material needed from outside the input. Each applies only when its stated condition is met.
+4. **Each technique's own exclusions and inputs.** A technique whose input cannot exist yet, or that needs outside material (a comparator, a reference structure or an earlier period), is kept with a note naming what is missing.
 
-| Stage | Contents |
+One waiver applies. A technique that fails only on content type or structure is kept, with a note, when every prepared input it needs is produced by an eligible technique. The level of detail, the unit of analysis and the other requirements are never waived.
+
+Step 2 also counts the eligible techniques that reach the strength of statement needed, and warns when none does.
+
+### Step 3: Choose techniques
+
+The model receives the brief and a one-line entry (ID, name, purpose, use when) for every eligible technique. The entries are ordered by a score for kind of finding and evidence status. The score changes the order only.
+
+The model chooses at most 10 techniques, using these criteria in order:
+
+1. Every part of the request has at least one technique.
+2. At least one technique reaches the strength of statement needed, when an eligible one fits the request. If none fits, the model says so and gives the reason.
+3. The techniques match the kind of finding wanted, where the user gave one.
+4. Where two techniques serve the same part of the request, prefer a pair with different methods, so that their agreement adds confidence (section 7).
+
+The process shows each chosen technique with a one-line reason that names the part of the request it serves. The user can change the list but is not asked to choose from it.
+
+Limits. All kinds of technique count towards the 10. Preparation techniques added for a chosen technique, de-identification and library checks do not count. Techniques the model wanted beyond the limit go on the reserve list. A follow-up round adds at most 5. The numbers are defaults chosen here, not measured.
+
+## 5. Step 4: Plan the order
+
+Code places the chosen techniques in run order by kind.
+
+| Run order | Contents |
 |---|---|
-| 0 Frame | Techniques whose phase is frame. |
-| 1 Prepare | Techniques whose phase is gather, or verify and prepare. Techniques that produce prepared material a chosen technique needs. De-identification when the material contains personal information. External material that a pick needs to run (41 techniques need one): the skill gathers only that item from a source that is not marketing or personal opinion, shows it to the user, or asks the user for it. If none is found, the technique is dropped and the plan says so. |
-| 2 Analyse | Independent techniques, in any order, each on the brief. |
-| 3 Check | Techniques whose phase is validate, plus the minimum checks for the stakes tier. |
-| 4 Synthesise | A fixed step (section 7). |
-| 5 Review | Only if the user asks after reading the synthesis (section 7). |
+| 5.1 Examine the question | Chosen question techniques. |
+| 5.2 Prepare the material | Chosen preparation techniques. Preparation techniques that produce an input a chosen technique needs. De-identification, when the material has personal information. Outside material that a chosen technique needs to run. |
+| 5.3 Analyse the material | Chosen analysis techniques, in any order. |
+| 6 Check the findings | Chosen verification and challenge techniques, then the library checks. |
 
-Checks come from two lists that are combined. Each technique lists its own minimum checks per stakes tier, and each higher tier contains the lower tier's checks. The claim level adds further checks (for example a held-out validation for prediction, or an alternative explanations check for an intervention effect).
+Outside material. 41 techniques need a comparator, a reference structure or an earlier period. The process gathers only that item, from a source that is not marketing or personal opinion, and shows it to the user, or asks the user for it. If none is found, the technique is dropped and the plan says so.
 
-## 6. Technique application
+Library checks come from two lists that are combined. Each technique lists its own minimum checks for each stakes level, and each higher level includes the checks of the level below. The strength of statement adds further checks, for example a held-out validation for prediction or an alternative explanations check for the effect of an action.
 
-The model receives the technique record and its output specification, and writes a result in that shape. An output specification is two to three sentences describing the parts of the result, what each row or cell contains and what the result must name. All 236 techniques have one.
+## 6. Step 5: Run the techniques
 
-Test result: five techniques were each run with the row only and with the row plus the specification, and scored blind against eight-item checklists. The totals were 33 of 40 without and 37 of 40 with. The specification helped most for absence analysis and disconfirmation search. A full method card is therefore written only for a technique where a test run shows the record and specification produce a wrong or incomplete result. The test had one run per cell, and the same author wrote the specifications and the checklists.
+### 5.1 Examine the question
 
-## 7. Synthesis
+Question techniques run first. Each one produces findings about the request, such as a term that can be read two ways.
 
-Synthesis takes the findings of the independent analyses as its input. The skill offers the methods that apply and recommends one. It runs the recommended method if the user does not reply.
+When 5.1 produced findings, the process shows them and asks the user one thing: keep the request as it is, or edit it.
+
+- If the user keeps the request, the run continues at 5.2 with the same techniques.
+- If the user edits the request, steps 2 to 4 run again on the new request, because different techniques may now fit. Question techniques that already ran are not chosen again. The user is asked only once per round.
+- If the user does not reply, the request stays as it is, the run continues, and the answer says the request was not confirmed.
+- If no question technique was chosen, 5.1 is skipped and nothing is asked.
+
+The findings from 5.1 are kept in every case. They go to step 7 with the other findings and appear in the answer.
+
+### 5.2 Prepare the material
+
+Preparation techniques run in the order their inputs require. Their output is still the brief's material.
+
+### 5.3 Analyse the material
+
+Each analysis technique runs on the brief, independently of the others.
+
+### How a technique is run
+
+The model receives the technique record and its result format, and writes a result in that format. A result format is two to three sentences describing the parts of the result, what each row or cell contains and what the result must name. All 236 techniques have one.
+
+Test result: five techniques were each run with the record only and with the record plus the result format, and scored blind against eight-item checklists. The totals were 33 of 40 without and 37 of 40 with. The result format helped most for absence analysis and disconfirmation search. A full method card is therefore written only for a technique where a test run shows the record and result format produce a wrong or incomplete result. The test had one run per cell, and the same author wrote the result formats and the checklists.
+
+## 7. Steps 6 to 8: Check, combine and answer
+
+### Step 6: Check the findings
+
+Three things happen, in this order.
+
+1. **Verification techniques** run on the findings of the analysis, for example a search for disconfirming statements or a sensitivity analysis.
+2. **Challenge techniques** run on the findings of the analysis, for example devil's advocacy or a premortem. They never challenge the brief.
+3. **Library checks** are applied to each result, as set by the stakes and the strength of statement.
+
+A library check that needs a person is not done by the process. Human review sample, independent review and expert review always need a person. Gold standard agreement needs a person unless the material already has labels made by trained people. A spot check can be done by code or a person. The answer lists every check that was not done.
+
+### Step 7: Combine the findings
+
+The process offers the methods that apply and recommends one. It runs the recommended method if the user does not reply.
 
 | Method | Applies when | Recommended when |
 |---|---|---|
-| Convergence matrix (agreement, partial agreement, dissonance, silence) | Two or more techniques were run. | Findings are textual or mixed. |
-| Narrative synthesis | Always. | Findings are textual or mixed, after the convergence matrix. |
-| Quantitative pooling | The user confirms that two or more estimates measure the same quantity on the same scale. | Findings are numeric and the user has confirmed. |
-| Decision analysis and weighting | Option ranking is wanted. | Option ranking is wanted. |
+| Agreement table (agree, partly agree, conflict, not covered) | Two or more techniques ran. | Findings are text or mixed. |
+| Narrative summary | Always. | Findings are text or mixed, after the agreement table. |
+| Pooling of estimates | The user confirms that two or more estimates measure the same thing on the same scale. | Findings are numeric and the user has confirmed. |
+| Decision analysis and weighting | An option ranking is wanted. | An option ranking is wanted. |
 
-After the synthesis the skill offers to reassess. The user decides. If the user accepts, the skill selects again using the gaps, silences and conflicts the synthesis found, leaves out techniques already run, runs the new ones and synthesises again. The skill never loops on its own.
+For each conflict between findings, the process names the cause or states that the conflict is unresolved.
 
-The answer also states its basis as facts: what the user gave (each source, its type and size), any external material gathered and where from, which techniques ran and what each used, which techniques were dropped and why, any files that could not be read, and any checks not done because they need a person. It makes no judgement about whether the material is representative or sufficient, because the user chose the material and knows its limits.
+Each conclusion gets one confidence label (high, medium or low) and a one-line reason. The user reads the label to decide whether to trust the conclusion or redo the work. The rule is a design choice, not a published method, and is untested.
 
-Each conclusion in the answer gets one confidence label (high, medium or low) and a one-line reason. The reviewer reads the label to decide whether to trust the item or redo it. The rule is simple and is a design choice, not a published method:
+| Label | When it is given |
+|---|---|
+| High | Two or more techniques with different methods agree, and their checks passed. |
+| Medium | One technique supports the conclusion and its checks passed. Or two or more techniques agree, and a check failed or was not done, or a verification finding limits the conclusion, or the techniques do not have different methods. |
+| Low | One technique supports the conclusion and none of its checks passed. Or techniques conflict and the conflict is unresolved. |
 
-- High: two or more techniques that count as corroboration (they differ in assumptions, data or direction of bias) support the conclusion and the checks for the stakes tier passed.
-- Medium: one technique supports it and its checks passed, or several support it and a check failed.
-- Low: one technique supports it and it was not checked, or its checks failed.
+Different methods. Every technique in a run reads the same material and is run by the same model, so two techniques cannot be independent in data or model. They count as having different methods when they read the material in different ways, for example one counts cases and one searches for disconfirming statements. The model states the difference in the reason. Two techniques tagged as substitutes for each other do not count. The answer states the shared material and model as a limit.
 
-A challenge finding does not change the label. Challenging adds a finding and takes nothing away from what was already found, and anything can be challenged. The finding appears in the answer next to the conclusion it examines.
+Checks that need a person. A check that was not done because it needs a person is named in the reason. At high stakes it limits the label to medium until a person does it. At lower stakes it does not change the label.
 
-A check that failed or was skipped is named in the reason. The checks still run in stage 3 by stakes tier. They are not reported one by one.
+Failed checks at high stakes. At high stakes a failed check makes the label low for each conclusion that depends on it, and the reason names the check.
 
-The synthesis methods come from reviews of how to combine evidence from studies. Using them to combine the findings of techniques within one job is an extrapolation, and only abstracts and summary pages were read.
+Challenge findings do not change the label. A challenge finding is an added finding and appears in the answer next to the conclusion it examines.
+
+### Step 8: Answer
+
+The answer gives the conclusions with their labels and reasons. It then states three things as facts.
+
+**Strength of statement reached.** Which chosen techniques reach the strength of statement the user needed, and which conclusions they support. When none did, the answer says so in its first lines.
+
+**What the answer is based on.**
+
+- What the user gave: each source, its type and size.
+- Any outside material gathered, and where from.
+- Which techniques ran and what each worked on.
+- Which techniques were dropped, and why.
+- Any files that could not be read.
+- Any checks that were not done.
+- Whether the user confirmed the request after 5.1.
+
+The answer makes no judgement about whether the material is representative or sufficient, because the user chose the material and knows its limits.
+
+**Follow-up round.** The process offers one. If the user accepts, steps 2 to 4 run again for the gaps and unresolved conflicts found in step 7, leaving out techniques that already ran and starting from the reserve list. The new techniques run, and steps 6 to 8 are repeated with all the findings.
+
+The methods in step 7 come from reviews of how to combine evidence from studies. Using them to combine the findings of techniques within one run is an extrapolation, and only abstracts and summary pages were read.
 
 ## 8. Catalogue and schema
 
@@ -127,63 +266,109 @@ The synthesis methods come from reviews of how to combine evidence from studies.
 | Check extracted results | 29 |
 | Total | 236 |
 
-Each technique has 52 columns in `master/master_tagged.csv`: identity and text (ID, family, subgroup, name, what it does, fit test, status and evidence), 44 tag columns, and the output specification. Tag columns fall into five groups: input profile, selection, sequencing, robustness and the identity fields purpose and use when. Gate classes are hard gate, conditional, weight, advisory and not applicable. Claim ceiling is advisory.
+Each technique has 52 columns in `master/master_tagged.csv`: identity and text (ID, family, subgroup, name, what it does, fit test, status and evidence), 44 tag columns, and the result format. Tag columns fall into five groups: input profile, selection, sequencing, robustness and the identity fields purpose and use when.
 
-The CSV is rebuilt from `master_base.csv` and the `tags_*.json` files. The output specifications are stored in `master/specs/out_*.json` and are added after the rebuild.
+The schema and the scripts keep their original field names. This table gives the name used in this document for each.
 
-Artefact types (21), each tagged with a kind: brief (charter or question), prepared material (data source inventory, raw dataset or corpus, data dictionary, codebook, data quality report, screening log, cleaned dataset, feature set, training sample, held-out test sample, coded corpus, entity table, evidence base, claims register), finding (assumptions register, hypotheses matrix, comparison matrix, result, validation report) and report (final report). The held-out test sample is single use.
+| Name in the schema | Name in this document |
+|---|---|
+| Gate, gate class | Requirement, requirement type |
+| Hard gate | Always applies |
+| Conditional | Applies in some cases |
+| Weight | Changes the order |
+| Advisory | Raises a warning |
+| Material profile, facet | Description of the material, property |
+| Claim level needed, claim ceiling | Strength of statement needed, strongest statement a technique supports |
+| Associate; predict without implying cause; estimate an intervention effect; explain mechanism or counterfactual | Show a link between things; predict, without claiming a cause; estimate the effect of an action; explain how or why |
+| Stakes tier | Stakes |
+| Insight type | Kind of finding |
+| Representation | Structure |
+| Access depth | Level of detail available |
+| Linkage | Whether sources can be joined |
+| Collection basis | How the sample was chosen |
+| Volume class, data condition flags | Amount of material, known data problems |
+| Artefact; consumes; produces | Working document; needs as input; makes as output |
+| Output specification | Result format |
+| Answer basis | What the answer is based on |
+| Convergence matrix; dissonance; silence | Agreement table; conflict; not covered |
+| Phase (frame, gather, verify and prepare, analyse, validate) | Kind of technique (section 2) |
+| Pick, held | Chosen technique, reserve list |
+| Review | Follow-up round |
 
-Stakes tiers: exploratory (the result decides what to look at next), decision-informing (one input to a decision that can be revisited at moderate cost) and high-stakes (a costly or hard to reverse decision, or one that affects rights, safety or finances, or an authoritative publication).
+The CSV is rebuilt from `master_base.csv` and the `tags_*.json` files. The result formats are stored in `master/specs/out_*.json` and are added after the rebuild.
 
-## 9. Decisions made in this consolidation
+Working documents. The schema defines 21 types, each tagged with a kind: brief (charter or question), prepared material (data source inventory, raw dataset or corpus, data dictionary, codebook, data quality report, screening log, cleaned dataset, feature set, training sample, held-out test sample, coded corpus, entity table, evidence base, claims register), finding (assumptions register, hypotheses matrix, comparison matrix, result, validation report) and report (final report). The held-out test sample is single use.
+
+## 9. Decisions
+
+This section is a dated history. The current rules are in sections 2 to 7. Where an entry below differs from those sections, those sections apply.
+
+Conflicts found when the design was consolidated (version 1.0):
 
 | # | Conflict found | Decision |
 |---|---|---|
-| 1 | The schema called claim ceiling a hard gate. The script uses it as a count and warning, because as a gate it removed structuring and appraisal techniques (8 of 32 expected picks passed, then 30 of 32 after the change). | Claim ceiling is advisory. `schema.json` is changed. |
-| 2 | The schema said to return a shortlist of 5 to 15 by score. A score-ranked list of 15 found 8 of 32 expected picks, and the model reading the index found 22 of 32. | The model reads the index of everything that passed the gates. Scores order it only. |
-| 3 | The schema said the model chooses techniques and orders them by the artefacts they consume. The sequencing rule orders by stage. | Stage rules decide the order. Artefact dependencies apply only inside the prepare stage. |
-| 4 | Frame techniques consume the agreed brief and produce a draft, so the state falls. | Frame techniques (reframing, decision-first framing, definitions, multiple models, SMART check) are additive. Each shows what the question looks like from one angle and produces a finding that goes to the synthesis next to the others. They do not change the brief and nothing returns to selection. They now produce a result, not a revised brief. |
+| 1 | The schema called claim ceiling a hard gate. The script uses it as a count and warning, because as a gate it removed structuring and appraisal techniques (8 of 32 expected picks passed, then 30 of 32 after the change). | Claim ceiling raises a warning only. `schema.json` is changed. |
+| 2 | The schema said to return a shortlist of 5 to 15 by score. A score-ranked list of 15 found 8 of 32 expected picks, and the model reading the full list found 22 of 32. | The model reads the list of every eligible technique. Scores order it only. |
+| 3 | The schema said the model chooses techniques and orders them by the working documents they need. The ordering rule orders by kind. | Kind decides the order. Input dependencies apply only among preparation techniques. |
+| 4 | Frame techniques took the agreed brief as input and produced a draft. | Frame techniques produce a finding and do not change the brief. Replaced in part by decision 25. |
 | 5 | The schema fields used `technique_id` and `technique_name`, and lacked five CSV columns. | The schema now lists all columns and maps the two names to `id` and `technique`. The validator skips the text columns. |
 | 6 | Family names are capitalised in the CSV, and the schema said value ids are lower case. | Family names are labels in sentence case. The convention is reworded. |
 | 7 | Test jobs used `language: English`, which is not a schema value. | Language is `single` or `multiple`. The two jobs are corrected. |
-| 8 | The Schema report described the older design (234 techniques, three input types replaced, no sequencing or synthesis). | This document replaces it. The old report is kept as `Schema report (superseded).md`. |
+| 8 | The Schema report described the older design (234 techniques, three input types replaced, no ordering step and no combining step). | This document replaces it. The old report is kept as `Schema report (superseded).md`. |
 | 9 | Early wording called selection tags "input values". | Material profile (facts about the material) and job settings (question, claim level, stakes, insight). The selection rules are the tags on each technique. |
 | 10 | Intake first offered only document and claim as units for text, which removed 82 techniques that the hand-written test job kept. | Intake offers every unit the material can support. |
 
-Decision 4 is a design choice made here and has not been reviewed.
-
-Decisions made with the user after the first version:
+Decisions made with the user for version 1.1 (11 November 2026):
 
 | # | Question | Decision |
 |---|---|---|
-| 11 | Does the brief need a specific question? | No. The brief is one request, which can have several parts or be open-ended. One set of techniques serves it, and each pick states which part it serves. |
-| 12 | Should the process loop? | Only when the user asks after reading the synthesis. The skill then selects again for the gaps found. |
-| 13 | Should correlated errors between techniques be handled? | No. The techniques share one material and one model by design. The synthesis states this as a limit. |
-| 14 | What does the process do when a technique needs material outside the input? | It gathers only what that technique needs to run (a comparator, a reference structure or an earlier period), never material in general. |
-| 15 | How much should the output say about certainty? | One confidence label and a one-line reason per conclusion. The reviewer redoes the work if it does not feel right, so likelihood terms and roll-ups are dropped. |
-| 16 | Do challenge techniques challenge the brief? | No. The user has standing over the brief and the skill does not. Challenge techniques (devil's advocacy, premortem, red team, steelmanning, key assumptions check and similar) examine the findings of the analysis, so they run in stage 3. Nine techniques (CH-01 to CH-05, CH-08, CH-10 to CH-12) now list the result as an input. |
-| 17 | Should the claim level be limited by what the material can support? | No. The output describes its basis as facts and does not judge the material. |
-| 18 | Should intake ask about classification and licence? | No. No technique uses them, so asking changes nothing. Both fields stay in the schema, marked not applicable, in case a deployment needs them. Personal data is still asked, because it adds the de-identification step and removes the few techniques that cannot take personal information. |
-| 19 | Which checks need a person? | The model states it for each check in the check library (field human_involvement). Needed: human review sample, independent review, expert review. Conditional: gold standard agreement, needed unless the material already has labels made by trained people. Optional: spot check, which code or a person can do. All others need no person. A check that needs a person is not done by the process, and the answer basis lists it as not done. The user reviews the whole answer. |
-| 20 | Is there a limit on techniques? | Yes. The model picks at most 10 in the first round, in priority order. Preparation steps added for a pick, de-identification and checks do not count. Extra picks are held and offered at the review step, and each review round adds at most 5. The numbers are defaults chosen here, not measured. |
-| 21 | Do challenge findings affect confidence? | No. A challenge technique adds a finding. It does not reduce the validity of what was found, and anything can be challenged. The finding goes into the synthesis next to the conclusion it examines. |
-| 22 | Leftover text from the earlier design | Removed: the three-way gate at the end of preparation, the four-output set (claim level achieved, certainty, likelihood term), and the wording "claim level the evidence supports". The claim level needed now adds checks and triggers a warning when no technique reaches it. |
-| 23 | Selection judged only the material as given, so a technique that needs a table of coded themes was removed for a text input even though a coding technique could produce it. | A content type or representation failure is waived when every prepared artefact the technique consumes is produced by a technique that passed the gates. On the five test jobs this restores 0 to 6 techniques, because most of them also fail on access depth or unit of analysis, which are not waived. |
+| 11 | Does the brief need a specific question? | No. The brief has one request, which can have several parts or be open-ended. |
+| 12 | Should the process loop? | Only when the user asks after reading the answer. |
+| 13 | Should correlated errors between techniques be handled? | No. The techniques share one material and one model by design. The answer states this as a limit. |
+| 14 | What does the process do when a technique needs material outside the input? | It gathers only what that technique needs to run, never material in general. |
+| 15 | How much should the output say about certainty? | One confidence label and a one-line reason per conclusion. Likelihood terms and roll-ups are dropped. |
+| 16 | Do challenge techniques challenge the brief? | No. Only the user changes the brief. Challenge techniques examine the findings, so they run in step 6. Nine techniques (CH-01 to CH-05, CH-08, CH-10 to CH-12) now list the result as an input. |
+| 17 | Should the strength of statement be limited by what the material can support? | No. The answer describes what it is based on as facts and does not judge the material. |
+| 18 | Should intake ask about classification and licence? | No. No technique uses them. Both fields stay in the schema, marked not used. |
+| 19 | Which checks need a person? | The check library states it for each check (field `human_involvement`). A check that needs a person is not done by the process and is listed as not done. |
+| 20 | Is there a limit on techniques? | Yes. At most 10 in the first round and at most 5 in each follow-up round. |
+| 21 | Do challenge findings affect confidence? | No. A challenge finding is an added finding. |
+| 22 | Leftover text from the earlier design. | Removed: the three-way gate at the end of preparation, the four-output set (claim level achieved, certainty, likelihood term), and the wording "claim level the evidence supports". Changed in part by decision 26. |
+| 23 | Step 2 judged only the material as given, so a technique that needs a table of coded themes was removed for a text input even though a coding technique could produce it. | A content type or structure failure is waived when every prepared input the technique needs is produced by an eligible technique. On the five test jobs this restores 0 to 6 techniques. |
+
+Decisions made with the user for version 1.2 (12 November 2026), after a review of the design for logic and wording:
+
+| # | Problem found | Decision |
+|---|---|---|
+| 24 | "Stage" named three sequences: seven process stages, six plan stages numbered from 0, and seven technique phases. "Brief" had two definitions. | One numbered list of eight steps, with sub-steps 5.1 to 5.3. The brief is the request, the settings, the material and the description of the material. |
+| 25 | Frame techniques ran first, but nothing used their findings until the end. | They run first as 5.1. The process shows their findings and the user keeps or edits the request. An edit runs steps 2 to 4 again. |
+| 26 | The strength of statement was asked for, and the answer never said whether it was reached. | The model chooses at least one technique that reaches it when one fits. The answer states which techniques reached it and which conclusions they support. |
+| 27 | The choice in step 3 had no stated criteria. | Four criteria, in order: cover every part of the request, reach the strength needed, match the kind of finding, prefer pairs with different methods. |
+| 28 | The confidence rule did not cover agreement without checks, conflicts or checks that need a person. Its test for independence could never be met, because every technique shares the material and the model. | The rule in section 7. Independence means different methods. |
+| 29 | A technique that cannot take personal information was removed even when de-identification would run first. | It is kept, with a note, when de-identification is in the plan. |
+| 30 | Rule 1 listed three exceptions and did not cover the verification techniques. Several rules were stated only in this history. Words such as check, review, result and gate had more than one meaning or needed decoding. | Five kinds of technique, each defined by what it works on. All current rules are in sections 2 to 7. One term for one thing, listed in section 2, with the schema names mapped in section 8. |
 
 ## 10. Open items
 
+Not yet changed to version 1.2:
+
+- `select.py` does not apply the personal information waiver (decision 29).
+- `sequence.py` still labels the run order as stages 0 to 3 and has no pause after 5.1 (decisions 24 and 25).
+- The instruction given to the model in step 3 does not yet state the four criteria (decisions 26 and 27).
+- The stored run of 11 November followed version 1.1. Its two question techniques ran first and the user was not asked to confirm the request. Its answer does not state the strength of statement reached.
+- The schema and the catalogue keep their original field names (section 8).
+
 Design:
 
-- `select.py` notes techniques that need external material, and `sequence.py` lists what to gather. Neither script finds the material. The skill does that at run time. The minimum-material field (`requires_minimum`) is still not applied by the script.
+- `select.py` notes techniques that need outside material, and `sequence.py` lists what to gather. Neither script finds the material. The process does that at run time. The minimum amounts field (`requires_minimum`) is still not applied by the script.
 - The deployment settings (highest permitted privacy class, code execution, human reviewer) are in the schema and not in `select.py`.
-- Selection recall (22 of 32) was measured before the catalogue changes and has not been re-run. AO-09 and AO-15 were missed on job 5. Their use-when text was improved and not retested.
-- Origin, producer interest and source dependence are not inferred from the publisher, so appraisal techniques see unknown.
-- The confidence rule is untested.
-- The review step is described in the sequencer output and not tested.
-- Synthesis has never run on real results. Confidence labels are untested.
-- Output specifications are tested on five of 236 techniques.
-- The skill, the website and an end-to-end run on a real brief are not built.
-- Intake does not read images, audio or video. Genre, language and privacy rules are untested on long documents, scanned PDFs and non-English text. Claim level and insight rules are keyword matches.
+- Step 3 recall (22 of 32) was measured before the catalogue changes and the four criteria, and has not been re-run. AO-09 and AO-15 were missed on test job 5. Their use-when text was improved and not retested.
+- Origin, the producer's interest and whether sources depend on each other are not inferred from the publisher, so appraisal techniques see unknown.
+- The confidence rule, the request confirmation after 5.1 and the follow-up round are untested.
+- Steps 6 to 8 have run once, on one small brief.
+- Result formats are tested on five of 236 techniques.
+- The skill is not built.
+- Intake does not read images, audio or video. The rules for document type, language and personal information are untested on long documents, scanned PDFs and non-English text. The rules for strength of statement and kind of finding are keyword matches.
 
 Catalogue data (from the spot check; the first six were fixed):
 
@@ -191,26 +376,27 @@ Catalogue data (from the spot check; the first six were fixed):
 - Not fixed: PE-02 (consumes and produces no result artefact), CH-03 and CH-11 (inconsistent consumes and produces), IS-06 (linkage requirement).
 - Frame family: FQ-01 to FQ-06 share one identical minimum-checks string, including a second technique at high stakes.
 - Input validation is listed for deterministic techniques but used by 22 non-deterministic rows. HE-06 (deterministic) uses repeat runs.
-- Only 14 of 236 rows use `not_for_rules`. HE1-06 and IS-05 use source dependence, a weight, as a hard exclusion, which conflicts with the rule that weights never remove a technique.
-- Access depth is written two ways for the same meaning (`any` and `requires=narrative only`). Pick `any`.
+- Only 14 of 236 rows use `not_for_rules`. HE1-06 and IS-05 use source dependence, a field that only changes the order, as an exclusion.
+- Access depth is written two ways for the same meaning (`any` and `requires=narrative only`). Use `any`.
 - About 30 relation targets in other families were chosen from titles or short descriptions.
-- No artefact type for diagrams, argument maps, personas, a labelled gold set, an event table or a provenance graph. No unit of analysis for actor, case, option, text span or event.
-- Review the 15 techniques at the intervention effect ceiling and the 12 at the mechanism or counterfactual ceiling.
-- Some frameworks could not be confirmed (the PHIA technique list, Heuer and Pherson names). Most opened sources were abstracts or secondary pages. No framework specifies checks per stakes tier, so that field is entirely inference.
+- No working document type for diagrams, argument maps, personas, a labelled gold set, an event table or a provenance graph. No unit of analysis for actor, case, option, text span or event.
+- Review the 15 techniques whose strongest statement is the effect of an action and the 12 whose strongest statement is how or why.
+- Some frameworks could not be confirmed (the PHIA technique list, Heuer and Pherson names). Most opened sources were abstracts or secondary pages. No framework specifies checks per stakes level, so that field is entirely inference.
 
 ## 11. Files
 
 | File | Role |
 |---|---|
 | `master/Analysis methods design.md` | This document. |
-| `schema/schema.json` | Field vocabularies, gate classes, artefact types, check library, tiers, matching, sequencing, synthesis, intake, application. Version 1.1.0. Previous version: `schema/schema.before_consolidation.json`. |
-| `master/master_tagged.csv` | The catalogue: 236 rows, 52 columns, with output specifications. |
+| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.0. |
+| `master/master_tagged.csv` | The catalogue: 236 rows, 52 columns, with result formats. |
 | `master/master_base.csv`, `master/tags/tags_A.json` to `tags_F.json` | Sources of the CSV text and tags. |
-| `master/specs/out_1.json` to `out_6.json` | Output specifications. |
-| `scripts/intake.py`, `select.py`, `sequence.py`, `validate_tags.py` | Process scripts and the tag validator. |
-| `master/test_jobs/`, `intake_test/`, `master/card_test/` | Test jobs, intake inputs and the output specification test. |
+| `master/specs/out_1.json` to `out_6.json` | Result formats. |
+| `scripts/intake.py`, `select.py`, `sequence.py`, `validate_tags.py` | Process scripts for steps 1, 2 and 4, and the tag validator. |
+| `master/test_jobs/`, `intake_test/`, `master/card_test/` | Test briefs, intake inputs and the result format test. |
 | `master/spot_check.md` | The independent check of 30 rows. |
+| `run1/` | The complete run of 11 November 2026: inputs, plan, results and combined findings. |
 
 ## 12. Change rule
 
-A change to a field, a gate, a stage or a method is made in `schema.json` and in this document together. A change to a technique's text or tags is made in the source files and the CSV is rebuilt. After any change, run the validator (`python3 -I scripts/validate_tags.py master/tags/tags_*.json`), then run `select.py` and `sequence.py` on the test jobs and compare the counts with the last recorded run.
+A change to a field, a requirement, a step or a method is made in `schema.json` and in this document together. A change to a technique's text or tags is made in the source files and the CSV is rebuilt. After any change, run the validator (`python3 -I scripts/validate_tags.py master/tags/tags_*.json`), then run `select.py` and `sequence.py` on the test briefs and compare the counts with the last recorded run.

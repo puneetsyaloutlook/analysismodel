@@ -316,7 +316,7 @@
   ]
  },
  "synthesis": {
-  "method": "Convergence matrix, then narrative synthesis. Quantitative pooling was not offered because no finding estimates a quantity.",
+  "method": "Agreement table, then narrative summary. Pooling of estimates was not offered because no finding estimates a quantity.",
   "techniques": [
    "FQ-03",
    "DM-02",
@@ -331,8 +331,8 @@
   "legend": {
    "A": "agrees",
    "P": "partly agrees",
-   "D": "dissonant (points the other way or changes with a definition)",
-   "S": "silent"
+   "D": "conflict (points the other way or changes with a definition)",
+   "S": "not covered"
   },
   "conclusions": [
    {

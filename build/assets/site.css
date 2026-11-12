@@ -197,3 +197,7 @@ dialog.modal::backdrop{background:rgba(15,30,30,.55)}
 .modal-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.8rem 1.1rem;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg)}
 .modal-head h2{margin:0;font-size:1.05rem;border:0;padding:0}
 .modal-body{padding:1rem 1.1rem 1.3rem;overflow:auto}
+.substep{margin-top:1.2rem;padding-top:.8rem;border-top:1px solid var(--line)}
+.confirm{border:2px solid var(--teal-600);border-radius:10px;padding:.9rem 1.1rem;margin:1rem 0;background:var(--teal-50)}
+.confirm h3{margin:0 0 .4rem}
+.confirm .req{font-weight:600;margin:.5rem 0 .8rem}
