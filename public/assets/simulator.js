@@ -145,7 +145,7 @@
     var hd = document.createElement('h3'); hd.className = 'stephead'; hd.textContent = '1. Intake'; sec.appendChild(hd);
     var f = document.createElement('form'); f.className = 'intake-form';
     f.innerHTML =
-      '<label class="fl" for="in-request">What do you want to analyse?</label><textarea id="in-request" rows="2" readonly>' + esc(j.request) + '</textarea>' +
+      '<label class="fl" for="in-request">What question should the analysis answer?</label><textarea id="in-request" rows="2" readonly>' + esc(j.request) + '</textarea>' +
       '<span class="fl">What material should the analysis use?</span><div class="doc"><span class="doc-name">Voice AI interview study</span><span class="small">1 document, ' + j.source.words + ' words</span> <a href="/simulator/material/">Open the submitted content</a></div>' +
       '<fieldset><legend>What will the result be used for?</legend><p class="small">Higher stakes add more checks before a conclusion is labelled.</p>' + radios(STAKES, j.stakes, 'stakes') + '</fieldset>' +
       '<fieldset><legend>What is the strongest statement you need to make?</legend><p class="small">Choose the strongest one the answer must support. Stronger statements need more checks, and fewer techniques can reach them.</p>' + radios(CLAIMS, j.claim, 'claim') + '</fieldset>' +
