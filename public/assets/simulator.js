@@ -3,7 +3,7 @@
   var $ = function (id) { return document.getElementById(id); };
   var out = $('sim-out'), title = $('sim-title'), bar = $('sim-bar');
   var steps = Array.prototype.slice.call(document.querySelectorAll('.sim-steps li'));
-  var NAMES = ['Intake', 'Gates', 'Pick', 'Sequence', 'Apply', 'Check', 'Synthesise', 'Answer basis and review'];
+  var NAMES = ['Intake', 'Rule out', 'Pick', 'Sequence', 'Apply', 'Check', 'Synthesise', 'Answer basis and review'];
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var job, done, current, running, token, cache, submitted = false;
 
@@ -38,7 +38,7 @@
 
   // Each step builds an array of "blocks": {html, pause}. Blocks appear one at a time inside a wrapper.
   var NOTES = {
-    real: '<strong>This is an actual run.</strong> The scripts ran intake, the gates and sequencing on the material. Claude picked the techniques, and each technique ran as a separate agent on the brief and the material (stage 3 techniques ran on the findings). The quotation check and the matrix recount ran as code. <strong>Limits.</strong> The request wording, stakes, strongest claim needed, insight wanted and privacy answer were set by Claude from the recommended defaults and were not given by the user. The human review sample was not done because it needs a person. Submit replays the stored output of the run with a loading delay. Nothing is computed in your browser.',
+    real: '<strong>This is an actual run.</strong> The scripts ran intake, the tests that rule out techniques, and sequencing on the material. Claude picked the techniques, and each technique ran as a separate agent on the brief and the material (stage 3 techniques ran on the findings). The quotation check and the matrix recount ran as code. <strong>Limits.</strong> The request wording, stakes, strongest claim needed, insight wanted and privacy answer were set by Claude from the recommended defaults and were not given by the user. The human review sample was not done because it needs a person. Submit replays the stored output of the run with a loading delay. Nothing is computed in your browser.',
     rec: '<strong>What is real here.</strong> Gate counts, stages, checks and the answer basis are the output of the process scripts on this recorded test job. The picks and their reasons are the model\'s picks from the recorded test run. <strong>What is not.</strong> No technique has run on the test material, so the simulator shows the form of each result and not findings, and it produces no confidence labels.'
   };
 
@@ -55,13 +55,13 @@
       b.push({ html: '<h3>Material profile</h3><p class="small">In this recorded job the profile was written by hand. In a live run <code>intake.py</code> builds it from the user\'s input and asks up to four questions about gaps.</p>' });
       keys.forEach(function (k) { b.push({ html: '<div class="row2"><span>' + esc(sentence(k)) + '</span><span>' + esc(list(j.profile[k])) + '</span></div>', fast: true }); });
     } else if (i === 1) {
-      b.push({ html: '<p>The gates remove techniques that cannot run on this material. Security classification and licence are not used.</p>' });
+      b.push({ html: '<p>Each test rules out techniques that cannot run on this material. Security classification and licence are not used.</p>' });
       var left = j.total;
       Object.keys(j.removed).forEach(function (g) {
         left -= j.removed[g];
         b.push({ html: '<div class="gate"><span class="g">' + esc(sentence(g)) + '</span><span class="meter"><i style="width:' + Math.round(j.removed[g] / j.total * 100) + '%"></i></span><span class="r">removes ' + j.removed[g] + '</span><span class="l">' + left + ' left</span></div>', tally: ['t-pass', left] });
       });
-      b.push({ html: '<p class="result"><strong>' + j.passed + ' of ' + j.total + '</strong> techniques passed all gates. <strong>' + j.reach_claim + '</strong> of them reach the claim level needed (' + esc(j.claim) + '). The claim level only raises a warning when none does. It never removes a technique.</p>', tally: ['t-pass', j.passed] });
+      b.push({ html: '<p class="result"><strong>' + j.passed + ' of ' + j.total + '</strong> techniques remain after every test. <strong>' + j.reach_claim + '</strong> of them reach the claim level needed (' + esc(j.claim) + '). The claim level only raises a warning when none does. It never removes a technique.</p>', tally: ['t-pass', j.passed] });
     } else if (i === 2) {
       b.push({ html: '<p>The model reads a one-line index of the ' + j.passed + ' techniques that passed and picks at most 10, in priority order. These picks are from the recorded test run, not made live.</p>' });
       j.picks.slice(0, 10).forEach(function (p, n) {
@@ -263,12 +263,12 @@
 
   function builders_gates(j) {
     var b = [], left = j.total;
-    b.push({ html: '<p>The gates remove techniques that cannot run on this material. Security classification and licence are not used.</p>' });
+    b.push({ html: '<p>Each test rules out techniques that cannot run on this material. Security classification and licence are not used.</p>' });
     Object.keys(j.removed).forEach(function (g) {
       left -= j.removed[g];
       b.push({ html: '<div class="gate"><span class="g">' + esc(sentence(g)) + '</span><span class="meter"><i style="width:' + Math.round(j.removed[g] / j.total * 100) + '%"></i></span><span class="r">removes ' + j.removed[g] + '</span><span class="l">' + left + ' left</span></div>', tally: ['t-pass', left] });
     });
-    b.push({ html: '<p class="result"><strong>' + j.passed + ' of ' + j.total + '</strong> techniques passed all gates. <strong>' + j.reach_claim + '</strong> of them reach the claim level needed (' + esc(j.claim) + '). The claim level only raises a warning when none does.</p>', tally: ['t-pass', j.passed] });
+    b.push({ html: '<p class="result"><strong>' + j.passed + ' of ' + j.total + '</strong> techniques remain after every test. <strong>' + j.reach_claim + '</strong> of them reach the claim level needed (' + esc(j.claim) + '). The claim level only raises a warning when none does.</p>', tally: ['t-pass', j.passed] });
     return b;
   }
   function builders_pick(j) {
