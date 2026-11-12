@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The process | Analysis model</title>
-<meta name="description" content="Seven stages from the user&#x27;s input to the answer, and the three rules that apply throughout.">
+<meta name="description" content="Eight steps from the user&#x27;s request to the answer, the terms used, the five kinds of technique and the rules that apply throughout.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap">
@@ -22,73 +22,190 @@
   </div>
 </header>
 <div class="shell">
-  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/">Overview</a></li><li><a href="/simulator/">Simulator</a></li></ul><details open><summary>Process</summary><ul><li><a href="/process/" aria-current="page">The process</a></li><li><a href="/process/intake/">Intake</a></li><li><a href="/process/selection/">Selection</a></li><li><a href="/process/sequencing/">Sequencing</a></li><li><a href="/process/technique-application/">Technique application</a></li><li><a href="/process/synthesis-and-review/">Synthesis and review</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details><summary>Reference</summary><ul><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Artefact types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Phases, tiers and relations</a></li></ul></details><details><summary>Project record</summary><ul><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/open-items/">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></details></nav></aside>
+  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/">Overview</a></li><li><a href="/simulator/">Simulator</a></li></ul><details open><summary>Process</summary><ul><li><a href="/process/" aria-current="page">The process</a></li><li><a href="/process/intake/">1. Intake</a></li><li><a href="/process/choosing-techniques/">2 and 3. Rule out and choose</a></li><li><a href="/process/planning-the-order/">4. Plan the order</a></li><li><a href="/process/running-the-techniques/">5. Run the techniques</a></li><li><a href="/process/checks-and-answer/">6 to 8. Check, combine and answer</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details><summary>Reference</summary><ul><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Working document types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Steps, kinds, stakes and relations</a></li></ul></details><details><summary>Project record</summary><ul><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/open-items/">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></details></nav></aside>
   <main id="main" class="content">
     <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Overview</a></li><li aria-current="page">The process</li></ol></nav>
     <h1>The process</h1>
-    <div class="prose"><div class="table-wrap"><table>
+    <div class="prose"><p>The process has eight steps. The numbers are used the same way in this document, the schema and the simulator.</p>
+<div class="table-wrap"><table>
 <thead>
 <tr>
-<th>Stage</th>
+<th>Step</th>
 <th>What happens</th>
-<th>Who decides</th>
-<th>Implemented in</th>
+<th>Who does it</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Intake</td>
-<td>The user's input becomes a brief and a material profile. Gaps become questions.</td>
-<td>Code and model fill in what they can see. The user answers the rest.</td>
-<td><code>scripts/intake.py</code></td>
+<td>1. Intake</td>
+<td>The user's input becomes a brief. Gaps become questions to the user.</td>
+<td>Code and the model fill in what they can read. The user answers the rest.</td>
 </tr>
 <tr>
-<td>Selection</td>
-<td>Gates remove techniques that cannot run on the material. The model picks from those that remain.</td>
-<td>Script for gates, model for the pick.</td>
-<td><code>scripts/select.py</code>, model</td>
+<td>2. Rule out techniques</td>
+<td>Each technique is tested against the brief. Techniques that cannot run on the material are removed. The rest are eligible.</td>
+<td>Code</td>
 </tr>
 <tr>
-<td>Sequencing</td>
-<td>The picks are ordered into stages, preparation steps are added, and checks are attached.</td>
-<td>Script.</td>
-<td><code>scripts/sequence.py</code></td>
+<td>3. Choose techniques</td>
+<td>The model reads a list of the eligible techniques and chooses at most 10.</td>
+<td>The model. The user can change the list.</td>
 </tr>
 <tr>
-<td>Technique application</td>
-<td>Each technique runs on the brief, independently of the others.</td>
-<td>Model, using the technique record and its output specification.</td>
-<td>Model</td>
+<td>4. Plan the order</td>
+<td>The chosen techniques are placed in run order. Preparation techniques and checks are added.</td>
+<td>Code</td>
 </tr>
 <tr>
-<td>Checking</td>
-<td>Each result gets the checks for the stakes tier and claim level.</td>
-<td>Model, with code where the check is arithmetic or string matching.</td>
-<td>Model, code</td>
+<td>5. Run the techniques</td>
+<td>5.1 Examine the question. 5.2 Prepare the material. 5.3 Analyse the material.</td>
+<td>The model, with code for arithmetic and text matching. The user confirms the request after 5.1.</td>
 </tr>
 <tr>
-<td>Synthesis</td>
-<td>The findings are combined into an answer, with a confidence label and a one-line reason for each conclusion.</td>
-<td>The user chooses the method, with a recommended default.</td>
-<td>Model</td>
+<td>6. Check the findings</td>
+<td>Verification and challenge techniques run on the findings. The library checks are applied to each result.</td>
+<td>The model and code. Checks that need a person are listed as not done.</td>
 </tr>
 <tr>
-<td>Review</td>
-<td>Only if the user asks: the skill selects again for the gaps the synthesis found, runs the new techniques and synthesises again.</td>
-<td>The user.</td>
-<td>Model, <code>select.py</code></td>
+<td>7. Combine the findings</td>
+<td>The findings become conclusions. Each conclusion gets a confidence label and a one-line reason.</td>
+<td>The model. The user can choose the method.</td>
+</tr>
+<tr>
+<td>8. Answer</td>
+<td>The answer is given with a list of what it is based on. The user can ask for a follow-up round.</td>
+<td>The model. The user decides on a follow-up round.</td>
 </tr>
 </tbody>
 </table></div>
-<p>Three rules apply throughout.</p>
+<h3 id="terms">Terms</h3>
+<p>Each term below has one meaning in this document.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Request</td>
+<td>What the user asks, in their words. It can have several parts or be open-ended.</td>
+</tr>
+<tr>
+<td>Settings</td>
+<td>The three answers that shape the run: stakes, strength of statement needed, and kind of finding wanted.</td>
+</tr>
+<tr>
+<td>Material</td>
+<td>The content the user gives for analysis.</td>
+</tr>
+<tr>
+<td>Description of the material</td>
+<td>The properties of the material that requirements are tested against, such as content type and number of sources.</td>
+</tr>
+<tr>
+<td>Brief</td>
+<td>The request, the settings, the material and the description of the material.</td>
+</tr>
+<tr>
+<td>Requirement</td>
+<td>A condition a technique places on the brief. A technique that fails a requirement is removed.</td>
+</tr>
+<tr>
+<td>Eligible technique</td>
+<td>A technique that meets every requirement that applies.</td>
+</tr>
+<tr>
+<td>Chosen technique</td>
+<td>An eligible technique the model selected in step 3.</td>
+</tr>
+<tr>
+<td>Reserve list</td>
+<td>Techniques the model wanted beyond the limit. They are offered in a follow-up round.</td>
+</tr>
+<tr>
+<td>Removed, dropped</td>
+<td>Removed: failed a requirement in step 2. Dropped: chosen, then left out because outside material it needs was not found.</td>
+</tr>
+<tr>
+<td>Result</td>
+<td>Everything one technique produces.</td>
+</tr>
+<tr>
+<td>Finding</td>
+<td>One statement in a result.</td>
+</tr>
+<tr>
+<td>Conclusion</td>
+<td>One statement in the answer, drawn from the findings.</td>
+</tr>
+<tr>
+<td>Library check</td>
+<td>One of the 18 checks in the check library, such as a spot check or repeat runs. It is applied to one result.</td>
+</tr>
+<tr>
+<td>Follow-up round</td>
+<td>A second pass through steps 2 to 8, run only when the user asks for it after reading the answer.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="kinds-of-technique">Kinds of technique</h3>
+<p>Every technique belongs to one of five kinds. The kind decides what the technique works on and when it runs.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>Works on</th>
+<th>Produces</th>
+<th>Runs in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Question technique</td>
+<td>The request</td>
+<td>Findings about the request</td>
+<td>5.1</td>
+</tr>
+<tr>
+<td>Preparation technique</td>
+<td>The material</td>
+<td>Prepared material</td>
+<td>5.2</td>
+</tr>
+<tr>
+<td>Analysis technique</td>
+<td>The material, including prepared material</td>
+<td>Findings</td>
+<td>5.3</td>
+</tr>
+<tr>
+<td>Verification technique</td>
+<td>The findings of the analysis</td>
+<td>Findings about those findings</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Challenge technique</td>
+<td>The findings of the analysis</td>
+<td>Findings that question them</td>
+<td>6</td>
+</tr>
+</tbody>
+</table></div>
+<p>The kind comes from the technique's phase tag: frame gives a question technique, gather or verify and prepare gives a preparation technique, analyse gives an analysis technique, and validate gives a verification technique or, in the Challenge family, a challenge technique.</p>
+<h3 id="rules-that-apply-throughout">Rules that apply throughout</h3>
 <ol>
-<li>Each analytical technique runs on the brief. It does not analyse another technique's output. Preparation steps (their output is still the brief's material), checks (they apply to one result) and challenge techniques (they examine the findings, never the brief) are the only exceptions.</li>
-<li>Synthesis is a fixed final step, not a technique. The catalogue lists analytical techniques only.</li>
-<li>Stakes and claim level are set from the job. They are never stored per technique.</li>
+<li>An analysis technique works on the material. It never works on another analysis technique's result. Analysis techniques are independent of each other and can run in any order.</li>
+<li>Combining the findings (step 7) is a fixed step, not a technique. The catalogue lists techniques only.</li>
+<li>Stakes and strength of statement are set for the brief. They are never stored per technique.</li>
+<li>Only the user changes the request. The process can show the user what it found about the request and ask. It never rewrites the request itself.</li>
+<li>The process never starts a follow-up round on its own.</li>
 </ol></div>
-    <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/simulator/"><span>Previous</span>Simulator</a><a class="next" href="/process/intake/"><span>Next</span>Intake</a></nav>
+    <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/simulator/"><span>Previous</span>Simulator</a><a class="next" href="/process/intake/"><span>Next</span>1. Intake</a></nav>
   </main>
-  <aside class="rail"></aside>
+  <aside class="rail"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l3"><a href="#terms">Terms</a></li><li class="l3"><a href="#kinds-of-technique">Kinds of technique</a></li><li class="l3"><a href="#rules-that-apply-throughout">Rules that apply throughout</a></li></ul></nav></aside>
 </div>
 <script src="/assets/site.js" defer></script>
 

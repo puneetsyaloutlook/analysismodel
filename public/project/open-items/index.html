@@ -22,22 +22,29 @@
   </div>
 </header>
 <div class="shell">
-  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/">Overview</a></li><li><a href="/simulator/">Simulator</a></li></ul><details><summary>Process</summary><ul><li><a href="/process/">The process</a></li><li><a href="/process/intake/">Intake</a></li><li><a href="/process/selection/">Selection</a></li><li><a href="/process/sequencing/">Sequencing</a></li><li><a href="/process/technique-application/">Technique application</a></li><li><a href="/process/synthesis-and-review/">Synthesis and review</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details><summary>Reference</summary><ul><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Artefact types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Phases, tiers and relations</a></li></ul></details><details open><summary>Project record</summary><ul><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/open-items/" aria-current="page">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></details></nav></aside>
+  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/">Overview</a></li><li><a href="/simulator/">Simulator</a></li></ul><details><summary>Process</summary><ul><li><a href="/process/">The process</a></li><li><a href="/process/intake/">1. Intake</a></li><li><a href="/process/choosing-techniques/">2 and 3. Rule out and choose</a></li><li><a href="/process/planning-the-order/">4. Plan the order</a></li><li><a href="/process/running-the-techniques/">5. Run the techniques</a></li><li><a href="/process/checks-and-answer/">6 to 8. Check, combine and answer</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details><summary>Reference</summary><ul><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Working document types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Steps, kinds, stakes and relations</a></li></ul></details><details open><summary>Project record</summary><ul><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/open-items/" aria-current="page">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></details></nav></aside>
   <main id="main" class="content">
     <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Overview</a></li><li><a href="/project/decisions/">Project record</a></li><li aria-current="page">Open items</li></ol></nav>
     <h1>Open items</h1>
-    <div class="prose"><p>Design:</p>
+    <div class="prose"><p>Not yet changed to version 1.2:</p>
 <ul>
-<li><code>select.py</code> notes techniques that need external material, and <code>sequence.py</code> lists what to gather. Neither script finds the material. The skill does that at run time. The minimum-material field (<code>requires_minimum</code>) is still not applied by the script.</li>
+<li><code>select.py</code> does not apply the personal information waiver (decision 29).</li>
+<li><code>sequence.py</code> still labels the run order as stages 0 to 3 and has no pause after 5.1 (decisions 24 and 25).</li>
+<li>The instruction given to the model in step 3 does not yet state the four criteria (decisions 26 and 27).</li>
+<li>The stored run of 11 November followed version 1.1. Its two question techniques ran first and the user was not asked to confirm the request. Its answer does not state the strength of statement reached.</li>
+<li>The schema and the catalogue keep their original field names (<a href="/catalogue/">section 8</a>).</li>
+</ul>
+<p>Design:</p>
+<ul>
+<li><code>select.py</code> notes techniques that need outside material, and <code>sequence.py</code> lists what to gather. Neither script finds the material. The process does that at run time. The minimum amounts field (<code>requires_minimum</code>) is still not applied by the script.</li>
 <li>The deployment settings (highest permitted privacy class, code execution, human reviewer) are in the schema and not in <code>select.py</code>.</li>
-<li>Selection recall (22 of 32) was measured before the catalogue changes and has not been re-run. AO-09 and AO-15 were missed on job 5. Their use-when text was improved and not retested.</li>
-<li>Origin, producer interest and source dependence are not inferred from the publisher, so appraisal techniques see unknown.</li>
-<li>The confidence rule is untested.</li>
-<li>The review step is described in the sequencer output and not tested.</li>
-<li>Synthesis has never run on real results. Confidence labels are untested.</li>
-<li>Output specifications are tested on five of 236 techniques.</li>
-<li>The skill, the website and an end-to-end run on a real brief are not built.</li>
-<li>Intake does not read images, audio or video. Genre, language and privacy rules are untested on long documents, scanned PDFs and non-English text. Claim level and insight rules are keyword matches.</li>
+<li>Step 3 recall (22 of 32) was measured before the catalogue changes and the four criteria, and has not been re-run. AO-09 and AO-15 were missed on test job 5. Their use-when text was improved and not retested.</li>
+<li>Origin, the producer's interest and whether sources depend on each other are not inferred from the publisher, so appraisal techniques see unknown.</li>
+<li>The confidence rule, the request confirmation after 5.1 and the follow-up round are untested.</li>
+<li>Steps 6 to 8 have run once, on one small brief.</li>
+<li>Result formats are tested on five of 236 techniques.</li>
+<li>The skill is not built.</li>
+<li>Intake does not read images, audio or video. The rules for document type, language and personal information are untested on long documents, scanned PDFs and non-English text. The rules for strength of statement and kind of finding are keyword matches.</li>
 </ul>
 <p>Catalogue data (from the spot check; the first six were fixed):</p>
 <ul>
@@ -45,12 +52,12 @@
 <li>Not fixed: PE-02 (consumes and produces no result artefact), CH-03 and CH-11 (inconsistent consumes and produces), IS-06 (linkage requirement).</li>
 <li>Frame family: FQ-01 to FQ-06 share one identical minimum-checks string, including a second technique at high stakes.</li>
 <li>Input validation is listed for deterministic techniques but used by 22 non-deterministic rows. HE-06 (deterministic) uses repeat runs.</li>
-<li>Only 14 of 236 rows use <code>not_for_rules</code>. HE1-06 and IS-05 use source dependence, a weight, as a hard exclusion, which conflicts with the rule that weights never remove a technique.</li>
-<li>Access depth is written two ways for the same meaning (<code>any</code> and <code>requires=narrative only</code>). Pick <code>any</code>.</li>
+<li>Only 14 of 236 rows use <code>not_for_rules</code>. HE1-06 and IS-05 use source dependence, a field that only changes the order, as an exclusion.</li>
+<li>Access depth is written two ways for the same meaning (<code>any</code> and <code>requires=narrative only</code>). Use <code>any</code>.</li>
 <li>About 30 relation targets in other families were chosen from titles or short descriptions.</li>
-<li>No artefact type for diagrams, argument maps, personas, a labelled gold set, an event table or a provenance graph. No unit of analysis for actor, case, option, text span or event.</li>
-<li>Review the 15 techniques at the intervention effect ceiling and the 12 at the mechanism or counterfactual ceiling.</li>
-<li>Some frameworks could not be confirmed (the PHIA technique list, Heuer and Pherson names). Most opened sources were abstracts or secondary pages. No framework specifies checks per stakes tier, so that field is entirely inference.</li>
+<li>No working document type for diagrams, argument maps, personas, a labelled gold set, an event table or a provenance graph. No unit of analysis for actor, case, option, text span or event.</li>
+<li>Review the 15 techniques whose strongest statement is the effect of an action and the 12 whose strongest statement is how or why.</li>
+<li>Some frameworks could not be confirmed (the PHIA technique list, Heuer and Pherson names). Most opened sources were abstracts or secondary pages. No framework specifies checks per stakes level, so that field is entirely inference.</li>
 </ul></div>
     <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/project/decisions/"><span>Previous</span>Decisions</a><a class="next" href="/project/test-evidence/"><span>Next</span>Test evidence</a></nav>
   </main>

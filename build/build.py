@@ -101,10 +101,10 @@ SECTION_PAGE = {
     1: "/",
     2: "/process/",
     3: "/process/intake/",
-    4: "/process/selection/",
-    5: "/process/sequencing/",
-    6: "/process/technique-application/",
-    7: "/process/synthesis-and-review/",
+    4: "/process/choosing-techniques/",
+    5: "/process/planning-the-order/",
+    6: "/process/running-the-techniques/",
+    7: "/process/checks-and-answer/",
     8: "/catalogue/",
     9: "/project/decisions/",
     10: "/project/open-items/",
@@ -140,16 +140,18 @@ def make_simulator():
     _mat = re.sub(r"^# .*\n", "", (DATA / "run1" / "source_material.md").read_text(encoding="utf-8"), count=1)
     run["material_html"] = md_block(demote(_mat))
     run["results_html"] = {k: md_block(demote(v)) for k, v in run.pop("results").items()}
+    for pk in run["picks"]:
+        pk["ceiling"] = BY_ID[pk["id"]]["claim_ceiling"].strip()
     data.insert(0, run)
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     opts = "".join(f'<option value="{esc(d["id"])}">{esc(d["name"])}</option>' for d in data)
-    steps = ["Intake", "Rule out", "Pick", "Sequence", "Apply", "Check", "Synthesise", "Answer basis and review"]
+    steps = [st["name"] for st in schema["steps"]]
     rail = "".join(f'<li data-step="{i}"><button type="button" class="step-btn"><span class="dot" aria-hidden="true"></span><span class="lbl">{i + 1}. {esc(t)}</span><span class="st sr"></span></button></li>' for i, t in enumerate(steps))
     body = f"""
-<p class="lede">This is an actual run on eight interview quotes. Submit the intake form to start it. Every technique in the plan ran, and the findings are in the cards.</p>
+<p class="lede">This is an actual run on ten interview quotes from eight participants. Submit the intake form to start it. Every technique in the plan ran, and the findings are in the cards.</p>
 <div class="sim-note" id="sim-note"></div>
 <div class="sim-controls">
-  <label for="sim-job">Run</label>
+  <label for="sim-job">Brief</label>
   <select id="sim-job">{opts}</select>
   <button type="button" id="sim-run" class="btn">Run to end</button>
   <button type="button" id="sim-step" class="btn">Next step</button>
@@ -159,8 +161,8 @@ def make_simulator():
 </div>
 <div class="tally" aria-label="Running totals">
   <div><span class="n" id="t-cat">{len(rows)}</span><span class="k">techniques in the catalogue</span></div>
-  <div><span class="n" id="t-pass">-</span><span class="k">still possible</span></div>
-  <div><span class="n" id="t-pick">-</span><span class="k">picked (limit 10)</span></div>
+  <div><span class="n" id="t-pass">-</span><span class="k">eligible</span></div>
+  <div><span class="n" id="t-pick">-</span><span class="k">chosen (limit 10)</span></div>
   <div><span class="n" id="t-run">-</span><span class="k">techniques in the plan</span></div>
   <div><span class="n" id="t-person">-</span><span class="k">checks that need a person</span></div>
 </div>
@@ -168,7 +170,7 @@ def make_simulator():
   <ol class="sim-steps" aria-label="Process steps">{rail}</ol>
   <section class="sim-stage" aria-live="polite" aria-labelledby="sim-title">
     <header><h2 id="sim-title">Ready</h2><div class="bar" aria-hidden="true"><i id="sim-bar"></i></div></header>
-    <div id="sim-out"><p class="small">Choose a test job and select Run, or step through with Next step.</p></div>
+    <div id="sim-out"></div>
   </section>
 </div>
 <script type="application/json" id="sim-data">{blob}</script>
@@ -179,7 +181,7 @@ def make_simulator():
              "<p>This is the content submitted for the run in the simulator. <a href=\"/simulator/\">Back to the simulator</a>.</p>" + md_block(demote(mat)),
              "The content submitted for the simulator run.", toc=False, wide=True)
     add_page("/simulator/", "Simulator", "Overview", body,
-             "Run the analysis process on one screen, step by step, using the five recorded test jobs.", toc=False, wide=True,
+             "The eight steps of the process on one screen, replayed from an actual run.", toc=False, wide=True,
              scripts=("/assets/simulator.js",))
 
 
@@ -187,22 +189,22 @@ def make_simulator():
 def make_process_pages():
     # Overview of the process: section 2
     add_page("/process/", "The process", "Process", section_html(2),
-             "Seven stages from the user's input to the answer, and the three rules that apply throughout.")
-    add_page("/process/intake/", "Intake", "Process", section_html(3),
-             "How four kinds of input become a brief and a material profile, and which questions the user is asked.")
-    add_page("/process/selection/", "Selection", "Process", section_html(4),
-             "Gates remove techniques that cannot run on the material. The model picks from what remains.")
-    add_page("/process/sequencing/", "Sequencing", "Process", section_html(5),
-             "How picks are ordered into stages and how checks are attached.")
-    add_page("/process/technique-application/", "Technique application", "Process", section_html(6),
-             "How each technique runs on the brief, and the output specification test.")
-    add_page("/process/synthesis-and-review/", "Synthesis and review", "Process", section_html(7),
-             "How findings are combined, how confidence is labelled, and when the user can ask for another round.")
+             "Eight steps from the user's request to the answer, the terms used, the five kinds of technique and the rules that apply throughout.")
+    add_page("/process/intake/", "Step 1: Intake", "Process", section_html(3),
+             "How four kinds of input become a brief, and which questions the user is asked.")
+    add_page("/process/choosing-techniques/", "Steps 2 and 3: Rule out and choose techniques", "Process", section_html(4),
+             "Code removes techniques that cannot run on the material. The model chooses from the eligible ones.")
+    add_page("/process/planning-the-order/", "Step 4: Plan the order", "Process", section_html(5),
+             "How the chosen techniques are placed in run order and how checks are added.")
+    add_page("/process/running-the-techniques/", "Step 5: Run the techniques", "Process", section_html(6),
+             "Examine the question, prepare the material and analyse it, and how one technique is run.")
+    add_page("/process/checks-and-answer/", "Steps 6 to 8: Check, combine and answer", "Process", section_html(7),
+             "How findings are checked and combined, how confidence is labelled, and what the answer states.")
 
 
 def make_project_pages():
     add_page("/project/decisions/", "Decisions", "Project record", section_html(9),
-             "Conflicts found while consolidating the design, and decisions made with the user.")
+             "A dated history of the decisions behind the design. The current rules are on the process pages.")
     add_page("/project/open-items/", "Open items", "Project record", section_html(10),
              "What is untested, unbuilt or known to be wrong in the catalogue data.")
     files = section_html(11) + "<h2>Change rule</h2>" + section_html(12)
@@ -227,12 +229,12 @@ def demote(text):
 def make_home():
     counts = {f: len(v) for f, v in FAMILIES.items()}
     body = f"""
-<p class="lede">The analysis model takes a request and some material, picks the analytical techniques that can run on that material, runs them in order with checks, and combines the results into one answer with a confidence label for each conclusion.</p>
+<p class="lede">The analysis model takes a request and some material, chooses the analytical techniques that can run on that material, runs them in order, checks their findings and combines them into one answer with a confidence label for each conclusion.</p>
 <p>The catalogue holds {len(rows)} techniques in {len(FAMILIES)} families. This site documents the process and the catalogue. It is generated from the design document, the schema and the catalogue file in the repository, so it changes only when those change.</p>
 <div class="cards">
-  <a class="card" href="/process/"><p class="card-title">Process</p><p>Intake, selection, sequencing, technique application and synthesis.</p></a>
+  <a class="card" href="/process/"><p class="card-title">Process</p><p>Eight steps, from intake to the answer.</p></a>
   <a class="card" href="/catalogue/"><p class="card-title">Catalogue</p><p>{len(rows)} techniques in {len(FAMILIES)} families, with a page for each.</p></a>
-  <a class="card" href="/reference/fields/"><p class="card-title">Reference</p><p>The 52 fields, 21 artefact types, 18 checks, phases and stakes tiers.</p></a>
+  <a class="card" href="/reference/fields/"><p class="card-title">Reference</p><p>The 52 fields, 21 working document types, 18 checks, kinds of technique and stakes levels.</p></a>
   <a class="card" href="/project/decisions/"><p class="card-title">Project record</p><p>Decisions, open items and test evidence.</p></a>
 </div>
 <h2>Purpose and status</h2>
@@ -260,7 +262,7 @@ def make_catalogue_index():
 <table class="tech-table" id="tech-table"><thead><tr><th>ID</th><th>Technique</th><th>Family</th><th>Purpose</th></tr></thead><tbody>
 {''.join(f'<tr data-family="{esc(r["family"])}"><td><a href="{tech_url(r)}">{esc(r["id"])}</a></td><td><a href="{tech_url(r)}">{esc(clean_name(r["technique"]))}</a></td><td>{esc(r["family"])}</td><td>{esc(r["purpose"])}</td></tr>' for r in rows)}
 </tbody></table>
-<h2>Families, artefacts and stakes tiers</h2>
+<h2>Families, field names and working documents</h2>
 {intro}
 """
     add_page("/catalogue/", "Catalogue", "Catalogue", body, f"All {len(rows)} techniques, searchable.")
@@ -319,6 +321,26 @@ def parse_related(s):
     return out
 
 
+CLAIM_PLAIN = {"describe": "describe", "associate": "show a link between things", "predict without implying cause": "predict, without claiming a cause",
+               "estimate an intervention effect": "estimate the effect of an action", "explain mechanism or counterfactual": "explain how or why"}
+GATE_LABEL = {g["value"]: g.get("label", g["value"]) for g in schema["gate_classes"]}
+
+
+def flabel(f):
+    return f.get("plain_label") or f["label"]
+
+
+def kind_of(r):
+    ph = r["primary_phase"].strip()
+    if ph == "frame":
+        return "Question technique", "5.1"
+    if ph in ("gather", "verify and prepare"):
+        return "Preparation technique", "5.2"
+    if ph == "validate":
+        return ("Challenge technique" if r["family"] == "Challenge" else "Verification technique"), "6"
+    return "Analysis technique", "5.3"
+
+
 def make_technique_page(r):
     tid = r["id"]
     name = clean_name(r["technique"])
@@ -326,11 +348,11 @@ def make_technique_page(r):
     # overview
     ov = f"""
 <p class="lede">{esc(r['purpose'])}</p>
-<div class="meta-row">{pill(fam)}{pill('Evidence: ' + r['evidence_status'])}{pill('Phase: ' + r['primary_phase'])}{pill('Claim ceiling: ' + r['claim_ceiling'])}</div>
+<div class="meta-row">{pill(fam)}{pill('Evidence: ' + r['evidence_status'])}{pill(kind_of(r)[0] + ', runs in step ' + kind_of(r)[1])}{pill('Strongest statement: ' + CLAIM_PLAIN.get(r['claim_ceiling'].strip(), r['claim_ceiling']))}</div>
 <h2 id="what-it-does">What it does</h2><p>{esc(r['what_it_does'])}</p>
 <h2 id="use-when">When to use it</h2><p>{esc(r['use_when'])}</p>
 <h2 id="fit-test">When it does not fit</h2><p>{esc(r['fit_test'])}</p>
-<h2 id="output-specification">Output specification</h2><p>{esc(r['output_spec'])}</p>
+<h2 id="result-format">Result format</h2><p>{esc(r['output_spec'])}</p>
 """
     # requirements: facets that are not 'any'
     req_rows, free = [], []
@@ -340,15 +362,15 @@ def make_technique_page(r):
         col = f.get("csv_column", key)
         v = r.get(col, "any")
         if v.strip() == "any":
-            free.append(f["label"])
+            free.append(flabel(f))
             continue
         req_rows.append(
-            f'<tr><th scope="row"><a href="/reference/fields/#{key}">{esc(f["label"])}</a></th><td>{pill(f["gate_class"], "g-" + slug(f["gate_class"]))}</td><td><code>{esc(v)}</code></td></tr>')
+            f'<tr><th scope="row"><a href="/reference/fields/#{key}">{esc(flabel(f))}</a></th><td>{pill(GATE_LABEL[f["gate_class"]], "g-" + slug(f["gate_class"]))}</td><td><code>{esc(v)}</code></td></tr>')
     req = "<h2 id=\"requirements\">Requirements on the material</h2>"
     if req_rows:
-        req += '<table><thead><tr><th>Facet</th><th>Gate class</th><th>Requirement</th></tr></thead><tbody>' + "".join(req_rows) + "</tbody></table>"
+        req += '<table><thead><tr><th>Property</th><th>Requirement type</th><th>Requirement</th></tr></thead><tbody>' + "".join(req_rows) + "</tbody></table>"
     else:
-        req += "<p>No requirement on any facet of the material.</p>"
+        req += "<p>No requirement on any property of the material.</p>"
     if free:
         req += f'<p class="small">Not restricted on: {esc(", ".join(free))}.</p>'
     req += kv_table([
@@ -358,15 +380,16 @@ def make_technique_page(r):
         ("Not for (text)", esc(r["not_for_text"])),
     ])
     # selection and sequencing
-    seq = "<h2 id=\"selection-and-sequencing\">Selection and sequencing</h2>" + kv_table([
-        ("Primary phase", esc(r["primary_phase"])),
-        ("Other phases", esc(r["other_phases"])),
-        ("Insight type", esc(r["insight_type"])),
+    seq = "<h2 id=\"choosing-and-ordering\">Choosing and ordering</h2>" + kv_table([
+        ("Kind of technique", esc(kind_of(r)[0] + ", runs in step " + kind_of(r)[1])),
+        ("Phase tag", esc(r["primary_phase"])),
+        ("Other phase tags", esc(r["other_phases"])),
+        ("Kind of finding", esc(r["insight_type"])),
         ("Question answered", esc(r["question_answered"])),
-        ("Claim ceiling (advisory)", esc(r["claim_ceiling"])),
-        ("Consumes", artefact_list(r["consumes"])),
-        ("Produces", artefact_list(r["produces"])),
-        ("Requires", artefact_list(r["requires"])),
+        ("Strongest statement it supports", esc(CLAIM_PLAIN.get(r["claim_ceiling"].strip(), r["claim_ceiling"]))),
+        ("Needs as input", artefact_list(r["consumes"])),
+        ("Makes as output", artefact_list(r["produces"])),
+        ("Must exist first", artefact_list(r["requires"])),
         ("Loop target", esc(r["loop_target"])),
     ])
     # checks
@@ -381,8 +404,8 @@ def make_technique_page(r):
             hi = c["human_involvement"]["level"] if c else "unknown"
             corr = c["counts_as_corroboration"] if c else "unknown"
             chk_rows.append(f'<tr><td>{esc(tier)}</td><td><a href="/reference/checks/#{slug(code)}">{esc(code)}</a></td><td>{esc(hi)}</td><td>{esc(corr)}</td></tr>')
-    chk = "<h2 id=\"checks\">Checks by stakes tier</h2><p>Each tier includes the checks of the tier below it. Repeatability: " + esc(r["repeatability"]) + ".</p>"
-    chk += '<table><thead><tr><th>Stakes tier</th><th>Check</th><th>Person involved</th><th>Counts as corroboration</th></tr></thead><tbody>' + "".join(chk_rows) + "</tbody></table>"
+    chk = "<h2 id=\"checks\">Library checks by stakes</h2><p>Each stakes level includes the checks of the level below it. Repeatability: " + esc(r["repeatability"]) + ".</p>"
+    chk += '<table><thead><tr><th>Stakes</th><th>Check</th><th>Person involved</th><th>Counts as a different method</th></tr></thead><tbody>' + "".join(chk_rows) + "</tbody></table>"
     # failure modes
     fail = "<h2 id=\"failure-modes-and-limits\">Failure modes and limits</h2>" + kv_table([
         ("Model suitability", esc(r["model_suitability"])),
@@ -413,9 +436,9 @@ def make_reference():
         fs = [f for f in schema["fields"] if f["group"] == g]
         if fs:
             groups.append((g, fs))
-    body = [f"<p>{len(schema['fields'])} fields. Gate class says what a field does during selection.</p>"]
-    body.append("<h2 id=\"gate-classes\">Gate classes</h2><table><thead><tr><th>Class</th><th>Meaning</th></tr></thead><tbody>" +
-                "".join(f"<tr><td>{esc(c['value'])}</td><td>{esc(c['definition'])}</td></tr>" for c in schema["gate_classes"]) + "</tbody></table>")
+    body = [f"<p>{len(schema['fields'])} fields. The requirement type says what a field does when techniques are ruled out and chosen. Field keys are the names used in the schema and the catalogue file.</p>"]
+    body.append("<h2 id=\"requirement-types\">Requirement types</h2><table><thead><tr><th>Type</th><th>Name in the schema</th><th>Meaning</th></tr></thead><tbody>" +
+                "".join(f"<tr><td>{esc(c.get('label', c['value']))}</td><td><code>{esc(c['value'])}</code></td><td>{esc(c['definition'])}</td></tr>" for c in schema["gate_classes"]) + "</tbody></table>")
     for g, fs in groups:
         body.append(f"<h2 id=\"{slug(g)}\">{esc(g[0].upper() + g[1:])} fields</h2>")
         for f in fs:
@@ -423,23 +446,24 @@ def make_reference():
             if f.get("values"):
                 vals = "<table class='vals'><thead><tr><th>Value</th><th>Meaning</th></tr></thead><tbody>" + "".join(
                     f"<tr><td><code>{esc(v['value'])}</code></td><td>{esc(v.get('definition', ''))}</td></tr>" for v in f["values"]) + "</tbody></table>"
-            body.append(f"""<section class="field" id="{f['key']}"><h3>{esc(f['label'])} {pill(f['gate_class'], 'g-' + slug(f['gate_class']))}</h3>
+            body.append(f"""<section class="field" id="{f['key']}"><h3>{esc(flabel(f))} {pill(GATE_LABEL[f['gate_class']], 'g-' + slug(f['gate_class']))}</h3>
+<p class="small">Schema name: <code>{esc(f['key'])}</code>{' (' + esc(f['label']) + ')' if f.get('plain_label') else ''}</p>
 <p>{esc(f['definition'])}</p>
 <p class="small"><strong>Tagging rule.</strong> {esc(f.get('tagging_rule', ''))}</p>
 {vals}</section>""")
-    add_page("/reference/fields/", "Fields", "Reference", "".join(body), "All 52 catalogue fields grouped by purpose, with gate class and values.")
+    add_page("/reference/fields/", "Fields", "Reference", "".join(body), "All 52 catalogue fields grouped by purpose, with requirement type and values.")
 
     # artefacts
-    ab = ["<p>Artefacts are what techniques consume and produce. Order between techniques follows from them.</p>"]
+    ab = ["<p>Working documents are what techniques need as input and make as output. The schema calls them artefacts. The order of preparation techniques follows from them.</p>"]
     kinds = {}
     for a in schema["artefact_types"]:
         kinds.setdefault(a["kind"], []).append(a)
     for k, items in kinds.items():
-        ab.append(f"<h2 id=\"{slug(k)}\">{esc(k[0].upper() + k[1:])} artefacts</h2>")
+        ab.append(f"<h2 id=\"{slug(k)}\">{esc(k[0].upper() + k[1:])}</h2>")
         for a in items:
             st = ", ".join(a["states"]) if a.get("states") else "none"
             ab.append(f'<section class="field" id="{slug(a["name"])}"><h3>{esc(a["name"][0].upper() + a["name"][1:])}</h3><p>{esc(a["definition"])}</p><p class="small">States: {esc(st)}.{" Single use." if a.get("single_use") else ""}</p></section>')
-    add_page("/reference/artefact-types/", "Artefact types", "Reference", "".join(ab), "The 21 artefact types and their states.")
+    add_page("/reference/artefact-types/", "Working document types", "Reference", "".join(ab), "The 21 types of working document and their states.")
 
     # checks
     cb = ["<p>" + esc(schema.get("check_library_note", "")) + "</p>",
@@ -450,13 +474,17 @@ def make_reference():
     add_page("/reference/checks/", "Check library", "Reference", "".join(cb), "The 18 checks, what each tests and whether a person is needed.")
 
     # phases and tiers
-    pb = ["<h2 id=\"phases\">Phases</h2><table><thead><tr><th>Phase</th><th>Definition</th></tr></thead><tbody>"]
+    KIND = {"frame": "Question technique, 5.1", "gather": "Preparation technique, 5.2", "verify and prepare": "Preparation technique, 5.2",
+            "analyse": "Analysis technique, 5.3", "validate": "Verification or challenge technique, step 6", "conclude": "Not a technique: step 7", "report": "Not a technique: step 8"}
+    pb = ["<h2 id=\"steps\">Process steps</h2><table><thead><tr><th>Step</th><th>What happens</th></tr></thead><tbody>" +
+          "".join(f"<tr><td>{esc(st['number'])}. {esc(st['name'])}</td><td>{esc(st['does'])}</td></tr>" for st in schema["steps"]) + "</tbody></table>",
+          "<h2 id=\"phases\">Kinds of technique</h2><p>Each technique has a phase tag. The tag gives its kind and the step it runs in.</p><table><thead><tr><th>Phase tag</th><th>Kind and step</th><th>Definition of the tag</th></tr></thead><tbody>"]
     for p in schema["phases"]:
-        pb.append(f"<tr><td>{esc(p['name'])}</td><td>{esc(p['definition'])}</td></tr>")
+        pb.append(f"<tr><td>{esc(p['name'])}</td><td>{esc(KIND.get(p['name'], ''))}</td><td>{esc(p['definition'])}</td></tr>")
     pb.append("</tbody></table>")
     if schema.get("phase_mapping_note"):
         pb.append(f"<p class=\"small\">{esc(schema['phase_mapping_note'])}</p>")
-    pb.append("<h2 id=\"stakes-tiers\">Stakes tiers</h2><table><thead><tr><th>Tier</th><th>Definition</th></tr></thead><tbody>")
+    pb.append("<h2 id=\"stakes-tiers\">Stakes</h2><table><thead><tr><th>Level</th><th>Definition</th></tr></thead><tbody>")
     for t in schema["tiers"]["definitions"]:
         pb.append(f"<tr><td>{esc(t['tier'])}</td><td>{esc(t['definition'])}</td></tr>")
     pb.append("</tbody></table>")
@@ -464,18 +492,18 @@ def make_reference():
     for rl in schema["relations"]:
         pb.append(f"<tr><td>{esc(rl['name'])}</td><td>{esc(rl['strength'])}</td><td>{esc(rl['definition'])}</td></tr>")
     pb.append("</tbody></table>")
-    add_page("/reference/phases-and-tiers/", "Phases, tiers and relations", "Reference", "".join(pb), "Process phases, stakes tiers and the relations between techniques.")
+    add_page("/reference/phases-and-tiers/", "Steps, kinds of technique, stakes and relations", "Reference", "".join(pb), "Process steps, kinds of technique, stakes levels and the relations between techniques.")
 
 
 # ------------------------------------------------------------------ nav
 NAV = [
     ("Overview", [("/", "Overview"), ("/simulator/", "Simulator")]),
-    ("Process", [("/process/", "The process"), ("/process/intake/", "Intake"), ("/process/selection/", "Selection"),
-                 ("/process/sequencing/", "Sequencing"), ("/process/technique-application/", "Technique application"),
-                 ("/process/synthesis-and-review/", "Synthesis and review")]),
+    ("Process", [("/process/", "The process"), ("/process/intake/", "1. Intake"), ("/process/choosing-techniques/", "2 and 3. Rule out and choose"),
+                 ("/process/planning-the-order/", "4. Plan the order"), ("/process/running-the-techniques/", "5. Run the techniques"),
+                 ("/process/checks-and-answer/", "6 to 8. Check, combine and answer")]),
     ("Catalogue", [("/catalogue/", "All techniques")] + [(f"/catalogue/{FAM_SLUG[f]}/", f"{f} ({len(FAMILIES[f])})") for f in FAMILY_ORDER]),
-    ("Reference", [("/reference/fields/", "Fields"), ("/reference/artefact-types/", "Artefact types"),
-                   ("/reference/checks/", "Check library"), ("/reference/phases-and-tiers/", "Phases, tiers and relations")]),
+    ("Reference", [("/reference/fields/", "Fields"), ("/reference/artefact-types/", "Working document types"),
+                   ("/reference/checks/", "Check library"), ("/reference/phases-and-tiers/", "Steps, kinds, stakes and relations")]),
     ("Project record", [("/project/decisions/", "Decisions"), ("/project/open-items/", "Open items"),
                         ("/project/test-evidence/", "Test evidence"), ("/project/files-and-change-rule/", "Files and change rule")]),
 ]

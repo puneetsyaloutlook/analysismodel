@@ -1,7 +1,7 @@
 {
- "method": "Convergence matrix, then narrative synthesis. Quantitative pooling was not offered because no finding estimates a quantity.",
+ "method": "Agreement table, then narrative summary. Pooling of estimates was not offered because no finding estimates a quantity.",
  "techniques": ["FQ-03","DM-02","HE1-02","CM1-05","CM1-14","HE1-14","TC1-13","TC1-16","TC1-17"],
- "legend": {"A":"agrees","P":"partly agrees","D":"dissonant (points the other way or changes with a definition)","S":"silent"},
+ "legend": {"A":"agrees","P":"partly agrees","D":"conflict (points the other way or changes with a definition)","S":"not covered"},
  "conclusions": [
   {"id":"C1","text":"H1 cannot be tested as worded. No quote compares the AI with traditional voice automation: Q1 compares it with website chatbots and Q2 with a robot voice.",
    "cells":{"FQ-03":"A","DM-02":"A","HE1-02":"A","CM1-05":"A","CM1-14":"A","HE1-14":"A","TC1-13":"A","TC1-16":"A","TC1-17":"A"},

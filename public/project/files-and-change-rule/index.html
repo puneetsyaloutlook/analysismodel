@@ -22,7 +22,7 @@
   </div>
 </header>
 <div class="shell">
-  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/">Overview</a></li><li><a href="/simulator/">Simulator</a></li></ul><details><summary>Process</summary><ul><li><a href="/process/">The process</a></li><li><a href="/process/intake/">Intake</a></li><li><a href="/process/selection/">Selection</a></li><li><a href="/process/sequencing/">Sequencing</a></li><li><a href="/process/technique-application/">Technique application</a></li><li><a href="/process/synthesis-and-review/">Synthesis and review</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details><summary>Reference</summary><ul><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Artefact types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Phases, tiers and relations</a></li></ul></details><details open><summary>Project record</summary><ul><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/open-items/">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/" aria-current="page">Files and change rule</a></li></ul></details></nav></aside>
+  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/">Overview</a></li><li><a href="/simulator/">Simulator</a></li></ul><details><summary>Process</summary><ul><li><a href="/process/">The process</a></li><li><a href="/process/intake/">1. Intake</a></li><li><a href="/process/choosing-techniques/">2 and 3. Rule out and choose</a></li><li><a href="/process/planning-the-order/">4. Plan the order</a></li><li><a href="/process/running-the-techniques/">5. Run the techniques</a></li><li><a href="/process/checks-and-answer/">6 to 8. Check, combine and answer</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details><summary>Reference</summary><ul><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Working document types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Steps, kinds, stakes and relations</a></li></ul></details><details open><summary>Project record</summary><ul><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/open-items/">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/" aria-current="page">Files and change rule</a></li></ul></details></nav></aside>
   <main id="main" class="content">
     <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Overview</a></li><li><a href="/project/decisions/">Project record</a></li><li aria-current="page">Files and change rule</li></ol></nav>
     <h1>Files and change rule</h1>
@@ -40,11 +40,11 @@
 </tr>
 <tr>
 <td><code>schema/schema.json</code></td>
-<td>Field vocabularies, gate classes, artefact types, check library, tiers, matching, sequencing, synthesis, intake, application. Version 1.1.0. Previous version: <code>schema/schema.before_consolidation.json</code>.</td>
+<td>Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.0.</td>
 </tr>
 <tr>
 <td><code>master/master_tagged.csv</code></td>
-<td>The catalogue: 236 rows, 52 columns, with output specifications.</td>
+<td>The catalogue: 236 rows, 52 columns, with result formats.</td>
 </tr>
 <tr>
 <td><code>master/master_base.csv</code>, <code>master/tags/tags_A.json</code> to <code>tags_F.json</code></td>
@@ -52,22 +52,26 @@
 </tr>
 <tr>
 <td><code>master/specs/out_1.json</code> to <code>out_6.json</code></td>
-<td>Output specifications.</td>
+<td>Result formats.</td>
 </tr>
 <tr>
 <td><code>scripts/intake.py</code>, <code>select.py</code>, <code>sequence.py</code>, <code>validate_tags.py</code></td>
-<td>Process scripts and the tag validator.</td>
+<td>Process scripts for steps 1, 2 and 4, and the tag validator.</td>
 </tr>
 <tr>
 <td><code>master/test_jobs/</code>, <code>intake_test/</code>, <code>master/card_test/</code></td>
-<td>Test jobs, intake inputs and the output specification test.</td>
+<td>Test briefs, intake inputs and the result format test.</td>
 </tr>
 <tr>
 <td><code>master/spot_check.md</code></td>
 <td>The independent check of 30 rows.</td>
 </tr>
+<tr>
+<td><code>run1/</code></td>
+<td>The complete run of 11 November 2026: inputs, plan, results and combined findings.</td>
+</tr>
 </tbody>
-</table></div><h2 id="change-rule">Change rule</h2><p>A change to a field, a gate, a stage or a method is made in <code>schema.json</code> and in this document together. A change to a technique's text or tags is made in the source files and the CSV is rebuilt. After any change, run the validator (<code>python3 -I scripts/validate_tags.py master/tags/tags_*.json</code>), then run <code>select.py</code> and <code>sequence.py</code> on the test jobs and compare the counts with the last recorded run.</p></div>
+</table></div><h2 id="change-rule">Change rule</h2><p>A change to a field, a requirement, a step or a method is made in <code>schema.json</code> and in this document together. A change to a technique's text or tags is made in the source files and the CSV is rebuilt. After any change, run the validator (<code>python3 -I scripts/validate_tags.py master/tags/tags_*.json</code>), then run <code>select.py</code> and <code>sequence.py</code> on the test briefs and compare the counts with the last recorded run.</p></div>
     <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/project/test-evidence/"><span>Previous</span>Test evidence</a><span></span></nav>
   </main>
   <aside class="rail"></aside>
