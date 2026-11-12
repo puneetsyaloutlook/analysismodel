@@ -143,7 +143,7 @@ def make_simulator():
     data.insert(0, run)
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     opts = "".join(f'<option value="{esc(d["id"])}">{esc(d["name"])}</option>' for d in data)
-    steps = ["Intake", "Gates", "Pick", "Sequence", "Apply", "Check", "Synthesise", "Answer basis and review"]
+    steps = ["Intake", "Rule out", "Pick", "Sequence", "Apply", "Check", "Synthesise", "Answer basis and review"]
     rail = "".join(f'<li data-step="{i}"><button type="button" class="step-btn"><span class="dot" aria-hidden="true"></span><span class="lbl">{i + 1}. {esc(t)}</span><span class="st sr"></span></button></li>' for i, t in enumerate(steps))
     body = f"""
 <p class="lede">This is an actual run on eight interview quotes. Submit the intake form to start it. Every technique in the plan ran, and the findings are in the cards.</p>
@@ -159,7 +159,7 @@ def make_simulator():
 </div>
 <div class="tally" aria-label="Running totals">
   <div><span class="n" id="t-cat">{len(rows)}</span><span class="k">techniques in the catalogue</span></div>
-  <div><span class="n" id="t-pass">-</span><span class="k">passed the gates</span></div>
+  <div><span class="n" id="t-pass">-</span><span class="k">still possible</span></div>
   <div><span class="n" id="t-pick">-</span><span class="k">picked (limit 10)</span></div>
   <div><span class="n" id="t-run">-</span><span class="k">techniques in the plan</span></div>
   <div><span class="n" id="t-person">-</span><span class="k">checks that need a person</span></div>
