@@ -15,7 +15,7 @@ Status:
 - Every part has been built and tested on small cases.
 - One complete run was done on 11 November 2026, on ten interview quotes, under version 1.1 of this design. Its output is shown in the simulator on the documentation site.
 - The documentation site is built from this document, the schema and the catalogue.
-- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.3 add decisions 31 to 33. The scripts and the stored run still follow version 1.1. Section 10 lists what has to change.
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.3 add decisions 31 to 34. The scripts and the stored run still follow version 1.1. Section 10 lists what has to change.
 - All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
@@ -27,7 +27,7 @@ The process has eight steps. The numbers are used the same way in this document,
 | 1. Intake | The user's input becomes a brief. Gaps become questions to the user. | Code and the model fill in what they can read. The user answers the rest. |
 | 2. Rule out techniques | Each technique is tested against the brief. Techniques that cannot run on the material are removed. The rest are eligible. | Code |
 | 3. Choose analysis techniques | The model reads a list of the eligible techniques and chooses at most 10, with a reason for each. | The model. The user can change the list where the application shows it. |
-| 4. Plan analysis sequence | The chosen techniques are placed in a sequence, with the reason for each position and a note of which techniques need outside material. Preparation techniques and checks are added. | Code |
+| 4. Plan analysis sequence | The chosen techniques are placed in a sequence, with a description of what each group does and a note of which techniques need outside material. Preparation techniques and checks are added. | Code |
 | 5. Run the techniques | 5.1 Examine the question. 5.2 Prepare the material, including any outside material, which the user approves. 5.3 Analyse the material. | The model, with code for arithmetic and text matching. The user confirms the request after 5.1 and approves any outside material in 5.2. |
 | 6. Check the findings | Verification and challenge techniques run on the findings. The library checks are applied to each result. | The model and code. Checks that need a person are listed as not done. |
 | 7. Combine the findings | The findings become conclusions. Each conclusion gets a confidence label and a one-line reason. | The model. The user can choose the method. |
@@ -48,7 +48,7 @@ Each term below has one meaning in this document.
 | Requirement | A condition a technique places on the brief. A technique that fails a requirement is removed. |
 | Eligible technique | A technique that meets every requirement that applies. |
 | Chosen technique | An eligible technique the model selected in step 3. |
-| Sequence | The order in which the chosen techniques run, with the reason for each position. |
+| Sequence | The order in which the chosen techniques run, in four groups. |
 | Reserve list | Techniques the model wanted beyond the limit. They are offered in a follow-up round. |
 | Removed, dropped | Removed: failed a requirement in step 2. Dropped: chosen, then left out because outside material it needs was not found or the user did not approve it. |
 | Result | Everything one technique produces. |
@@ -149,16 +149,16 @@ Limits. All kinds of technique count towards the 10. Preparation techniques adde
 
 ## 5. Step 4: Plan analysis sequence
 
-Code places the chosen techniques in one sequence. Each technique's kind decides its position, and the plan states the reason for each position.
+Code places the chosen techniques in one sequence. Each technique's kind decides its group and position, and the plan describes what each group does for the request.
 
-The plan is shown as a table with one row per technique, in running order and without numbers. The columns are the group (First, Next, Then, Last, each with a short name such as "Look at your question"), the technique, why that group runs in that position, and whether the technique needs outside material: none, or a comparator, a reference structure or an earlier period. The group and its reason are shown once and cover all the techniques in the group.
+The plan is shown as a table with one row per technique, in running order and without numbers. The columns are the group (First, Next, Then, Last, each with a short name such as "Look at your question"), the technique, what the group does, and whether the technique needs outside material: none, or a comparator, a reference structure or an earlier period. The group and its description are shown once and cover all the techniques in the group. The table does not say that a group runs before another because it has to. It says what the group does and, where the order matters to the user, what follows from it.
 
-| Position | What runs | Why it runs there |
+| Position | What runs | What it does for the request |
 |---|---|---|
-| First | Techniques that examine the question | What they find can change the request, and a changed request can change which techniques fit. |
-| Second | Techniques that prepare the material | The techniques that follow use the prepared material. De-identification, when it is needed, is the first of these, so that no later technique reads personal information. |
-| Third | Primary techniques, which analyse the material | They need the request settled and the material prepared. They do not depend on each other, so they can run in any order. |
-| Last | Techniques that check the findings, then the library checks | They work on the findings, so the findings must exist first. |
+| First | Techniques that examine the question | Checks how the question is worded, what its terms mean and what it assumes. If a technique finds a problem, the user sees it and can change the question before the rest runs. |
+| Second | Techniques that prepare the material | Gets the content ready: checks how reliable the sources are and puts the content in the form later techniques need. De-identification, when it is needed, is the first of these. |
+| Third | Primary techniques, which analyse the material | Does the main analysis. Each technique analyses the content on its own, so a finding that several of them reach counts for more. |
+| Last | Techniques that check the findings, then the library checks | Tests the findings: checks quotes against the content, looks for evidence against the findings and tests how easily they change. |
 
 A position with no chosen technique is left out. Steps 5 and 6 run this sequence: the first three positions are sub-steps 5.1 to 5.3 and the last is step 6.
 
@@ -167,7 +167,7 @@ The plan also adds two things, each with its reason:
 - A preparation technique that produces an input a chosen technique needs. The reason names the technique that needs it.
 - De-identification, when the material has personal information.
 
-Reasons are recorded. The plan keeps the reason for each chosen technique from step 3, the reason for each position, and the reason for each addition. The plan is work (section 7). The reasons are kept so that the answer can describe the process followed.
+The plan keeps the reason for each chosen technique from step 3 and the reason for each addition, and describes what each group does. The plan is work (section 7). The reasons are kept so that the answer can describe the process followed.
 
 Outside material. 41 of the 236 techniques need a comparator (14), a reference structure (25) or an earlier period (2). Step 4 only records the need in the third column of the table. Nothing is searched for or gathered in step 4, because no technique has run. Step 5.2 resolves the need.
 
@@ -385,13 +385,14 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 | 31 | The design did not say which results the user receives and which are working material. Decided on 13 November 2026. | The answer in step 8 is the only output. Everything before it is work, shown as the running application allows. Decision points always show what the user needs to decide. |
 | 32 | Step 4 showed the sequence under the numbers of later sub-steps, and gave no reason for the order. Decided on 13 November 2026. | Steps 3 and 4 are named "Choose analysis techniques" and "Plan analysis sequence". The plan is one sequence with a stated reason for each position, shown without sub-step numbers. The reasons for choosing and sequencing are recorded for a possible section in the answer on the process followed. The kind of technique that runs in 5.3 is renamed from analysis technique to primary technique, because "analysis technique" now means any technique. |
 | 33 | Step 4 told the user what was or was not gathered from outside, before any technique had run. The design did not say when outside material is gathered or that the user approves it. Decided on 13 November 2026. | Step 4 records only which techniques need outside material, as a column in the plan table (group, technique, why the group runs there, needs outside material). Step 5.2 resolves each need: content first, then one item from a source that is not marketing or opinion, or from the user. The user approves any outside item before use. Step 8 reports it. |
+| 34 | The step 4 table explained each group by saying it runs before or after another, which tells the user nothing, because something has to run first. Decided on 13 November 2026. | The table says what each group does for the request, and mentions the order only where it has a consequence for the user (the question can be changed after the first group). The reason for each chosen technique stays in step 3. |
 
 ## 10. Open items
 
 Not yet changed to version 1.2:
 
 - `select.py` does not apply the personal information waiver (decision 29).
-- `sequence.py` still labels the sequence as stages 0 to 3, has no pause after 5.1, does not record a reason for each position and does not list which techniques need outside material as a column (decisions 24, 25, 32 and 33). Nothing yet asks the user to approve outside material in 5.2.
+- `sequence.py` still labels the sequence as stages 0 to 3, has no pause after 5.1, does not describe what each group does and does not list which techniques need outside material as a column (decisions 24, 25, 32 and 33). Nothing yet asks the user to approve outside material in 5.2.
 - The instruction given to the model in step 3 does not yet state the four criteria (decisions 26 and 27).
 - The stored run of 11 November followed version 1.1. Its two question techniques ran first and the user was not asked to confirm the request. Its answer does not state the strength of statement reached.
 - The schema and the catalogue keep their original field names (section 8).

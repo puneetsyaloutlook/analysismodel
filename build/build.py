@@ -199,7 +199,7 @@ def make_process_pages():
     add_page("/process/choosing-techniques/", "Steps 2 and 3: Rule out and choose analysis techniques", "Process", section_html(4),
              "Code removes techniques that cannot run on the material. The model chooses from the eligible ones.")
     add_page("/process/planning-the-sequence/", "Step 4: Plan analysis sequence", "Process", section_html(5),
-             "How the chosen techniques are placed in one sequence, the reason for each position, and how checks are added.")
+             "How the chosen techniques are placed in four groups in running order, what each group does, and how checks are added.")
     add_page("/process/running-the-techniques/", "Step 5: Run the techniques", "Process", section_html(6),
              "Examine the question, prepare the material and analyse it, and how one technique is run.")
     add_page("/process/checks-and-answer/", "Steps 6 to 8: Check, combine and answer", "Process", section_html(7),
