@@ -136,19 +136,19 @@
     } else if (i === 2) {
       return builders_pick(j);
     } else if (i === 3) {
-      var groups = [['First', S.frame], ['Next', S.prepare], ['Then', S.analyse], ['Last', S.check]];
+      var groups = [['First', 'Look at your question', S.frame], ['Next', 'Prepare your content', S.prepare], ['Then', 'Analyse your content', S.analyse], ['Last', 'Check the findings', S.check]];
       var WHYSEQ = j.plan_reasons.map(function (r) { return r.reason.replace(/request/g, 'question').replace(/prepared material/g, 'prepared content').replace(/the material/g, 'your content'); });
       var EXT = { 'none': 'No', 'reference structure': 'Yes: a list of what should be present', 'comparator': 'Yes: something to compare with', 'earlier period': 'Yes: the same data from an earlier period' };
       var total = 0, need = [], rows = '';
       groups.forEach(function (c, gi) {
-        c[1].forEach(function (x, xi) {
+        c[2].forEach(function (x, xi) {
           total += 1;
           if (x.external && x.external !== 'none') need.push(x);
-          rows += '<tr>' + '<td>' + link(x) + '</td>' + (xi === 0 ? '<td rowspan="' + c[1].length + '">' + WHYSEQ[gi] + '</td>' : '') + '<td>' + esc(EXT[x.external] || 'No') + '</td></tr>';
+          rows += '<tr>' + (xi === 0 ? '<td rowspan="' + c[2].length + '"><strong>' + c[0] + '</strong><br>' + c[1] + '</td>' : '') + '<td>' + link(x) + '</td>' + (xi === 0 ? '<td rowspan="' + c[2].length + '">' + WHYSEQ[gi] + '</td>' : '') + '<td>' + esc(EXT[x.external] || 'No') + '</td></tr>';
         });
       });
-      b.push({ role: 'work', html: '<p>MANIFST put the ' + Math.min(10, j.picks.length) + ' chosen techniques, and the checks that go with them, in the order they will run. The rows are in running order, and the second column gives the reason for each place.</p>' });
-      b.push({ role: 'work', html: '<div class="table-wrap"><table class="plan"><thead><tr><th>Technique</th><th>Why it runs here</th><th>Needs outside material</th></tr></thead><tbody>' + rows + '</tbody></table></div>', tally: ['t-run', total] });
+      b.push({ role: 'work', html: '<p>MANIFST put the ' + Math.min(10, j.picks.length) + ' chosen techniques, and the checks that go with them, in the order they will run. The techniques are in four groups, shown in running order. Each group runs where it does for the reason given beside it.</p>' });
+      b.push({ role: 'work', html: '<div class="table-wrap"><table class="plan"><thead><tr><th>Group</th><th>Technique</th><th>Why this group runs here</th><th>Needs outside material</th></tr></thead><tbody>' + rows + '</tbody></table></div>', tally: ['t-run', total] });
       b.push({ role: 'work', html: '<p>Your content has no personal information, so nothing had to be removed from it first.</p>' });
       b.push({ role: 'work', html: need.length ? '<p>' + need.map(function (x) { return esc(x.name); }).join(' and ') + ' needs extra material to run. In step 5 MANIFST looks for it in your content first. Only if it is missing does MANIFST look elsewhere, and it asks you before using anything it finds.</p>' : '<p>No technique needs material from outside your content.</p>' });
     } else if (i === 4) {

@@ -3652,7 +3652,7 @@
    ]
   },
   "plan_table": {
-   "definition": "Step 4 shows the plan as a table with one row per technique, in running order and without numbers. Columns: the technique, why it runs in that position, and whether it needs outside material (none, comparator, reference structure or earlier period). Step 4 only records the need. It does not gather anything.",
+   "definition": "Step 4 shows the plan as a table with one row per technique, in running order and without numbers. Columns: the group (First, Next, Then, Last, each with a short name), the technique, why the group runs in that position, and whether the technique needs outside material (none, comparator, reference structure or earlier period). The group and its reason are shown once for all its techniques. Step 4 only records the need. It does not gather anything.",
    "basis": {
     "type": "inference",
     "sources": [],

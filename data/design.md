@@ -151,7 +151,7 @@ Limits. All kinds of technique count towards the 10. Preparation techniques adde
 
 Code places the chosen techniques in one sequence. Each technique's kind decides its position, and the plan states the reason for each position.
 
-The plan is shown as a table with one row per technique, in running order and without numbers. The columns are the technique, why it runs in that position, and whether it needs outside material: none, or a comparator, a reference structure or an earlier period.
+The plan is shown as a table with one row per technique, in running order and without numbers. The columns are the group (First, Next, Then, Last, each with a short name such as "Look at your question"), the technique, why that group runs in that position, and whether the technique needs outside material: none, or a comparator, a reference structure or an earlier period. The group and its reason are shown once and cover all the techniques in the group.
 
 | Position | What runs | Why it runs there |
 |---|---|---|
@@ -384,7 +384,7 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 | 30 | Rule 1 listed three exceptions and did not cover the verification techniques. Several rules were stated only in this history. Words such as check, review, result and gate had more than one meaning or needed decoding. | Five kinds of technique, each defined by what it works on. All current rules are in sections 2 to 7. One term for one thing, listed in section 2, with the schema names mapped in section 8. |
 | 31 | The design did not say which results the user receives and which are working material. Decided on 13 November 2026. | The answer in step 8 is the only output. Everything before it is work, shown as the running application allows. Decision points always show what the user needs to decide. |
 | 32 | Step 4 showed the sequence under the numbers of later sub-steps, and gave no reason for the order. Decided on 13 November 2026. | Steps 3 and 4 are named "Choose analysis techniques" and "Plan analysis sequence". The plan is one sequence with a stated reason for each position, shown without sub-step numbers. The reasons for choosing and sequencing are recorded for a possible section in the answer on the process followed. The kind of technique that runs in 5.3 is renamed from analysis technique to primary technique, because "analysis technique" now means any technique. |
-| 33 | Step 4 told the user what was or was not gathered from outside, before any technique had run. The design did not say when outside material is gathered or that the user approves it. Decided on 13 November 2026. | Step 4 records only which techniques need outside material, as a column in the plan table (technique, why it runs there, needs outside material). Step 5.2 resolves each need: content first, then one item from a source that is not marketing or opinion, or from the user. The user approves any outside item before use. Step 8 reports it. |
+| 33 | Step 4 told the user what was or was not gathered from outside, before any technique had run. The design did not say when outside material is gathered or that the user approves it. Decided on 13 November 2026. | Step 4 records only which techniques need outside material, as a column in the plan table (group, technique, why the group runs there, needs outside material). Step 5.2 resolves each need: content first, then one item from a source that is not marketing or opinion, or from the user. The user approves any outside item before use. Step 8 reports it. |
 
 ## 10. Open items
 
