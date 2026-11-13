@@ -414,12 +414,15 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 
 ## 10. Open items
 
-Not yet changed to version 1.2:
+Changed to version 1.2.3 and run once:
 
-- `select.py` does not apply the personal information waiver (decision 29).
-- `sequence.py` still labels the sequence as stages 0 to 3, has no pause after 5.1, does not name the groups, describe what each technique does or list which techniques need outside material as a column (decisions 24, 25, 32 and 33). Nothing yet asks the user to approve outside material in 5.2.
-- The instruction given to the model in step 3 does not yet state the four criteria (decisions 26 and 27).
-- The stored run of 11 November followed version 1.1. Its two question techniques ran first and the user was not asked to confirm the request. Its answer does not state the strength of statement reached.
+- The scripts (`select.py`, `sequence.py`), the step 3 instruction and the stored run follow version 1.2.3. The stored run of 13 November 2026 ran on ten interview quotes: the 5.1 findings were shown to the user, who kept the request, and the user chose the combining method. Each technique ran as a separate agent.
+- The personal information waiver in `select.py` (decision 29) has not been tested on content that contains personal information.
+- Nothing yet asks the user to approve outside material in 5.2 in a running application. The stored run needed no outside material, so that path has not been run.
+- The step 8 agent was not given the catalogue ceilings, so the strength of statement reached is worked out from the catalogue by the application. The stored run did not carry out the spot checks and repeat runs listed for four techniques, and it names that in the answer.
+
+Not changed:
+
 - The schema and the catalogue keep their original field names (section 8).
 
 Design:

@@ -136,7 +136,7 @@ def split_h3(body):
 def make_simulator():
     data = []
     run = json.loads((DATA / "run.json").read_text(encoding="utf-8"))
-    _mat = re.sub(r"^# .*\n", "", (DATA / "run1" / "source_material.md").read_text(encoding="utf-8"), count=1)
+    _mat = re.sub(r"^# .*\n", "", (DATA / "run2" / "source_material.md").read_text(encoding="utf-8"), count=1)
     run["material_html"] = md_block(demote(_mat))
     run["results_html"] = {k: md_block(demote(v)) for k, v in run.pop("results").items()}
     for pk in run["picks"]:
@@ -181,7 +181,7 @@ def make_simulator():
 </div>
 <script type="application/json" id="sim-data">{blob}</script>
 """
-    mat = (DATA / "run1" / "source_material.md").read_text(encoding="utf-8")
+    mat = (DATA / "run2" / "source_material.md").read_text(encoding="utf-8")
     mat = re.sub(r"^# .*\n", "", mat, count=1)
     add_page("/simulator/material/", "Submitted content: voice AI interviews", "Overview",
              "<p>This is the content submitted for the run in the simulator. <a href=\"/simulator/\">Back to the simulator</a>.</p>" + md_block(demote(mat)),

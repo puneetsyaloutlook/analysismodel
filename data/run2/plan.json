@@ -1,0 +1,151 @@
+{
+ "name": "Do the eight interviews support the three hypotheses H1 to H",
+ "claim_level_needed": "associate",
+ "stakes": "decision-informing",
+ "groups": [
+  {
+   "position": 1,
+   "group_name": "Clarify the question",
+   "step": "5.1",
+   "techniques": [
+    {
+     "id": "DM-02",
+     "name": "Hypothesis tree",
+     "purpose": "Splits a claim into the sub-claims that must all be true for it to be true and produces a tree of claims that goes into a claims register.",
+     "external": "none",
+     "added": ""
+    }
+   ]
+  },
+  {
+   "position": 2,
+   "group_name": "Prepare the content",
+   "step": "5.2",
+   "techniques": [
+    {
+     "id": "PE-02",
+     "name": "Preprocessing sensitivity testing",
+     "purpose": "Convert raw text into countable units and re-run the main result under several defensible cleaning regimes, giving cleaned text, a document-term matrix, a rule log and a sensitivity result.",
+     "external": "none",
+     "added": "MM-10 needs cleaned dataset:cleaned; alternatives: PE-03"
+    }
+   ]
+  },
+  {
+   "position": 3,
+   "group_name": "Analyse the content",
+   "step": "5.3",
+   "techniques": [
+    {
+     "id": "CM1-05",
+     "name": "Comparative case study",
+     "purpose": "Examines a small number of cases with the same questions for each, producing a case by case matrix that shows consistent patterns and deviant cases.",
+     "external": "none",
+     "added": ""
+    },
+    {
+     "id": "HE1-13",
+     "name": "Reflexive thematic analysis",
+     "purpose": "Identifies and interprets patterns of meaning across qualitative data in six phases and produces themes with supporting extracts.",
+     "external": "none",
+     "added": ""
+    },
+    {
+     "id": "HE1-14",
+     "name": "Framework analysis",
+     "purpose": "Sorts coded qualitative data into a case by theme matrix and produces the matrix for reading across cases and themes.",
+     "external": "none",
+     "added": ""
+    },
+    {
+     "id": "HE1-15",
+     "name": "Content analysis",
+     "purpose": "Codes text into categories, then counts or interprets category use, and produces category frequencies or a category structure.",
+     "external": "none",
+     "added": ""
+    },
+    {
+     "id": "MM-10",
+     "name": "Stance detection",
+     "purpose": "Label whether each text favours, opposes or is neutral toward a named target and produce a stance label per text and target.",
+     "external": "none",
+     "added": ""
+    },
+    {
+     "id": "TC1-13",
+     "name": "Analysis of competing hypotheses",
+     "purpose": "Lists plausible hypotheses, rates each evidence item against each, and produces a hypothesis by evidence matrix aimed at disproving hypotheses.",
+     "external": "none",
+     "added": ""
+    }
+   ]
+  },
+  {
+   "position": 4,
+   "group_name": "Test the findings",
+   "step": "6",
+   "techniques": [
+    {
+     "id": "CK-17",
+     "name": "Source-span and quotation check by code",
+     "purpose": "Require each extracted statement to point to the exact passage it came from, confirm by string match that the passage exists, and produce a pass or fail list per statement.",
+     "external": "none",
+     "added": ""
+    },
+    {
+     "id": "TC1-16",
+     "name": "Disconfirmation search",
+     "purpose": "Looks for evidence that would contradict a favoured claim and produces a list of refuting evidence found or not found with the search used.",
+     "external": "none",
+     "added": ""
+    },
+    {
+     "id": "TC1-17",
+     "name": "Sensitivity analysis",
+     "purpose": "Re-runs an analysis under different assumptions or inclusion rules and produces a table of results by assumption showing whether the conclusion reverses.",
+     "external": "none",
+     "added": ""
+    }
+   ]
+  }
+ ],
+ "outside_material": [],
+ "checks": {
+  "CM1-05": [
+   "assumption and limitation statement",
+   "alternative explanations check",
+   "source-span citation"
+  ],
+  "HE1-13": [
+   "spot check",
+   "human review sample"
+  ],
+  "HE1-14": [
+   "spot check",
+   "human review sample"
+  ],
+  "HE1-15": [
+   "spot check",
+   "repeat runs",
+   "human review sample"
+  ],
+  "MM-10": [
+   "spot check",
+   "repeat runs",
+   "gold standard agreement",
+   "human review sample"
+  ],
+  "TC1-13": [
+   "assumption and limitation statement",
+   "alternative explanations check",
+   "source-span citation"
+  ]
+ },
+ "held": [],
+ "added": [
+  {
+   "id": "PE-02",
+   "why": "MM-10 needs cleaned dataset:cleaned; alternatives: PE-03"
+  }
+ ]
+}

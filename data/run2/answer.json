@@ -1,0 +1,51 @@
+{
+ "lead": "The eight interviews do not support any of H1 to H3 as worded. H1 cannot be tested because no quote compares the voice AI with traditional voice automation, and the reactions to the AI are split. H2 and H3 each have statements against them from two participants, but those statements are hypothetical and partly hedged, so under a strict reading both are untested. These are patterns within this sample only, and only six of the eight participants are quoted.",
+ "conclusions": [
+  {
+   "id": "C1",
+   "text": "H1 cannot be tested as worded. No quote compares the voice AI with traditional voice automation. Q1 compares it with chat bots, Q3 refers only to having to \"repeat yourself\", and Q2 gives one indirect voice comparison: \"sometimes when you are talking to a more of a robot, it sounds more like a robot voice\".",
+   "label": "high",
+   "reason": "Nine of the ten techniques agree, and the tenth (the disconfirmation search, TC1-16) agrees in part because it reads Q2 as an indirect voice comparison."
+  },
+  {
+   "id": "C2",
+   "text": "Reactions to the voice AI are split among the six quoted participants. P1 (Q1), P2 (Q2) and P3 (Q3) speak well of it, and P4 (Q5) moves from wanting to speak to someone to calling it a good process. P10 (Q4, Q8), P1 (Q6) and P5 (Q7) are unfavourable. The tally ranges from a tie to four against two, depending on how P1 and P4 are coded and whether complaints tied to one context are counted.",
+   "label": "high",
+   "reason": "All ten techniques report a split. The sensitivity rows in TC1-17 change the size of the lean but never reverse it."
+  },
+  {
+   "id": "C3",
+   "text": "The reasons participants give for negative reactions are specific features, not one cause. They are the voice and accent (Q4, Q7), the length of the introduction (Q8), a stressful setting (Q7) and earlier experience with AI agents (Q6). The material does not isolate learning that it is an AI as the cause, although P5 names \"AI in its current state\" in Q7. The link from Q7 to the motor claim scenario is inferred and is not recorded in the material.",
+   "label": "medium",
+   "reason": "Most techniques name the same drivers, but TC1-16 finds that Q4 and Q6 do not fit a single-context explanation and that the scenario link is an inference. These are reasons the participants state, not causes that were tested."
+  },
+  {
+   "id": "C4",
+   "text": "H2 is neither supported nor refuted. P10 says \"I would've definitely have hung up at the intro.\" (Q8) and gives the length of the introduction as the reason. P5 would probably have hung up only after not getting a human (Q10). No quote says a participant would stay on the line, and the one weak sign, P4 in Q5, is about the process and not about hanging up.",
+   "label": "medium",
+   "reason": "The techniques split between reading the statements as contradicting H2 for two participants and reading H2 as untested. TC1-17 shows the verdict depends on whether hypothetical statements are counted and whether the cause (learning it is an AI) is required."
+  },
+  {
+   "id": "C5",
+   "text": "H3 is not supported on a loose reading, because two participants say they would ask for a human. P5 says \"I would've asked for a human.\" (Q10) with no timing given. P4 says \"If I was gonna do it, that's probably where I would do it\" (Q9), which is hedged, and Q5 says the wish weakens as the process goes on. No quote says a participant would decline to ask. Under a strict reading of \"immediately\", the contradiction falls to one participant or to none.",
+   "label": "medium",
+   "reason": "Eight techniques agree on the loose reading. TC1-16 and TC1-17 show that it rests on two participants, on hypothetical and hedged statements, and on timing that the quotes do not give."
+  },
+  {
+   "id": "C6",
+   "text": "The material has limits that every technique records. P8 and P9 have no quote, the basis for choosing the ten quotes is not given, every hang-up or human-request statement is a hypothetical reaction to a prerecorded scenario, and the material does not say where the AI is disclosed. Counts describe the selected quotes and not how common a view is.",
+   "label": "high",
+   "reason": "All ten techniques state these limits, and the limits come from the material itself."
+  }
+ ],
+ "strength_reached": "None of the chosen techniques reach the strength needed (show a link between things). The catalogue ceilings are not recorded in the plan, so on the record available the techniques are taken to describe only. The techniques DM-02, PE-02, CM1-05, HE1-13, HE1-14, HE1-15, MM-10 and TC1-13 describe what the quoted participants say. TC1-16 and TC1-17 test how far those descriptions change under other readings. The conclusions C1 to C6 are therefore descriptions of patterns in the quotes, and none is a shown link between two things.",
+ "basis": [
+  "What the user gave: one source, text, 512 words (source_material.md).",
+  "Outside material used: none.",
+  "Techniques that ran and what each worked on: DM-02 (brief and material), PE-02 (brief and material), CM1-05, HE1-13, HE1-14, HE1-15, MM-10, TC1-13 (brief and material, run separately), CK-17 by code, TC1-16 and TC1-17 (the findings).",
+  "Techniques dropped: none. No files could not be read.",
+  "Checks not done because they need a person: gold standard agreement and the human review sample. The spot checks and repeat runs listed for HE1-13, HE1-14, HE1-15 and MM-10 were not done in this run.",
+  "CK-17 checked 146 quoted spans in the results and 6 failed. All 6 were labels, terms or one paraphrase placed in quotation marks, not source quotes.",
+  "The user was shown the 5.1 findings and chose to keep the request as written. The user chose the convergence matrix then narrative method."
+ ]
+}

@@ -1,0 +1,14 @@
+{"picks":[
+{"id":"DM-02","reason":"Splits each of H1 to H3 into sub-claims so every part of each hypothesis has something specific to look for in the eight interviews."},
+{"id":"HE1-14","reason":"Builds an interview by hypothesis matrix so the pattern of support across all eight interviews is visible with an audit trail."},
+{"id":"HE1-15","reason":"Codes and counts how many interviews support, oppose or do not mention each hypothesis, giving an associational strength of statement."},
+{"id":"HE1-13","reason":"Reads the whole set for themes that emerge independently of H1 to H3, giving a different method to cross check the matrix and surface unexpected patterns."},
+{"id":"CM1-05","reason":"Treats each interview as a case examined with the same questions, showing consistent patterns and deviant interviews."},
+{"id":"TC1-13","reason":"Rates each evidence item against each hypothesis to show which evidence actually discriminates and which contradicts, serving the contradiction request."},
+{"id":"TC1-16","reason":"Searches the interviews specifically for statements that would refute each hypothesis, so contradictions are found and not only confirmations."},
+{"id":"MM-10","reason":"Labels each interview as favouring, opposing or neutral toward each hypothesis as an independent coding, so agreement with the human matrix adds confidence."},
+{"id":"CK-17","reason":"Confirms each quoted passage cited as support or contradiction actually exists in the interview text, which matters for a decision-informing finding."},
+{"id":"TC1-17","reason":"Re-runs the support judgement under different coding and inclusion rules, such as dropping one interview, to see whether any conclusion reverses."}
+],
+"reserve":["CM1-08","CH-01","HE1-02","CM1-14","CK-26"],
+"gaps":"With eight interviews from one source these techniques support an associational statement only and cannot show how common a view is in the wider population or that voice AI causes any outcome. Interviewee selection, interviewer prompting and the unknown data condition are not tested, and the hypothesis wording is not checked for ambiguity."}
