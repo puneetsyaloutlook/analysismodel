@@ -141,6 +141,9 @@ def make_simulator():
     run["results_html"] = {k: md_block(demote(v)) for k, v in run.pop("results").items()}
     for pk in run["picks"]:
         pk["ceiling"] = BY_ID[pk["id"]]["claim_ceiling"].strip()
+    for _k, _items in run["stages"].items():
+        for _x in _items:
+            _x["external"] = BY_ID[_x["id"]]["external_material_needed"].strip()
     run["plan_reasons"] = schema["sequencing"]["plan_reasons"]["positions"]
     data.insert(0, run)
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")

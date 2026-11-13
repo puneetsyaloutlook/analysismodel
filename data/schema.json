@@ -1,5 +1,5 @@
 {
- "version": "1.2.2",
+ "version": "1.2.3",
  "title": "MANIFST: metadata schema and process design for a catalogue of 236 analytical techniques",
  "conventions": {
   "language": "Australian English. Sentence case for headings, field labels and value names. No em dashes, en dashes or double hyphens.",
@@ -3594,7 +3594,7 @@
   "rule": "Every technique belongs to one of five kinds, and the kind decides what it works on. A question technique works on the request (5.1). A preparation technique works on the material and produces prepared material (5.2). A primary technique works on the material, including prepared material, and never on another primary technique's result (5.3). Verification and challenge techniques work on the findings of the analysis (step 6). Combining the findings (step 7) is a fixed process step, not a technique. Only the user changes the request.",
   "stages": [
    "5.1 examine the question: chosen techniques whose phase is frame. When they produce findings, the process shows them and asks the user to keep or edit the request. Keep: the run continues at 5.2. Edit: steps 2 to 4 run again on the new request, and question techniques that already ran are not chosen again. No reply: the request stays as it is and the answer says it was not confirmed. The findings are kept in every case and go to step 7.",
-   "5.2 prepare the material: chosen techniques whose phase is gather or verify and prepare, any technique that produces prepared material a chosen technique consumes, and de-identification when the material has personal information. Prepared material is still the brief's material. When a chosen technique needs outside material (a comparator, a reference structure or an earlier period), the process gathers only that item, from a source that is not marketing or personal opinion, shows it to the user, or asks the user for it. If none is found the technique is dropped and the plan says so.",
+   "5.2 prepare the material: chosen techniques whose phase is gather or verify and prepare, any technique that produces prepared material a chosen technique consumes, and de-identification when the material has personal information. Prepared material is still the brief's material. For each chosen technique that needs outside material (a comparator, a reference structure or an earlier period), 5.2 looks in the user's content first. If the item is not there, it finds the one item needed, from a source that is not marketing or personal opinion, or asks the user for it. The user approves the item before any technique uses it. If none is found or approved, the technique is dropped and the answer says so.",
    "5.3 analyse the material: chosen primary techniques, independent of each other, run in any order, each on the brief.",
    "6 check the findings: chosen verification techniques, then chosen challenge techniques, each on the findings of the analysis, then the library checks for the stakes and the strength of statement, each applied to one result.",
    "7 combine the findings (process step): collect the findings; run a method from the synthesis section (the process offers those that apply and recommends one); name the cause of each conflict or state that it is unresolved; give each conclusion a confidence label and a one-line reason.",
@@ -3650,6 +3650,14 @@
      "reason": "They work on the findings, so the findings must exist first."
     }
    ]
+  },
+  "plan_table": {
+   "definition": "Step 4 shows the plan as a table with one row per technique, in running order and without numbers. Columns: the technique, why it runs in that position, and whether it needs outside material (none, comparator, reference structure or earlier period). Step 4 only records the need. It does not gather anything.",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Decided with the user on 13 November 2026."
+   }
   }
  },
  "synthesis": {
@@ -3795,6 +3803,10 @@
     "what": "Asked only when question techniques ran and produced findings. The process shows the findings and asks the user to keep or edit the request. An edit runs steps 2 to 4 again. With no reply the request stays as it is and the answer says it was not confirmed."
    },
    {
+    "point": "approve outside material",
+    "what": "Asked only when a chosen technique needs outside material that is not in the user's content. The process shows the item and its source. The user approves it before any technique uses it. If none is found or approved, the technique is dropped and the answer says so."
+   },
+   {
     "point": "choose the synthesis method",
     "what": "The skill lists the methods whose applies_when is met, marks the recommended one with its reason, and runs it if the user does not reply."
    },
@@ -3921,12 +3933,12 @@
   {
    "number": "4",
    "name": "Plan analysis sequence",
-   "does": "The chosen techniques are placed in a sequence, with the reason for each position. Preparation techniques and checks are added."
+   "does": "The chosen techniques are placed in a sequence, with the reason for each position and a note of which techniques need outside material. Preparation techniques and checks are added."
   },
   {
    "number": "5",
    "name": "Run the techniques",
-   "does": "5.1 Examine the question. 5.2 Prepare the material. 5.3 Analyse the material.",
+   "does": "5.1 Examine the question. 5.2 Prepare the material, including any outside material, which the user approves. 5.3 Analyse the material.",
    "sub_steps": [
     {
      "number": "5.1",

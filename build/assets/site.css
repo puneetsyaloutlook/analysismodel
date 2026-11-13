@@ -229,3 +229,6 @@ dialog.modal::backdrop{background:rgba(15,30,30,.55)}
 .seq-h{margin:0 0 .2rem}
 .seq ul{margin:.2rem 0 .3rem}
 .seq .small{margin:.2rem 0 0}
+
+table.plan td{vertical-align:top}
+table.plan td[rowspan]{background:var(--bg-2)}
