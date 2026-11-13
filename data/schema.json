@@ -1,6 +1,6 @@
 {
- "version": "1.2.4",
- "title": "MANIFST: metadata schema and process design for a catalogue of 236 analytical techniques",
+ "version": "1.2.5",
+ "title": "ANLYSIS: metadata schema and process design for a catalogue of 236 analytical techniques",
  "conventions": {
   "language": "Australian English. Sentence case for headings, field labels and value names. No em dashes, en dashes or double hyphens.",
   "value_ids": "Value ids are lower case strings, written with spaces and without the characters ; : = | & and the sequence ::, because those are used in cell syntax. The display name is the id with its first letter capitalised. Evidence status keeps the capitalised values used in the earlier reports.",

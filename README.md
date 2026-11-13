@@ -1,6 +1,6 @@
-# MANIFST documentation
+# ANLYSIS documentation
 
-Static documentation site for MANIFST: a catalogue of 236 analytical techniques and an eight-step process for choosing and running them. The name is provisional. The repository is still named `analysismodel`.
+Static documentation site for ANLYSIS: a catalogue of 236 analytical techniques and an eight-step process for choosing and running them. The site address is ANLYSIS.work. The repository is still named `analysismodel`.
 
 ## Layout
 
