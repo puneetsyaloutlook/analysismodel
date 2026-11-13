@@ -1,6 +1,6 @@
 # Analysis methods: design document
 
-Version 1.2, 12 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
+Version 1.2.1, 13 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
 
 ## 1. Purpose and status
 
@@ -13,7 +13,7 @@ Status:
 - Every part has been built and tested on small cases.
 - One complete run was done on 11 November 2026, on ten interview quotes, under version 1.1 of this design. Its output is shown in the simulator on the documentation site.
 - The documentation site is built from this document, the schema and the catalogue.
-- Version 1.2 changes six rules (decisions 24 to 30 in section 9). The scripts and the stored run still follow version 1.1. Section 10 lists what has to change.
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Version 1.2.1 adds decision 31. The scripts and the stored run still follow version 1.1. Section 10 lists what has to change.
 - All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
@@ -51,6 +51,8 @@ Each term below has one meaning in this document.
 | Finding | One statement in a result. |
 | Conclusion | One statement in the answer, drawn from the findings. |
 | Library check | One of the 18 checks in the check library, such as a spot check or repeat runs. It is applied to one result. |
+| Work | Everything produced in steps 1 to 7: the description of the material, the eligible and chosen techniques, the run order, each technique's result, the checks and the combined findings. |
+| Output | The answer given to the user in step 8. It is the only output. |
 | Follow-up round | A second pass through steps 2 to 8, run only when the user asks for it after reading the answer. |
 
 ### Kinds of technique
@@ -228,6 +230,13 @@ Challenge findings do not change the label. A challenge finding is an added find
 
 ### Step 8: Answer
 
+The answer is the only output of the process. Everything produced in steps 1 to 7 is work.
+
+- The answer is always given to the user. It must be complete without the work, so it names the techniques that ran and the checks that were not done.
+- The work is kept. How much of it the user sees depends on the application that runs the process: it can show the work as it happens, show it on request or not show it.
+- Where the process asks the user to decide something, it always shows what the user needs for that decision: the brief at intake, the findings from 5.1, the methods offered in step 7 and the gaps behind a follow-up round.
+- The user can change the chosen techniques only in an application that shows them.
+
 The answer gives the conclusions with their labels and reasons. It then states three things as facts.
 
 **Strength of statement reached.** Which chosen techniques reach the strength of statement the user needed, and which conclusions they support. When none did, the answer says so in its first lines.
@@ -347,6 +356,7 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 | 28 | The confidence rule did not cover agreement without checks, conflicts or checks that need a person. Its test for independence could never be met, because every technique shares the material and the model. | The rule in section 7. Independence means different methods. |
 | 29 | A technique that cannot take personal information was removed even when de-identification would run first. | It is kept, with a note, when de-identification is in the plan. |
 | 30 | Rule 1 listed three exceptions and did not cover the verification techniques. Several rules were stated only in this history. Words such as check, review, result and gate had more than one meaning or needed decoding. | Five kinds of technique, each defined by what it works on. All current rules are in sections 2 to 7. One term for one thing, listed in section 2, with the schema names mapped in section 8. |
+| 31 | The design did not say which results the user receives and which are working material. Decided on 13 November 2026. | The answer in step 8 is the only output. Everything before it is work, shown as the running application allows. Decision points always show what the user needs to decide. |
 
 ## 10. Open items
 
@@ -388,7 +398,7 @@ Catalogue data (from the spot check; the first six were fixed):
 | File | Role |
 |---|---|
 | `master/Analysis methods design.md` | This document. |
-| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.0. |
+| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.1. |
 | `master/master_tagged.csv` | The catalogue: 236 rows, 52 columns, with result formats. |
 | `master/master_base.csv`, `master/tags/tags_A.json` to `tags_F.json` | Sources of the CSV text and tags. |
 | `master/specs/out_1.json` to `out_6.json` | Result formats. |

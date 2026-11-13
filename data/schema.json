@@ -1,5 +1,5 @@
 {
- "version": "1.2.0",
+ "version": "1.2.1",
  "title": "Metadata schema and process design for a catalogue of 236 analytical techniques",
  "conventions": {
   "language": "Australian English. Sentence case for headings, field labels and value names. No em dashes, en dashes or double hyphens.",
@@ -3779,6 +3779,14 @@
    "type": "inference",
    "sources": [],
    "note": "Agreed with the user in this session. Untested with real users."
+  },
+  "output_and_work": {
+   "definition": "The answer given in step 8 is the only output and is always given to the user. It must be complete without the work, so it names the techniques that ran and the checks that were not done. Everything produced in steps 1 to 7 is work: the description of the material, the eligible and chosen techniques, the run order, each technique's result, the checks and the combined findings. The work is kept, and the application that runs the process decides how much of it the user sees (as it happens, on request, or not at all). Where the process asks the user to decide something, it always shows what the user needs for that decision. The user can change the chosen techniques only in an application that shows them.",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Decided with the user on 13 November 2026."
+   }
   }
  },
  "intake": {
