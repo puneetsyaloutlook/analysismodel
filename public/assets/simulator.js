@@ -141,7 +141,7 @@
       var total = 0, need = [], rows = '';
       j.plan_reasons.forEach(function (g, gi) {
         if (!stg[gi].length) return;
-        rows += '<tr class="grp"><th colspan="3">' + esc(g.group_name) + (g.note ? '<span class="small"> ' + esc(g.note.replace(/the question/g, 'your question')) + '</span>' : '') + '</th></tr>';
+        rows += '<tr class="grp"><th colspan="3">' + esc(g.group_name) + '</th></tr>';
         stg[gi].forEach(function (x) {
           total += 1;
           if (x.external && x.external !== 'none') need.push(x);

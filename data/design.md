@@ -15,7 +15,7 @@ Status:
 - Every part has been built and tested on small cases.
 - One complete run was done on 11 November 2026, on ten interview quotes, under version 1.1 of this design. Its output is shown in the simulator on the documentation site.
 - The documentation site is built from this document, the schema and the catalogue.
-- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.3 add decisions 31 to 35. The scripts and the stored run still follow version 1.1. Section 10 lists what has to change.
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.3 add decisions 31 to 36. The scripts and the stored run still follow version 1.1. Section 10 lists what has to change.
 - All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
@@ -151,14 +151,16 @@ Limits. All kinds of technique count towards the 10. Preparation techniques adde
 
 Code places the chosen techniques in one sequence. Each technique's kind decides its group and position. The groups do no work themselves, so the plan describes what each technique does.
 
-The plan is shown as a table of techniques under four group headings, in running order and without numbers. The columns are the technique, what the technique does (the catalogue's one-sentence purpose), and whether it needs outside material: none, or a comparator, a reference structure or an earlier period. A group heading carries a note only where the order matters to the user.
+The plan is shown as a table of techniques under four group headings, in running order and without numbers. The columns are the technique, what the technique does (the catalogue's one-sentence purpose), and whether it needs outside material: none, or a comparator, a reference structure or an earlier period.
 
-| Position | Group name | What runs | Note shown with the group |
-|---|---|---|---|
-| 1 | Clarify the question | Techniques that examine the question | These techniques can show that a term in the question can be read two ways, or that the question is too broad to test. If they do, the user can reword it before the analysis runs. |
-| 2 | Prepare the content | Techniques that prepare the material | None. De-identification, when it is needed, is the first of these. |
-| 3 | Analyse the content | Primary techniques, which analyse the material | None. The techniques are independent of each other, so a finding that several reach counts for more. |
-| 4 | Test the findings | Techniques that check the findings, then the library checks | None. |
+| Position | Group name | What runs |
+|---|---|---|
+| 1 | Clarify the question | Techniques that examine the question |
+| 2 | Prepare the content | Techniques that prepare the material. De-identification, when it is needed, is the first of these. |
+| 3 | Analyse the content | Primary techniques, which analyse the material. They are independent of each other, so a finding that several reach counts for more. |
+| 4 | Test the findings | Techniques that check the findings, then the library checks |
+
+The plan is work (section 7), so the user may never see it. It does not carry decision points. The one decision that follows from the order, whether to reword the question after the first group, is asked in 5.1.
 
 A position with no chosen technique is left out. Steps 5 and 6 run this sequence: the first three positions are sub-steps 5.1 to 5.3 and the last is step 6.
 
@@ -386,7 +388,8 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 | 32 | Step 4 showed the sequence under the numbers of later sub-steps, and gave no reason for the order. Decided on 13 November 2026. | Steps 3 and 4 are named "Choose analysis techniques" and "Plan analysis sequence". The plan is one sequence with a stated reason for each position, shown without sub-step numbers. The reasons for choosing and sequencing are recorded for a possible section in the answer on the process followed. The kind of technique that runs in 5.3 is renamed from analysis technique to primary technique, because "analysis technique" now means any technique. |
 | 33 | Step 4 told the user what was or was not gathered from outside, before any technique had run. The design did not say when outside material is gathered or that the user approves it. Decided on 13 November 2026. | Step 4 records only which techniques need outside material, as a column in the plan table (group, technique, why the group runs there, needs outside material). Step 5.2 resolves each need: content first, then one item from a source that is not marketing or opinion, or from the user. The user approves any outside item before use. Step 8 reports it. |
 | 34 | The step 4 table explained each group by saying it runs before or after another, which tells the user nothing, because something has to run first. Decided on 13 November 2026. | The table says what each group does for the request, and mentions the order only where it has a consequence for the user (the question can be changed after the first group). The reason for each chosen technique stays in step 3. |
-| 35 | The group names First and Next only gave the order. Look at your question was vague. The description belonged to the group, which does no work, and not to the techniques. Decided on 13 November 2026. | Groups are named by their purpose: Clarify the question, Prepare the content, Analyse the content, Test the findings. The table describes each technique, using the catalogue's description. A group carries a note only where the order matters to the user. |
+| 35 | The group names First and Next only gave the order. Look at your question was vague. The description belonged to the group, which does no work, and not to the techniques. Decided on 13 November 2026. | Groups are named by their purpose: Clarify the question, Prepare the content, Analyse the content, Test the findings. The table describes each technique, using the catalogue's description. The plan is work and carries no decision points. |
+| 36 | One group had a note about rewording the question and the others had none. The plan is work, so the user may not see it, and the note did not tell the user anything at the point of decision. Decided on 13 November 2026. | The note is removed. The decision to reword the question is asked in 5.1. The plan carries no decision points. |
 
 ## 10. Open items
 
