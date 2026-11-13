@@ -1,10 +1,10 @@
-# MANIFST: design document
+# ANLYSIS: design document
 
-Version 1.2.4, 14 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
+Version 1.2.5, 14 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
 
 ## 1. Purpose and status
 
-MANIFST is the working name for the whole design: the catalogue, the process and the rules. It replaces "analysis model", which was confused with the language model that does the work. In this document "the model" always means the language model. The name is a respelling of manifest (a ship's list of what it carries, and a word for something plain to see) and is provisional.
+ANLYSIS is the name of the whole design: the catalogue, the process and the rules. It replaces "analysis model", which was confused with the language model that does the work. In this document "the model" always means the language model. The name is written ANLYSIS in running text and ANLYSIS.work when it refers to the site or its address (decision 39).
 
 The catalogue lists 236 analytical techniques in 12 families. It will become a skill that a chat or agent calls. The user has said the skill is not to be built yet.
 
@@ -15,7 +15,7 @@ Status:
 - Every part has been built and tested on small cases.
 - One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.4 of this design. Steps 1 to 5 ran before decision 38, which changes only step 6. Its output is shown in the simulator on the documentation site.
 - The documentation site is built from this document, the schema and the catalogue.
-- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.4 add decisions 31 to 38. The scripts, the step 3 instruction and the stored run follow version 1.2.4. Section 10 lists what is untested.
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.5 add decisions 31 to 39. The scripts, the step 3 instruction and the stored run follow version 1.2.4. Section 10 lists what is untested.
 - All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
@@ -414,6 +414,7 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 | 36 | One group had a note about rewording the question and the others had none. The plan is work, so the user may not see it, and the note did not tell the user anything at the point of decision. Decided on 13 November 2026. | The note is removed. The decision to reword the question is asked in 5.1. The plan carries no decision points. |
 | 37 | Nothing in the design said what a runner could show about where a run is, so each application would have had to invent states. Decided on 13 November 2026. | Section 2 defines the states of a step, a technique, a library check and the answer, and the decision points a step can wait at. How the states are delivered is left to the application, because resuming a run later is not a requirement. |
 | 38 | A plan at decision-informing stakes listed checks that need a person and the run showed them as not done. The user could not act on them and they read as failures. Whether to ask is a question of stakes, and a person cannot check every decision inside the process. Decided on 14 November 2026. | Checks that need a person apply at high stakes only. Below high stakes the plan leaves them out and the answer says that no person reviewed the results. At high stakes the process asks the user to review a sample of the results at the end of step 6, a new decision point. Checks that need no person, including spot checks and repeat runs, are always done by the process. |
+| 39 | The provisional name ANLYSIS was replaced when the address anlysis.work was registered. The correctly spelt analysis.work is a premium domain. Decided on 14 November 2026. | The name is ANLYSIS in running text, to refer to the design, the process and the skill, and ANLYSIS.work when it refers to the site or its address. The GitHub repository keeps the name `analysismodel` until the site is deployed. |
 
 ## 10. Open items
 
@@ -461,7 +462,7 @@ Catalogue data (from the spot check; the first six were fixed):
 | File | Role |
 |---|---|
 | `master/Analysis methods design.md` | This document. |
-| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.4. |
+| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.5. |
 | `master/master_tagged.csv` | The catalogue: 236 rows, 52 columns, with result formats. |
 | `master/master_base.csv`, `master/tags/tags_A.json` to `tags_F.json` | Sources of the CSV text and tags. |
 | `master/specs/out_1.json` to `out_6.json` | Result formats. |

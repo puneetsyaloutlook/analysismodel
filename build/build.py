@@ -25,7 +25,7 @@ DATA = ROOT / "data"
 OUT = ROOT / "public"
 ASSETS_SRC = ROOT / "build" / "assets"
 
-SITE = "MANIFST"
+SITE = "ANLYSIS"
 
 schema = json.loads((DATA / "schema.json").read_text(encoding="utf-8"))
 rows = list(csv.DictReader((DATA / "catalogue.csv").open(encoding="utf-8")))
@@ -153,7 +153,7 @@ def make_simulator():
     steps = [st["name"] for st in schema["steps"]]
     rail = "".join(f'<li data-step="{i}"><button type="button" class="step-btn"><span class="dot" aria-hidden="true"></span><span class="txt"><span class="lbl">{i + 1}. {esc(t)}</span><span class="st"></span></span></button></li>' for i, t in enumerate(steps))
     body = f"""
-<p class="lede">This shows MANIFST working on a real question about ten interview quotes. Submit the form to start. Each section shows one step, in order: what you entered, what MANIFST did, and the report at the end.</p>
+<p class="lede">This shows ANLYSIS working on a real question about ten interview quotes. Submit the form to start. Each section shows one step, in order: what you entered, what ANLYSIS did, and the report at the end.</p>
 <div class="sim-note" id="sim-note"></div>
 <div class="sim-controls">
   <label for="sim-job">Brief</label>
@@ -165,13 +165,13 @@ def make_simulator():
   <select id="sim-speed"><option value="1">Normal</option><option value="0.4">Fast</option><option value="2.2">Slow</option></select>
 </div>
 <div class="tally" aria-label="Running totals">
-  <div><span class="n" id="t-cat">{len(rows)}</span><span class="k">techniques MANIFST knows</span></div>
+  <div><span class="n" id="t-cat">{len(rows)}</span><span class="k">techniques ANLYSIS knows</span></div>
   <div><span class="n" id="t-pass">-</span><span class="k">can work with your content</span></div>
   <div><span class="n" id="t-pick">-</span><span class="k">chosen for your question</span></div>
   <div><span class="n" id="t-run">-</span><span class="k">placed in sequence</span></div>
   <div><span class="n" id="t-person">-</span><span class="k">checks that need a person</span></div>
 </div>
-<ul class="legend" aria-label="Key to the colours"><li><span class="sw sw-input"></span>Your input: what you enter or decide</li><li><span class="sw sw-work"></span>What MANIFST did on the way to the answer</li><li><span class="sw sw-output"></span>Output: the report you receive at the end</li></ul>
+<ul class="legend" aria-label="Key to the colours"><li><span class="sw sw-input"></span>Your input: what you enter or decide</li><li><span class="sw sw-work"></span>What ANLYSIS did on the way to the answer</li><li><span class="sw sw-output"></span>Output: the report you receive at the end</li></ul>
 <div class="sim-app">
   <ol class="sim-steps" aria-label="Process steps">{rail}</ol>
   <section class="sim-stage" aria-live="polite" aria-labelledby="sim-title">
@@ -236,8 +236,8 @@ def demote(text):
 def make_home():
     counts = {f: len(v) for f, v in FAMILIES.items()}
     body = f"""
-<p class="lede">MANIFST is a catalogue of analytical techniques and a process for choosing and running them. It takes a request and some material, chooses the analytical techniques that can run on that material, runs them in order, checks their findings and combines them into one answer with a confidence label for each conclusion.</p>
-<p>The name is a respelling of manifest. A ship's manifest lists what the ship carries, and something manifest is plain to see. The name is provisional.</p>
+<p class="lede">ANLYSIS is a catalogue of analytical techniques and a process for choosing and running them. It takes a request and some material, chooses the analytical techniques that can run on that material, runs them in order, checks their findings and combines them into one answer with a confidence label for each conclusion.</p>
+<p>The name is ANLYSIS in running text. ANLYSIS.work is the address of this site.</p>
 <p>The catalogue holds {len(rows)} techniques in {len(FAMILIES)} families. This site documents the process and the catalogue. It is generated from the design document, the schema and the catalogue file in the repository, so it changes only when those change.</p>
 <div class="cards">
   <a class="card" href="/process/"><p class="card-title">Process</p><p>Eight steps, from intake to the answer.</p></a>
@@ -252,7 +252,7 @@ def make_home():
 {''.join(f'<tr><td><a href="/catalogue/{FAM_SLUG[f]}/">{esc(f)}</a></td><td>{counts[f]}</td></tr>' for f in FAMILY_ORDER)}
 <tr><td><strong>Total</strong></td><td><strong>{len(rows)}</strong></td></tr></tbody></table>
 """
-    add_page("/", "MANIFST", "Overview", body, "Documentation of MANIFST: a catalogue of analytical techniques and a process for choosing and running them.")
+    add_page("/", "ANLYSIS", "Overview", body, "Documentation of ANLYSIS: a catalogue of analytical techniques and a process for choosing and running them.")
 
 
 def make_catalogue_index():
