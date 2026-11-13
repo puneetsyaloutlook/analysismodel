@@ -253,8 +253,9 @@
     if (!sec) {
       sec = document.createElement('section'); sec.className = 'stepblock'; sec.id = 'sim-step-' + i;
       var hd = document.createElement('h3'); hd.className = 'stephead'; hd.textContent = (i + 1) + '. ' + NAMES[i]; sec.appendChild(hd);
-      out.insertBefore(sec, out.firstChild);
+      out.appendChild(sec);
     }
+    if (i > 0) sec.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' });
     var wrap = document.createElement('div'); sec.appendChild(wrap);
     var blocks = builders(i), k = 0, panel = null, prevKey = null;
     return (function next() {
