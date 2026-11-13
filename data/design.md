@@ -15,7 +15,7 @@ Status:
 - Every part has been built and tested on small cases.
 - One complete run was done on 11 November 2026, on ten interview quotes, under version 1.1 of this design. Its output is shown in the simulator on the documentation site.
 - The documentation site is built from this document, the schema and the catalogue.
-- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.3 add decisions 31 to 36. The scripts and the stored run still follow version 1.1. Section 10 lists what has to change.
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.3 add decisions 31 to 37. The scripts and the stored run still follow version 1.1. Section 10 lists what has to change.
 - All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
@@ -80,6 +80,26 @@ The kind comes from the technique's phase tag: frame gives a question technique,
 3. Stakes and strength of statement are set for the brief. They are never stored per technique.
 4. Only the user changes the request. The process can show the user what it found about the request and ask. It never rewrites the request itself.
 5. The process never starts a follow-up round on its own.
+
+### Status
+
+The process defines the states of a run so that whatever runs it (a chat, an agent, an editor assistant or a script) can show where the run is. The design defines the states. It does not define how they are delivered: an application can narrate them, send them as events, keep them in a record or map them to its own task list. A run does not have to be resumable.
+
+| Applies to | States |
+|---|---|
+| A step | Waiting to start. Running. Waiting for you. Done. Skipped (the step does not apply, for example 5.1 when no question technique was chosen). |
+| A technique | Removed (step 2). Eligible. Chosen. Reserve. Running. Done. Dropped (with the reason). |
+| A library check | Done. Not done, because it needs a person. |
+| The answer | Not yet given. Given. |
+
+A step is waiting for you only at one of the decision points: confirm the brief, confirm the request after 5.1, approve outside material, choose the combining method, confirm that estimates measure the same thing, or ask for a follow-up round. The status names the decision point, so the application can show what the user needs to decide.
+
+Rules for the status:
+
+- The process sets the state before a step begins and after it ends, so the state is never behind the run.
+- At most one step is waiting for you at a time.
+- A step is done only when all its sub-steps are done or skipped.
+- The status is work. The answer is the only output.
 
 ## 3. Step 1: Intake
 
@@ -390,6 +410,7 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 | 34 | The step 4 table explained each group by saying it runs before or after another, which tells the user nothing, because something has to run first. Decided on 13 November 2026. | The table says what each group does for the request, and mentions the order only where it has a consequence for the user (the question can be changed after the first group). The reason for each chosen technique stays in step 3. |
 | 35 | The group names First and Next only gave the order. Look at your question was vague. The description belonged to the group, which does no work, and not to the techniques. Decided on 13 November 2026. | Groups are named by their purpose: Clarify the question, Prepare the content, Analyse the content, Test the findings. The table describes each technique, using the catalogue's description. The plan is work and carries no decision points. |
 | 36 | One group had a note about rewording the question and the others had none. The plan is work, so the user may not see it, and the note did not tell the user anything at the point of decision. Decided on 13 November 2026. | The note is removed. The decision to reword the question is asked in 5.1. The plan carries no decision points. |
+| 37 | Nothing in the design said what a runner could show about where a run is, so each application would have had to invent states. Decided on 13 November 2026. | Section 2 defines the states of a step, a technique, a library check and the answer, and the decision points a step can wait at. How the states are delivered is left to the application, because resuming a run later is not a requirement. |
 
 ## 10. Open items
 
