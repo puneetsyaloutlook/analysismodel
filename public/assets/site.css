@@ -232,3 +232,5 @@ dialog.modal::backdrop{background:rgba(15,30,30,.55)}
 
 table.plan td{vertical-align:top}
 table.plan td[rowspan]{background:var(--bg-2)}
+table.plan tr.grp th{background:var(--bg-2);text-align:left}
+table.plan tr.grp .small{font-weight:400;margin-left:.4rem}
