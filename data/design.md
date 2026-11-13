@@ -155,7 +155,7 @@ The plan is shown as a table of techniques under four group headings, in running
 
 | Position | Group name | What runs | Note shown with the group |
 |---|---|---|---|
-| 1 | Clarify the question | Techniques that examine the question | If a technique finds a problem with the question, the user sees it and can change the question before the rest runs. |
+| 1 | Clarify the question | Techniques that examine the question | These techniques can show that a term in the question can be read two ways, or that the question is too broad to test. If they do, the user can reword it before the analysis runs. |
 | 2 | Prepare the content | Techniques that prepare the material | None. De-identification, when it is needed, is the first of these. |
 | 3 | Analyse the content | Primary techniques, which analyse the material | None. The techniques are independent of each other, so a finding that several reach counts for more. |
 | 4 | Test the findings | Techniques that check the findings, then the library checks | None. |
