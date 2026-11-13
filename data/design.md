@@ -24,7 +24,7 @@ The process has eight steps. The numbers are used the same way in this document,
 |---|---|---|
 | 1. Intake | The user's input becomes a brief. Gaps become questions to the user. | Code and the model fill in what they can read. The user answers the rest. |
 | 2. Rule out techniques | Each technique is tested against the brief. Techniques that cannot run on the material are removed. The rest are eligible. | Code |
-| 3. Choose techniques | The model reads a list of the eligible techniques and chooses at most 10. | The model. The user can change the list. |
+| 3. Choose techniques | The model reads a list of the eligible techniques and chooses at most 10. | The model. The user can change the list where the application shows it. |
 | 4. Plan the order | The chosen techniques are placed in run order. Preparation techniques and checks are added. | Code |
 | 5. Run the techniques | 5.1 Examine the question. 5.2 Prepare the material. 5.3 Analyse the material. | The model, with code for arithmetic and text matching. The user confirms the request after 5.1. |
 | 6. Check the findings | Verification and challenge techniques run on the findings. The library checks are applied to each result. | The model and code. Checks that need a person are listed as not done. |
@@ -139,7 +139,7 @@ The model chooses at most 10 techniques, using these criteria in order:
 3. The techniques match the kind of finding wanted, where the user gave one.
 4. Where two techniques serve the same part of the request, prefer a pair with different methods, so that their agreement adds confidence (section 7).
 
-The process shows each chosen technique with a one-line reason that names the part of the request it serves. The user can change the list but is not asked to choose from it.
+The model records a one-line reason for each chosen technique, naming the part of the request it serves. The chosen techniques are work (section 7), so the user sees them only where the application shows work. Where it does, the user can change the list but is not asked to choose from it.
 
 Limits. All kinds of technique count towards the 10. Preparation techniques added for a chosen technique, de-identification and library checks do not count. Techniques the model wanted beyond the limit go on the reserve list. A follow-up round adds at most 5. The numbers are defaults chosen here, not measured.
 
