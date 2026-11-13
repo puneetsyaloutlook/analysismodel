@@ -210,7 +210,7 @@ dialog.modal::backdrop{background:rgba(15,30,30,.55)}
 .sw-output,.panel-output{border-color:var(--teal-600);background:var(--bg)}
 .sw-work,.panel-work{border-style:dashed;border-left-style:solid}
 .panel{margin:.9rem 0;padding:.55rem .95rem .85rem;border-radius:8px;border-width:1px;border-left-width:5px;border-style:solid}
-.panel.panel-work{border-style:dashed;border-left-style:solid;font-size:.93rem;color:var(--ink-2)}
+.panel.panel-work{border-style:dashed;border-left-style:solid}
 .panel-label{font-size:.74rem;font-weight:700;margin-bottom:.45rem}
 .panel-input>.panel-label{color:#7a4f00}
 .panel-work>.panel-label{color:var(--ink-2)}
