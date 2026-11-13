@@ -250,3 +250,14 @@ table.plan tr.grp .small{font-weight:400;margin-left:.4rem}
 #sim-out .result-md h3,#sim-out .result-md h4{font:600 .92rem/1.4 var(--sans);margin:.8rem 0 .25rem}
 .lead-answer{font-size:1.15rem;line-height:1.5}
 .panel-label{font-size:.78rem;letter-spacing:.02em}
+
+/* simulator: collapsed sub-steps, indented, with a return arrow */
+details.acc{margin:.6rem 0 .6rem 1.4rem;border-left:1px solid var(--line);padding-left:.9rem}
+details.acc>summary{cursor:pointer;list-style:none;display:flex;align-items:baseline;gap:.5rem;font:600 1.1rem var(--sans);color:var(--ink);padding:.35rem 0}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::after{content:"\25B8";margin-left:auto;font-weight:400;color:var(--ink-2)}
+details.acc[open]>summary::after{content:"\25BE"}
+details.acc>summary .ret{color:var(--teal-700);font-weight:400}
+details.acc>summary .small{font:400 .85rem var(--sans);color:var(--ink-2)}
+details.acc>summary:hover{color:var(--teal-900)}
+details.acc>.acc-body{padding-bottom:.4rem}

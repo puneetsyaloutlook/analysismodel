@@ -122,6 +122,7 @@
   }
 
   function assumed(basis) { return basis === 'stated' ? '' : ' <span class="pill warn">assumed, not confirmed by the user</span>'; }
+  function acc(title, n) { return '<details class="acc"><summary><span class="ret" aria-hidden="true">\u21b3</span> ' + esc(title) + ' <span class="small">' + n + (n === 1 ? ' technique' : ' techniques') + '</span></summary><div class="acc-body"></div></details>'; }
   function res(j, id) { return '<details class="resbox" open><summary>Result</summary><div class="result-md">' + (j.results_html[id] || '') + '</div></details>'; }
   function runRow(j, x, uses) { return '<div class="run"><div class="rh"><strong>' + link(x) + '</strong><span class="pill">looked at: ' + esc(uses) + '</span></div>' + res(j, x.id) + '</div>'; }
 
@@ -153,15 +154,18 @@
       b.push({ role: 'work', html: '<p>Your content has no personal information, so nothing had to be removed from it first.</p>' });
       b.push({ role: 'work', html: need.length ? '<p>' + need.map(function (x) { return esc(x.name); }).join(' and ') + ' needs extra material to run. In step 5 MANIFST looks for it in your content first. Only if it is missing does MANIFST look elsewhere, and it asks you before using anything it finds.</p>' : '<p>No technique needs material from outside your content.</p>' });
     } else if (i === 4) {
-      b.push({ role: 'work', html: '<p>MANIFST ran each technique separately on your question and content. Each result is shown in full below its technique.</p>' });
-      b.push({ html: '<h3 class="substep">5.1 Examine the question</h3>' });
+      b.push({ role: 'work', html: '<p>MANIFST ran each technique separately on your question and content. Open a part below to read its results.</p>' });
+      b.push({ acc: 'start', html: acc('5.1 Examine the question', S.frame.length) });
       S.frame.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your question') }); });
-      b.push({ role: 'input', confirm: true, html: '<div class="confirm"><h3>Do you want to change your question?</h3><p>The techniques above found terms in your question that need a fixed meaning. Read what they found, then choose. MANIFST continues when you answer.</p><p class="req">' + esc(j.request) + '</p><div class="form-actions"><button type="button" class="btn primary" data-keep>Keep my question</button><button type="button" class="btn" disabled title="Not available in this replay">Edit my question</button></div></div>' });
-      b.push({ html: '<h3 class="substep">5.2 Prepare the material</h3>' });
+      b.push({ acc: 'end' });
+      b.push({ role: 'input', confirm: true, html: '<div class="confirm"><h3>Do you want to change your question?</h3><p>The techniques above found terms in your question that need a fixed meaning. Open 5.1 above to read what they found, then choose. MANIFST continues when you answer.</p><p class="req">' + esc(j.request) + '</p><div class="form-actions"><button type="button" class="btn primary" data-keep>Keep my question</button><button type="button" class="btn" disabled title="Not available in this replay">Edit my question</button></div></div>' });
+      b.push({ acc: 'start', html: acc('5.2 Prepare the material', S.prepare.length) });
       b.push({ role: 'work', html: '<div class="seq"><p class="seq-h"><strong>Outside material</strong></p><p>Absence analysis needs a list of what should be present. MANIFST looked in your content first and found it: four scenarios, eight participants and three hypotheses. Nothing was gathered from outside, so there was nothing for you to approve.</p></div>' });
       S.prepare.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your content') }); });
-      b.push({ html: '<h3 class="substep">5.3 Analyse the material</h3>' });
+      b.push({ acc: 'end' });
+      b.push({ acc: 'start', html: acc('5.3 Analyse the material', S.analyse.length) });
       S.analyse.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your content') }); });
+      b.push({ acc: 'end' });
     } else if (i === 5) {
       var ck = j.ck17;
       b.push({ role: 'work', html: '<p>MANIFST checked the findings from step 5. It confirmed the quotes, looked for evidence against the findings, and tested how easily they change.</p>' });
@@ -257,15 +261,17 @@
     }
     if (i > 0) sec.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' });
     var wrap = document.createElement('div'); sec.appendChild(wrap);
-    var blocks = builders(i), k = 0, panel = null, prevKey = null;
+    var blocks = builders(i), k = 0, panel = null, prevKey = null, cont = wrap;
     return (function next() {
       if (k >= blocks.length) { bar.style.width = '100%'; return Promise.resolve(true); }
       var blk = blocks[k++], d = document.createElement('div');
+      if (blk.acc === 'end') { cont = wrap; panel = null; prevKey = null; return next(); }
       d.className = 'rv'; d.innerHTML = blk.html;
+      if (blk.acc === 'start') { wrap.appendChild(d); cont = d.querySelector('.acc-body'); panel = null; prevKey = null; return wait(120).then(function (ok) { return ok && t === token ? next() : false; }); }
       var key = blk.role ? blk.role + '|' + (blk.by || '') : null;
       if (!key) panel = null;
-      else if (key !== prevKey || !panel) { panel = makePanel(blk.role, blk.by); wrap.appendChild(panel); }
-      prevKey = key; (panel || wrap).appendChild(d);
+      else if (key !== prevKey || !panel) { panel = makePanel(blk.role, blk.by); cont.appendChild(panel); }
+      prevKey = key; (panel || cont).appendChild(d);
       if (blk.tally) setTally(blk.tally[0], blk.tally[1]);
       bar.style.width = Math.round(k / blocks.length * 100) + '%';
       if (blk.confirm) {
