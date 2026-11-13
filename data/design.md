@@ -1,6 +1,6 @@
 # MANIFST: design document
 
-Version 1.2.3, 13 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
+Version 1.2.4, 14 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
 
 ## 1. Purpose and status
 
@@ -13,9 +13,9 @@ Given a brief, the process chooses the techniques that fit, runs them in order, 
 Status:
 
 - Every part has been built and tested on small cases.
-- One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.3 of this design. Its output is shown in the simulator on the documentation site.
+- One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.4 of this design. Steps 1 to 5 ran before decision 38, which changes only step 6. Its output is shown in the simulator on the documentation site.
 - The documentation site is built from this document, the schema and the catalogue.
-- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.3 add decisions 31 to 37. The scripts, the step 3 instruction and the stored run follow version 1.2.3. Section 10 lists what is untested.
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.4 add decisions 31 to 38. The scripts, the step 3 instruction and the stored run follow version 1.2.4. Section 10 lists what is untested.
 - All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
@@ -89,10 +89,10 @@ The process defines the states of a run so that whatever runs it (a chat, an age
 |---|---|
 | A step | Waiting to start. Running. Waiting for you. Done. Skipped (the step does not apply, for example 5.1 when no question technique was chosen). |
 | A technique | Removed (step 2). Eligible. Chosen. Reserve. Running. Done. Dropped (with the reason). |
-| A library check | Done. Not done, because it needs a person. |
+| A library check | Done. Not done, because it needs a person and the user did not review the sample (high stakes only). Left out, because it needs a person and the stakes are below high-stakes. |
 | The answer | Not yet given. Given. |
 
-A step is waiting for you only at one of the decision points: confirm the brief, confirm the request after 5.1, approve outside material, choose the combining method, confirm that estimates measure the same thing, or ask for a follow-up round. The status names the decision point, so the application can show what the user needs to decide.
+A step is waiting for you only at one of the decision points: confirm the brief, confirm the request after 5.1, approve outside material, review a sample of the results (high stakes only), choose the combining method, confirm that estimates measure the same thing, or ask for a follow-up round. The status names the decision point, so the application can show what the user needs to decide.
 
 Rules for the status:
 
@@ -243,7 +243,9 @@ Three things happen, in this order.
 2. **Challenge techniques** run on the findings of the analysis, for example devil's advocacy or a premortem. They never challenge the brief.
 3. **Library checks** are applied to each result, as set by the stakes and the strength of statement.
 
-A library check that needs a person is not done by the process. Human review sample, independent review and expert review always need a person. Gold standard agreement needs a person unless the material already has labels made by trained people. A spot check can be done by code or a person. The answer lists every check that was not done.
+A library check that needs no person is done by the process, by code or by running the technique again. That includes spot checks and repeat runs. Human review sample, independent review and expert review always need a person. Gold standard agreement needs a person unless the material already has labels made by trained people.
+
+Checks that need a person apply at high stakes only. Below high stakes the plan leaves them out, because a wrong conclusion is cheap to find and correct and the check would not change any label. The answer then says that no person reviewed the results. At high stakes the process stops at the end of step 6, shows the user a small sample of the results with the labels or findings the model produced, and the user reviews it, skips it or defers it. Reviewing the sample tests the output, not the decision points inside the process, so it takes minutes and not the time of redoing the analysis.
 
 ### Step 7: Combine the findings
 
@@ -268,7 +270,7 @@ Each conclusion gets one confidence label (high, medium or low) and a one-line r
 
 Different methods. Every technique in a run reads the same material and is run by the same model, so two techniques cannot be independent in data or model. They count as having different methods when they read the material in different ways, for example one counts cases and one searches for disconfirming statements. The model states the difference in the reason. Two techniques tagged as substitutes for each other do not count. The answer states the shared material and model as a limit.
 
-Checks that need a person. A check that was not done because it needs a person is named in the reason. At high stakes it limits the label to medium until a person does it. At lower stakes it does not change the label.
+Checks that need a person. They apply at high stakes only. A check that the user did not review is named in the reason and limits the label to medium until a person does it. Below high stakes the check is left out and does not change the label.
 
 Failed checks at high stakes. At high stakes a failed check makes the label low for each conclusion that depends on it, and the reason names the check.
 
@@ -294,7 +296,7 @@ The answer gives the conclusions with their labels and reasons. It then states t
 - Which techniques ran and what each worked on.
 - Which techniques were dropped, and why.
 - Any files that could not be read.
-- Any checks that were not done.
+- Any checks that were not done, and whether a person reviewed the results.
 - Whether the user confirmed the request after 5.1.
 
 The answer can also include a section on the process followed: the techniques chosen, the sequence they ran in and the recorded reasons for both. Whether the answer includes this section by default is not yet decided (section 10).
@@ -411,15 +413,18 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 | 35 | The group names First and Next only gave the order. Look at your question was vague. The description belonged to the group, which does no work, and not to the techniques. Decided on 13 November 2026. | Groups are named by their purpose: Clarify the question, Prepare the content, Analyse the content, Test the findings. The table describes each technique, using the catalogue's description. The plan is work and carries no decision points. |
 | 36 | One group had a note about rewording the question and the others had none. The plan is work, so the user may not see it, and the note did not tell the user anything at the point of decision. Decided on 13 November 2026. | The note is removed. The decision to reword the question is asked in 5.1. The plan carries no decision points. |
 | 37 | Nothing in the design said what a runner could show about where a run is, so each application would have had to invent states. Decided on 13 November 2026. | Section 2 defines the states of a step, a technique, a library check and the answer, and the decision points a step can wait at. How the states are delivered is left to the application, because resuming a run later is not a requirement. |
+| 38 | A plan at decision-informing stakes listed checks that need a person and the run showed them as not done. The user could not act on them and they read as failures. Whether to ask is a question of stakes, and a person cannot check every decision inside the process. Decided on 14 November 2026. | Checks that need a person apply at high stakes only. Below high stakes the plan leaves them out and the answer says that no person reviewed the results. At high stakes the process asks the user to review a sample of the results at the end of step 6, a new decision point. Checks that need no person, including spot checks and repeat runs, are always done by the process. |
 
 ## 10. Open items
 
-Changed to version 1.2.3 and run once:
+Changed to version 1.2.4 and run once:
 
-- The scripts (`select.py`, `sequence.py`), the step 3 instruction and the stored run follow version 1.2.3. The stored run of 13 November 2026 ran on ten interview quotes: the 5.1 findings were shown to the user, who kept the request, and the user chose the combining method. Each technique ran as a separate agent.
+- The scripts (`select.py`, `sequence.py`), the step 3 instruction and the stored run follow version 1.2.4. The stored run of 13 November 2026 ran on ten interview quotes: the 5.1 findings were shown to the user, who kept the request, and the user chose the combining method. Each technique ran as a separate agent.
 - The personal information waiver in `select.py` (decision 29) has not been tested on content that contains personal information.
 - Nothing yet asks the user to approve outside material in 5.2 in a running application. The stored run needed no outside material, so that path has not been run.
-- The step 8 agent was not given the catalogue ceilings, so the strength of statement reached is worked out from the catalogue by the application. The stored run did not carry out the spot checks and repeat runs listed for four techniques, and it names that in the answer.
+- The step 8 agent was not given the catalogue ceilings, so the strength of statement reached is worked out from the catalogue by the application. The stored run carried out the spot checks (by code) and the repeat runs (HE1-15 and MM-10). It is at decision-informing stakes, so the checks that need a person were left out and the answer says that no person reviewed the results.
+- The high-stakes path has not been run: the pause at the end of step 6 that asks the user to review a sample of the results, and the cap of the label at medium when the user does not.
+- The spot check by code covers few pairs for some techniques (0 to 3 for HE1-14, HE1-15, MM-10 and TC1-13), so it says little about them.
 
 Not changed:
 
@@ -456,7 +461,7 @@ Catalogue data (from the spot check; the first six were fixed):
 | File | Role |
 |---|---|
 | `master/Analysis methods design.md` | This document. |
-| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.3. |
+| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.4. |
 | `master/master_tagged.csv` | The catalogue: 236 rows, 52 columns, with result formats. |
 | `master/master_base.csv`, `master/tags/tags_A.json` to `tags_F.json` | Sources of the CSV text and tags. |
 | `master/specs/out_1.json` to `out_6.json` | Result formats. |

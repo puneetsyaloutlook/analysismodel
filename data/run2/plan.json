@@ -117,28 +117,38 @@
    "source-span citation"
   ],
   "HE1-13": [
-   "spot check",
-   "human review sample"
+   "spot check"
   ],
   "HE1-14": [
-   "spot check",
-   "human review sample"
+   "spot check"
   ],
   "HE1-15": [
    "spot check",
-   "repeat runs",
-   "human review sample"
+   "repeat runs"
   ],
   "MM-10": [
    "spot check",
-   "repeat runs",
-   "gold standard agreement",
-   "human review sample"
+   "repeat runs"
   ],
   "TC1-13": [
    "assumption and limitation statement",
    "alternative explanations check",
    "source-span citation"
+  ]
+ },
+ "left_out": {
+  "HE1-13": [
+   "human review sample"
+  ],
+  "HE1-14": [
+   "human review sample"
+  ],
+  "HE1-15": [
+   "human review sample"
+  ],
+  "MM-10": [
+   "gold standard agreement",
+   "human review sample"
   ]
  },
  "held": [],

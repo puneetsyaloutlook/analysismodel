@@ -1,0 +1,42 @@
+{
+ "CM1-05": {
+  "pairs_checked": 3,
+  "mismatches": []
+ },
+ "DM-02": {
+  "pairs_checked": 11,
+  "mismatches": []
+ },
+ "HE1-13": {
+  "pairs_checked": 12,
+  "mismatches": []
+ },
+ "HE1-14": {
+  "pairs_checked": 2,
+  "mismatches": []
+ },
+ "HE1-15": {
+  "pairs_checked": 2,
+  "mismatches": []
+ },
+ "MM-10": {
+  "pairs_checked": 3,
+  "mismatches": []
+ },
+ "PE-02": {
+  "pairs_checked": 5,
+  "mismatches": []
+ },
+ "TC1-13": {
+  "pairs_checked": 0,
+  "mismatches": []
+ },
+ "TC1-16": {
+  "pairs_checked": 9,
+  "mismatches": []
+ },
+ "TC1-17": {
+  "pairs_checked": 8,
+  "mismatches": []
+ }
+}

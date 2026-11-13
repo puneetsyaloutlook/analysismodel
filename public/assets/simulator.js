@@ -44,7 +44,7 @@
 
   // Each step builds an array of "blocks": {html, pause}. Blocks appear one at a time inside a wrapper.
   var NOTES = {
-    real: '<strong>This replays one real run of MANIFST</strong> on ten interview quotes, made under version 1.2.3 of the design. Every result, conclusion and answer was produced by the run and stored. Nothing is calculated in your browser, so changing the form does not change the result. <strong>Limits.</strong> The question, stakes, strength of statement and kind of finding were set by the person who ran it. The person kept the question after step 5.1 and chose the agreement table and written summary in step 7. Two checks that need a person were not done, and the spot checks and repeat runs were not done either.'
+    real: '<strong>This replays one real run of MANIFST</strong> on ten interview quotes, made under version 1.2.4 of the design. Every result, conclusion and answer was produced by the run and stored. Nothing is calculated in your browser, so changing the form does not change the result. <strong>Limits.</strong> The question, stakes, strength of statement and kind of finding were set by the person who ran it. The person kept the question after step 5.1 and chose the agreement table and written summary in step 7. No person reviewed the results, because the checks that need a person apply at high stakes only.'
   };
 
   function builders(i) { return realBuilders(i); }
@@ -122,9 +122,8 @@
   }
 
   function assumed(basis) { return basis === 'stated' ? '' : ' <span class="pill warn">assumed, not confirmed by the user</span>'; }
-  function acc(title, n) { return '<details class="acc"><summary><span class="ret" aria-hidden="true">\u21b3</span> ' + esc(title) + ' <span class="small">' + n + (n === 1 ? ' technique' : ' techniques') + '</span></summary><div class="acc-body"></div></details>'; }
-  function res(j, id) { return '<details class="resbox" open><summary>Result</summary><div class="result-md">' + (j.results_html[id] || '') + '</div></details>'; }
-  function runRow(j, x, uses) { return '<div class="run"><div class="rh"><strong>' + link(x) + '</strong><span class="pill">looked at: ' + esc(uses) + '</span></div>' + res(j, x.id) + '</div>'; }
+  function sub(title, n) { return '<h3 class="substep"><span class="ret" aria-hidden="true">\u21b3</span> ' + esc(title) + ' <span class="small">' + n + (n === 1 ? ' technique' : ' techniques') + '</span></h3>'; }
+  function runRow(j, x, uses) { return '<details class="acc tech"><summary><span class="ret" aria-hidden="true">\u21b3</span> <span class="tname">' + esc(x.id + ' ' + x.name) + '</span> <span class="pill">looked at: ' + esc(uses) + '</span></summary><div class="acc-body"><p class="small"><a href="' + x.url + '">' + esc(x.id) + ' in the catalogue</a></p><div class="result-md">' + (j.results_html[x.id] || '') + '</div></div></details>'; }
 
   function realBuilders(i) {
     var j = job, b = [], S = j.stages, bm = j.basis_map;
@@ -153,18 +152,15 @@
       b.push({ role: 'work', html: '<div class="table-wrap"><table class="plan"><thead><tr><th>Technique</th><th>What it does</th><th>Needs outside material</th></tr></thead><tbody>' + rows + '</tbody></table></div>', tally: ['t-run', total] });
       b.push({ role: 'work', html: need.length ? '<p>' + need.map(function (x) { return esc(x.name); }).join(' and ') + ' needs extra material to run. In step 5 MANIFST looks for it in your content first. Only if it is missing does MANIFST look elsewhere, and it asks you before using anything it finds.</p>' : '<p>No technique needs material from outside your content.</p>' });
     } else if (i === 4) {
-      b.push({ role: 'work', html: '<p>MANIFST ran each technique separately on your question and content. Open a part below to read its results.</p>' });
-      b.push({ acc: 'start', html: acc('5.1 Examine the question', S.frame.length) });
+      b.push({ role: 'work', html: '<p>MANIFST ran each technique separately on your question and content. Open a technique below to read its result.</p>' });
+      b.push({ role: 'work', html: sub('5.1 Examine the question', S.frame.length) });
       S.frame.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your question') }); });
-      b.push({ acc: 'end' });
       b.push({ role: 'input', confirm: true, html: '<div class="confirm"><h3>Do you want to change your question?</h3><p>The technique above examined your question. Open 5.1 above to read what it found, then choose. MANIFST continues when you answer.</p><p class="req">' + esc(j.request) + '</p><div class="form-actions"><button type="button" class="btn primary" data-keep>Keep my question</button><button type="button" class="btn" disabled title="Not available in this replay">Edit my question</button></div></div>' });
-      b.push({ acc: 'start', html: acc('5.2 Prepare the material', S.prepare.length) });
+      b.push({ role: 'work', html: sub('5.2 Prepare the material', S.prepare.length) });
       b.push({ role: 'work', html: '<div class="seq"><p class="seq-h"><strong>Outside material</strong></p><p>' + (j.outside.length ? esc(JSON.stringify(j.outside)) : 'None of the techniques in this plan needs material from outside your content, so nothing was gathered and nothing needed your approval.') + '</p></div>' });
       S.prepare.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your content') }); });
-      b.push({ acc: 'end' });
-      b.push({ acc: 'start', html: acc('5.3 Analyse the material', S.analyse.length) });
+      b.push({ role: 'work', html: sub('5.3 Analyse the material', S.analyse.length) });
       S.analyse.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your content') }); });
-      b.push({ acc: 'end' });
     } else if (i === 5) {
       var ck = j.ck17;
       b.push({ role: 'work', html: '<p>MANIFST checked the findings from step 5. It confirmed the quotes, looked for evidence against the findings, and tested how easily they change.</p>' });
@@ -177,13 +173,16 @@
           if (k.code === 'assumption and limitation statement') st = '<span class="pill">present in the result</span>';
           else if (k.code === 'alternative explanations check') st = '<span class="pill">section present, quality not rated</span>';
           else if (k.code === 'source-span citation') st = '<span class="pill">done by code (CK-17)</span>';
+          else if (k.code === 'spot check') { var sp = j.spot[c.id]; st = sp ? '<span class="pill">done by code: ' + sp.pairs_checked + ' quote and participant pairs checked, ' + sp.mismatches.length + ' wrong</span>' : '<span class="pill warn">not done</span>'; }
+          else if (k.code === 'repeat runs') { var rp = j.repeat[c.id]; st = rp ? '<span class="pill">done: ' + rp.same + ' of ' + rp.compared + ' labels or categories the same on a second run</span>' : '<span class="pill warn">not done</span>'; }
           else if (k.person === 'needed' || k.person === 'conditional') { st = '<span class="pill warn">not done: person needed</span>'; needed[k.code] = 1; }
           else st = '<span class="pill warn">not done</span>';
           return '<li>' + esc(k.code) + ' ' + st + '</li>';
         }).join('');
         b.push({ role: 'work', html: '<div class="stage"><h3>Checks on ' + link(c) + '</h3><ul>' + lis + '</ul></div>', tally: ['t-person', Object.keys(needed).length] });
       });
-      b.push({ role: 'work', html: '<p class="result">' + Object.keys(needed).length + ' kinds of check need a person and were not done. They are listed in your report.</p>' });
+      var lo = Object.keys(j.left_out || {}).length;
+      b.push({ role: 'work', html: '<p class="result">' + (lo ? 'Checks that need a person (human review sample, gold standard agreement) are not in this plan, because the stakes are below high-stakes. No person reviewed the results. At high stakes MANIFST would stop here and ask you to review a sample.' : 'Every check in the plan was done.') + '</p>' });
     } else if (i === 6) {
       var sy = j.synthesis, T = sy.techniques;
       b.push({ role: 'work', html: '<p>MANIFST compared what the techniques found and wrote the conclusions. It used an agreement table and then a written summary.</p>' });

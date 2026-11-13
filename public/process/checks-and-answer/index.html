@@ -33,7 +33,8 @@
 <li><strong>Challenge techniques</strong> run on the findings of the analysis, for example devil's advocacy or a premortem. They never challenge the brief.</li>
 <li><strong>Library checks</strong> are applied to each result, as set by the stakes and the strength of statement.</li>
 </ol>
-<p>A library check that needs a person is not done by the process. Human review sample, independent review and expert review always need a person. Gold standard agreement needs a person unless the material already has labels made by trained people. A spot check can be done by code or a person. The answer lists every check that was not done.</p>
+<p>A library check that needs no person is done by the process, by code or by running the technique again. That includes spot checks and repeat runs. Human review sample, independent review and expert review always need a person. Gold standard agreement needs a person unless the material already has labels made by trained people.</p>
+<p>Checks that need a person apply at high stakes only. Below high stakes the plan leaves them out, because a wrong conclusion is cheap to find and correct and the check would not change any label. The answer then says that no person reviewed the results. At high stakes the process stops at the end of step 6, shows the user a small sample of the results with the labels or findings the model produced, and the user reviews it, skips it or defers it. Reviewing the sample tests the output, not the decision points inside the process, so it takes minutes and not the time of redoing the analysis.</p>
 <h3 id="step-7-combine-the-findings">Step 7: Combine the findings</h3>
 <p>The process offers the methods that apply and recommends one. It runs the recommended method if the user does not reply.</p>
 <div class="table-wrap"><table>
@@ -92,7 +93,7 @@
 </tbody>
 </table></div>
 <p>Different methods. Every technique in a run reads the same material and is run by the same model, so two techniques cannot be independent in data or model. They count as having different methods when they read the material in different ways, for example one counts cases and one searches for disconfirming statements. The model states the difference in the reason. Two techniques tagged as substitutes for each other do not count. The answer states the shared material and model as a limit.</p>
-<p>Checks that need a person. A check that was not done because it needs a person is named in the reason. At high stakes it limits the label to medium until a person does it. At lower stakes it does not change the label.</p>
+<p>Checks that need a person. They apply at high stakes only. A check that the user did not review is named in the reason and limits the label to medium until a person does it. Below high stakes the check is left out and does not change the label.</p>
 <p>Failed checks at high stakes. At high stakes a failed check makes the label low for each conclusion that depends on it, and the reason names the check.</p>
 <p>Challenge findings do not change the label. A challenge finding is an added finding and appears in the answer next to the conclusion it examines.</p>
 <h3 id="step-8-answer">Step 8: Answer</h3>
@@ -112,7 +113,7 @@
 <li>Which techniques ran and what each worked on.</li>
 <li>Which techniques were dropped, and why.</li>
 <li>Any files that could not be read.</li>
-<li>Any checks that were not done.</li>
+<li>Any checks that were not done, and whether a person reviewed the results.</li>
 <li>Whether the user confirmed the request after 5.1.</li>
 </ul>
 <p>The answer can also include a section on the process followed: the techniques chosen, the sequence they ran in and the recorded reasons for both. Whether the answer includes this section by default is not yet decided (<a href="/project/open-items/">section 10</a>).</p>

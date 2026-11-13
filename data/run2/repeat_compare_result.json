@@ -1,0 +1,27 @@
+{
+ "MM-10": {
+  "compared": 30,
+  "same": 28,
+  "different": [
+   [
+    "Q7",
+    "H1",
+    "none",
+    "oppose"
+   ],
+   [
+    "Q10",
+    "H2",
+    "oppose",
+    "neutral"
+   ]
+  ],
+  "note": "Targets compared: the three that correspond to H1, H2 and H3. The original also labelled a general stance (T1), which the repeat run did not."
+ },
+ "HE1-15": {
+  "compared": 4,
+  "same": 4,
+  "different": [],
+  "note": "Compared the quotes coded favourable, unfavourable, would hang up and would ask for a human. Both runs coded the same quotes in all four."
+ }
+}
