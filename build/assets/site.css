@@ -220,3 +220,6 @@ dialog.modal::backdrop{background:rgba(15,30,30,.55)}
 .panel .result{margin-top:.2rem}
 .panel .substep{border:0}
 .result-md h2{font:600 1.05rem/1.4 var(--sans);color:var(--ink);margin:.5rem 0 .4rem;border:0;padding:0}
+
+.ask-banner{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;margin:0 0 1rem;padding:.7rem 1rem;border:1px solid #b7791f;border-left-width:5px;border-radius:8px;background:#fff8ea;color:#5c3b00}
+.sim-steps li.ask .lbl::after{content:" (waiting for you)";font-weight:400;color:#7a4f00}

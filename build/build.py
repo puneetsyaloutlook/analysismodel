@@ -148,7 +148,7 @@ def make_simulator():
     steps = [st["name"] for st in schema["steps"]]
     rail = "".join(f'<li data-step="{i}"><button type="button" class="step-btn"><span class="dot" aria-hidden="true"></span><span class="lbl">{i + 1}. {esc(t)}</span><span class="st sr"></span></button></li>' for i, t in enumerate(steps))
     body = f"""
-<p class="lede">This is an actual run on ten interview quotes from eight participants. Submit the intake form to start it. Every technique in the plan ran, and the findings are in the cards.</p>
+<p class="lede">This shows MANIFST working on a real question about ten interview quotes. Submit the form to start. Each card shows one step: what you entered, what MANIFST did, and the report at the end.</p>
 <div class="sim-note" id="sim-note"></div>
 <div class="sim-controls">
   <label for="sim-job">Brief</label>
@@ -160,13 +160,13 @@ def make_simulator():
   <select id="sim-speed"><option value="1">Normal</option><option value="0.4">Fast</option><option value="2.2">Slow</option></select>
 </div>
 <div class="tally" aria-label="Running totals">
-  <div><span class="n" id="t-cat">{len(rows)}</span><span class="k">techniques in the catalogue</span></div>
-  <div><span class="n" id="t-pass">-</span><span class="k">eligible</span></div>
-  <div><span class="n" id="t-pick">-</span><span class="k">chosen (limit 10)</span></div>
-  <div><span class="n" id="t-run">-</span><span class="k">techniques in the plan</span></div>
+  <div><span class="n" id="t-cat">{len(rows)}</span><span class="k">techniques MANIFST knows</span></div>
+  <div><span class="n" id="t-pass">-</span><span class="k">can work with your content</span></div>
+  <div><span class="n" id="t-pick">-</span><span class="k">chosen for your question</span></div>
+  <div><span class="n" id="t-run">-</span><span class="k">placed in run order</span></div>
   <div><span class="n" id="t-person">-</span><span class="k">checks that need a person</span></div>
 </div>
-<ul class="legend" aria-label="Key to the cards"><li><span class="sw sw-input"></span>Your input: what you enter or decide</li><li><span class="sw sw-work"></span>Work: what code or the model did on the way to the answer</li><li><span class="sw sw-output"></span>Output: the report you receive at the end</li></ul>
+<ul class="legend" aria-label="Key to the cards"><li><span class="sw sw-input"></span>Your input: what you enter or decide</li><li><span class="sw sw-work"></span>What MANIFST did on the way to the answer</li><li><span class="sw sw-output"></span>Output: the report you receive at the end</li></ul>
 <div class="sim-app">
   <ol class="sim-steps" aria-label="Process steps">{rail}</ol>
   <section class="sim-stage" aria-live="polite" aria-labelledby="sim-title">
