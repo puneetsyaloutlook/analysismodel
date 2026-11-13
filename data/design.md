@@ -1,8 +1,10 @@
-# Analysis methods: design document
+# MANIFST: design document
 
 Version 1.2.1, 13 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
 
 ## 1. Purpose and status
+
+MANIFST is the working name for the whole design: the catalogue, the process and the rules. It replaces "analysis model", which was confused with the language model that does the work. In this document "the model" always means the language model. The name is a respelling of manifest (a ship's list of what it carries, and a word for something plain to see) and is provisional.
 
 The catalogue lists 236 analytical techniques in 12 families. It will become a skill that a chat or agent calls. The user has said the skill is not to be built yet.
 
