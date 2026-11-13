@@ -26,12 +26,15 @@
   <main id="main" class="content">
     <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Overview</a></li><li><a href="/project/decisions/">Project record</a></li><li aria-current="page">Open items</li></ol></nav>
     <h1>Open items</h1>
-    <div class="prose"><p>Not yet changed to version 1.2:</p>
+    <div class="prose"><p>Changed to version 1.2.3 and run once:</p>
 <ul>
-<li><code>select.py</code> does not apply the personal information waiver (decision 29).</li>
-<li><code>sequence.py</code> still labels the sequence as stages 0 to 3, has no pause after 5.1, does not name the groups, describe what each technique does or list which techniques need outside material as a column (decisions 24, 25, 32 and 33). Nothing yet asks the user to approve outside material in 5.2.</li>
-<li>The instruction given to the model in step 3 does not yet state the four criteria (decisions 26 and 27).</li>
-<li>The stored run of 11 November followed version 1.1. Its two question techniques ran first and the user was not asked to confirm the request. Its answer does not state the strength of statement reached.</li>
+<li>The scripts (<code>select.py</code>, <code>sequence.py</code>), the step 3 instruction and the stored run follow version 1.2.3. The stored run of 13 November 2026 ran on ten interview quotes: the 5.1 findings were shown to the user, who kept the request, and the user chose the combining method. Each technique ran as a separate agent.</li>
+<li>The personal information waiver in <code>select.py</code> (decision 29) has not been tested on content that contains personal information.</li>
+<li>Nothing yet asks the user to approve outside material in 5.2 in a running application. The stored run needed no outside material, so that path has not been run.</li>
+<li>The step 8 agent was not given the catalogue ceilings, so the strength of statement reached is worked out from the catalogue by the application. The stored run did not carry out the spot checks and repeat runs listed for four techniques, and it names that in the answer.</li>
+</ul>
+<p>Not changed:</p>
+<ul>
 <li>The schema and the catalogue keep their original field names (<a href="/catalogue/">section 8</a>).</li>
 </ul>
 <p>Design:</p>

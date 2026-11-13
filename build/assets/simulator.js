@@ -44,7 +44,7 @@
 
   // Each step builds an array of "blocks": {html, pause}. Blocks appear one at a time inside a wrapper.
   var NOTES = {
-    real: '<strong>This replays a real run of MANIFST</strong> from 11 November 2026 on ten interview quotes. Nothing is calculated in your browser, so changing the form does not change the result. <strong>Limits.</strong> In the real run the wording of the question, the stakes, the strength of statement and the kind of finding were set by default and not chosen by a person. One check that needs a person was not done. Each result was capped at 450 words to keep the test short, and five went over. The question after step 5.1 and the line on how strong a statement the answer supports were added to the design after the run.'
+    real: '<strong>This replays one real run of MANIFST</strong> on ten interview quotes, made under version 1.2.3 of the design. Every result, conclusion and answer was produced by the run and stored. Nothing is calculated in your browser, so changing the form does not change the result. <strong>Limits.</strong> The question, stakes, strength of statement and kind of finding were set by the person who ran it. The person kept the question after step 5.1 and chose the agreement table and written summary in step 7. Two checks that need a person were not done, and the spot checks and repeat runs were not done either.'
   };
 
   function builders(i) { return realBuilders(i); }
@@ -151,16 +151,15 @@
       });
       b.push({ role: 'work', html: '<p>MANIFST put the ' + Math.min(10, j.picks.length) + ' chosen techniques in four groups, in the order they will run.</p>' });
       b.push({ role: 'work', html: '<div class="table-wrap"><table class="plan"><thead><tr><th>Technique</th><th>What it does</th><th>Needs outside material</th></tr></thead><tbody>' + rows + '</tbody></table></div>', tally: ['t-run', total] });
-      b.push({ role: 'work', html: '<p>Your content has no personal information, so nothing had to be removed from it first.</p>' });
       b.push({ role: 'work', html: need.length ? '<p>' + need.map(function (x) { return esc(x.name); }).join(' and ') + ' needs extra material to run. In step 5 MANIFST looks for it in your content first. Only if it is missing does MANIFST look elsewhere, and it asks you before using anything it finds.</p>' : '<p>No technique needs material from outside your content.</p>' });
     } else if (i === 4) {
       b.push({ role: 'work', html: '<p>MANIFST ran each technique separately on your question and content. Open a part below to read its results.</p>' });
       b.push({ acc: 'start', html: acc('5.1 Examine the question', S.frame.length) });
       S.frame.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your question') }); });
       b.push({ acc: 'end' });
-      b.push({ role: 'input', confirm: true, html: '<div class="confirm"><h3>Do you want to change your question?</h3><p>The techniques above found terms in your question that need a fixed meaning. Open 5.1 above to read what they found, then choose. MANIFST continues when you answer.</p><p class="req">' + esc(j.request) + '</p><div class="form-actions"><button type="button" class="btn primary" data-keep>Keep my question</button><button type="button" class="btn" disabled title="Not available in this replay">Edit my question</button></div></div>' });
+      b.push({ role: 'input', confirm: true, html: '<div class="confirm"><h3>Do you want to change your question?</h3><p>The technique above examined your question. Open 5.1 above to read what it found, then choose. MANIFST continues when you answer.</p><p class="req">' + esc(j.request) + '</p><div class="form-actions"><button type="button" class="btn primary" data-keep>Keep my question</button><button type="button" class="btn" disabled title="Not available in this replay">Edit my question</button></div></div>' });
       b.push({ acc: 'start', html: acc('5.2 Prepare the material', S.prepare.length) });
-      b.push({ role: 'work', html: '<div class="seq"><p class="seq-h"><strong>Outside material</strong></p><p>Absence analysis needs a list of what should be present. MANIFST looked in your content first and found it: four scenarios, eight participants and three hypotheses. Nothing was gathered from outside, so there was nothing for you to approve.</p></div>' });
+      b.push({ role: 'work', html: '<div class="seq"><p class="seq-h"><strong>Outside material</strong></p><p>' + (j.outside.length ? esc(JSON.stringify(j.outside)) : 'None of the techniques in this plan needs material from outside your content, so nothing was gathered and nothing needed your approval.') + '</p></div>' });
       S.prepare.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your content') }); });
       b.push({ acc: 'end' });
       b.push({ acc: 'start', html: acc('5.3 Analyse the material', S.analyse.length) });
@@ -169,9 +168,8 @@
     } else if (i === 5) {
       var ck = j.ck17;
       b.push({ role: 'work', html: '<p>MANIFST checked the findings from step 5. It confirmed the quotes, looked for evidence against the findings, and tested how easily they change.</p>' });
-      b.push({ role: 'work', html: '<div class="run"><div class="rh"><strong><a href="/catalogue/check-extracted-results/ck-17/">Quote check</a></strong><span class="pill">looked at: the findings from step 5</span></div><p>MANIFST found ' + ck.checked + ' quoted phrases in the nine results. ' + (ck.checked - ck.failed.length) + ' match your content word for word. The other ' + ck.failed.length + ' are the techniques\' own wording and not quotes from a participant, so no quote was wrong.</p><p class="small">The ' + ck.failed.length + ' phrases: ' + ck.failed.map(function (f) { return '"' + esc(f.span) + '"'; }).join(', ') + '.</p></div>', tally: ['t-run', S.frame.length + S.prepare.length + S.analyse.length + S.check.length] });
+      b.push({ role: 'work', html: '<div class="run"><div class="rh"><strong><a href="/catalogue/check-extracted-results/ck-17/">Quote check</a></strong><span class="pill">looked at: the findings from step 5</span></div><p>MANIFST found ' + ck.checked + ' quoted phrases in the eight results from steps 5.1 to 5.3. ' + (ck.checked - ck.failed.length) + ' match your content word for word. The other ' + ck.failed.length + ' are labels, terms or one paraphrase that a technique put in quotation marks, and not quotes from a participant.</p><p class="small">The ' + ck.failed.length + ' phrases: ' + ck.failed.map(function (f) { return '"' + esc(f.span) + '"'; }).join(', ') + '.</p></div>', tally: ['t-run', S.frame.length + S.prepare.length + S.analyse.length + S.check.length] });
       S.check.filter(function (x) { return x.id !== 'CK-17'; }).forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'the findings from step 5') }); });
-      b.push({ role: 'work', html: '<div class="run"><div class="rh"><strong>Count check</strong></div><p>One result reported how many ratings went against each hypothesis. MANIFST counted the table again and got the same numbers.</p></div>' });
       var needed = {};
       j.checks.forEach(function (c) {
         var lis = c.list.map(function (k) {
@@ -179,14 +177,13 @@
           if (k.code === 'assumption and limitation statement') st = '<span class="pill">present in the result</span>';
           else if (k.code === 'alternative explanations check') st = '<span class="pill">section present, quality not rated</span>';
           else if (k.code === 'source-span citation') st = '<span class="pill">done by code (CK-17)</span>';
-          else if (k.code === 'spot check') st = '<span class="pill warn">not done</span>';
-          else if (k.code === 'human review sample') { st = '<span class="pill warn">not done: person needed</span>'; needed[k.code] = 1; }
-          else st = '';
+          else if (k.person === 'needed' || k.person === 'conditional') { st = '<span class="pill warn">not done: person needed</span>'; needed[k.code] = 1; }
+          else st = '<span class="pill warn">not done</span>';
           return '<li>' + esc(k.code) + ' ' + st + '</li>';
         }).join('');
         b.push({ role: 'work', html: '<div class="stage"><h3>Checks on ' + link(c) + '</h3><ul>' + lis + '</ul></div>', tally: ['t-person', Object.keys(needed).length] });
       });
-      b.push({ role: 'work', html: '<p class="result">One check needs a person and was not done. It is listed in your report.</p>' });
+      b.push({ role: 'work', html: '<p class="result">' + Object.keys(needed).length + ' kinds of check need a person and were not done. They are listed in your report.</p>' });
     } else if (i === 6) {
       var sy = j.synthesis, T = sy.techniques;
       b.push({ role: 'work', html: '<p>MANIFST compared what the techniques found and wrote the conclusions. It used an agreement table and then a written summary.</p>' });
@@ -197,25 +194,17 @@
         b.push({ role: 'work', html: '<div class="concl"><div class="rh"><strong>' + esc(c.id) + '</strong><span class="pill conf-' + c.label + '">' + esc(sentence(c.label)) + ' confidence</span></div><p>' + esc(c.text) + '</p><p class="small"><strong>Reason.</strong> ' + esc(c.reason) + '</p></div>' });
       });
     } else if (i === 7) {
-      var a = j.synthesis.answer;
+      var a = j.answer;
       b.push({ role: 'output', html: '<p class="lead-answer">' + esc(a.lead) + '</p>' });
-      a.paragraphs.forEach(function (p) { b.push({ role: 'output', html: '<p>' + esc(p) + '</p>' }); });
+      a.conclusions.forEach(function (c) {
+        b.push({ role: 'output', html: '<div class="concl"><div class="rh"><strong>' + esc(c.id) + '</strong><span class="pill conf-' + c.label + '">' + esc(sentence(c.label)) + ' confidence</span></div><p>' + esc(c.text) + '</p><p class="small"><strong>Reason.</strong> ' + esc(c.reason) + '</p></div>' });
+      });
       var need = CLAIM_ORDER.indexOf(j.claim), reach = j.picks.slice(0, 10).filter(function (p) { return CLAIM_ORDER.indexOf(p.ceiling) >= need; });
       var supported = j.synthesis.conclusions.filter(function (c) { return reach.some(function (p) { return c.cells[p.id] === 'A' || c.cells[p.id] === 'P'; }); }).map(function (c) { return c.id; });
       b.push({ role: 'output', html: '<h3>How strong a statement this supports</h3><p>You needed to ' + esc(CLAIM_PLAIN[j.claim]) + '. ' + (reach.length ? reach.length + ' of the chosen techniques can support that: ' + reach.map(link).join(', ') + '. They support conclusions ' + esc(supported.join(', ')) + '.' : 'None of the chosen techniques can support that.') + '</p>' });
       b.push({ role: 'output', html: '<h3>What the answer is based on</h3>' });
-      var basis = [
-        'Material given: one document (Voice AI interview study), ' + j.source.words + ' words. It contains three hypotheses and ten quotes (Q1 to Q10) from eight participants (P1, P2, P3, P4, P5, P8, P9, P10). The material does not say how the quotes were chosen.',
-        'Outside material used: none. The list of what should be present, which CM1-14 needs, came from your content.',
-        'Techniques run, and what each worked on: FQ-03 and DM-02 (the request); HE1-02, CM1-05, CM1-14, HE1-14 and TC1-13 (the material); CK-17 by code, TC1-16 and TC1-17 (the findings of the analysis).',
-        'Checks done: quotation check by code (' + j.ck17.checked + ' quoted spans, ' + (j.ck17.checked - j.ck17.failed.length) + ' matched, ' + j.ck17.failed.length + ' phrases read by hand); recount of the competing hypotheses table by code; assumption and limitation sections and alternative explanations sections present in all nine results.',
-        'Checks not done because they need a person: human review sample (framework analysis).',
-        'Your question after step 5.1: kept as submitted.',
-        'Techniques dropped: none.',
-        'Files that could not be read: none.'
-      ];
-      basis.forEach(function (x) { b.push({ role: 'output', html: '<div class="row1">' + esc(x) + '</div>', fast: true }); });
-      b.push({ role: 'input', html: '<div class="confirm"><h3>Do you want a follow-up round?</h3><p>MANIFST would then choose more techniques for the gaps and unresolved conflicts above (the H2 and H3 verdicts depend on definitions, and nothing is known about P8 and P9). Kept for a follow-up round: ' + j.held.map(link).join(', ') + '. A follow-up round adds up to 5 techniques.</p><div class="form-actions"><button type="button" class="btn" disabled title="Not available in this replay">Ask for a follow-up round</button></div></div>' });
+      a.basis.forEach(function (x) { b.push({ role: 'output', html: '<div class="row1">' + esc(x) + '</div>', fast: true }); });
+      b.push({ role: 'input', html: '<div class="confirm"><h3>Do you want a follow-up round?</h3><p>MANIFST would then choose more techniques for the gaps and unresolved conflicts found in step 7. It would leave out the techniques that already ran. A follow-up round adds up to 5 techniques.</p><div class="form-actions"><button type="button" class="btn" disabled title="Not available in this replay">Ask for a follow-up round</button></div></div>' });
       b.push({ html: '<p class="result">End of the run.</p>' });
     }
     return b;

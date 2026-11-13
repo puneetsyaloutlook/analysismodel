@@ -1,0 +1,602 @@
+{
+ "CM1-05": [
+  [
+   "this one seems to be pretty dynamic",
+   true
+  ],
+  [
+   "never work",
+   true
+  ],
+  [
+   "a little bit annoyed",
+   true
+  ],
+  [
+   "at the beginning",
+   true
+  ],
+  [
+   "It seemed like talking to a real person",
+   true
+  ],
+  [
+   "really excellent",
+   true
+  ],
+  [
+   "really seamless",
+   true
+  ],
+  [
+   "a really good process",
+   true
+  ],
+  [
+   "to speak to someone",
+   true
+  ],
+  [
+   "I would do it",
+   true
+  ],
+  [
+   "extremely frustrated",
+   true
+  ],
+  [
+   "very cold in clinical",
+   true
+  ],
+  [
+   "I probably would've hung up",
+   true
+  ],
+  [
+   "I would've asked for a human.",
+   true
+  ],
+  [
+   "AI voice",
+   true
+  ],
+  [
+   "American",
+   true
+  ],
+  [
+   "local experience",
+   true
+  ],
+  [
+   "I would've definitely have hung up at the intro.",
+   true
+  ],
+  [
+   "way too long",
+   true
+  ],
+  [
+   "robot voice",
+   true
+  ],
+  [
+   "repeat yourself",
+   true
+  ],
+  [
+   "would",
+   true
+  ],
+  [
+   "no evidence",
+   false
+  ],
+  [
+   "would",
+   true
+  ]
+ ],
+ "DM-02": [
+  [
+   "this one seems to be pretty dynamic",
+   true
+  ],
+  [
+   "it knew exactly what it needed to ask",
+   true
+  ],
+  [
+   "really seamless",
+   true
+  ],
+  [
+   "a really good process",
+   true
+  ],
+  [
+   "I felt a little bit annoyed",
+   true
+  ],
+  [
+   "I would be extremely frustrated",
+   true
+  ],
+  [
+   "it's American",
+   true
+  ],
+  [
+   "it was way too long",
+   true
+  ],
+  [
+   "those never work",
+   true
+  ],
+  [
+   "sometimes when you are talking to a more of a robot, it sounds more like a robot voice",
+   true
+  ],
+  [
+   "you have to repeat yourself",
+   true
+  ],
+  [
+   "parsed, um, articles from their own website",
+   true
+  ],
+  [
+   "an AI voice",
+   true
+  ],
+  [
+   "I would've definitely have hung up at the intro.",
+   true
+  ],
+  [
+   "I probably would've hung up and then tried to do it manually online",
+   true
+  ],
+  [
+   "it was way too long",
+   true
+  ],
+  [
+   "If I was gonna do it, that's probably where I would do it",
+   true
+  ],
+  [
+   "I would've asked for a human.",
+   true
+  ],
+  [
+   "I'd be probably wanting to speak to someone",
+   true
+  ],
+  [
+   "immediately",
+   true
+  ],
+  [
+   "immediately",
+   true
+  ],
+  [
+   "would've",
+   true
+  ],
+  [
+   "if I was",
+   true
+  ],
+  [
+   "a really good process",
+   true
+  ]
+ ],
+ "HE1-13": [
+  [
+   "This AI definitely seems a bit more, uh, advanced.",
+   true
+  ],
+  [
+   "just parsed, um, articles from their own website",
+   true
+  ],
+  [
+   "this one seems to be pretty dynamic.",
+   true
+  ],
+  [
+   "It seemed like talking to a real person.",
+   true
+  ],
+  [
+   "knew exactly what it needed to ask.",
+   true
+  ],
+  [
+   "that was really excellent. It was like really seamless.",
+   true
+  ],
+  [
+   "to repeat yourself and stuff.",
+   true
+  ],
+  [
+   "at first. I mean, if it was myself, I'd be probably wanting to speak to someone, but then as the process goes on, you realise it's actually, um, a really good process.",
+   true
+  ],
+  [
+   "I definitely felt, um. I felt a little bit annoyed 'cause I've had pre uh, previous experiences with AI agents especially...",
+   true
+  ],
+  [
+   "First of all, this sounds very much like an AI voice. Um, and second of all, it's American. So I want, you know, that local experience.",
+   true
+  ],
+  [
+   "if I was in a car accident and then immediately spoke to an AI assistant, I would be extremely frustrated... It's a stressful environment and AI in its current state, and especially with the, the voice that's been decided to be used in that scenario as very cold in clinical.",
+   true
+  ],
+  [
+   "I would've definitely have hung up at the intro. This one? At the intro. Okay. Yeah, it was way too long.",
+   true
+  ],
+  [
+   "If I was gonna do it, that's probably where I would do it",
+   true
+  ],
+  [
+   "I would've asked for a human. Yeah. If I didn't get that, then. I probably would've hung up and then tried to do it manually online.",
+   true
+  ],
+  [
+   "I would've definitely have hung up at the intro.",
+   true
+  ],
+  [
+   "if you wanted to, um, get a human. Agent on the line, you could as well at the beginning.",
+   true
+  ],
+  [
+   "I would've definitely have hung up at the intro",
+   true
+  ],
+  [
+   "some participants say they would leave early",
+   false
+  ],
+  [
+   "when they learn",
+   true
+  ],
+  [
+   "positive",
+   false
+  ],
+  [
+   "negative",
+   false
+  ]
+ ],
+ "HE1-14": [
+  [
+   "No coded data",
+   false
+  ],
+  [
+   "a bit more, uh, advanced",
+   true
+  ],
+  [
+   "pretty dynamic",
+   true
+  ],
+  [
+   "Like those never work",
+   true
+  ],
+  [
+   "a little bit annoyed",
+   true
+  ],
+  [
+   "if you wanted to, um, get a human. Agent on the line, you could as well at the beginning",
+   true
+  ],
+  [
+   "It seemed like talking to a real person",
+   true
+  ],
+  [
+   "it knew exactly what it needed to ask",
+   true
+  ],
+  [
+   "robot voice",
+   true
+  ],
+  [
+   "really excellent",
+   true
+  ],
+  [
+   "really seamless",
+   true
+  ],
+  [
+   "kind of like he was talking to an actual person",
+   true
+  ],
+  [
+   "you realise it's actually, um, a really good process",
+   true
+  ],
+  [
+   "at first",
+   true
+  ],
+  [
+   "probably",
+   true
+  ],
+  [
+   "that's probably where I would do it",
+   true
+  ],
+  [
+   "extremely frustrated",
+   true
+  ],
+  [
+   "I probably would've hung up",
+   true
+  ],
+  [
+   "I would've asked for a human.",
+   true
+  ],
+  [
+   "very cold in clinical",
+   true
+  ],
+  [
+   "local experience",
+   true
+  ],
+  [
+   "way too long",
+   true
+  ],
+  [
+   "I would've definitely have hung up at the intro.",
+   true
+  ],
+  [
+   "this sounds very much like an AI voice",
+   true
+  ],
+  [
+   "robot voice",
+   true
+  ]
+ ],
+ "HE1-15": [
+  [
+   "at first",
+   true
+  ],
+  [
+   "a really good process",
+   true
+  ],
+  [
+   "robot voice",
+   true
+  ],
+  [
+   "to repeat yourself",
+   true
+  ],
+  [
+   "chat bots",
+   true
+  ],
+  [
+   "satisfying",
+   true
+  ],
+  [
+   "I would've definitely have hung up at the intro",
+   true
+  ],
+  [
+   "If I was gonna do it, that's probably where I would do it",
+   true
+  ],
+  [
+   "I would've asked for a human",
+   true
+  ],
+  [
+   "Only some participants are quoted",
+   true
+  ]
+ ],
+ "MM-10": [
+  [
+   "would have",
+   false
+  ],
+  [
+   "pretty dynamic",
+   true
+  ],
+  [
+   "really excellent",
+   true
+  ],
+  [
+   "really seamless",
+   true
+  ],
+  [
+   "a really good process",
+   true
+  ],
+  [
+   "a little bit annoyed",
+   true
+  ],
+  [
+   "extremely frustrated",
+   true
+  ],
+  [
+   "very cold in clinical",
+   true
+  ],
+  [
+   "way too long",
+   true
+  ],
+  [
+   "I would've asked for a human.",
+   true
+  ],
+  [
+   "a really good process",
+   true
+  ],
+  [
+   "immediately",
+   true
+  ]
+ ],
+ "PE-02": [
+  [
+   "seamless",
+   true
+  ],
+  [
+   "seamles",
+   true
+  ],
+  [
+   "process",
+   true
+  ],
+  [
+   "proces",
+   true
+  ],
+  [
+   "this one seems to be pretty dynamic",
+   true
+  ],
+  [
+   "seemed like talking to a real person",
+   true
+  ],
+  [
+   "that was really excellent",
+   true
+  ],
+  [
+   "a really good process",
+   true
+  ],
+  [
+   "robot",
+   true
+  ],
+  [
+   "this sounds very much like an AI voice",
+   true
+  ],
+  [
+   "I would've definitely have hung up at the intro.",
+   true
+  ],
+  [
+   "I probably would've hung up and then tried to do it manually online.",
+   true
+  ],
+  [
+   "I'd be probably wanting to speak to someone",
+   true
+  ],
+  [
+   "If I was gonna do it, that's probably where I would do it",
+   true
+  ],
+  [
+   "I would've asked for a human.",
+   true
+  ],
+  [
+   "human",
+   true
+  ],
+  [
+   " and ",
+   true
+  ],
+  [
+   "robot",
+   true
+  ],
+  [
+   "robot",
+   true
+  ],
+  [
+   "only some participants are quoted",
+   true
+  ],
+  [
+   "immediately",
+   true
+  ]
+ ],
+ "TC1-13": [
+  [
+   "really excellent",
+   true
+  ],
+  [
+   "really seamless",
+   true
+  ],
+  [
+   "a little bit annoyed",
+   true
+  ],
+  [
+   "extremely frustrated",
+   true
+  ],
+  [
+   "very cold in clinical",
+   true
+  ],
+  [
+   "would've definitely have hung up at the intro",
+   true
+  ],
+  [
+   "I would've asked for a human",
+   true
+  ],
+  [
+   "previous experiences with AI agents",
+   true
+  ],
+  [
+   "Traditional voice automation",
+   true
+  ]
+ ]
+}
