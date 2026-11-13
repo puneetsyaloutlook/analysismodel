@@ -25,7 +25,7 @@ DATA = ROOT / "data"
 OUT = ROOT / "public"
 ASSETS_SRC = ROOT / "build" / "assets"
 
-SITE = "Analysis model"
+SITE = "MANIFST"
 
 schema = json.loads((DATA / "schema.json").read_text(encoding="utf-8"))
 rows = list(csv.DictReader((DATA / "catalogue.csv").open(encoding="utf-8")))
@@ -230,7 +230,8 @@ def demote(text):
 def make_home():
     counts = {f: len(v) for f, v in FAMILIES.items()}
     body = f"""
-<p class="lede">The analysis model takes a request and some material, chooses the analytical techniques that can run on that material, runs them in order, checks their findings and combines them into one answer with a confidence label for each conclusion.</p>
+<p class="lede">MANIFST is a catalogue of analytical techniques and a process for choosing and running them. It takes a request and some material, chooses the analytical techniques that can run on that material, runs them in order, checks their findings and combines them into one answer with a confidence label for each conclusion.</p>
+<p>The name is a respelling of manifest. A ship's manifest lists what the ship carries, and something manifest is plain to see. The name is provisional.</p>
 <p>The catalogue holds {len(rows)} techniques in {len(FAMILIES)} families. This site documents the process and the catalogue. It is generated from the design document, the schema and the catalogue file in the repository, so it changes only when those change.</p>
 <div class="cards">
   <a class="card" href="/process/"><p class="card-title">Process</p><p>Eight steps, from intake to the answer.</p></a>
@@ -245,7 +246,7 @@ def make_home():
 {''.join(f'<tr><td><a href="/catalogue/{FAM_SLUG[f]}/">{esc(f)}</a></td><td>{counts[f]}</td></tr>' for f in FAMILY_ORDER)}
 <tr><td><strong>Total</strong></td><td><strong>{len(rows)}</strong></td></tr></tbody></table>
 """
-    add_page("/", "Analysis model", "Overview", body, "Documentation of the analysis model and its catalogue of techniques.")
+    add_page("/", "MANIFST", "Overview", body, "Documentation of MANIFST: a catalogue of analytical techniques and a process for choosing and running them.")
 
 
 def make_catalogue_index():

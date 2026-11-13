@@ -1,6 +1,6 @@
-# Analysis model documentation
+# MANIFST documentation
 
-Static documentation site for the analysis model: the process (intake, selection, sequencing, technique application, synthesis) and a catalogue of 236 analytical techniques.
+Static documentation site for MANIFST: a catalogue of 236 analytical techniques and an eight-step process for choosing and running them. The name is provisional. The repository is still named `analysismodel`.
 
 ## Layout
 
