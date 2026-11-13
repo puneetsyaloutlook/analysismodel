@@ -218,10 +218,46 @@
 <li>Stakes and strength of statement are set for the brief. They are never stored per technique.</li>
 <li>Only the user changes the request. The process can show the user what it found about the request and ask. It never rewrites the request itself.</li>
 <li>The process never starts a follow-up round on its own.</li>
-</ol></div>
+</ol>
+<h3 id="status">Status</h3>
+<p>The process defines the states of a run so that whatever runs it (a chat, an agent, an editor assistant or a script) can show where the run is. The design defines the states. It does not define how they are delivered: an application can narrate them, send them as events, keep them in a record or map them to its own task list. A run does not have to be resumable.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Applies to</th>
+<th>States</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A step</td>
+<td>Waiting to start. Running. Waiting for you. Done. Skipped (the step does not apply, for example 5.1 when no question technique was chosen).</td>
+</tr>
+<tr>
+<td>A technique</td>
+<td>Removed (step 2). Eligible. Chosen. Reserve. Running. Done. Dropped (with the reason).</td>
+</tr>
+<tr>
+<td>A library check</td>
+<td>Done. Not done, because it needs a person.</td>
+</tr>
+<tr>
+<td>The answer</td>
+<td>Not yet given. Given.</td>
+</tr>
+</tbody>
+</table></div>
+<p>A step is waiting for you only at one of the decision points: confirm the brief, confirm the request after 5.1, approve outside material, choose the combining method, confirm that estimates measure the same thing, or ask for a follow-up round. The status names the decision point, so the application can show what the user needs to decide.</p>
+<p>Rules for the status:</p>
+<ul>
+<li>The process sets the state before a step begins and after it ends, so the state is never behind the run.</li>
+<li>At most one step is waiting for you at a time.</li>
+<li>A step is done only when all its sub-steps are done or skipped.</li>
+<li>The status is work. The answer is the only output.</li>
+</ul></div>
     <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/simulator/"><span>Previous</span>Simulator</a><a class="next" href="/process/intake/"><span>Next</span>1. Intake</a></nav>
   </main>
-  <aside class="rail"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l3"><a href="#terms">Terms</a></li><li class="l3"><a href="#kinds-of-technique">Kinds of technique</a></li><li class="l3"><a href="#rules-that-apply-throughout">Rules that apply throughout</a></li></ul></nav></aside>
+  <aside class="rail"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l3"><a href="#terms">Terms</a></li><li class="l3"><a href="#kinds-of-technique">Kinds of technique</a></li><li class="l3"><a href="#rules-that-apply-throughout">Rules that apply throughout</a></li><li class="l3"><a href="#status">Status</a></li></ul></nav></aside>
 </div>
 <script src="/assets/site.js" defer></script>
 

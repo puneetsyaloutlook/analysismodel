@@ -26,7 +26,7 @@
   function mark(i, state) {
     var li = steps[i];
     li.className = state;
-    li.querySelector('.st').textContent = state === 'done' ? 'done' : state === 'run' ? 'running' : 'waiting';
+    var SS = (job && job.status) || {}; li.querySelector('.st').textContent = state === 'done' ? SS['done'] : state === 'run' ? SS['running'] : SS['waiting to start'];
     if (state === 'run') li.querySelector('button').setAttribute('aria-current', 'step'); else li.querySelector('button').removeAttribute('aria-current');
   }
 
@@ -275,12 +275,12 @@
           function go() { d.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' }); keep.focus({ preventScroll: true }); }
           ban.querySelector('button').addEventListener('click', go);
           out.insertBefore(ban, out.firstChild);
-          steps[i].classList.add('ask'); title.textContent = (i + 1) + '. ' + NAMES[i] + ': waiting for your answer';
+          steps[i].classList.add('ask'); steps[i].querySelector('.st').textContent = (job.status || {})['waiting for you']; title.textContent = (i + 1) + '. ' + NAMES[i] + ': ' + ((job.status || {})['waiting for you'] || 'waiting for you');
           setTimeout(go, 150);
           keep.addEventListener('click', function () {
             keep.disabled = true; keep.textContent = 'Question kept';
             if (ban.parentNode) ban.parentNode.removeChild(ban);
-            steps[i].classList.remove('ask'); title.textContent = (i + 1) + '. ' + NAMES[i];
+            steps[i].classList.remove('ask'); steps[i].querySelector('.st').textContent = (job.status || {})['running']; title.textContent = (i + 1) + '. ' + NAMES[i];
             resolve(t === token);
           });
         }).then(function (ok) { return ok ? next() : false; });

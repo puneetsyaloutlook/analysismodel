@@ -4091,5 +4091,96 @@
     "follow-up round"
    ]
   ]
+ },
+ "status": {
+  "definition": "What the process records about a run so that whatever runs it (a chat, an agent, an editor assistant or a script) can show where the run is. The process defines the states. The application chooses how to show them, how much work to show (interaction.output_and_work) and how to deliver them (events, a record the application reads, or the application's own task list).",
+  "step_states": [
+   {
+    "state": "waiting to start",
+    "meaning": "The step has not begun."
+   },
+   {
+    "state": "running",
+    "meaning": "The step is being done."
+   },
+   {
+    "state": "waiting for you",
+    "meaning": "The step has stopped at a decision point and needs the user's answer. The status names which one."
+   },
+   {
+    "state": "done",
+    "meaning": "The step is finished."
+   },
+   {
+    "state": "skipped",
+    "meaning": "The step does not apply to this run, for example 5.1 when no question technique was chosen."
+   }
+  ],
+  "technique_states": [
+   {
+    "state": "removed",
+    "meaning": "Failed a requirement in step 2."
+   },
+   {
+    "state": "eligible",
+    "meaning": "Meets every requirement that applies."
+   },
+   {
+    "state": "chosen",
+    "meaning": "Selected by the model in step 3."
+   },
+   {
+    "state": "reserve",
+    "meaning": "Wanted by the model beyond the limit. Offered in a follow-up round."
+   },
+   {
+    "state": "running",
+    "meaning": "Being run."
+   },
+   {
+    "state": "done",
+    "meaning": "Has produced its result."
+   },
+   {
+    "state": "dropped",
+    "meaning": "Chosen, then left out because outside material it needs was not found or the user did not approve it. The reason is given."
+   }
+  ],
+  "library_check_states": [
+   {
+    "state": "done",
+    "meaning": "The library check was applied to the result."
+   },
+   {
+    "state": "not done",
+    "meaning": "The library check needs a person and was not done."
+   }
+  ],
+  "waiting_reasons": {
+   "definition": "A step is waiting for you only at one of the decision points in interaction.asks. The status names the point, so that the application can show what the user needs to decide.",
+   "points": [
+    "confirm the brief",
+    "confirm the request after 5.1",
+    "approve outside material",
+    "choose the synthesis method",
+    "confirm commensurable estimates",
+    "follow-up round"
+   ]
+  },
+  "answer_states": [
+   "not yet given",
+   "given"
+  ],
+  "rules": [
+   "The process sets the state before a step begins and after it ends, so the state is never behind the run.",
+   "A run can have at most one step waiting for you at a time.",
+   "A step is done only when all of its sub-steps are done or skipped.",
+   "The plan and the status are work. The answer is the only output."
+  ],
+  "basis": {
+   "type": "inference",
+   "sources": [],
+   "note": "Decided with the user on 13 November 2026. Resuming a run later is not a requirement, so the design defines the states and not how they are delivered."
+  }
  }
 }

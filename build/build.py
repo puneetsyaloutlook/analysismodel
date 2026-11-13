@@ -146,6 +146,7 @@ def make_simulator():
             _x["external"] = BY_ID[_x["id"]]["external_material_needed"].strip()
             _x["does"] = BY_ID[_x["id"]]["purpose"].strip()
     run["plan_reasons"] = schema["sequencing"]["plan_reasons"]["positions"]
+    run["status"] = {x["state"]: x["state"] for x in schema["status"]["step_states"]}
     data.insert(0, run)
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     opts = "".join(f'<option value="{esc(d["id"])}">{esc(d["name"])}</option>' for d in data)
