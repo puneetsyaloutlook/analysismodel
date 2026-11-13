@@ -22,7 +22,7 @@
   </div>
 </header>
 <div class="shell">
-  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/">Overview</a></li><li><a href="/simulator/">Simulator</a></li></ul><details open><summary>Process</summary><ul><li><a href="/process/" aria-current="page">The process</a></li><li><a href="/process/intake/">1. Intake</a></li><li><a href="/process/choosing-techniques/">2 and 3. Rule out and choose</a></li><li><a href="/process/planning-the-order/">4. Plan the order</a></li><li><a href="/process/running-the-techniques/">5. Run the techniques</a></li><li><a href="/process/checks-and-answer/">6 to 8. Check, combine and answer</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details><summary>Reference</summary><ul><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Working document types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Steps, kinds, stakes and relations</a></li></ul></details><details><summary>Project record</summary><ul><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/open-items/">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></details></nav></aside>
+  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/">Overview</a></li><li><a href="/simulator/">Simulator</a></li></ul><details open><summary>Process</summary><ul><li><a href="/process/" aria-current="page">The process</a></li><li><a href="/process/intake/">1. Intake</a></li><li><a href="/process/choosing-techniques/">2 and 3. Rule out and choose</a></li><li><a href="/process/planning-the-sequence/">4. Plan analysis sequence</a></li><li><a href="/process/running-the-techniques/">5. Run the techniques</a></li><li><a href="/process/checks-and-answer/">6 to 8. Check, combine and answer</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details><summary>Reference</summary><ul><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Working document types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Steps, kinds, stakes and relations</a></li></ul></details><details><summary>Project record</summary><ul><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/open-items/">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></details></nav></aside>
   <main id="main" class="content">
     <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Overview</a></li><li aria-current="page">The process</li></ol></nav>
     <h1>The process</h1>
@@ -47,13 +47,13 @@
 <td>Code</td>
 </tr>
 <tr>
-<td>3. Choose techniques</td>
-<td>The model reads a list of the eligible techniques and chooses at most 10.</td>
+<td>3. Choose analysis techniques</td>
+<td>The model reads a list of the eligible techniques and chooses at most 10, with a reason for each.</td>
 <td>The model. The user can change the list where the application shows it.</td>
 </tr>
 <tr>
-<td>4. Plan the order</td>
-<td>The chosen techniques are placed in run order. Preparation techniques and checks are added.</td>
+<td>4. Plan analysis sequence</td>
+<td>The chosen techniques are placed in a sequence, with the reason for each position. Preparation techniques and checks are added.</td>
 <td>Code</td>
 </tr>
 <tr>
@@ -109,6 +109,10 @@
 <td>The request, the settings, the material and the description of the material.</td>
 </tr>
 <tr>
+<td>Technique</td>
+<td>Any of the 236 analytical techniques in the catalogue. The step names call them analysis techniques.</td>
+</tr>
+<tr>
 <td>Requirement</td>
 <td>A condition a technique places on the brief. A technique that fails a requirement is removed.</td>
 </tr>
@@ -119,6 +123,10 @@
 <tr>
 <td>Chosen technique</td>
 <td>An eligible technique the model selected in step 3.</td>
+</tr>
+<tr>
+<td>Sequence</td>
+<td>The order in which the chosen techniques run, with the reason for each position.</td>
 </tr>
 <tr>
 <td>Reserve list</td>
@@ -146,7 +154,7 @@
 </tr>
 <tr>
 <td>Work</td>
-<td>Everything produced in steps 1 to 7: the description of the material, the eligible and chosen techniques, the run order, each technique's result, the checks and the combined findings.</td>
+<td>Everything produced in steps 1 to 7: the description of the material, the eligible and chosen techniques, the sequence, each technique's result, the checks and the combined findings.</td>
 </tr>
 <tr>
 <td>Output</td>
@@ -183,9 +191,9 @@
 <td>5.2</td>
 </tr>
 <tr>
-<td>Analysis technique</td>
+<td>Primary technique</td>
 <td>The material, including prepared material</td>
-<td>Findings</td>
+<td>The findings that the answer is built on</td>
 <td>5.3</td>
 </tr>
 <tr>
@@ -202,10 +210,10 @@
 </tr>
 </tbody>
 </table></div>
-<p>The kind comes from the technique's phase tag: frame gives a question technique, gather or verify and prepare gives a preparation technique, analyse gives an analysis technique, and validate gives a verification technique or, in the Challenge family, a challenge technique.</p>
+<p>The kind comes from the technique's phase tag: frame gives a question technique, gather or verify and prepare gives a preparation technique, analyse gives a primary technique, and validate gives a verification technique or, in the Challenge family, a challenge technique.</p>
 <h3 id="rules-that-apply-throughout">Rules that apply throughout</h3>
 <ol>
-<li>An analysis technique works on the material. It never works on another analysis technique's result. Analysis techniques are independent of each other and can run in any order.</li>
+<li>A primary technique works on the material. It never works on another primary technique's result. Primary techniques are independent of each other and can run in any order.</li>
 <li>Combining the findings (step 7) is a fixed step, not a technique. The catalogue lists techniques only.</li>
 <li>Stakes and strength of statement are set for the brief. They are never stored per technique.</li>
 <li>Only the user changes the request. The process can show the user what it found about the request and ask. It never rewrites the request itself.</li>

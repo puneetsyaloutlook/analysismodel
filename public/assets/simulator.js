@@ -3,7 +3,7 @@
   var $ = function (id) { return document.getElementById(id); };
   var out = $('sim-out'), title = $('sim-title'), bar = $('sim-bar');
   var steps = Array.prototype.slice.call(document.querySelectorAll('.sim-steps li'));
-  var NAMES = ['Intake', 'Rule out techniques', 'Choose techniques', 'Plan the order', 'Run the techniques', 'Check the findings', 'Combine the findings', 'Answer'];
+  var NAMES = ['Intake', 'Rule out techniques', 'Choose analysis techniques', 'Plan analysis sequence', 'Run the techniques', 'Check the findings', 'Combine the findings', 'Answer'];
   var PROP = { content_type: 'Content type', unit_of_analysis: 'Unit of analysis', access_depth: 'Level of detail available', source_count: 'Number of sources', linkage: 'Whether sources can be joined', volume_class: 'Amount of material', representation: 'Structure', language: 'Language', privacy: 'Personal information', security_classification: 'Security classification', licence: 'Licence', data_condition_flags: 'Known data problems' };
   function prop(k) { return PROP[k] || sentence(k); }
   var WHY = { unit_of_analysis: 'Need a kind of item your content does not have', access_depth: 'Need more detailed data than you gave', source_count: 'Need more than one source', privacy: 'Do not fit the privacy setting of your content', content_type: 'Need a different type of content', linkage: 'Need sources that can be joined' };
@@ -137,12 +137,16 @@
       return builders_pick(j);
     } else if (i === 3) {
       var n = 0;
-      b.push({ role: 'work', html: '<p>MANIFST put the chosen techniques in the order they need to run. Your content has no personal information, so nothing had to be removed from it first.</p>' });
-      [['5.1 Examine the question', S.frame], ['5.2 Prepare the material', S.prepare], ['5.3 Analyse the material', S.analyse], ['6 Check the findings', S.check]].forEach(function (c) {
-        n += c[1].length;
-        b.push({ role: 'work', html: '<div class="stage"><h3>' + esc(c[0]) + '</h3><ul>' + c[1].map(function (x) { return '<li>' + link(x) + '</li>'; }).join('') + '</ul></div>', tally: ['t-run', n] });
+      var groups = [['First', 'look at your question', S.frame], ['Next', 'prepare your content', S.prepare], ['Then', 'analyse your content', S.analyse], ['Last', 'check the findings', S.check]];
+      var WHYSEQ = j.plan_reasons.map(function (r) { return r.reason.replace(/request/g, 'question').replace(/prepared material/g, 'prepared content').replace(/the material/g, 'your content'); });
+      b.push({ role: 'work', html: '<p>MANIFST put the ' + Math.min(10, j.picks.length) + ' chosen techniques in one sequence. Each group runs where it does for a reason.</p>' });
+      groups.forEach(function (c, gi) {
+        if (!c[2].length) return;
+        n += c[2].length;
+        b.push({ role: 'work', html: '<div class="seq"><p class="seq-h"><strong>' + c[0] + ':</strong> ' + c[2].length + (c[2].length === 1 ? ' technique to ' : ' techniques to ') + c[1] + '</p><ul>' + c[2].map(function (x) { return '<li>' + link(x) + '</li>'; }).join('') + '</ul><p class="small"><strong>Why here.</strong> ' + WHYSEQ[gi] + '</p></div>', tally: ['t-run', n] });
       });
-      b.push({ role: 'work', html: '<div class="stage"><h3>Extra material needed</h3><ul><li>Absence analysis needs a list of what should be present. Your content already states it (four scenarios, eight participants and three hypotheses), so nothing was gathered from outside.</li></ul></div>' });
+      b.push({ role: 'work', html: '<p>Your content has no personal information, so nothing had to be removed from it first.</p>' });
+      b.push({ role: 'work', html: '<div class="seq"><p class="seq-h"><strong>Extra material needed</strong></p><p>Absence analysis needs a list of what should be present. Your content already states it (four scenarios, eight participants and three hypotheses), so nothing was gathered from outside.</p></div>' });
     } else if (i === 4) {
       b.push({ role: 'work', html: '<p>MANIFST ran each technique separately on your question and content. Each result is shown in full below its technique.</p>' });
       b.push({ html: '<h3 class="substep">5.1 Examine the question</h3>' });
