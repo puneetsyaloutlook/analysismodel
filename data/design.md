@@ -6,7 +6,7 @@ Version 1.2.5, 14 November 2026. This document describes the whole process, from
 
 ANLYSIS is the name of the whole design: the catalogue, the process and the rules. It replaces "analysis model", which was confused with the language model that does the work. In this document "the model" always means the language model. The name is written ANLYSIS in running text and ANLYSIS.work when it refers to the site or its address (decision 39).
 
-The catalogue lists 236 analytical techniques in 12 families. It will become a skill that a chat or agent calls. The user has said the skill is not to be built yet.
+The catalogue lists 236 analytical techniques in 12 families. It is packaged as a skill that a chat or agent calls. The skill is built (a zip with the process, the catalogue, the schema, the prompts and seven scripts). It has not been tested inside Claude.
 
 Given a brief, the process chooses the techniques that fit, runs them in order, checks their findings and combines them into one answer.
 
@@ -441,7 +441,7 @@ Design:
 - Not decided: whether the answer includes a section on the process followed by default, or only on request.
 - Steps 6 to 8 have run once, on one small brief.
 - Result formats are tested on five of 236 techniques.
-- The skill is not built.
+- The skill has run only through its scripts in a clean folder. It has not been run end to end inside Claude, so whether it can start separate agents there is untested.
 - Intake does not read images, audio or video. The rules for document type, language and personal information are untested on long documents, scanned PDFs and non-English text. The rules for strength of statement and kind of finding are keyword matches.
 
 Catalogue data (from the spot check; the first six were fixed):
@@ -469,6 +469,7 @@ Catalogue data (from the spot check; the first six were fixed):
 | `scripts/intake.py`, `select.py`, `sequence.py`, `validate_tags.py` | Process scripts for steps 1, 2 and 4, and the tag validator. |
 | `master/test_jobs/`, `intake_test/`, `master/card_test/` | Test briefs, intake inputs and the result format test. |
 | `master/spot_check.md` | The independent check of 30 rows. |
+| `anlysis.zip` | The skill: `SKILL.md`, `references/` (this document, the schema, the catalogue and the prompts) and `scripts/`. |
 | `run2/` | The complete run of 13 November 2026: inputs, plan, results, combined findings and answer. |
 
 ## 12. Change rule
