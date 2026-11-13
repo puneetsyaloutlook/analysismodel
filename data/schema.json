@@ -3623,7 +3623,7 @@
       "frame"
      ],
      "group_name": "Clarify the question",
-     "note": "If a technique finds a problem with the question, you see it and can change the question before the rest runs."
+     "note": "These techniques can show that a term in the question can be read two ways, or that the question is too broad to test. If they do, you can reword it before the analysis runs."
     },
     {
      "position": "second",
