@@ -151,9 +151,9 @@ def make_simulator():
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     opts = "".join(f'<option value="{esc(d["id"])}">{esc(d["name"])}</option>' for d in data)
     steps = [st["name"] for st in schema["steps"]]
-    rail = "".join(f'<li data-step="{i}"><button type="button" class="step-btn"><span class="dot" aria-hidden="true"></span><span class="lbl">{i + 1}. {esc(t)}</span><span class="st sr"></span></button></li>' for i, t in enumerate(steps))
+    rail = "".join(f'<li data-step="{i}"><button type="button" class="step-btn"><span class="dot" aria-hidden="true"></span><span class="txt"><span class="lbl">{i + 1}. {esc(t)}</span><span class="st"></span></span></button></li>' for i, t in enumerate(steps))
     body = f"""
-<p class="lede">This shows MANIFST working on a real question about ten interview quotes. Submit the form to start. Each card shows one step: what you entered, what MANIFST did, and the report at the end.</p>
+<p class="lede">This shows MANIFST working on a real question about ten interview quotes. Submit the form to start. Each section shows one step, in order: what you entered, what MANIFST did, and the report at the end.</p>
 <div class="sim-note" id="sim-note"></div>
 <div class="sim-controls">
   <label for="sim-job">Brief</label>
@@ -171,11 +171,11 @@ def make_simulator():
   <div><span class="n" id="t-run">-</span><span class="k">placed in sequence</span></div>
   <div><span class="n" id="t-person">-</span><span class="k">checks that need a person</span></div>
 </div>
-<ul class="legend" aria-label="Key to the cards"><li><span class="sw sw-input"></span>Your input: what you enter or decide</li><li><span class="sw sw-work"></span>What MANIFST did on the way to the answer</li><li><span class="sw sw-output"></span>Output: the report you receive at the end</li></ul>
+<ul class="legend" aria-label="Key to the colours"><li><span class="sw sw-input"></span>Your input: what you enter or decide</li><li><span class="sw sw-work"></span>What MANIFST did on the way to the answer</li><li><span class="sw sw-output"></span>Output: the report you receive at the end</li></ul>
 <div class="sim-app">
   <ol class="sim-steps" aria-label="Process steps">{rail}</ol>
   <section class="sim-stage" aria-live="polite" aria-labelledby="sim-title">
-    <header><h2 id="sim-title">Ready</h2><div class="bar" aria-hidden="true"><i id="sim-bar"></i></div></header>
+    <header class="sr"><h2 id="sim-title">Ready</h2><div class="bar" aria-hidden="true"><i id="sim-bar"></i></div></header>
     <div id="sim-out"></div>
   </section>
 </div>
