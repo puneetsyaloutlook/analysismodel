@@ -134,8 +134,7 @@ def split_h3(body):
 
 
 def make_simulator():
-    data = json.loads((DATA / "simulator.json").read_text(encoding="utf-8"))
-    data = []  # The five recorded test jobs (data/simulator.json) are not shown: they hold no technique results.
+    data = []
     run = json.loads((DATA / "run.json").read_text(encoding="utf-8"))
     _mat = re.sub(r"^# .*\n", "", (DATA / "run1" / "source_material.md").read_text(encoding="utf-8"), count=1)
     run["material_html"] = md_block(demote(_mat))
@@ -217,7 +216,8 @@ def make_project_pages():
     t2 = (DATA / "test-spot-check.md").read_text(encoding="utf-8")
     t1 = re.sub(r"^# .*\n", "", t1, count=1)
     t2 = re.sub(r"^# .*\n", "", t2, count=1)
-    body = ("<h2>Output specification test</h2>" + md_block(demote(t1)) +
+    body = ("<p>These records were written under version 1.1 of the design and use its terms, such as output specification, gate and claim ceiling. The catalogue page maps those terms to the current names.</p>" +
+            "<h2>Result format test</h2>" + md_block(demote(t1)) +
             "<h2>Spot check of 30 rows</h2>" + md_block(demote(t2)))
     add_page("/project/test-evidence/", "Test evidence", "Project record", body,
              "The two tests run on the catalogue so far.")
