@@ -202,22 +202,22 @@ dialog.modal::backdrop{background:rgba(15,30,30,.55)}
 .legend{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin:.2rem 0 1rem;padding:0;font-size:.85rem;color:var(--ink-2)}
 .legend li{display:flex;align-items:center;gap:.45rem}
 .sw{width:.9rem;height:.9rem;border-radius:3px;border:1px solid;border-left-width:4px;display:inline-block}
-.sw-input,.panel-input{border-color:#b7791f}
-.panel-input{background:#fff8ea;padding:.7rem 1rem .8rem}
-.sw-work,.panel-work{border-color:#8a979b}
-.sw-output,.panel-output{border-color:var(--teal-600)}
+.sw-input,.panel-input{border-color:#2f855a;background:#eef8f1}
+.panel{padding:.7rem 1rem .8rem}
+.sw-work,.panel-work{border-color:#3d7bd4;background:#eef4fc}
+.sw-output,.panel-output{border-color:#b7791f;background:#fff8ea}
 .panel{margin:.8rem 0;padding:.1rem 0 .2rem 1rem;border-width:0 0 0 3px;border-style:solid;border-radius:0}
 .panel-label{font-size:.74rem;font-weight:700;margin-bottom:.45rem}
-.panel-input>.panel-label{color:#7a4f00}
-.panel-work>.panel-label{color:var(--ink-2)}
-.panel-output>.panel-label{color:var(--teal-700)}
+.panel-input>.panel-label{color:#1f6b44}
+.panel-work>.panel-label{color:#2a5ea8}
+.panel-output>.panel-label{color:#7a4f00}
 .panel>.rv:first-of-type>:first-child,.panel .confirm h3{margin-top:0}
 .panel .confirm{border:0;background:none;padding:0;margin:0}
 .panel .result{margin-top:.2rem}
 .panel .substep{border:0}
 .result-md h2{font:600 1.05rem/1.4 var(--sans);color:var(--ink);margin:.5rem 0 .4rem;border:0;padding:0}
 
-.ask-banner{position:sticky;top:calc(var(--top) + .5rem);z-index:3;display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;margin:0 0 1rem;padding:.7rem 1rem;border:1px solid #b7791f;border-left-width:5px;border-radius:8px;background:#fff8ea;color:#5c3b00}
+.ask-banner{position:sticky;top:calc(var(--top) + .5rem);z-index:3;display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;margin:0 0 1rem;padding:.7rem 1rem;border:1px solid #2f855a;border-left-width:5px;border-radius:8px;background:#eef8f1;color:#1f4d33}
 
 .seq{padding:.6rem 0;border-bottom:1px solid var(--line)}
 .seq:last-child{border-bottom:0}
@@ -235,8 +235,18 @@ table.plan tr.grp .small{font-weight:400;margin-left:.4rem}
 .sim-steps .txt{display:flex;flex-direction:column;min-width:0}
 .sim-steps .st{font-size:.76rem;color:var(--ink-2)}
 .sim-steps li.run .st{color:var(--teal-700)}
-.sim-steps li.ask .st{color:#7a4f00;font-weight:600}
-.sim-steps li.ask .dot{border-color:#b7791f;background:#fff8ea}
+.sim-steps li.ask .st{color:#1f6b44;font-weight:600}
+.sim-steps li.ask .dot{border-color:#2f855a;background:#eef8f1}
 .sim-steps li.ask .lbl{font-weight:600}
 .sim-steps li.wait .st{opacity:.7}
 #sim-out .panel .run:last-child,#sim-out .concl:last-child{border-bottom:0}
+
+/* simulator: type scale. Step title > sub-step > heading inside a band > result headings > body */
+#sim-out .stephead{font-size:1.7rem;line-height:1.25;margin:0 0 .7rem}
+#sim-out .substep{font-size:1.2rem;margin:1.4rem 0 .5rem}
+#sim-out .panel h3{font-size:1.05rem;margin:.9rem 0 .35rem}
+#sim-out .panel>.rv:first-of-type>h3:first-child{margin-top:0}
+.result-md h1,.result-md h2{font:600 1rem/1.4 var(--sans);color:var(--ink);margin:.4rem 0 .4rem;border:0;padding:0}
+#sim-out .result-md h3,#sim-out .result-md h4{font:600 .92rem/1.4 var(--sans);margin:.8rem 0 .25rem}
+.lead-answer{font-size:1.15rem;line-height:1.5}
+.panel-label{font-size:.78rem;letter-spacing:.02em}

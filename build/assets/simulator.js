@@ -194,7 +194,7 @@
       });
     } else if (i === 7) {
       var a = j.synthesis.answer;
-      b.push({ role: 'output', html: '<h3>Answer</h3><p class="lead-answer">' + esc(a.lead) + '</p>' });
+      b.push({ role: 'output', html: '<p class="lead-answer">' + esc(a.lead) + '</p>' });
       a.paragraphs.forEach(function (p) { b.push({ role: 'output', html: '<p>' + esc(p) + '</p>' }); });
       var need = CLAIM_ORDER.indexOf(j.claim), reach = j.picks.slice(0, 10).filter(function (p) { return CLAIM_ORDER.indexOf(p.ceiling) >= need; });
       var supported = j.synthesis.conclusions.filter(function (c) { return reach.some(function (p) { return c.cells[p.id] === 'A' || c.cells[p.id] === 'P'; }); }).map(function (c) { return c.id; });
