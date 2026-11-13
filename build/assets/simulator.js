@@ -136,23 +136,28 @@
     } else if (i === 2) {
       return builders_pick(j);
     } else if (i === 3) {
-      var n = 0;
-      var groups = [['First', 'look at your question', S.frame], ['Next', 'prepare your content', S.prepare], ['Then', 'analyse your content', S.analyse], ['Last', 'check the findings', S.check]];
+      var groups = [['First', S.frame], ['Next', S.prepare], ['Then', S.analyse], ['Last', S.check]];
       var WHYSEQ = j.plan_reasons.map(function (r) { return r.reason.replace(/request/g, 'question').replace(/prepared material/g, 'prepared content').replace(/the material/g, 'your content'); });
-      b.push({ role: 'work', html: '<p>MANIFST put the ' + Math.min(10, j.picks.length) + ' chosen techniques in one sequence. Each group runs where it does for a reason.</p>' });
+      var EXT = { 'none': 'No', 'reference structure': 'Yes: a list of what should be present', 'comparator': 'Yes: something to compare with', 'earlier period': 'Yes: the same data from an earlier period' };
+      var total = 0, need = [], rows = '';
       groups.forEach(function (c, gi) {
-        if (!c[2].length) return;
-        n += c[2].length;
-        b.push({ role: 'work', html: '<div class="seq"><p class="seq-h"><strong>' + c[0] + ':</strong> ' + c[2].length + (c[2].length === 1 ? ' technique to ' : ' techniques to ') + c[1] + '</p><ul>' + c[2].map(function (x) { return '<li>' + link(x) + '</li>'; }).join('') + '</ul><p class="small"><strong>Why here.</strong> ' + WHYSEQ[gi] + '</p></div>', tally: ['t-run', n] });
+        c[1].forEach(function (x, xi) {
+          total += 1;
+          if (x.external && x.external !== 'none') need.push(x);
+          rows += '<tr>' + '<td>' + link(x) + '</td>' + (xi === 0 ? '<td rowspan="' + c[1].length + '">' + WHYSEQ[gi] + '</td>' : '') + '<td>' + esc(EXT[x.external] || 'No') + '</td></tr>';
+        });
       });
+      b.push({ role: 'work', html: '<p>MANIFST put the ' + Math.min(10, j.picks.length) + ' chosen techniques, and the checks that go with them, in the order they will run. The rows are in running order, and the second column gives the reason for each place.</p>' });
+      b.push({ role: 'work', html: '<div class="table-wrap"><table class="plan"><thead><tr><th>Technique</th><th>Why it runs here</th><th>Needs outside material</th></tr></thead><tbody>' + rows + '</tbody></table></div>', tally: ['t-run', total] });
       b.push({ role: 'work', html: '<p>Your content has no personal information, so nothing had to be removed from it first.</p>' });
-      b.push({ role: 'work', html: '<div class="seq"><p class="seq-h"><strong>Extra material needed</strong></p><p>Absence analysis needs a list of what should be present. Your content already states it (four scenarios, eight participants and three hypotheses), so nothing was gathered from outside.</p></div>' });
+      b.push({ role: 'work', html: need.length ? '<p>' + need.map(function (x) { return esc(x.name); }).join(' and ') + ' needs extra material to run. In step 5 MANIFST looks for it in your content first. Only if it is missing does MANIFST look elsewhere, and it asks you before using anything it finds.</p>' : '<p>No technique needs material from outside your content.</p>' });
     } else if (i === 4) {
       b.push({ role: 'work', html: '<p>MANIFST ran each technique separately on your question and content. Each result is shown in full below its technique.</p>' });
       b.push({ html: '<h3 class="substep">5.1 Examine the question</h3>' });
       S.frame.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your question') }); });
       b.push({ role: 'input', confirm: true, html: '<div class="confirm"><h3>Do you want to change your question?</h3><p>The techniques above looked at how your question is worded. Read what they found, then choose. MANIFST continues when you answer.</p><p class="req">' + esc(j.request) + '</p><div class="form-actions"><button type="button" class="btn primary" data-keep>Keep my question</button><button type="button" class="btn" disabled title="Not available in this replay">Edit my question</button></div></div>' });
       b.push({ html: '<h3 class="substep">5.2 Prepare the material</h3>' });
+      b.push({ role: 'work', html: '<div class="seq"><p class="seq-h"><strong>Outside material</strong></p><p>Absence analysis needs a list of what should be present. MANIFST looked in your content first and found it: four scenarios, eight participants and three hypotheses. Nothing was gathered from outside, so there was nothing for you to approve.</p></div>' });
       S.prepare.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your content') }); });
       b.push({ html: '<h3 class="substep">5.3 Analyse the material</h3>' });
       S.analyse.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your content') }); });
