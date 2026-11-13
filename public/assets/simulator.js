@@ -44,7 +44,7 @@
 
   // Each step builds an array of "blocks": {html, pause}. Blocks appear one at a time inside a wrapper.
   var NOTES = {
-    real: '<strong>This replays a real run of MANIFST</strong> from 11 November 2026 on ten interview quotes. Nothing is calculated in your browser, so changing the form does not change the result. <strong>Limits.</strong> In the real run the wording of the question, the stakes, the strength of statement and the kind of finding were set by default and not chosen by a person. One check that needs a person was not done. The question after step 5.1 and the line on how strong a statement the answer supports were added to the design after the run.'
+    real: '<strong>This replays a real run of MANIFST</strong> from 11 November 2026 on ten interview quotes. Nothing is calculated in your browser, so changing the form does not change the result. <strong>Limits.</strong> In the real run the wording of the question, the stakes, the strength of statement and the kind of finding were set by default and not chosen by a person. One check that needs a person was not done. Each result was capped at 450 words to keep the test short, and five went over. The question after step 5.1 and the line on how strong a statement the answer supports were added to the design after the run.'
   };
 
   function builders(i) { return realBuilders(i); }
@@ -211,7 +211,8 @@
         'Checks done: quotation check by code (' + j.ck17.checked + ' quoted spans, ' + (j.ck17.checked - j.ck17.failed.length) + ' matched, ' + j.ck17.failed.length + ' phrases read by hand); recount of the competing hypotheses table by code; assumption and limitation sections and alternative explanations sections present in all nine results.',
         'Checks not done because they need a person: human review sample (framework analysis).',
         'Your question after step 5.1: kept as submitted.',
-        'Run notes: five results ran over the 450 word limit given to the agents (CM1-14, HE1-14, TC1-13, TC1-16, TC1-17). Techniques dropped: none. Files that could not be read: none.'
+        'Techniques dropped: none.',
+        'Files that could not be read: none.'
       ];
       basis.forEach(function (x) { b.push({ role: 'output', html: '<div class="row1">' + esc(x) + '</div>', fast: true }); });
       b.push({ role: 'input', html: '<div class="confirm"><h3>Do you want a follow-up round?</h3><p>MANIFST would then choose more techniques for the gaps and unresolved conflicts above (the H2 and H3 verdicts depend on definitions, and nothing is known about P8 and P9). Kept for a follow-up round: ' + j.held.map(link).join(', ') + '. A follow-up round adds up to 5 techniques.</p><div class="form-actions"><button type="button" class="btn" disabled title="Not available in this replay">Ask for a follow-up round</button></div></div>' });
