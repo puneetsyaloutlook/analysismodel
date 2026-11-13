@@ -3614,7 +3614,7 @@
    }
   },
   "plan_reasons": {
-   "definition": "The plan is one sequence in four groups. Each technique's kind decides its group and position. The plan records a name for each group, a note where the order matters to the user, the reason for each chosen technique (from step 3) and the reason for each addition (a preparation technique, de-identification or outside material). The records are kept so that the answer can describe the process followed. The groups do no work themselves. The techniques do, so the plan describes what each technique does, not what a group does.",
+   "definition": "The plan is one sequence in four groups. Each technique's kind decides its group and position. The plan records a name for each group, the reason for each chosen technique (from step 3) and the reason for each addition (a preparation technique, de-identification or outside material). The records are kept so that the answer can describe the process followed. The groups do no work themselves. The techniques do, so the plan describes what each technique does, not what a group does.",
    "positions": [
     {
      "position": "first",
@@ -3622,8 +3622,7 @@
      "phase": [
       "frame"
      ],
-     "group_name": "Clarify the question",
-     "note": "These techniques can show that a term in the question can be read two ways, or that the question is too broad to test. If they do, you can reword it before the analysis runs."
+     "group_name": "Clarify the question"
     },
     {
      "position": "second",
@@ -3653,7 +3652,7 @@
    ]
   },
   "plan_table": {
-   "definition": "Step 4 shows the plan as a table of techniques under four group headings, in running order and without numbers. The group headings are Clarify the question, Prepare the content, Analyse the content and Test the findings. Columns: the technique, what the technique does (the catalogue's one-sentence purpose) and whether it needs outside material (none, comparator, reference structure or earlier period). A group heading carries a note only where the order matters to the user. Step 4 only records the need for outside material. It does not gather anything.",
+   "definition": "Step 4 shows the plan as a table of techniques under four group headings, in running order and without numbers. The group headings are Clarify the question, Prepare the content, Analyse the content and Test the findings. Columns: the technique, what the technique does (the catalogue's one-sentence purpose) and whether it needs outside material (none, comparator, reference structure or earlier period). Step 4 only records the need for outside material. It does not gather anything. The plan is work and carries no decision points.",
    "basis": {
     "type": "inference",
     "sources": [],
