@@ -1,5 +1,5 @@
 {
- "version": "1.2.1",
+ "version": "1.2.2",
  "title": "MANIFST: metadata schema and process design for a catalogue of 236 analytical techniques",
  "conventions": {
   "language": "Australian English. Sentence case for headings, field labels and value names. No em dashes, en dashes or double hyphens.",
@@ -3541,7 +3541,7 @@
    "Apply not_for_rules and requires. A technique whose consumed artefact cannot exist yet, or that needs external material (comparator, reference structure, earlier period), is kept with a note naming what is missing. The external material is gathered in stage 1 only for techniques that were picked.",
    "Claim ceiling raises a warning only: count the eligible techniques that reach the strength of statement needed and warn when none does.",
    "Step 3: give the model the brief and a one-line entry (ID, name, purpose, use when) for every eligible technique, ordered by a score for insight type, prefers items and evidence status. The score does not cut the list, because a score-ranked shortlist of 15 found 8 of 32 expected picks and the model reading the full list found 22 of 32. The model chooses at most 10 (sequencing limits), using four criteria in order: (1) every part of the request has at least one technique; (2) at least one technique reaches the strength of statement needed when an eligible one fits the request, and if none fits the model says so with the reason; (3) the techniques match the kind of finding wanted, where given; (4) where two techniques serve the same part of the request, prefer a pair with different methods. Each choice has a one-line reason naming the part of the request it serves.",
-   "Step 4: place the chosen techniques in run order by kind (sequencing section) and attach library checks from the stakes and strength of statement rules."
+   "Step 4: place the chosen techniques in one sequence by kind, with the reason for each position (sequencing section) and attach library checks from the stakes and strength of statement rules."
   ],
   "multiple_sources": "When source-level facets differ between sources, a requires is met only if every source meets it. A prefers is scored by the share of sources that meet it."
  },
@@ -3591,11 +3591,11 @@
   "draft_skill_description": "Selects analytical techniques for a research question and the material available, puts them in a workable order, and states the checks each result needs. Use when a user asks which analysis or approach to apply to documents, reports, survey data, tables, interviews or web sources, how to sequence several analyses, how reliable a finding is, or how much checking an AI-assisted analysis needs. Covers 234 techniques for framing, comparison, causal and claim testing, evidence handling, forecasting, risk assessment, text and data preparation, modelling, source integration and result checking."
  },
  "sequencing": {
-  "rule": "Every technique belongs to one of five kinds, and the kind decides what it works on. A question technique works on the request (5.1). A preparation technique works on the material and produces prepared material (5.2). An analysis technique works on the material, including prepared material, and never on another analysis technique's result (5.3). Verification and challenge techniques work on the findings of the analysis (step 6). Combining the findings (step 7) is a fixed process step, not a technique. Only the user changes the request.",
+  "rule": "Every technique belongs to one of five kinds, and the kind decides what it works on. A question technique works on the request (5.1). A preparation technique works on the material and produces prepared material (5.2). A primary technique works on the material, including prepared material, and never on another primary technique's result (5.3). Verification and challenge techniques work on the findings of the analysis (step 6). Combining the findings (step 7) is a fixed process step, not a technique. Only the user changes the request.",
   "stages": [
    "5.1 examine the question: chosen techniques whose phase is frame. When they produce findings, the process shows them and asks the user to keep or edit the request. Keep: the run continues at 5.2. Edit: steps 2 to 4 run again on the new request, and question techniques that already ran are not chosen again. No reply: the request stays as it is and the answer says it was not confirmed. The findings are kept in every case and go to step 7.",
    "5.2 prepare the material: chosen techniques whose phase is gather or verify and prepare, any technique that produces prepared material a chosen technique consumes, and de-identification when the material has personal information. Prepared material is still the brief's material. When a chosen technique needs outside material (a comparator, a reference structure or an earlier period), the process gathers only that item, from a source that is not marketing or personal opinion, shows it to the user, or asks the user for it. If none is found the technique is dropped and the plan says so.",
-   "5.3 analyse the material: chosen analysis techniques, independent of each other, run in any order, each on the brief.",
+   "5.3 analyse the material: chosen primary techniques, independent of each other, run in any order, each on the brief.",
    "6 check the findings: chosen verification techniques, then chosen challenge techniques, each on the findings of the analysis, then the library checks for the stakes and the strength of statement, each applied to one result.",
    "7 combine the findings (process step): collect the findings; run a method from the synthesis section (the process offers those that apply and recommends one); name the cause of each conflict or state that it is unresolved; give each conclusion a confidence label and a one-line reason.",
    "8 answer: give the conclusions, the strength of statement reached, and what the answer is based on. Offer a follow-up round. If the user accepts, steps 2 to 4 run again for the gaps and unresolved conflicts found in step 7, leaving out techniques that already ran and starting from the reserve list, then the new techniques run and steps 6 to 8 are repeated with all the findings. The process never starts a follow-up round on its own."
@@ -3612,6 +3612,44 @@
     "sources": [],
     "note": "Limit set with the user on 11 November 2026. The numbers are defaults chosen by the schema designer, not measured."
    }
+  },
+  "plan_reasons": {
+   "definition": "The plan is one sequence. It records the reason for each chosen technique (from step 3), the reason for each position, and the reason for each addition (a preparation technique, de-identification or outside material). The reasons are kept so that the answer can describe the process followed.",
+   "positions": [
+    {
+     "position": "first",
+     "kind": "question techniques",
+     "phase": [
+      "frame"
+     ],
+     "reason": "What they find can change the request, and a changed request can change which techniques fit."
+    },
+    {
+     "position": "second",
+     "kind": "preparation techniques",
+     "phase": [
+      "gather",
+      "verify and prepare"
+     ],
+     "reason": "The techniques that follow use the prepared material. De-identification, when needed, is the first of these, so that no later technique reads personal information."
+    },
+    {
+     "position": "third",
+     "kind": "primary techniques",
+     "phase": [
+      "analyse"
+     ],
+     "reason": "They need the request settled and the material prepared. They do not depend on each other, so they can run in any order."
+    },
+    {
+     "position": "last",
+     "kind": "verification and challenge techniques, then library checks",
+     "phase": [
+      "validate"
+     ],
+     "reason": "They work on the findings, so the findings must exist first."
+    }
+   ]
   }
  },
  "synthesis": {
@@ -3772,7 +3810,7 @@
   "decides": [
    {
     "point": "choose the techniques",
-    "what": "The model chooses the techniques by the four criteria in matching, code places them in run order, and the process shows each choice with a one-line reason. The user can change the list but is not asked to choose from it."
+    "what": "The model chooses the techniques by the four criteria in matching, code places them in one sequence with a reason for each position, and the process shows each choice with a one-line reason. The user can change the list but is not asked to choose from it."
    }
   ],
   "basis": {
@@ -3781,7 +3819,7 @@
    "note": "Agreed with the user in this session. Untested with real users."
   },
   "output_and_work": {
-   "definition": "The answer given in step 8 is the only output and is always given to the user. It must be complete without the work, so it names the techniques that ran and the checks that were not done. Everything produced in steps 1 to 7 is work: the description of the material, the eligible and chosen techniques, the run order, each technique's result, the checks and the combined findings. The work is kept, and the application that runs the process decides how much of it the user sees (as it happens, on request, or not at all). Where the process asks the user to decide something, it always shows what the user needs for that decision. The user can change the chosen techniques only in an application that shows them.",
+   "definition": "The answer given in step 8 is the only output and is always given to the user. It must be complete without the work, so it names the techniques that ran and the checks that were not done. Everything produced in steps 1 to 7 is work: the description of the material, the eligible and chosen techniques, the sequence, each technique's result, the checks and the combined findings. The work is kept, and the application that runs the process decides how much of it the user sees (as it happens, on request, or not at all). Where the process asks the user to decide something, it always shows what the user needs for that decision. The user can change the chosen techniques only in an application that shows them.",
    "basis": {
     "type": "inference",
     "sources": [],
@@ -3877,13 +3915,13 @@
   },
   {
    "number": "3",
-   "name": "Choose techniques",
-   "does": "The model reads a list of the eligible techniques and chooses at most 10."
+   "name": "Choose analysis techniques",
+   "does": "The model reads a list of the eligible techniques and chooses at most 10, with a reason for each."
   },
   {
    "number": "4",
-   "name": "Plan the order",
-   "does": "The chosen techniques are placed in run order. Preparation techniques and checks are added."
+   "name": "Plan analysis sequence",
+   "does": "The chosen techniques are placed in a sequence, with the reason for each position. Preparation techniques and checks are added."
   },
   {
    "number": "5",

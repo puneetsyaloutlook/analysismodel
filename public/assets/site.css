@@ -223,3 +223,9 @@ dialog.modal::backdrop{background:rgba(15,30,30,.55)}
 
 .ask-banner{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;margin:0 0 1rem;padding:.7rem 1rem;border:1px solid #b7791f;border-left-width:5px;border-radius:8px;background:#fff8ea;color:#5c3b00}
 .sim-steps li.ask .lbl::after{content:" (waiting for you)";font-weight:400;color:#7a4f00}
+
+.seq{padding:.6rem 0;border-bottom:1px solid var(--line)}
+.seq:last-child{border-bottom:0}
+.seq-h{margin:0 0 .2rem}
+.seq ul{margin:.2rem 0 .3rem}
+.seq .small{margin:.2rem 0 0}

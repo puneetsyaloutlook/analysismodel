@@ -1,6 +1,6 @@
 # MANIFST: design document
 
-Version 1.2.1, 13 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
+Version 1.2.2, 13 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
 
 ## 1. Purpose and status
 
@@ -15,7 +15,7 @@ Status:
 - Every part has been built and tested on small cases.
 - One complete run was done on 11 November 2026, on ten interview quotes, under version 1.1 of this design. Its output is shown in the simulator on the documentation site.
 - The documentation site is built from this document, the schema and the catalogue.
-- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Version 1.2.1 adds decision 31. The scripts and the stored run still follow version 1.1. Section 10 lists what has to change.
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 and 1.2.2 add decisions 31 and 32. The scripts and the stored run still follow version 1.1. Section 10 lists what has to change.
 - All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
@@ -26,8 +26,8 @@ The process has eight steps. The numbers are used the same way in this document,
 |---|---|---|
 | 1. Intake | The user's input becomes a brief. Gaps become questions to the user. | Code and the model fill in what they can read. The user answers the rest. |
 | 2. Rule out techniques | Each technique is tested against the brief. Techniques that cannot run on the material are removed. The rest are eligible. | Code |
-| 3. Choose techniques | The model reads a list of the eligible techniques and chooses at most 10. | The model. The user can change the list where the application shows it. |
-| 4. Plan the order | The chosen techniques are placed in run order. Preparation techniques and checks are added. | Code |
+| 3. Choose analysis techniques | The model reads a list of the eligible techniques and chooses at most 10, with a reason for each. | The model. The user can change the list where the application shows it. |
+| 4. Plan analysis sequence | The chosen techniques are placed in a sequence, with the reason for each position. Preparation techniques and checks are added. | Code |
 | 5. Run the techniques | 5.1 Examine the question. 5.2 Prepare the material. 5.3 Analyse the material. | The model, with code for arithmetic and text matching. The user confirms the request after 5.1. |
 | 6. Check the findings | Verification and challenge techniques run on the findings. The library checks are applied to each result. | The model and code. Checks that need a person are listed as not done. |
 | 7. Combine the findings | The findings become conclusions. Each conclusion gets a confidence label and a one-line reason. | The model. The user can choose the method. |
@@ -44,16 +44,18 @@ Each term below has one meaning in this document.
 | Material | The content the user gives for analysis. |
 | Description of the material | The properties of the material that requirements are tested against, such as content type and number of sources. |
 | Brief | The request, the settings, the material and the description of the material. |
+| Technique | Any of the 236 analytical techniques in the catalogue. The step names call them analysis techniques. |
 | Requirement | A condition a technique places on the brief. A technique that fails a requirement is removed. |
 | Eligible technique | A technique that meets every requirement that applies. |
 | Chosen technique | An eligible technique the model selected in step 3. |
+| Sequence | The order in which the chosen techniques run, with the reason for each position. |
 | Reserve list | Techniques the model wanted beyond the limit. They are offered in a follow-up round. |
 | Removed, dropped | Removed: failed a requirement in step 2. Dropped: chosen, then left out because outside material it needs was not found. |
 | Result | Everything one technique produces. |
 | Finding | One statement in a result. |
 | Conclusion | One statement in the answer, drawn from the findings. |
 | Library check | One of the 18 checks in the check library, such as a spot check or repeat runs. It is applied to one result. |
-| Work | Everything produced in steps 1 to 7: the description of the material, the eligible and chosen techniques, the run order, each technique's result, the checks and the combined findings. |
+| Work | Everything produced in steps 1 to 7: the description of the material, the eligible and chosen techniques, the sequence, each technique's result, the checks and the combined findings. |
 | Output | The answer given to the user in step 8. It is the only output. |
 | Follow-up round | A second pass through steps 2 to 8, run only when the user asks for it after reading the answer. |
 
@@ -65,15 +67,15 @@ Every technique belongs to one of five kinds. The kind decides what the techniqu
 |---|---|---|---|
 | Question technique | The request | Findings about the request | 5.1 |
 | Preparation technique | The material | Prepared material | 5.2 |
-| Analysis technique | The material, including prepared material | Findings | 5.3 |
+| Primary technique | The material, including prepared material | The findings that the answer is built on | 5.3 |
 | Verification technique | The findings of the analysis | Findings about those findings | 6 |
 | Challenge technique | The findings of the analysis | Findings that question them | 6 |
 
-The kind comes from the technique's phase tag: frame gives a question technique, gather or verify and prepare gives a preparation technique, analyse gives an analysis technique, and validate gives a verification technique or, in the Challenge family, a challenge technique.
+The kind comes from the technique's phase tag: frame gives a question technique, gather or verify and prepare gives a preparation technique, analyse gives a primary technique, and validate gives a verification technique or, in the Challenge family, a challenge technique.
 
 ### Rules that apply throughout
 
-1. An analysis technique works on the material. It never works on another analysis technique's result. Analysis techniques are independent of each other and can run in any order.
+1. A primary technique works on the material. It never works on another primary technique's result. Primary techniques are independent of each other and can run in any order.
 2. Combining the findings (step 7) is a fixed step, not a technique. The catalogue lists techniques only.
 3. Stakes and strength of statement are set for the brief. They are never stored per technique.
 4. Only the user changes the request. The process can show the user what it found about the request and ask. It never rewrites the request itself.
@@ -115,7 +117,7 @@ Questions to the user:
 
 Inferred without asking, and shown when the user confirms the brief: no personal information, for report-type documents with no emails, phone numbers or sensitive words; strength of statement and kind of finding, from the wording of the request.
 
-## 4. Steps 2 and 3: Rule out and choose techniques
+## 4. Steps 2 and 3: Rule out and choose analysis techniques
 
 ### Step 2: Rule out techniques
 
@@ -130,7 +132,7 @@ One waiver applies. A technique that fails only on content type or structure is 
 
 Step 2 also counts the eligible techniques that reach the strength of statement needed, and warns when none does.
 
-### Step 3: Choose techniques
+### Step 3: Choose analysis techniques
 
 The model receives the brief and a one-line entry (ID, name, purpose, use when) for every eligible technique. The entries are ordered by a score for kind of finding and evidence status. The score changes the order only.
 
@@ -141,20 +143,30 @@ The model chooses at most 10 techniques, using these criteria in order:
 3. The techniques match the kind of finding wanted, where the user gave one.
 4. Where two techniques serve the same part of the request, prefer a pair with different methods, so that their agreement adds confidence (section 7).
 
-The model records a one-line reason for each chosen technique, naming the part of the request it serves. The chosen techniques are work (section 7), so the user sees them only where the application shows work. Where it does, the user can change the list but is not asked to choose from it.
+The model records a one-line reason for each chosen technique, naming the part of the request it serves. The reasons are kept with the plan (section 5). The chosen techniques are work (section 7), so the user sees them only where the application shows work. Where it does, the user can change the list but is not asked to choose from it.
 
 Limits. All kinds of technique count towards the 10. Preparation techniques added for a chosen technique, de-identification and library checks do not count. Techniques the model wanted beyond the limit go on the reserve list. A follow-up round adds at most 5. The numbers are defaults chosen here, not measured.
 
-## 5. Step 4: Plan the order
+## 5. Step 4: Plan analysis sequence
 
-Code places the chosen techniques in run order by kind.
+Code places the chosen techniques in one sequence. Each technique's kind decides its position, and the plan states the reason for each position.
 
-| Run order | Contents |
-|---|---|
-| 5.1 Examine the question | Chosen question techniques. |
-| 5.2 Prepare the material | Chosen preparation techniques. Preparation techniques that produce an input a chosen technique needs. De-identification, when the material has personal information. Outside material that a chosen technique needs to run. |
-| 5.3 Analyse the material | Chosen analysis techniques, in any order. |
-| 6 Check the findings | Chosen verification and challenge techniques, then the library checks. |
+| Position | What runs | Why it runs there |
+|---|---|---|
+| First | Techniques that examine the question | What they find can change the request, and a changed request can change which techniques fit. |
+| Second | Techniques that prepare the material | The techniques that follow use the prepared material. De-identification, when it is needed, is the first of these, so that no later technique reads personal information. |
+| Third | Primary techniques, which analyse the material | They need the request settled and the material prepared. They do not depend on each other, so they can run in any order. |
+| Last | Techniques that check the findings, then the library checks | They work on the findings, so the findings must exist first. |
+
+A position with no chosen technique is left out. Steps 5 and 6 run this sequence: the first three positions are sub-steps 5.1 to 5.3 and the last is step 6.
+
+The plan also adds three things, each with its reason:
+
+- A preparation technique that produces an input a chosen technique needs. The reason names the technique that needs it.
+- De-identification, when the material has personal information.
+- Outside material that a chosen technique needs to run.
+
+Reasons are recorded. The plan keeps the reason for each chosen technique from step 3, the reason for each position, and the reason for each addition. The plan is work (section 7). The reasons are kept so that the answer can describe the process followed.
 
 Outside material. 41 techniques need a comparator, a reference structure or an earlier period. The process gathers only that item, from a source that is not marketing or personal opinion, and shows it to the user, or asks the user for it. If none is found, the technique is dropped and the plan says so.
 
@@ -181,7 +193,7 @@ Preparation techniques run in the order their inputs require. Their output is st
 
 ### 5.3 Analyse the material
 
-Each analysis technique runs on the brief, independently of the others.
+Each primary technique runs on the brief, independently of the others.
 
 ### How a technique is run
 
@@ -252,6 +264,8 @@ The answer gives the conclusions with their labels and reasons. It then states t
 - Any files that could not be read.
 - Any checks that were not done.
 - Whether the user confirmed the request after 5.1.
+
+The answer can also include a section on the process followed: the techniques chosen, the sequence they ran in and the recorded reasons for both. Whether the answer includes this section by default is not yet decided (section 10).
 
 The answer makes no judgement about whether the material is representative or sufficient, because the user chose the material and knows its limits.
 
@@ -359,13 +373,14 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 | 29 | A technique that cannot take personal information was removed even when de-identification would run first. | It is kept, with a note, when de-identification is in the plan. |
 | 30 | Rule 1 listed three exceptions and did not cover the verification techniques. Several rules were stated only in this history. Words such as check, review, result and gate had more than one meaning or needed decoding. | Five kinds of technique, each defined by what it works on. All current rules are in sections 2 to 7. One term for one thing, listed in section 2, with the schema names mapped in section 8. |
 | 31 | The design did not say which results the user receives and which are working material. Decided on 13 November 2026. | The answer in step 8 is the only output. Everything before it is work, shown as the running application allows. Decision points always show what the user needs to decide. |
+| 32 | Step 4 showed the sequence under the numbers of later sub-steps, and gave no reason for the order. Decided on 13 November 2026. | Steps 3 and 4 are named "Choose analysis techniques" and "Plan analysis sequence". The plan is one sequence with a stated reason for each position, shown without sub-step numbers. The reasons for choosing and sequencing are recorded for a possible section in the answer on the process followed. The kind of technique that runs in 5.3 is renamed from analysis technique to primary technique, because "analysis technique" now means any technique. |
 
 ## 10. Open items
 
 Not yet changed to version 1.2:
 
 - `select.py` does not apply the personal information waiver (decision 29).
-- `sequence.py` still labels the run order as stages 0 to 3 and has no pause after 5.1 (decisions 24 and 25).
+- `sequence.py` still labels the sequence as stages 0 to 3, has no pause after 5.1 and does not record a reason for each position (decisions 24, 25 and 32).
 - The instruction given to the model in step 3 does not yet state the four criteria (decisions 26 and 27).
 - The stored run of 11 November followed version 1.1. Its two question techniques ran first and the user was not asked to confirm the request. Its answer does not state the strength of statement reached.
 - The schema and the catalogue keep their original field names (section 8).
@@ -377,6 +392,7 @@ Design:
 - Step 3 recall (22 of 32) was measured before the catalogue changes and the four criteria, and has not been re-run. AO-09 and AO-15 were missed on test job 5. Their use-when text was improved and not retested.
 - Origin, the producer's interest and whether sources depend on each other are not inferred from the publisher, so appraisal techniques see unknown.
 - The confidence rule, the request confirmation after 5.1 and the follow-up round are untested.
+- Not decided: whether the answer includes a section on the process followed by default, or only on request.
 - Steps 6 to 8 have run once, on one small brief.
 - Result formats are tested on five of 236 techniques.
 - The skill is not built.
@@ -400,7 +416,7 @@ Catalogue data (from the spot check; the first six were fixed):
 | File | Role |
 |---|---|
 | `master/Analysis methods design.md` | This document. |
-| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.1. |
+| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.2. |
 | `master/master_tagged.csv` | The catalogue: 236 rows, 52 columns, with result formats. |
 | `master/master_base.csv`, `master/tags/tags_A.json` to `tags_F.json` | Sources of the CSV text and tags. |
 | `master/specs/out_1.json` to `out_6.json` | Result formats. |

@@ -102,7 +102,7 @@ SECTION_PAGE = {
     2: "/process/",
     3: "/process/intake/",
     4: "/process/choosing-techniques/",
-    5: "/process/planning-the-order/",
+    5: "/process/planning-the-sequence/",
     6: "/process/running-the-techniques/",
     7: "/process/checks-and-answer/",
     8: "/catalogue/",
@@ -142,6 +142,7 @@ def make_simulator():
     run["results_html"] = {k: md_block(demote(v)) for k, v in run.pop("results").items()}
     for pk in run["picks"]:
         pk["ceiling"] = BY_ID[pk["id"]]["claim_ceiling"].strip()
+    run["plan_reasons"] = schema["sequencing"]["plan_reasons"]["positions"]
     data.insert(0, run)
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     opts = "".join(f'<option value="{esc(d["id"])}">{esc(d["name"])}</option>' for d in data)
@@ -163,7 +164,7 @@ def make_simulator():
   <div><span class="n" id="t-cat">{len(rows)}</span><span class="k">techniques MANIFST knows</span></div>
   <div><span class="n" id="t-pass">-</span><span class="k">can work with your content</span></div>
   <div><span class="n" id="t-pick">-</span><span class="k">chosen for your question</span></div>
-  <div><span class="n" id="t-run">-</span><span class="k">placed in run order</span></div>
+  <div><span class="n" id="t-run">-</span><span class="k">placed in sequence</span></div>
   <div><span class="n" id="t-person">-</span><span class="k">checks that need a person</span></div>
 </div>
 <ul class="legend" aria-label="Key to the cards"><li><span class="sw sw-input"></span>Your input: what you enter or decide</li><li><span class="sw sw-work"></span>What MANIFST did on the way to the answer</li><li><span class="sw sw-output"></span>Output: the report you receive at the end</li></ul>
@@ -193,10 +194,10 @@ def make_process_pages():
              "Eight steps from the user's request to the answer, the terms used, the five kinds of technique and the rules that apply throughout.")
     add_page("/process/intake/", "Step 1: Intake", "Process", section_html(3),
              "How four kinds of input become a brief, and which questions the user is asked.")
-    add_page("/process/choosing-techniques/", "Steps 2 and 3: Rule out and choose techniques", "Process", section_html(4),
+    add_page("/process/choosing-techniques/", "Steps 2 and 3: Rule out and choose analysis techniques", "Process", section_html(4),
              "Code removes techniques that cannot run on the material. The model chooses from the eligible ones.")
-    add_page("/process/planning-the-order/", "Step 4: Plan the order", "Process", section_html(5),
-             "How the chosen techniques are placed in run order and how checks are added.")
+    add_page("/process/planning-the-sequence/", "Step 4: Plan analysis sequence", "Process", section_html(5),
+             "How the chosen techniques are placed in one sequence, the reason for each position, and how checks are added.")
     add_page("/process/running-the-techniques/", "Step 5: Run the techniques", "Process", section_html(6),
              "Examine the question, prepare the material and analyse it, and how one technique is run.")
     add_page("/process/checks-and-answer/", "Steps 6 to 8: Check, combine and answer", "Process", section_html(7),
@@ -340,7 +341,7 @@ def kind_of(r):
         return "Preparation technique", "5.2"
     if ph == "validate":
         return ("Challenge technique" if r["family"] == "Challenge" else "Verification technique"), "6"
-    return "Analysis technique", "5.3"
+    return "Primary technique", "5.3"
 
 
 def make_technique_page(r):
@@ -477,7 +478,7 @@ def make_reference():
 
     # phases and tiers
     KIND = {"frame": "Question technique, 5.1", "gather": "Preparation technique, 5.2", "verify and prepare": "Preparation technique, 5.2",
-            "analyse": "Analysis technique, 5.3", "validate": "Verification or challenge technique, step 6", "conclude": "Not a technique: step 7", "report": "Not a technique: step 8"}
+            "analyse": "Primary technique, 5.3", "validate": "Verification or challenge technique, step 6", "conclude": "Not a technique: step 7", "report": "Not a technique: step 8"}
     pb = ["<h2 id=\"steps\">Process steps</h2><table><thead><tr><th>Step</th><th>What happens</th></tr></thead><tbody>" +
           "".join(f"<tr><td>{esc(st['number'])}. {esc(st['name'])}</td><td>{esc(st['does'])}</td></tr>" for st in schema["steps"]) + "</tbody></table>",
           "<h2 id=\"phases\">Kinds of technique</h2><p>Each technique has a phase tag. The tag gives its kind and the step it runs in.</p><table><thead><tr><th>Phase tag</th><th>Kind and step</th><th>Definition of the tag</th></tr></thead><tbody>"]
@@ -501,7 +502,7 @@ def make_reference():
 NAV = [
     ("Overview", [("/", "Overview"), ("/simulator/", "Simulator")]),
     ("Process", [("/process/", "The process"), ("/process/intake/", "1. Intake"), ("/process/choosing-techniques/", "2 and 3. Rule out and choose"),
-                 ("/process/planning-the-order/", "4. Plan the order"), ("/process/running-the-techniques/", "5. Run the techniques"),
+                 ("/process/planning-the-sequence/", "4. Plan analysis sequence"), ("/process/running-the-techniques/", "5. Run the techniques"),
                  ("/process/checks-and-answer/", "6 to 8. Check, combine and answer")]),
     ("Catalogue", [("/catalogue/", "All techniques")] + [(f"/catalogue/{FAM_SLUG[f]}/", f"{f} ({len(FAMILIES[f])})") for f in FAMILY_ORDER]),
     ("Reference", [("/reference/fields/", "Fields"), ("/reference/artefact-types/", "Working document types"),
