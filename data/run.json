@@ -221,10 +221,6 @@
     {
      "code": "spot check",
      "person": "optional"
-    },
-    {
-     "code": "human review sample",
-     "person": "needed"
     }
    ]
   },
@@ -236,10 +232,6 @@
     {
      "code": "spot check",
      "person": "optional"
-    },
-    {
-     "code": "human review sample",
-     "person": "needed"
     }
    ]
   },
@@ -255,10 +247,6 @@
     {
      "code": "repeat runs",
      "person": "none"
-    },
-    {
-     "code": "human review sample",
-     "person": "needed"
     }
    ]
   },
@@ -274,14 +262,6 @@
     {
      "code": "repeat runs",
      "person": "none"
-    },
-    {
-     "code": "gold standard agreement",
-     "person": "conditional"
-    },
-    {
-     "code": "human review sample",
-     "person": "needed"
     }
    ]
   },
@@ -369,7 +349,7 @@
   "conclusions": [
    {
     "id": "C1",
-    "text": "H1 cannot be tested as worded. No quote compares the AI with traditional voice automation. Q1 compares it with chat bots, Q3 refers only to having to \"repeat yourself\", and Q2 gives one indirect voice comparison: \"sometimes when you are talking to a more of a robot, it sounds more like a robot voice\".",
+    "text": "H1 cannot be tested as worded. No quote compares the AI with traditional voice automation by name, and no quote rates satisfaction. Q1 compares it with chat bots, Q3 refers only to having to \"repeat yourself\", and Q2 gives one indirect voice comparison: \"sometimes when you are talking to a more of a robot, it sounds more like a robot voice\".",
     "cells": {
      "DM-02": "A",
      "PE-02": "A",
@@ -382,12 +362,12 @@
      "TC1-16": "P",
      "TC1-17": "A"
     },
-    "label": "high",
-    "reason": "Nine of ten techniques agree and TC1-16 agrees in part, because it finds Q2 an indirect voice comparison. The CK-17 spans that failed were labels, not source quotes, and a human review sample and a second coder were not done, which does not cap the label at this stakes."
+    "label": "medium",
+    "reason": "Nine techniques agree and TC1-16 agrees in part, because it finds Q2 is one indirect voice comparison and that HE1-13, HE1-14 and HE1-15 overstate the gap when they say no quote compares at all. The repeat run of MM-10 disagreed on this target: Q7 on H1 was none in the original and oppose in the repeat, so the check for this conclusion is limited. The CK-17 spans that failed were labels, terms or one paraphrase, not source quotes, and the spot check found no mismatches. No person reviewed the results."
    },
    {
     "id": "C2",
-    "text": "Reactions to the AI are split among the six quoted participants. P1 (Q1), P2 (Q2) and P3 (Q3) speak well of it, and P4 (Q5) moves from wanting to speak to someone to calling it a good process. P10 (Q4, Q8), P1 (Q6) and P5 (Q7) are unfavourable. The tally runs from a tie to four against two, depending on how P1 and P4 are coded and whether context-specific complaints count.",
+    "text": "Reactions to the AI are mixed among the six quoted participants. P1 (Q1), P2 (Q2) and P3 (Q3) speak well of it, and P4 (Q5) ends at \"a really good process\" after first wanting to speak to someone. P10 (Q4, Q8), P1 (Q6) and P5 (Q7) are unfavourable. The balance runs from a tie of three against three to four against one, depending on how P1 and P4 are coded and whether complaints tied to one context count.",
     "cells": {
      "DM-02": "A",
      "PE-02": "A",
@@ -401,47 +381,47 @@
      "TC1-17": "A"
     },
     "label": "high",
-    "reason": "All ten techniques report a split, and the sensitivity rows in TC1-17 change the size of the lean but never reverse it; no second coder or human review sample was used, which is named here and does not cap the label."
+    "reason": "All ten techniques find favourable and unfavourable quotes. PE-02 finds four quotes with a positive cue and four with a negative cue under all six cleaning regimes, and TC1-17 finds that no change to the inclusion rules removes either side, although the balance moves. The repeat of MM-10 did not label general stance, so its Q7 difference on H1 does not test this conclusion. The checks passed, and no person reviewed the results."
    },
    {
     "id": "C3",
-    "text": "The reasons participants give for negative reactions are specific features, not one cause. These are the voice and accent (Q4, Q7), the length of the introduction (Q8), a stressful setting (Q7) and earlier experience with AI agents (Q6). The material does not isolate learning that it is an AI as the cause, but P5 does name \"AI in its current state\" in Q7, and the link from Q7 to the motor claim scenario is inferred, not recorded.",
+    "text": "The reasons participants give for unfavourable reactions are several specific features, not one cause. They are the voice and accent (Q4, Q7), the length of the introduction (Q8), a stressful setting (Q7) and earlier experience with AI agents (Q6). Learning that it is an AI is not ruled out: P5 names \"AI in its current state\" in Q7 and P10 says \"this sounds very much like an AI voice\" in Q4. The link from Q7 to the motor claim scenario is inferred, not recorded.",
     "cells": {
      "DM-02": "A",
      "PE-02": "P",
      "CM1-05": "A",
      "HE1-13": "A",
      "HE1-14": "A",
-     "HE1-15": "A",
+     "HE1-15": "P",
      "MM-10": "P",
      "TC1-13": "A",
-     "TC1-16": "P",
-     "TC1-17": "A"
+     "TC1-16": "A",
+     "TC1-17": "P"
     },
     "label": "medium",
-    "reason": "Most techniques name the same drivers, but TC1-16 finds that Q4 and Q6 do not fit a single context explanation and that the scenario link is an inference; these are stated reasons, not tested causes."
+    "reason": "Most techniques name the same drivers. PE-02, HE1-15 and MM-10 only raise context as an alternative explanation and cannot test a cause, and TC1-17 notes that its combined rows cannot isolate one. TC1-16 finds that Q4 and Q6 do not fit a single context explanation, that Q7 names the AI, and that the scenario link is an inference, and this limits the label. These are stated reasons, not tested causes."
    },
    {
     "id": "C4",
-    "text": "H2 is neither supported nor refuted. P10 says \"I would've definitely have hung up at the intro.\" (Q8) and gives the length of the introduction as the reason. P5 would probably have hung up only after not getting a human (Q10). No quote says a participant would stay on the line, and the one weak sign, P4 in Q5, is about a process and not about hanging up.",
+    "text": "H2 is untested on a strict reading, and no quote supports it. P10 says \"I would've definitely have hung up at the intro.\" (Q8) and gives the length of the introduction as the reason. P5 would probably have hung up only after not getting a human (Q10). On a loose reading these two participants run against H2, but neither links the hang-up to learning that it is an AI, and the material does not say where the AI is disclosed. No quote says a participant would stay on the line. P4 in Q5 ends at a good process, which is about the process and not about hanging up.",
     "cells": {
-     "DM-02": "P",
+     "DM-02": "A",
      "PE-02": "D",
      "CM1-05": "D",
-     "HE1-13": "P",
+     "HE1-13": "A",
      "HE1-14": "D",
-     "HE1-15": "P",
+     "HE1-15": "A",
      "MM-10": "P",
      "TC1-13": "P",
-     "TC1-16": "P",
+     "TC1-16": "A",
      "TC1-17": "A"
     },
     "label": "medium",
-    "reason": "The techniques split between contradicted for two participants and untested, and TC1-17 shows the verdict depends on whether hypothetical statements and the cause (learning it is an AI) are required; human review was not done and does not cap the label."
+    "reason": "The techniques split. DM-02, HE1-13, HE1-15, TC1-16 and TC1-17 find H2 untested or the verdict dependent on definitions, while PE-02, CM1-05 and HE1-14 report it as contradicted and MM-10 and TC1-13 report it as mixed. TC1-17 shows the contradiction disappears if hypothetical statements are excluded or if the cause must be learning it is an AI. The repeat run of MM-10 disagreed on Q10 for H2 (original oppose, repeat neutral), so the check for this conclusion is limited."
    },
    {
     "id": "C5",
-    "text": "H3 is not supported, and two participants say they would ask for a human. P5 says \"I would've asked for a human.\" (Q10) with no timing. P4 says \"If I was gonna do it, that's probably where I would do it\" (Q9), which is hedged, and Q5 says the wish fades as the process goes on. No quote says a participant would decline to ask. Under a strict reading of \"immediately\" the contradiction falls to one participant or to none.",
+    "text": "H3 is not supported, and two participants say they would ask for a human. P5 says \"I would've asked for a human.\" (Q10) with no timing. P4 says \"If I was gonna do it, that's probably where I would do it\" (Q9), which is hedged and was said about the introduction in the material's note, not in P4's words, and Q5 says the wish to speak to someone fades as the process goes on. No quote says a participant would decline to ask. Under a strict reading of \"immediately\" the contradiction depends on one participant or on none.",
     "cells": {
      "DM-02": "A",
      "PE-02": "A",
@@ -455,11 +435,11 @@
      "TC1-17": "P"
     },
     "label": "medium",
-    "reason": "Eight techniques agree on the loose reading, but TC1-16 and TC1-17 show it rests on two participants, on hypothetical and hedged statements, and on timing the quotes do not give; human review was not done and does not cap the label."
+    "reason": "Eight techniques agree on the loose reading. TC1-16 and TC1-17 show it depends on two participants, on hypothetical and hedged statements, and on timing the quotes do not give, and TC1-17 leaves no contradiction when the strict rules are combined. This verification finding limits the label. The repeat of MM-10 agreed on all three H3 labels, and the other checks passed."
    },
    {
     "id": "C6",
-    "text": "The evidence is limited in ways every finding records. P8 and P9 have no quote, the basis for choosing the ten quotes is not given, every hang-up or human-request statement is a hypothetical reaction to a prerecorded scenario, and the material does not say where the AI is disclosed. Counts describe the selected quotes and not how common a view is.",
+    "text": "The evidence has limits that every finding records. P8 and P9 have no quote, the basis for choosing the ten quotes is not given, every hang-up or human-request statement is a hypothetical reaction to a prerecorded scenario, and the material does not say where the AI is disclosed or which scenario each quote refers to apart from the motor claim reference in Q7. Each finding was produced by one coder. Counts describe the selected quotes, not how common a view is.",
     "cells": {
      "DM-02": "A",
      "PE-02": "A",
@@ -473,81 +453,164 @@
      "TC1-17": "A"
     },
     "label": "high",
-    "reason": "All ten techniques state these limits and they are stated in the material itself; the CK-17 spans that failed were labels, not source quotes."
+    "reason": "All ten techniques state these limits, and the limits come from the material itself. The CK-17 spans that failed were labels, terms or one paraphrase, not source quotes, and the spot check found no mismatches, although its coverage is thin for HE1-14, HE1-15, MM-10 and TC1-13. No person reviewed the results."
    }
   ],
   "answer": {
-   "lead": "The eight interviews do not support any of H1 to H3 as worded. H1 cannot be tested because no quote compares the AI with traditional voice automation, and the reactions to the AI are split. H2 and H3 each have statements that run against them from two participants, but those are hypothetical and in part hedged, so under a strict reading both are untested. These are patterns within this sample only, and only six of the eight participants are quoted.",
+   "lead": "The eight interviews do not support H1, H2 or H3 as worded. H1 cannot be tested because no quote compares the AI with traditional voice automation, and the reactions to the AI are mixed. For H2 and H3, no quote supports either hypothesis, and two participants say they would hang up or ask for a human, but those statements are hypothetical, partly hedged and not tied to learning that it is an AI or to a stated time. These are patterns within this sample only, and only six of the eight participants are quoted.",
    "paragraphs": [
-    "H1 (more satisfying than traditional voice automation): P1, P2 and P3 speak well of the AI, and P4 comes round to it after an initial wish to speak to someone. P10, P5 and P1 in a second remark are unfavourable, citing the voice, the accent, the length of the introduction and an imagined car accident. The favourable remarks are comparisons with chat bots, a robot voice and repeating yourself, so the material shows approval against a poor earlier experience and does not show the comparison H1 states. Confidence: high that H1 is untested and that the reactions are split.",
-    "H2 (no immediate hang-up on learning it is an AI): P10 would have hung up at the introduction because it was too long, and P5 would probably have hung up only after being refused a human. Neither links the hang-up to learning that it is an AI. On a loose reading two participants run against H2. On a strict reading no quote tests it, and no quote says anyone would stay on the line. Confidence: medium.",
-    "H3 (no immediate request for a human): P5 says they would have asked for a human, with no timing given. P4 says the introduction is where they would probably do it, hedges that twice, and says the wish passes as the process goes on. For a decision, the usable reading is that some participants want a route to a human early in the call, while the material cannot say how many of the eight would act this way. Confidence: medium.",
-    "Why the participants react as they do is less certain than what they say. The reasons they name are the voice, the accent, the introduction, the setting and earlier experience, and P5 also names the AI itself. The link from the car accident remark to the motor claim scenario is inferred. Confidence: medium. All statements about hanging up or asking for a human come from prerecorded scenarios, P8 and P9 have no quote, and the choice of quotes is not explained. Confidence: high. A human review sample and a second coder were not part of this work, and at this decision-informing stakes that does not lower the labels."
+    "H1 (more satisfying than traditional voice automation): P1, P2 and P3 speak well of the AI, and P4 changes from wanting to speak to someone to calling it a good process. P10, P5 and P1 in a second remark are unfavourable, citing the voice, the accent, the length of the introduction and an imagined car accident. Depending on how P1 and P4 are coded, the balance is a tie or a lean of four against one. The favourable remarks compare the AI with chat bots, a robot voice and having to repeat yourself, and only the robot voice in Q2 is a voice comparison. The material therefore shows approval against poor earlier experiences and does not show the comparison H1 states. Confidence: high that the reactions are mixed, medium that H1 is untested, because the repeat run of MM-10 labelled Q7 on H1 differently from the original.",
+    "H2 (no immediate hang-up on learning it is an AI): P10 would have hung up at the introduction because it was too long, and P5 would probably have hung up only after being refused a human. Neither links the hang-up to learning that it is an AI. On a loose reading these two run against H2. On a strict reading no quote tests it, and no quote says anyone would stay on the line. Confidence: medium, because the techniques differ on this and the repeat run of MM-10 labelled Q10 on H2 as neutral where the original said oppose.",
+    "H3 (no immediate request for a human): P5 says they would have asked for a human, with no timing given. P4 says the introduction is where they would probably do it, hedges that statement twice, and says the wish passes as the process goes on. For a decision, the usable reading is that some participants want a route to a human early in the call, and the material cannot say how many of the eight would act this way. Under the strictest rules no contradiction remains. Confidence: medium.",
+    "The reasons participants give are less certain than what they say. They name the voice, the accent, the introduction, the setting and earlier experience, and P5 also names the AI itself. No technique tested a cause, and the link from the car accident remark to the motor claim scenario is inferred. Confidence: medium. All statements about hanging up or asking for a human are hypothetical reactions to prerecorded scenarios, P8 and P9 have no quote, the choice of quotes is not explained, and each finding used one coder. Confidence: high. The quote and pairing checks passed apart from six labels and terms placed in quotation marks, and the repeat runs differed on two stance labels. No person reviewed the results, which is not part of the plan at this decision-informing stakes and does not change the labels."
    ]
   }
  },
  "answer": {
-  "lead": "The eight interviews do not support any of H1 to H3 as worded. H1 cannot be tested because no quote compares the voice AI with traditional voice automation, and the reactions to the AI are split. H2 and H3 each have statements against them from two participants, but those statements are hypothetical and partly hedged, so under a strict reading both are untested. These are patterns within this sample only, and only six of the eight participants are quoted.",
+  "lead": "The eight interviews do not support H1, H2 or H3 as worded. H1 cannot be tested because no quote compares the AI with traditional voice automation, and the reactions to the AI are mixed. For H2 and H3, no quote supports either hypothesis, and two participants say they would hang up or ask for a human, but those statements are hypothetical, partly hedged and not tied to learning that it is an AI or to a stated time. These are patterns within this sample only, and only six of the eight participants are quoted.",
   "conclusions": [
    {
     "id": "C1",
-    "text": "H1 cannot be tested as worded. No quote compares the voice AI with traditional voice automation. Q1 compares it with chat bots, Q3 refers only to having to \"repeat yourself\", and Q2 gives one indirect voice comparison: \"sometimes when you are talking to a more of a robot, it sounds more like a robot voice\".",
-    "label": "high",
-    "reason": "Nine of the ten techniques agree, and the tenth (the disconfirmation search, TC1-16) agrees in part because it reads Q2 as an indirect voice comparison."
+    "text": "H1 (customers find voice AI more satisfying than traditional voice automation) cannot be tested as worded. No quote compares the AI with traditional voice automation by name, and no quote rates satisfaction. Q1 compares it with chat bots, Q3 refers only to having to \"repeat yourself\", and Q2 gives one indirect voice comparison: \"sometimes when you are talking to a more of a robot, it sounds more like a robot voice\".",
+    "label": "medium",
+    "reason": "Nine techniques agree and TC1-16 agrees in part, because it finds Q2 is one indirect voice comparison and that HE1-13, HE1-14 and HE1-15 overstate the gap when they say no quote compares at all. The repeat run of MM-10 disagreed on this target: Q7 on H1 was none in the original and oppose in the repeat, so the check for this conclusion is limited. The CK-17 spans that failed were labels, terms or one paraphrase, not source quotes, and the spot check found no mismatches. No person reviewed the results."
    },
    {
     "id": "C2",
-    "text": "Reactions to the voice AI are split among the six quoted participants. P1 (Q1), P2 (Q2) and P3 (Q3) speak well of it, and P4 (Q5) moves from wanting to speak to someone to calling it a good process. P10 (Q4, Q8), P1 (Q6) and P5 (Q7) are unfavourable. The tally ranges from a tie to four against two, depending on how P1 and P4 are coded and whether complaints tied to one context are counted.",
+    "text": "Reactions to the AI are mixed among the six quoted participants. P1 (Q1), P2 (Q2) and P3 (Q3) speak well of it, and P4 (Q5) ends at \"a really good process\" after first wanting to speak to someone. P10 (Q4, Q8), P1 (Q6) and P5 (Q7) are unfavourable. The balance runs from a tie of three against three to four against one, depending on how P1 and P4 are coded and whether complaints tied to one context count.",
     "label": "high",
-    "reason": "All ten techniques report a split. The sensitivity rows in TC1-17 change the size of the lean but never reverse it."
+    "reason": "All ten techniques find favourable and unfavourable quotes. PE-02 finds four quotes with a positive cue and four with a negative cue under all six cleaning regimes, and TC1-17 finds that no change to the inclusion rules removes either side, although the balance moves. The repeat of MM-10 did not label general stance, so its Q7 difference on H1 does not test this conclusion. The checks passed, and no person reviewed the results."
    },
    {
     "id": "C3",
-    "text": "The reasons participants give for negative reactions are specific features, not one cause. They are the voice and accent (Q4, Q7), the length of the introduction (Q8), a stressful setting (Q7) and earlier experience with AI agents (Q6). The material does not isolate learning that it is an AI as the cause, although P5 names \"AI in its current state\" in Q7. The link from Q7 to the motor claim scenario is inferred and is not recorded in the material.",
+    "text": "The reasons participants give for unfavourable reactions are several specific features, not one cause. They are the voice and accent (Q4, Q7), the length of the introduction (Q8), a stressful setting (Q7) and earlier experience with AI agents (Q6). Learning that it is an AI is not ruled out: P5 names \"AI in its current state\" in Q7 and P10 says \"this sounds very much like an AI voice\" in Q4. The link from Q7 to the motor claim scenario is inferred, not recorded.",
     "label": "medium",
-    "reason": "Most techniques name the same drivers, but TC1-16 finds that Q4 and Q6 do not fit a single-context explanation and that the scenario link is an inference. These are reasons the participants state, not causes that were tested."
+    "reason": "Most techniques name the same drivers. PE-02, HE1-15 and MM-10 only raise context as an alternative explanation and cannot test a cause, and TC1-17 notes that its combined rows cannot isolate one. TC1-16 finds that Q4 and Q6 do not fit a single context explanation, that Q7 names the AI, and that the scenario link is an inference, and this limits the label. These are stated reasons, not tested causes."
    },
    {
     "id": "C4",
-    "text": "H2 is neither supported nor refuted. P10 says \"I would've definitely have hung up at the intro.\" (Q8) and gives the length of the introduction as the reason. P5 would probably have hung up only after not getting a human (Q10). No quote says a participant would stay on the line, and the one weak sign, P4 in Q5, is about the process and not about hanging up.",
+    "text": "H2 (customers do not hang up immediately when they learn they are speaking with an AI) is untested on a strict reading, and no quote supports it. P10 says \"I would've definitely have hung up at the intro.\" (Q8) and gives the length of the introduction as the reason. P5 would probably have hung up only after not getting a human (Q10). On a loose reading these two participants run against H2, but neither links the hang-up to learning that it is an AI, and the material does not say where the AI is disclosed. No quote says a participant would stay on the line. P4 in Q5 ends at a good process, which is about the process and not about hanging up.",
     "label": "medium",
-    "reason": "The techniques split between reading the statements as contradicting H2 for two participants and reading H2 as untested. TC1-17 shows the verdict depends on whether hypothetical statements are counted and whether the cause (learning it is an AI) is required."
+    "reason": "The techniques split. DM-02, HE1-13, HE1-15, TC1-16 and TC1-17 find H2 untested or the verdict dependent on definitions, while PE-02, CM1-05 and HE1-14 report it as contradicted and MM-10 and TC1-13 report it as mixed. TC1-17 shows the contradiction disappears if hypothetical statements are excluded or if the cause must be learning it is an AI. The repeat run of MM-10 disagreed on Q10 for H2 (original oppose, repeat neutral), so the check for this conclusion is limited."
    },
    {
     "id": "C5",
-    "text": "H3 is not supported on a loose reading, because two participants say they would ask for a human. P5 says \"I would've asked for a human.\" (Q10) with no timing given. P4 says \"If I was gonna do it, that's probably where I would do it\" (Q9), which is hedged, and Q5 says the wish weakens as the process goes on. No quote says a participant would decline to ask. Under a strict reading of \"immediately\", the contradiction falls to one participant or to none.",
+    "text": "H3 (customers do not immediately ask for a human agent) is not supported, and two participants say they would ask for a human. P5 says \"I would've asked for a human.\" (Q10) with no timing. P4 says \"If I was gonna do it, that's probably where I would do it\" (Q9), which is hedged and was said about the introduction in the material's note, not in P4's words, and Q5 says the wish to speak to someone fades as the process goes on. No quote says a participant would decline to ask. Under a strict reading of \"immediately\" the contradiction depends on one participant or on none.",
     "label": "medium",
-    "reason": "Eight techniques agree on the loose reading. TC1-16 and TC1-17 show that it rests on two participants, on hypothetical and hedged statements, and on timing that the quotes do not give."
+    "reason": "Eight techniques agree on the loose reading. TC1-16 and TC1-17 show it depends on two participants, on hypothetical and hedged statements, and on timing the quotes do not give, and TC1-17 leaves no contradiction when the strict rules are combined. This verification finding limits the label. The repeat of MM-10 agreed on all three H3 labels, and the other checks passed."
    },
    {
     "id": "C6",
-    "text": "The material has limits that every technique records. P8 and P9 have no quote, the basis for choosing the ten quotes is not given, every hang-up or human-request statement is a hypothetical reaction to a prerecorded scenario, and the material does not say where the AI is disclosed. Counts describe the selected quotes and not how common a view is.",
+    "text": "The evidence has limits that every finding records. P8 and P9 have no quote, the basis for choosing the ten quotes is not given, every hang-up or human-request statement is a hypothetical reaction to a prerecorded scenario, and the material does not say where the AI is disclosed or which scenario each quote refers to apart from the motor claim reference in Q7. Each finding was produced by one coder. Counts describe the selected quotes, not how common a view is.",
     "label": "high",
-    "reason": "All ten techniques state these limits, and the limits come from the material itself."
+    "reason": "All ten techniques state these limits, and the limits come from the material itself. The CK-17 spans that failed were labels, terms or one paraphrase, not source quotes, and the spot check found no mismatches, although its coverage is thin for HE1-14, HE1-15, MM-10 and TC1-13. No person reviewed the results."
    }
   ],
-  "strength_reached": "None of the chosen techniques reach the strength needed (show a link between things). The catalogue ceilings are not recorded in the plan, so on the record available the techniques are taken to describe only. The techniques DM-02, PE-02, CM1-05, HE1-13, HE1-14, HE1-15, MM-10 and TC1-13 describe what the quoted participants say. TC1-16 and TC1-17 test how far those descriptions change under other readings. The conclusions C1 to C6 are therefore descriptions of patterns in the quotes, and none is a shown link between two things.",
   "basis": [
-   "What the user gave: one source, text, 512 words (source_material.md).",
+   "What the user gave: one source, text, 512 words.",
    "Outside material used: none.",
-   "Techniques that ran and what each worked on: DM-02 (brief and material), PE-02 (brief and material), CM1-05, HE1-13, HE1-14, HE1-15, MM-10, TC1-13 (brief and material, run separately), CK-17 by code, TC1-16 and TC1-17 (the findings).",
-   "Techniques dropped: none. No files could not be read.",
-   "Checks not done because they need a person: gold standard agreement and the human review sample. The spot checks and repeat runs listed for HE1-13, HE1-14, HE1-15 and MM-10 were not done in this run.",
-   "CK-17 checked 146 quoted spans in the results and 6 failed. All 6 were labels, terms or one paraphrase placed in quotation marks, not source quotes.",
+   "Techniques that ran and what each worked on: DM-02 (brief and material), PE-02 (brief and material), CM1-05, HE1-13, HE1-14, HE1-15, MM-10, TC1-13 (brief and material, each run separately), CK-17 by code, TC1-16 and TC1-17 (the findings).",
+   "Techniques dropped: none. Files that could not be read: none.",
+   "Checks done by the process: source-span citation by code (CK-17: 146 quoted spans, 6 failed, all labels, terms or one paraphrase in quotation marks, not source quotes); a spot check by code of quote and participant pairings (55 pairs across 10 results, 0 mismatches; HE1-14, HE1-15, MM-10 and TC1-13 had 0 to 3 pairs each); repeat runs of HE1-15 (same quotes coded in 4 of 4 compared categories) and MM-10 (28 of 30 stance labels the same on the three targets matching H1 to H3; Q7 on H1 and Q10 on H2 differed); the assumption and limitation statement and the alternative explanations check.",
+   "No person reviewed the results. The checks that need a person (human review sample, gold standard agreement) are not part of the plan at decision-informing stakes.",
    "The user was shown the 5.1 findings and chose to keep the request as written. The user chose the convergence matrix then narrative method."
   ]
  },
+ "spot": {
+  "CM1-05": {
+   "pairs_checked": 3,
+   "mismatches": []
+  },
+  "DM-02": {
+   "pairs_checked": 11,
+   "mismatches": []
+  },
+  "HE1-13": {
+   "pairs_checked": 12,
+   "mismatches": []
+  },
+  "HE1-14": {
+   "pairs_checked": 2,
+   "mismatches": []
+  },
+  "HE1-15": {
+   "pairs_checked": 2,
+   "mismatches": []
+  },
+  "MM-10": {
+   "pairs_checked": 3,
+   "mismatches": []
+  },
+  "PE-02": {
+   "pairs_checked": 5,
+   "mismatches": []
+  },
+  "TC1-13": {
+   "pairs_checked": 0,
+   "mismatches": []
+  },
+  "TC1-16": {
+   "pairs_checked": 9,
+   "mismatches": []
+  },
+  "TC1-17": {
+   "pairs_checked": 8,
+   "mismatches": []
+  }
+ },
+ "repeat": {
+  "MM-10": {
+   "compared": 30,
+   "same": 28,
+   "different": [
+    [
+     "Q7",
+     "H1",
+     "none",
+     "oppose"
+    ],
+    [
+     "Q10",
+     "H2",
+     "oppose",
+     "neutral"
+    ]
+   ],
+   "note": "Targets compared: the three that correspond to H1, H2 and H3. The original also labelled a general stance (T1), which the repeat run did not."
+  },
+  "HE1-15": {
+   "compared": 4,
+   "same": 4,
+   "different": [],
+   "note": "Compared the quotes coded favourable, unfavourable, would hang up and would ask for a human. Both runs coded the same quotes in all four."
+  }
+ },
+ "left_out": {
+  "HE1-13": [
+   "human review sample"
+  ],
+  "HE1-14": [
+   "human review sample"
+  ],
+  "HE1-15": [
+   "human review sample"
+  ],
+  "MM-10": [
+   "gold standard agreement",
+   "human review sample"
+  ]
+ },
  "specs": {
-  "CM1-05": "The result is a matrix with one row per case and one column per question asked of every case, each cell holding that case's answer. It names the patterns that are consistent across cases and the deviant cases.",
+  "HE1-15": "The result is a category structure or a table of category frequencies, with one row per category and a count or interpretation of how often the category is used. It reports agreement between coders where more than one coder was used.",
+  "CK-17": "The result is a pass or fail list with one row per extracted statement, giving the statement, the exact passage it points to, whether that passage exists by string match and whether the passage supports the claim. It ends with the list of statements that failed.",
+  "TC1-16": "The result names the claim under test, lists the evidence that would contradict it, and records for each item whether it was found or not found. It states the search used for each item and ends with what the findings mean for the claim.",
+  "HE1-13": "The result is a set of themes, each with a name, a description of the pattern of meaning it captures, and data extracts that support it. It ends with a written account that interprets the themes across the data.",
   "TC1-17": "The result is a table with one row per changed assumption or inclusion rule and the result obtained under each, alongside the original result. It ends by stating whether the conclusion reverses under any row.",
   "HE1-14": "The result is a matrix with one row per case and one column per theme, each cell holding a short summary of the coded data for that case and theme. It notes the empty cells and states what reading across the rows and down the columns shows.",
-  "HE1-15": "The result is a category structure or a table of category frequencies, with one row per category and a count or interpretation of how often the category is used. It reports agreement between coders where more than one coder was used.",
-  "TC1-13": "The result lists the hypotheses and gives a matrix of evidence items against hypotheses with a consistency rating in each cell. It names the evidence items that discriminate between hypotheses and the hypothesis with the fewest inconsistencies.",
   "DM-02": "The result is a tree in which the main claim is split into the sub-claims that must all be true for it to be true, down to leaf claims. It lists the leaf claims for which no evidence is possible.",
-  "HE1-13": "The result is a set of themes, each with a name, a description of the pattern of meaning it captures, and data extracts that support it. It ends with a written account that interprets the themes across the data.",
-  "MM-10": "The result is a table with one row per text and target, giving the stance label of favour, oppose, neutral or none. It reports stance by source and over time, and the share of none labels.",
-  "CK-17": "The result is a pass or fail list with one row per extracted statement, giving the statement, the exact passage it points to, whether that passage exists by string match and whether the passage supports the claim. It ends with the list of statements that failed.",
   "PE-02": "The result has the cleaned text or document-term matrix, a log listing every cleaning rule applied, and a sensitivity table showing the main result under each cleaning regime. It ends by stating whether the themes or rankings changed across regimes.",
-  "TC1-16": "The result names the claim under test, lists the evidence that would contradict it, and records for each item whether it was found or not found. It states the search used for each item and ends with what the findings mean for the claim."
+  "CM1-05": "The result is a matrix with one row per case and one column per question asked of every case, each cell holding that case's answer. It names the patterns that are consistent across cases and the deviant cases.",
+  "MM-10": "The result is a table with one row per text and target, giving the stance label of favour, oppose, neutral or none. It reports stance by source and over time, and the share of none labels.",
+  "TC1-13": "The result lists the hypotheses and gives a matrix of evidence items against hypotheses with a consistency rating in each cell. It names the evidence items that discriminate between hypotheses and the hypothesis with the fewest inconsistencies."
  }
 }

@@ -69,6 +69,9 @@ out = {
     "ck17": {"checked": len(spans), "failed": [{"file": k, "span": s} for k, s, ok in spans if not ok]},
     "synthesis": json.loads((run / "synthesis.json").read_text()),
     "answer": json.loads((run / "answer.json").read_text()),
+    "spot": json.loads((run / "spot_check_result.json").read_text()),
+    "repeat": json.loads((run / "repeat_compare_result.json").read_text()),
+    "left_out": plan.get("left_out", {}),
     "specs": {i: rows[i]["output_spec"] for i in used},
 }
 (data / "run.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")

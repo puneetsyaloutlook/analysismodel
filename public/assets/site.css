@@ -261,3 +261,9 @@ details.acc>summary .ret{color:var(--teal-700);font-weight:400}
 details.acc>summary .small{font:400 .85rem var(--sans);color:var(--ink-2)}
 details.acc>summary:hover{color:var(--teal-900)}
 details.acc>.acc-body{padding-bottom:.4rem}
+#sim-out .substep .ret{color:var(--teal-700);font-weight:400}
+#sim-out .substep{margin-left:.6rem}
+#sim-out .substep .small{font:400 .85rem var(--sans);color:var(--ink-2)}
+details.acc.tech{margin-left:1.8rem}
+details.acc.tech>summary{font-size:1rem}
+details.acc.tech>summary .tname{font-weight:600}

@@ -44,7 +44,7 @@
 
   // Each step builds an array of "blocks": {html, pause}. Blocks appear one at a time inside a wrapper.
   var NOTES = {
-    real: '<strong>This replays one real run of MANIFST</strong> on ten interview quotes, made under version 1.2.3 of the design. Every result, conclusion and answer was produced by the run and stored. Nothing is calculated in your browser, so changing the form does not change the result. <strong>Limits.</strong> The question, stakes, strength of statement and kind of finding were set by the person who ran it. The person kept the question after step 5.1 and chose the agreement table and written summary in step 7. Two checks that need a person were not done, and the spot checks and repeat runs were not done either.'
+    real: '<strong>This replays one real run of MANIFST</strong> on ten interview quotes, made under version 1.2.4 of the design. Every result, conclusion and answer was produced by the run and stored. Nothing is calculated in your browser, so changing the form does not change the result. <strong>Limits.</strong> The question, stakes, strength of statement and kind of finding were set by the person who ran it. The person kept the question after step 5.1 and chose the agreement table and written summary in step 7. No person reviewed the results, because the checks that need a person apply at high stakes only.'
   };
 
   function builders(i) { return realBuilders(i); }
@@ -173,13 +173,16 @@
           if (k.code === 'assumption and limitation statement') st = '<span class="pill">present in the result</span>';
           else if (k.code === 'alternative explanations check') st = '<span class="pill">section present, quality not rated</span>';
           else if (k.code === 'source-span citation') st = '<span class="pill">done by code (CK-17)</span>';
+          else if (k.code === 'spot check') { var sp = j.spot[c.id]; st = sp ? '<span class="pill">done by code: ' + sp.pairs_checked + ' quote and participant pairs checked, ' + sp.mismatches.length + ' wrong</span>' : '<span class="pill warn">not done</span>'; }
+          else if (k.code === 'repeat runs') { var rp = j.repeat[c.id]; st = rp ? '<span class="pill">done: ' + rp.same + ' of ' + rp.compared + ' labels or categories the same on a second run</span>' : '<span class="pill warn">not done</span>'; }
           else if (k.person === 'needed' || k.person === 'conditional') { st = '<span class="pill warn">not done: person needed</span>'; needed[k.code] = 1; }
           else st = '<span class="pill warn">not done</span>';
           return '<li>' + esc(k.code) + ' ' + st + '</li>';
         }).join('');
         b.push({ role: 'work', html: '<div class="stage"><h3>Checks on ' + link(c) + '</h3><ul>' + lis + '</ul></div>', tally: ['t-person', Object.keys(needed).length] });
       });
-      b.push({ role: 'work', html: '<p class="result">' + Object.keys(needed).length + ' kinds of check need a person and were not done. They are listed in your report.</p>' });
+      var lo = Object.keys(j.left_out || {}).length;
+      b.push({ role: 'work', html: '<p class="result">' + (lo ? 'Checks that need a person (human review sample, gold standard agreement) are not in this plan, because the stakes are below high-stakes. No person reviewed the results. At high stakes MANIFST would stop here and ask you to review a sample.' : 'Every check in the plan was done.') + '</p>' });
     } else if (i === 6) {
       var sy = j.synthesis, T = sy.techniques;
       b.push({ role: 'work', html: '<p>MANIFST compared what the techniques found and wrote the conclusions. It used an agreement table and then a written summary.</p>' });

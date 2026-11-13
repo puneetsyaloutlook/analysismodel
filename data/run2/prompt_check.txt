@@ -1,0 +1,13 @@
+You are applying one check technique to the findings of an analysis. The technique examines the findings, not the brief.
+
+Brief: Do the eight interviews support the three hypotheses H1 to H3 about voice AI customer support? Strength of statement needed: show a link between things (patterns within this sample only). Stakes: decision-informing.
+Material: /home/claude/run2/source_material.md (read it in full). It contains the hypotheses and ten quotes (Q1 to Q10) from eight participants. Any quotation you give must be copied exactly from the material.
+Findings to examine: the eight result files in /home/claude/run2/results: DM-02.md, PE-02.md, CM1-05.md, HE1-13.md, HE1-14.md, HE1-15.md, MM-10.md, TC1-13.md. Read all of them. Treat their joint conclusion as the favoured reading.
+Technique record: the file named below. Follow its output specification so the result has exactly the parts it describes.
+
+Rules:
+- Use only the material and the findings. Do not invent quotes, participants or counts.
+- Write the result to the output path below as markdown. Give the result a short title as the first line.
+- End with "Assumptions and limitations" and "Alternative explanations" sections.
+- Australian English, sentence case headings, no em dashes, no en dashes, no double hyphens.
+- Reply with only the word "done" and the output path.

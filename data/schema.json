@@ -1,5 +1,5 @@
 {
- "version": "1.2.3",
+ "version": "1.2.4",
  "title": "MANIFST: metadata schema and process design for a catalogue of 236 analytical techniques",
  "conventions": {
   "language": "Australian English. Sentence case for headings, field labels and value names. No em dashes, en dashes or double hyphens.",
@@ -3222,7 +3222,7 @@
     }
    }
   },
-  "stop_rule": "If a library check required at the high-stakes level fails, the confidence label for each conclusion that depends on it is low and the reason names the check. A check that needs a person and was not done is listed in the answer as not done. At the high-stakes level it limits the label to medium until a person does it. At lower levels it is named in the reason and does not change the label.",
+  "stop_rule": "If a library check required at the high-stakes level fails, the confidence label for each conclusion that depends on it is low and the reason names the check. A check that needs a person applies at the high-stakes level only. At lower levels the plan leaves it out and the answer says that no person reviewed the results. At the high-stakes level the process shows the user the sample to review before step 7. If the user does not review it, it is listed as not done and limits the label to medium until a person does it.",
   "stop_rule_basis": {
    "type": "inference",
    "sources": [
@@ -3783,7 +3783,7 @@
   },
   "offer_to_user": "The process lists the methods whose applies_when is met, marks the recommended one with its reason, and asks the user to choose or accept the recommendation. It runs the recommended method if the user does not reply.",
   "answer_basis": {
-   "definition": "The answer states three things as facts and makes no judgement about the material. (1) Strength of statement reached: which chosen techniques reach the strength of statement the user needed and which conclusions they support; when none did, the answer says so in its first lines. (2) What the answer is based on: what the user gave (each source, its type and size), any outside material gathered and where from, which techniques ran and what each worked on (the request, the material, or the findings of the analysis), which techniques were dropped and why, any files that could not be read, any checks that were not done, taken from the check library field human_involvement (needed, or conditional when the condition applies), and whether the user confirmed the request after 5.1. (3) The offer of a follow-up round. It does not say whether the material is representative or sufficient.",
+   "definition": "The answer states three things as facts and makes no judgement about the material. (1) Strength of statement reached: which chosen techniques reach the strength of statement the user needed and which conclusions they support; when none did, the answer says so in its first lines. (2) What the answer is based on: what the user gave (each source, its type and size), any outside material gathered and where from, which techniques ran and what each worked on (the request, the material, or the findings of the analysis), which techniques were dropped and why, any files that could not be read, any checks that were not done (at the high-stakes level, a check that needs a person: needed, or conditional when the condition applies), whether a person reviewed the results, and whether the user confirmed the request after 5.1. (3) The offer of a follow-up round. It does not say whether the material is representative or sufficient.",
    "basis": {
     "type": "inference",
     "sources": [],
@@ -3805,6 +3805,10 @@
    {
     "point": "approve outside material",
     "what": "Asked only when a chosen technique needs outside material that is not in the user's content. The process shows the item and its source. The user approves it before any technique uses it. If none is found or approved, the technique is dropped and the answer says so."
+   },
+   {
+    "point": "review a sample of the results",
+    "what": "Asked only at the high-stakes level, at the end of step 6, when a chosen technique has a check that needs a person. The process shows a small sample of the results with the labels or findings it produced. The user reviews it, skips it or defers it. A skipped or deferred review is listed as not done and limits the confidence label to medium."
    },
    {
     "point": "choose the synthesis method",
@@ -3913,7 +3917,7 @@
    "note": "Test of 11 November 2026. The specifications and checklists were written by the same author, so the result may favour the specification."
   }
  },
- "check_library_note": "human_involvement says whether a check needs a person. needed: the process cannot do it and lists it in the answer basis as not done. optional: code or the model can do it, and a person can too. conditional: needed only when the stated condition holds. none: the process does it.",
+ "check_library_note": "human_involvement says whether a check needs a person. needed: the process cannot do it. It applies at the high-stakes level only, where the process asks the user to review a sample and lists the check as not done if the user does not. Below the high-stakes level the plan leaves it out. optional: code or the model can do it, and a person can too. conditional: needed only when the stated condition holds, and then it follows the rule for needed. none: the process does it. Every check the plan lists that needs no person (including spot checks and repeat runs) is done by the process.",
  "steps": [
   {
    "number": "1",
@@ -4153,7 +4157,11 @@
    },
    {
     "state": "not done",
-    "meaning": "The library check needs a person and was not done."
+    "meaning": "The library check needs a person at the high-stakes level and the user did not review the sample."
+   },
+   {
+    "state": "left out",
+    "meaning": "The library check needs a person and the stakes are below high-stakes, so the plan does not include it."
    }
   ],
   "waiting_reasons": {
@@ -4162,6 +4170,7 @@
     "confirm the brief",
     "confirm the request after 5.1",
     "approve outside material",
+    "review a sample of the results",
     "choose the synthesis method",
     "confirm commensurable estimates",
     "follow-up round"
