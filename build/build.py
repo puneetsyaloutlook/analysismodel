@@ -166,7 +166,7 @@ def make_simulator():
   <div><span class="n" id="t-run">-</span><span class="k">techniques in the plan</span></div>
   <div><span class="n" id="t-person">-</span><span class="k">checks that need a person</span></div>
 </div>
-<ul class="legend" aria-label="Key to the cards"><li><span class="sw sw-input"></span>Your input: what you enter or decide</li><li><span class="sw sw-work"></span>Work: what code or the model did</li><li><span class="sw sw-output"></span>Output: what the work produced</li></ul>
+<ul class="legend" aria-label="Key to the cards"><li><span class="sw sw-input"></span>Your input: what you enter or decide</li><li><span class="sw sw-work"></span>Work: what code or the model did on the way to the answer</li><li><span class="sw sw-output"></span>Output: the report you receive at the end</li></ul>
 <div class="sim-app">
   <ol class="sim-steps" aria-label="Process steps">{rail}</ol>
   <section class="sim-stage" aria-live="polite" aria-labelledby="sim-title">
