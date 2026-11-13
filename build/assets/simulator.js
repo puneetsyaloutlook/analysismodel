@@ -86,7 +86,7 @@
     f.addEventListener('submit', function (e) { e.preventDefault(); submitIntake(f, j); });
     f.addEventListener('change', function () { markOn(f); });
     f.querySelector('.doc a').addEventListener('click', function (e) { e.preventDefault(); openMaterial(j, e.currentTarget); });
-    sec.appendChild(f);
+    var ip = makePanel('input'); ip.appendChild(f); sec.appendChild(ip);
     return sec;
   }
   function openMaterial(j, opener) {
@@ -126,35 +126,36 @@
   function realBuilders(i) {
     var j = job, b = [], S = j.stages, bm = j.basis_map;
     if (i === 0) {
-      b.push({ html: '<h3>Material read by code</h3><p class="small">The description of the material. These properties decide which techniques can run.</p>' });
-      Object.keys(j.profile).forEach(function (k) { b.push({ html: '<div class="row2"><span>' + esc(prop(k)) + '</span><span>' + esc(list(j.profile[k])) + '</span></div>', fast: true }); });
+      b.push({ role: 'work', by: 'code', html: '<p>Code read the submitted content and recorded the properties that decide which techniques can run.</p>' });
+      b.push({ role: 'output', html: '<h3>Description of the material</h3>' });
+      Object.keys(j.profile).forEach(function (k) { b.push({ role: 'output', html: '<div class="row2"><span>' + esc(prop(k)) + '</span><span>' + esc(list(j.profile[k])) + '</span></div>', fast: true }); });
     } else if (i === 1) {
       return builders_gates(j);
     } else if (i === 2) {
       return builders_pick(j);
     } else if (i === 3) {
       var n = 0;
-      b.push({ html: '<p>Code places the chosen techniques in run order by kind. Analysis techniques are independent of each other. No personal information was found, so de-identification was not added.</p>' });
+      b.push({ role: 'work', by: 'code', html: '<p>Code places the chosen techniques in run order by kind. Analysis techniques are independent of each other. No personal information was found, so de-identification was not added.</p>' });
       [['5.1 Examine the question', S.frame], ['5.2 Prepare the material', S.prepare], ['5.3 Analyse the material', S.analyse], ['6 Check the findings', S.check]].forEach(function (c) {
         n += c[1].length;
-        b.push({ html: '<div class="stage"><h3>' + esc(c[0]) + '</h3><ul>' + c[1].map(function (x) { return '<li>' + link(x) + '</li>'; }).join('') + '</ul></div>', tally: ['t-run', n] });
+        b.push({ role: 'output', html: '<div class="stage"><h3>' + esc(c[0]) + '</h3><ul>' + c[1].map(function (x) { return '<li>' + link(x) + '</li>'; }).join('') + '</ul></div>', tally: ['t-run', n] });
       });
-      b.push({ html: '<div class="stage"><h3>Outside material to gather in 5.2</h3><ul><li>CM1-14 needs a reference structure. <strong>Resolved from the material:</strong> the material states four scenarios, eight participants and three hypotheses, and that was used. Nothing was gathered from outside.</li></ul></div>' });
+      b.push({ role: 'output', html: '<div class="stage"><h3>Outside material to gather in 5.2</h3><ul><li>CM1-14 needs a reference structure. <strong>Resolved from the material:</strong> the material states four scenarios, eight participants and three hypotheses, and that was used. Nothing was gathered from outside.</li></ul></div>' });
     } else if (i === 4) {
-      b.push({ html: '<p>Each technique ran as a separate agent that saw only the brief and its own technique record. Each result is shown in full below its technique.</p>' });
+      b.push({ role: 'work', by: 'the model', html: '<p>Each technique ran as a separate agent that saw only the brief and its own technique record. Each result is shown in full below its technique.</p>' });
       b.push({ html: '<h3 class="substep">5.1 Examine the question</h3>' });
-      S.frame.forEach(function (x) { b.push({ html: runRow(j, x, 'the request') }); });
-      b.push({ confirm: true, html: '<div class="confirm"><h3>Do you want to change your request?</h3><p>The techniques in 5.1 examined the wording of the request. Their results are above.</p><p class="req">' + esc(j.request) + '</p><div class="form-actions"><button type="button" class="btn primary" data-keep>Keep the request</button><button type="button" class="btn" disabled title="Not available in this replay">Edit the request</button></div></div>' });
+      S.frame.forEach(function (x) { b.push({ role: 'output', html: runRow(j, x, 'the request') }); });
+      b.push({ role: 'input', confirm: true, html: '<div class="confirm"><h3>Do you want to change your request?</h3><p>The techniques in 5.1 examined the wording of the request. Their results are above.</p><p class="req">' + esc(j.request) + '</p><div class="form-actions"><button type="button" class="btn primary" data-keep>Keep the request</button><button type="button" class="btn" disabled title="Not available in this replay">Edit the request</button></div></div>' });
       b.push({ html: '<h3 class="substep">5.2 Prepare the material</h3>' });
-      S.prepare.forEach(function (x) { b.push({ html: runRow(j, x, 'the material') }); });
+      S.prepare.forEach(function (x) { b.push({ role: 'output', html: runRow(j, x, 'the material') }); });
       b.push({ html: '<h3 class="substep">5.3 Analyse the material</h3>' });
-      S.analyse.forEach(function (x) { b.push({ html: runRow(j, x, 'the material') }); });
+      S.analyse.forEach(function (x) { b.push({ role: 'output', html: runRow(j, x, 'the material') }); });
     } else if (i === 5) {
       var ck = j.ck17;
-      b.push({ html: '<p>Verification techniques ran on the findings from step 5. The quotation check ran as code. The library checks follow.</p>' });
-      b.push({ html: '<div class="run"><div class="rh"><strong><a href="/catalogue/check-extracted-results/ck-17/">CK-17 Source-span and quotation check by code</a></strong><span class="pill">runs on: the findings of the analysis</span></div><p class="small">' + ck.checked + ' double-quoted spans found in the nine results. ' + (ck.checked - ck.failed.length) + ' matched the source text. ' + ck.failed.length + ' did not match and were read by hand: ' + ck.failed.map(function (f) { return esc(f.file) + ' "' + esc(f.span) + '"'; }).join(', ') + '. These are the analysts\' own phrases in quotation marks and were not attributed to a participant, so no quotation failed.</p></div>', tally: ['t-run', S.frame.length + S.prepare.length + S.analyse.length + S.check.length] });
-      S.check.filter(function (x) { return x.id !== 'CK-17'; }).forEach(function (x) { b.push({ html: runRow(j, x, 'the findings of the analysis') }); });
-      b.push({ html: '<div class="run"><div class="rh"><strong>Recount of the hypotheses table by code</strong></div><p class="small">The competing hypotheses result states that H1 has three inconsistent ratings and H1r four, H2 and H2r one each, H3 three and H3r none. Counting the cells in its table by code gave the same figures.</p></div>' });
+      b.push({ role: 'work', by: 'the model and code', html: '<p>Verification techniques ran on the findings from step 5. The quotation check ran as code. The library checks follow.</p>' });
+      b.push({ role: 'output', html: '<div class="run"><div class="rh"><strong><a href="/catalogue/check-extracted-results/ck-17/">CK-17 Source-span and quotation check by code</a></strong><span class="pill">runs on: the findings of the analysis</span></div><p class="small">' + ck.checked + ' double-quoted spans found in the nine results. ' + (ck.checked - ck.failed.length) + ' matched the source text. ' + ck.failed.length + ' did not match and were read by hand: ' + ck.failed.map(function (f) { return esc(f.file) + ' "' + esc(f.span) + '"'; }).join(', ') + '. These are the analysts\' own phrases in quotation marks and were not attributed to a participant, so no quotation failed.</p></div>', tally: ['t-run', S.frame.length + S.prepare.length + S.analyse.length + S.check.length] });
+      S.check.filter(function (x) { return x.id !== 'CK-17'; }).forEach(function (x) { b.push({ role: 'output', html: runRow(j, x, 'the findings of the analysis') }); });
+      b.push({ role: 'output', html: '<div class="run"><div class="rh"><strong>Recount of the hypotheses table by code</strong></div><p class="small">The competing hypotheses result states that H1 has three inconsistent ratings and H1r four, H2 and H2r one each, H3 three and H3r none. Counting the cells in its table by code gave the same figures.</p></div>' });
       var needed = {};
       j.checks.forEach(function (c) {
         var lis = c.list.map(function (k) {
@@ -167,26 +168,26 @@
           else st = '';
           return '<li>' + esc(k.code) + ' ' + st + '</li>';
         }).join('');
-        b.push({ html: '<div class="stage"><h3>Library checks on ' + link(c) + '</h3><ul>' + lis + '</ul></div>', tally: ['t-person', Object.keys(needed).length] });
+        b.push({ role: 'output', html: '<div class="stage"><h3>Library checks on ' + link(c) + '</h3><ul>' + lis + '</ul></div>', tally: ['t-person', Object.keys(needed).length] });
       });
-      b.push({ html: '<p class="result">Checks that need a person were not done. They are listed with the answer.</p>' });
+      b.push({ role: 'output', html: '<p class="result">Checks that need a person were not done. They are listed with the answer.</p>' });
     } else if (i === 6) {
       var sy = j.synthesis, T = sy.techniques;
-      b.push({ html: '<p>' + esc(sy.method) + '</p>' });
+      b.push({ role: 'work', by: 'the model', html: '<p>The model combined the findings. Method: ' + esc(sy.method) + '</p>' });
       var head = '<tr><th>Conclusion</th>' + T.map(function (t) { return '<th>' + esc(t) + '</th>'; }).join('') + '</tr>';
       var body = sy.conclusions.map(function (c) { return '<tr><th scope="row">' + esc(c.id) + '</th>' + T.map(function (t) { var v = c.cells[t] || 'S'; return '<td class="cell-' + v + '" title="' + esc(sy.legend[v]) + '">' + ({ D: 'C', S: 'N' }[v] || v) + '</td>'; }).join('') + '</tr>'; }).join('');
-      b.push({ html: '<h3>Agreement table</h3><div class="table-wrap"><table class="matrix"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div><p class="small">A agrees. P partly agrees. C conflict. N not covered.</p>' });
+      b.push({ role: 'output', html: '<h3>Agreement table</h3><div class="table-wrap"><table class="matrix"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div><p class="small">A agrees. P partly agrees. C conflict. N not covered.</p>' });
       sy.conclusions.forEach(function (c) {
-        b.push({ html: '<div class="concl"><div class="rh"><strong>' + esc(c.id) + '</strong><span class="pill conf-' + c.label + '">' + esc(sentence(c.label)) + ' confidence</span></div><p>' + esc(c.text) + '</p><p class="small"><strong>Reason.</strong> ' + esc(c.reason) + '</p></div>' });
+        b.push({ role: 'output', html: '<div class="concl"><div class="rh"><strong>' + esc(c.id) + '</strong><span class="pill conf-' + c.label + '">' + esc(sentence(c.label)) + ' confidence</span></div><p>' + esc(c.text) + '</p><p class="small"><strong>Reason.</strong> ' + esc(c.reason) + '</p></div>' });
       });
     } else if (i === 7) {
       var a = j.synthesis.answer;
-      b.push({ html: '<h3>Answer</h3><p class="lead-answer">' + esc(a.lead) + '</p>' });
-      a.paragraphs.forEach(function (p) { b.push({ html: '<p>' + esc(p) + '</p>' }); });
+      b.push({ role: 'output', html: '<h3>Answer</h3><p class="lead-answer">' + esc(a.lead) + '</p>' });
+      a.paragraphs.forEach(function (p) { b.push({ role: 'output', html: '<p>' + esc(p) + '</p>' }); });
       var need = CLAIM_ORDER.indexOf(j.claim), reach = j.picks.slice(0, 10).filter(function (p) { return CLAIM_ORDER.indexOf(p.ceiling) >= need; });
       var supported = j.synthesis.conclusions.filter(function (c) { return reach.some(function (p) { return c.cells[p.id] === 'A' || c.cells[p.id] === 'P'; }); }).map(function (c) { return c.id; });
-      b.push({ html: '<h3>Strength of statement reached</h3><p>Needed: ' + esc(CLAIM_PLAIN[j.claim]) + '. ' + (reach.length ? reach.length + ' of the chosen techniques reach it: ' + reach.map(link).join(', ') + '. They support ' + esc(supported.join(', ')) + '.' : 'No chosen technique reaches it.') + '</p>' });
-      b.push({ html: '<h3>What the answer is based on</h3>' });
+      b.push({ role: 'output', html: '<h3>Strength of statement reached</h3><p>Needed: ' + esc(CLAIM_PLAIN[j.claim]) + '. ' + (reach.length ? reach.length + ' of the chosen techniques reach it: ' + reach.map(link).join(', ') + '. They support ' + esc(supported.join(', ')) + '.' : 'No chosen technique reaches it.') + '</p>' });
+      b.push({ role: 'output', html: '<h3>What the answer is based on</h3>' });
       var basis = [
         'Material given: one document (Voice AI interview study), ' + j.source.words + ' words. It contains three hypotheses and ten quotes (Q1 to Q10) from eight participants (P1, P2, P3, P4, P5, P8, P9, P10). The material does not say how the quotes were chosen.',
         'Outside material gathered: none. The reference structure for CM1-14 was taken from the material.',
@@ -196,8 +197,8 @@
         'Request after 5.1: kept as submitted.',
         'Run notes: five results ran over the 450 word limit given to the agents (CM1-14, HE1-14, TC1-13, TC1-16, TC1-17). Techniques dropped: none. Files that could not be read: none.'
       ];
-      basis.forEach(function (x) { b.push({ html: '<div class="row1">' + esc(x) + '</div>', fast: true }); });
-      b.push({ html: '<h3>Follow-up round</h3><p>You can ask for a follow-up round. The process would then choose again for the gaps and unresolved conflicts above (the H2 and H3 verdicts depend on definitions, and nothing is known about P8 and P9). On the reserve list: ' + j.held.map(link).join(', ') + '. A follow-up round adds at most 5 techniques.</p>' });
+      basis.forEach(function (x) { b.push({ role: 'output', html: '<div class="row1">' + esc(x) + '</div>', fast: true }); });
+      b.push({ role: 'input', html: '<div class="confirm"><h3>Do you want a follow-up round?</h3><p>The process would then choose again for the gaps and unresolved conflicts above (the H2 and H3 verdicts depend on definitions, and nothing is known about P8 and P9). On the reserve list: ' + j.held.map(link).join(', ') + '. A follow-up round adds at most 5 techniques.</p><div class="form-actions"><button type="button" class="btn" disabled title="Not available in this replay">Ask for a follow-up round</button></div></div>' });
       b.push({ html: '<p class="result">End of the run.</p>' });
     }
     return b;
@@ -205,23 +206,30 @@
 
   function builders_gates(j) {
     var b = [], left = j.total;
-    b.push({ html: '<p>Each requirement removes techniques that cannot run on this material. The techniques that remain are eligible.</p>' });
+    b.push({ role: 'work', by: 'code', html: '<p>Each requirement removes techniques that cannot run on this material. The techniques that remain are eligible.</p>' });
     Object.keys(j.removed).forEach(function (g) {
       left -= j.removed[g];
-      b.push({ html: '<div class="gate"><span class="g">' + esc(prop(g)) + '</span><span class="meter"><i style="width:' + Math.round(j.removed[g] / j.total * 100) + '%"></i></span><span class="r">removes ' + j.removed[g] + '</span><span class="l">' + left + ' left</span></div>', tally: ['t-pass', left] });
+      b.push({ role: 'work', by: 'code', html: '<div class="gate"><span class="g">' + esc(prop(g)) + '</span><span class="meter"><i style="width:' + Math.round(j.removed[g] / j.total * 100) + '%"></i></span><span class="r">removes ' + j.removed[g] + '</span><span class="l">' + left + ' left</span></div>', tally: ['t-pass', left] });
     });
-    b.push({ html: '<p class="result"><strong>' + j.passed + ' of ' + j.total + '</strong> techniques are eligible. <strong>' + j.reach_claim + '</strong> of them reach the strength of statement needed (' + esc(CLAIM_PLAIN[j.claim]) + ').</p>', tally: ['t-pass', j.passed] });
+    b.push({ role: 'output', html: '<p class="result"><strong>' + j.passed + ' of ' + j.total + '</strong> techniques are eligible. <strong>' + j.reach_claim + '</strong> of them reach the strength of statement needed (' + esc(CLAIM_PLAIN[j.claim]) + ').</p>', tally: ['t-pass', j.passed] });
     return b;
   }
   function builders_pick(j) {
     var b = [];
-    b.push({ html: '<p>The model read a one-line entry for each of the ' + j.passed + ' eligible techniques and chose at most 10, in priority order.</p>' });
+    b.push({ role: 'work', by: 'the model', html: '<p>The model read a one-line entry for each of the ' + j.passed + ' eligible techniques and chose at most 10, in priority order.</p>' });
     j.picks.slice(0, 10).forEach(function (p, n) {
-      b.push({ html: '<div class="pick"><span class="no">' + (n + 1) + '</span><div><strong>' + link(p) + '</strong><p>' + esc(p.reason) + '</p></div></div>', tally: ['t-pick', n + 1] });
+      b.push({ role: 'output', html: '<div class="pick"><span class="no">' + (n + 1) + '</span><div><strong>' + link(p) + '</strong><p>' + esc(p.reason) + '</p></div></div>', tally: ['t-pick', n + 1] });
     });
-    if (j.held.length) b.push({ html: '<p class="small"><strong>Reserve list:</strong> ' + j.held.map(link).join(', ') + '.</p>' });
-    if (j.gaps) b.push({ html: '<details><summary>Gaps reported for this brief</summary><p>' + esc(j.gaps) + '</p></details>' });
+    if (j.held.length) b.push({ role: 'output', html: '<p class="small"><strong>Reserve list:</strong> ' + j.held.map(link).join(', ') + '.</p>' });
+    if (j.gaps) b.push({ role: 'output', html: '<details><summary>Gaps reported for this brief</summary><p>' + esc(j.gaps) + '</p></details>' });
     return b;
+  }
+
+  function makePanel(role, by) {
+    var p = document.createElement('div'); p.className = 'panel panel-' + role;
+    var l = document.createElement('div'); l.className = 'panel-label';
+    l.textContent = role === 'input' ? 'Your input' : role === 'output' ? 'Output' : 'Work by ' + by;
+    p.appendChild(l); return p;
   }
 
   function runStep(i) {
@@ -236,11 +244,15 @@
       out.insertBefore(sec, out.firstChild);
     }
     var wrap = document.createElement('div'); sec.appendChild(wrap);
-    var blocks = builders(i), k = 0;
+    var blocks = builders(i), k = 0, panel = null, prevKey = null;
     return (function next() {
       if (k >= blocks.length) { bar.style.width = '100%'; return Promise.resolve(true); }
       var blk = blocks[k++], d = document.createElement('div');
-      d.className = 'rv'; d.innerHTML = blk.html; wrap.appendChild(d);
+      d.className = 'rv'; d.innerHTML = blk.html;
+      var key = blk.role ? blk.role + '|' + (blk.by || '') : null;
+      if (!key) panel = null;
+      else if (key !== prevKey || !panel) { panel = makePanel(blk.role, blk.by); wrap.appendChild(panel); }
+      prevKey = key; (panel || wrap).appendChild(d);
       if (blk.tally) setTally(blk.tally[0], blk.tally[1]);
       bar.style.width = Math.round(k / blocks.length * 100) + '%';
       if (blk.confirm) {

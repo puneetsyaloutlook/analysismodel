@@ -201,3 +201,22 @@ dialog.modal::backdrop{background:rgba(15,30,30,.55)}
 .confirm{border:2px solid var(--teal-600);border-radius:10px;padding:.9rem 1.1rem;margin:1rem 0;background:var(--teal-50)}
 .confirm h3{margin:0 0 .4rem}
 .confirm .req{font-weight:600;margin:.5rem 0 .8rem}
+
+.legend{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin:.2rem 0 1rem;padding:0;font-size:.85rem;color:var(--ink-2)}
+.legend li{display:flex;align-items:center;gap:.45rem}
+.sw{width:.9rem;height:.9rem;border-radius:3px;border:1px solid;border-left-width:4px;display:inline-block}
+.sw-input,.panel-input{border-color:#b7791f;background:#fff8ea}
+.sw-work,.panel-work{border-color:#8a979b;background:var(--bg-2)}
+.sw-output,.panel-output{border-color:var(--teal-600);background:var(--bg)}
+.sw-work,.panel-work{border-style:dashed;border-left-style:solid}
+.panel{margin:.9rem 0;padding:.55rem .95rem .85rem;border-radius:8px;border-width:1px;border-left-width:5px;border-style:solid}
+.panel.panel-work{border-style:dashed;border-left-style:solid;font-size:.93rem;color:var(--ink-2)}
+.panel-label{font-size:.74rem;font-weight:700;margin-bottom:.45rem}
+.panel-input>.panel-label{color:#7a4f00}
+.panel-work>.panel-label{color:var(--ink-2)}
+.panel-output>.panel-label{color:var(--teal-700)}
+.panel>.rv:first-of-type>:first-child,.panel .confirm h3{margin-top:0}
+.panel .confirm{border:0;background:none;padding:0;margin:0}
+.panel .result{margin-top:.2rem}
+.panel .substep{border:0}
+.result-md h2{font:600 1.05rem/1.4 var(--sans);color:var(--ink);margin:.5rem 0 .4rem;border:0;padding:0}
