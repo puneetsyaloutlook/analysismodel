@@ -122,9 +122,8 @@
   }
 
   function assumed(basis) { return basis === 'stated' ? '' : ' <span class="pill warn">assumed, not confirmed by the user</span>'; }
-  function acc(title, n) { return '<details class="acc"><summary><span class="ret" aria-hidden="true">\u21b3</span> ' + esc(title) + ' <span class="small">' + n + (n === 1 ? ' technique' : ' techniques') + '</span></summary><div class="acc-body"></div></details>'; }
-  function res(j, id) { return '<details class="resbox" open><summary>Result</summary><div class="result-md">' + (j.results_html[id] || '') + '</div></details>'; }
-  function runRow(j, x, uses) { return '<div class="run"><div class="rh"><strong>' + link(x) + '</strong><span class="pill">looked at: ' + esc(uses) + '</span></div>' + res(j, x.id) + '</div>'; }
+  function sub(title, n) { return '<h3 class="substep"><span class="ret" aria-hidden="true">\u21b3</span> ' + esc(title) + ' <span class="small">' + n + (n === 1 ? ' technique' : ' techniques') + '</span></h3>'; }
+  function runRow(j, x, uses) { return '<details class="acc tech"><summary><span class="ret" aria-hidden="true">\u21b3</span> <span class="tname">' + esc(x.id + ' ' + x.name) + '</span> <span class="pill">looked at: ' + esc(uses) + '</span></summary><div class="acc-body"><p class="small"><a href="' + x.url + '">' + esc(x.id) + ' in the catalogue</a></p><div class="result-md">' + (j.results_html[x.id] || '') + '</div></div></details>'; }
 
   function realBuilders(i) {
     var j = job, b = [], S = j.stages, bm = j.basis_map;
@@ -153,18 +152,15 @@
       b.push({ role: 'work', html: '<div class="table-wrap"><table class="plan"><thead><tr><th>Technique</th><th>What it does</th><th>Needs outside material</th></tr></thead><tbody>' + rows + '</tbody></table></div>', tally: ['t-run', total] });
       b.push({ role: 'work', html: need.length ? '<p>' + need.map(function (x) { return esc(x.name); }).join(' and ') + ' needs extra material to run. In step 5 MANIFST looks for it in your content first. Only if it is missing does MANIFST look elsewhere, and it asks you before using anything it finds.</p>' : '<p>No technique needs material from outside your content.</p>' });
     } else if (i === 4) {
-      b.push({ role: 'work', html: '<p>MANIFST ran each technique separately on your question and content. Open a part below to read its results.</p>' });
-      b.push({ acc: 'start', html: acc('5.1 Examine the question', S.frame.length) });
+      b.push({ role: 'work', html: '<p>MANIFST ran each technique separately on your question and content. Open a technique below to read its result.</p>' });
+      b.push({ role: 'work', html: sub('5.1 Examine the question', S.frame.length) });
       S.frame.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your question') }); });
-      b.push({ acc: 'end' });
       b.push({ role: 'input', confirm: true, html: '<div class="confirm"><h3>Do you want to change your question?</h3><p>The technique above examined your question. Open 5.1 above to read what it found, then choose. MANIFST continues when you answer.</p><p class="req">' + esc(j.request) + '</p><div class="form-actions"><button type="button" class="btn primary" data-keep>Keep my question</button><button type="button" class="btn" disabled title="Not available in this replay">Edit my question</button></div></div>' });
-      b.push({ acc: 'start', html: acc('5.2 Prepare the material', S.prepare.length) });
+      b.push({ role: 'work', html: sub('5.2 Prepare the material', S.prepare.length) });
       b.push({ role: 'work', html: '<div class="seq"><p class="seq-h"><strong>Outside material</strong></p><p>' + (j.outside.length ? esc(JSON.stringify(j.outside)) : 'None of the techniques in this plan needs material from outside your content, so nothing was gathered and nothing needed your approval.') + '</p></div>' });
       S.prepare.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your content') }); });
-      b.push({ acc: 'end' });
-      b.push({ acc: 'start', html: acc('5.3 Analyse the material', S.analyse.length) });
+      b.push({ role: 'work', html: sub('5.3 Analyse the material', S.analyse.length) });
       S.analyse.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your content') }); });
-      b.push({ acc: 'end' });
     } else if (i === 5) {
       var ck = j.ck17;
       b.push({ role: 'work', html: '<p>MANIFST checked the findings from step 5. It confirmed the quotes, looked for evidence against the findings, and tested how easily they change.</p>' });
