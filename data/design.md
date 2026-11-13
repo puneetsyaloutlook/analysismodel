@@ -13,9 +13,9 @@ Given a brief, the process chooses the techniques that fit, runs them in order, 
 Status:
 
 - Every part has been built and tested on small cases.
-- One complete run was done on 11 November 2026, on ten interview quotes, under version 1.1 of this design. Its output is shown in the simulator on the documentation site.
+- One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.3 of this design. Its output is shown in the simulator on the documentation site.
 - The documentation site is built from this document, the schema and the catalogue.
-- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.3 add decisions 31 to 37. The scripts and the stored run still follow version 1.1. Section 10 lists what has to change.
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.3 add decisions 31 to 37. The scripts, the step 3 instruction and the stored run follow version 1.2.3. Section 10 lists what is untested.
 - All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
@@ -463,7 +463,7 @@ Catalogue data (from the spot check; the first six were fixed):
 | `scripts/intake.py`, `select.py`, `sequence.py`, `validate_tags.py` | Process scripts for steps 1, 2 and 4, and the tag validator. |
 | `master/test_jobs/`, `intake_test/`, `master/card_test/` | Test briefs, intake inputs and the result format test. |
 | `master/spot_check.md` | The independent check of 30 rows. |
-| `run1/` | The complete run of 11 November 2026: inputs, plan, results and combined findings. |
+| `run2/` | The complete run of 13 November 2026: inputs, plan, results, combined findings and answer. |
 
 ## 12. Change rule
 
