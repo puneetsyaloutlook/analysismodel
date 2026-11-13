@@ -201,7 +201,7 @@
       b.push({ role: 'output', html: '<h3>What the answer is based on</h3>' });
       var basis = [
         'Material given: one document (Voice AI interview study), ' + j.source.words + ' words. It contains three hypotheses and ten quotes (Q1 to Q10) from eight participants (P1, P2, P3, P4, P5, P8, P9, P10). The material does not say how the quotes were chosen.',
-        'Outside material gathered: none. The reference structure for CM1-14 was taken from the material.',
+        'Outside material used: none. The list of what should be present, which CM1-14 needs, came from your content.',
         'Techniques run, and what each worked on: FQ-03 and DM-02 (the request); HE1-02, CM1-05, CM1-14, HE1-14 and TC1-13 (the material); CK-17 by code, TC1-16 and TC1-17 (the findings of the analysis).',
         'Checks done: quotation check by code (' + j.ck17.checked + ' quoted spans, ' + (j.ck17.checked - j.ck17.failed.length) + ' matched, ' + j.ck17.failed.length + ' phrases read by hand); recount of the competing hypotheses table by code; assumption and limitation sections and alternative explanations sections present in all nine results.',
         'Checks not done because they need a person: human review sample (framework analysis).',
@@ -217,17 +217,17 @@
 
   function builders_gates(j) {
     var b = [], left = j.total;
-    b.push({ role: 'work', html: '<p>MANIFST knows ' + j.total + ' analysis techniques. It set aside the ones that cannot work with your content.</p>' });
+    b.push({ role: 'work', html: '<p>MANIFST has ' + j.total + ' analysis techniques. It ruled out the ones that cannot work on your content. Each technique is counted once, under the first reason that rules it out.</p>' });
     Object.keys(j.removed).forEach(function (g) {
       left -= j.removed[g];
       b.push({ role: 'work', html: '<div class="gate"><span class="g">' + esc(WHY[g] || prop(g)) + '</span><span class="meter"><i style="width:' + Math.round(j.removed[g] / j.total * 100) + '%"></i></span><span class="r">' + j.removed[g] + ' set aside</span><span class="l">' + left + ' left</span></div>', tally: ['t-pass', left] });
     });
-    b.push({ role: 'work', html: '<p class="result"><strong>' + j.passed + ' of ' + j.total + '</strong> techniques can work with your content. <strong>' + j.reach_claim + '</strong> of them can ' + esc(CLAIM_PLAIN[j.claim]) + ', which is the strongest statement you asked for.</p>', tally: ['t-pass', j.passed] });
+    b.push({ role: 'work', html: '<p class="result">MANIFST ruled out <strong>' + (j.total - j.passed) + '</strong> techniques that cannot work on your content, which leaves <strong>' + j.passed + '</strong>.' + (j.claim === 'describe' ? '' : ' Of those, <strong>' + j.reach_claim + '</strong> can support a conclusion at the strength you asked for, which is to ' + esc(CLAIM_PLAIN[j.claim]) + ', or stronger. The other ' + (j.passed - j.reach_claim) + ' can only describe.') + '</p>', tally: ['t-pass', j.passed] });
     return b;
   }
   function builders_pick(j) {
     var b = [];
-    b.push({ role: 'work', html: '<p>MANIFST checked the ' + j.passed + ' techniques that can work with your content and chose ' + Math.min(10, j.picks.length) + ' for your question. Each one is listed with the reason it was chosen.</p>' });
+    b.push({ role: 'work', html: '<p>MANIFST went through the ' + j.passed + ' techniques that can work on your content and chose ' + Math.min(10, j.picks.length) + ' for your question. Each one is listed with the reason it was chosen.</p>' });
     j.picks.slice(0, 10).forEach(function (p, n) {
       b.push({ role: 'work', html: '<div class="pick"><span class="no">' + (n + 1) + '</span><div><strong>' + link(p) + '</strong><p>' + esc(plainReason(p.reason)) + '</p></div></div>', tally: ['t-pick', n + 1] });
     });
