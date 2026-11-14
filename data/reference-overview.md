@@ -1,6 +1,6 @@
-The reference section is the dictionary behind the catalogue. Every technique page shows a set of tags, such as "Level of detail available: requires record-level", and the process reads those tags to rule techniques out, choose and order them, and decide which checks to run. The four reference pages define each tag, each allowed value, each type of working document, each check and each relation between techniques.
+The dictionary is the section behind the techniques. Every technique page shows a set of tags, such as "Level of detail available: requires record-level", and the process reads those tags to rule techniques out, choose and order them, and decide which checks to run. The four dictionary pages define each tag, each allowed value, each type of working document, each check and each relation between techniques.
 
-You do not need the reference pages to run the skill or to read the process pages. You need them in three situations:
+You do not need the dictionary to run the skill or to read the process pages. You need them in three situations:
 
 - You are reading a technique page and want to know exactly what a tag means.
 - You want to know why the process removed a technique for your material, or why it kept one.

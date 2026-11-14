@@ -22,7 +22,7 @@
   </div>
 </header>
 <div class="shell">
-  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/" aria-current="page">Overview</a></li><li><a href="/simulator/">Simulator</a></li></ul><details><summary>Process</summary><ul><li><a href="/process/">The process</a></li><li><a href="/process/intake/">1. Intake</a></li><li><a href="/process/choosing-techniques/">2 and 3. Rule out and choose</a></li><li><a href="/process/planning-the-sequence/">4. Plan analysis sequence</a></li><li><a href="/process/running-the-techniques/">5. Run the techniques</a></li><li><a href="/process/checks-and-answer/">6 to 8. Check, combine and answer</a></li></ul></details><details><summary>Skill</summary><ul><li><a href="/skill/">Use the skill</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details><summary>Reference</summary><ul><li><a href="/reference/">About the reference</a></li><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Working document types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Steps, kinds, stakes and relations</a></li></ul></details><details><summary>Project record</summary><ul><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/open-items/">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></details></nav></aside>
+  <aside id="sidebar" class="side"><nav aria-label="Documentation"><div class="nav-group"><p class="nav-label">The model</p><ul><li><a href="/process/">Process</a></li><li><a href="/catalogue/">Techniques</a></li><li><a href="/reference/">Dictionary</a></li></ul></div><div class="nav-group"><p class="nav-label">Try it</p><ul><li><a href="/simulator/">Simulator</a></li><li><a href="/skill/">Skill</a></li></ul></div><div class="nav-group"><p class="nav-label">The project</p><ul><li><a href="/status/">Status</a></li><li><a href="/project/">Project record</a></li></ul></div></nav></aside>
   <main id="main" class="content">
     
     <h1>ANLYSIS</h1>
@@ -32,31 +32,22 @@
 <p>The catalogue holds 236 techniques in 12 families. This site documents the process and the catalogue. It is generated from the design document, the schema and the catalogue file in the repository, so it changes only when those change.</p>
 <div class="cards">
   <a class="card" href="/process/"><p class="card-title">Process</p><p>Eight steps, from intake to the answer.</p></a>
-  <a class="card" href="/skill/"><p class="card-title">Use the skill</p><p>Download it and install it in Claude or GitHub Copilot.</p></a>
-  <a class="card" href="/catalogue/"><p class="card-title">Catalogue</p><p>236 techniques in 12 families, with a page for each.</p></a>
-  <a class="card" href="/reference/fields/"><p class="card-title">Reference</p><p>The dictionary behind the technique pages: what each tag means, and which checks and relations the process uses.</p></a>
-  <a class="card" href="/project/decisions/"><p class="card-title">Project record</p><p>Decisions, open items and test evidence.</p></a>
+  <a class="card" href="/simulator/"><p class="card-title">Simulator</p><p>Replay a stored run, step by step.</p></a>
+  <a class="card" href="/skill/"><p class="card-title">Skill</p><p>Download it and install it in Claude or GitHub Copilot.</p></a>
+  <a class="card" href="/catalogue/"><p class="card-title">Techniques</p><p>236 techniques in 12 families, with a page for each.</p></a>
+  <a class="card" href="/reference/"><p class="card-title">Dictionary</p><p>The dictionary behind the technique pages: what each tag means, and which checks and relations the process uses.</p></a>
+  <a class="card" href="/status/"><p class="card-title">Status</p><p>What has been built and run, and what is untested.</p></a>
+  <a class="card" href="/project/"><p class="card-title">Project record</p><p>Decisions, test evidence and files.</p></a>
 </div>
-<h2 id="purpose-and-status">Purpose and status</h2>
-<p>ANLYSIS is the name of the whole design: the catalogue, the process and the rules. It replaces "analysis model", which was confused with the language model that does the work. In this document "the model" always means the language model. The name is written ANLYSIS in running text and ANLYSIS.work when it refers to the site or its address (decision 39). The skill that runs the process is named analysis (decision 41).</p>
-<p>The catalogue lists 236 analytical techniques in 12 families. It is packaged as a skill that a chat or agent calls. The skill is built (a zip with the process, the catalogue, the schema, the prompts and seven scripts). The user has run it once inside Claude, on an article (decision 40 came from that run). Its high-stakes path, personal information waiver and follow-up round have not been run.</p>
-<p>Given a brief, the process chooses the techniques that fit, runs them in order, checks their findings and combines them into one answer.</p>
-<p>Status:</p>
-<ul>
-<li>Every part has been built and tested on small cases.</li>
-<li>One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.4 of this design. Steps 1 to 5 ran before decision 38, which changes only step 6. Steps 7 and 8 were run again on 15 November 2026 under version 1.2.8, to show the answer form of decisions 43 and 44. Its output is shown in the simulator on the documentation site.</li>
-<li>The documentation site is built from this document, the schema and the catalogue. It also has a page, Use the skill, with the skill to download and the steps to install it in Claude and in GitHub Copilot (decision 45).</li>
-<li>Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.9 add decisions 31 to 45. The scripts and the skill follow version 1.2.9. The stored run follows version 1.2.4 for steps 1 to 6 and version 1.2.8 for steps 7 and 8. Section 10 lists what is untested.</li>
-<li>All tag values are inference unless a row or a named source says otherwise.</li>
-</ul>
+<p>What has been built and run, and what is untested, is on the <a href="/status/">status page</a>.</p>
 <h2 id="catalogue-at-a-glance">Catalogue at a glance</h2>
 <div class="table-wrap"><table><thead><tr><th>Family</th><th>Techniques</th></tr></thead><tbody>
 <tr><td><a href="/catalogue/frame-the-question/">Frame the question</a></td><td>6</td></tr><tr><td><a href="/catalogue/decompose-and-map/">Decompose and map</a></td><td>21</td></tr><tr><td><a href="/catalogue/compare/">Compare</a></td><td>17</td></tr><tr><td><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims</a></td><td>34</td></tr><tr><td><a href="/catalogue/handle-evidence/">Handle evidence</a></td><td>29</td></tr><tr><td><a href="/catalogue/project-forward/">Project forward</a></td><td>25</td></tr><tr><td><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks</a></td><td>19</td></tr><tr><td><a href="/catalogue/challenge/">Challenge</a></td><td>15</td></tr><tr><td><a href="/catalogue/prepare-and-extract/">Prepare and extract</a></td><td>14</td></tr><tr><td><a href="/catalogue/measure-and-model/">Measure and model</a></td><td>16</td></tr><tr><td><a href="/catalogue/integrate-across-sources/">Integrate across sources</a></td><td>11</td></tr><tr><td><a href="/catalogue/check-extracted-results/">Check extracted results</a></td><td>29</td></tr>
 <tr><td><strong>Total</strong></td><td><strong>236</strong></td></tr></tbody></table></div>
 </div>
-    <nav class="pager" aria-label="Previous and next page"><span></span><a class="next" href="/simulator/"><span>Next</span>Simulator</a></nav>
+    
   </main>
-  <aside class="rail"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#purpose-and-status">Purpose and status</a></li><li class="l2"><a href="#catalogue-at-a-glance">Catalogue at a glance</a></li></ul></nav></aside>
+  <aside class="rail"></aside>
 </div>
 <script src="/assets/site.js" defer></script>
 
