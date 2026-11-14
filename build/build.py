@@ -254,10 +254,10 @@ def make_home():
 <p>The catalogue holds {len(rows)} techniques in {len(FAMILIES)} families. This site documents the process and the catalogue. It is generated from the design document, the schema and the catalogue file in the repository, so it changes only when those change.</p>
 <div class="cards">
   <a class="card" href="/process/"><p class="card-title">Process</p><p>Eight steps, from intake to the answer.</p></a>
-  <a class="card" href="/simulator/"><p class="card-title">Simulator</p><p>Replay a stored run, step by step.</p></a>
-  <a class="card" href="/skill/"><p class="card-title">Skill</p><p>Download it and install it in Claude or GitHub Copilot.</p></a>
   <a class="card" href="/catalogue/"><p class="card-title">Techniques</p><p>{len(rows)} techniques in {len(FAMILIES)} families, with a page for each.</p></a>
   <a class="card" href="/reference/"><p class="card-title">Dictionary</p><p>The dictionary behind the technique pages: what each tag means, and which checks and relations the process uses.</p></a>
+  <a class="card" href="/simulator/"><p class="card-title">Simulator</p><p>Replay a stored run, step by step.</p></a>
+  <a class="card" href="/skill/"><p class="card-title">Skill</p><p>Download it and install it in Claude or GitHub Copilot.</p></a>
   <a class="card" href="/status/"><p class="card-title">Status</p><p>What has been built and run, and what is untested.</p></a>
   <a class="card" href="/project/"><p class="card-title">Project record</p><p>Decisions, test evidence and files.</p></a>
 </div>
