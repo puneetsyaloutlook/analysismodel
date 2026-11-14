@@ -44,7 +44,7 @@
 
   // Each step builds an array of "blocks": {html, pause}. Blocks appear one at a time inside a wrapper.
   var NOTES = {
-    real: '<strong>This replays one real run of ANLYSIS</strong> on ten interview quotes, made under version 1.2.4 of the design. Every result, conclusion and answer was produced by the run and stored. Nothing is calculated in your browser, so changing the form does not change the result. <strong>Limits.</strong> The question, stakes, strength of statement and kind of finding were set by the person who ran it. The person kept the question after step 5.1 and chose the agreement table and written summary in step 7. No person reviewed the results, because the checks that need a person apply at high stakes only.'
+    real: '<strong>This replays one real run of ANLYSIS</strong> on ten interview quotes. Steps 1 to 6 were made under version 1.2.4 of the design, and steps 7 and 8 were run again under version 1.2.8 to show the current answer form. Every result, conclusion and answer was produced by the run and stored. Nothing is calculated in your browser, so changing the form does not change the result. <strong>Limits.</strong> The question, stakes, strength of statement and kind of finding were set by the person who ran it. The person kept the question after step 5.1 and chose the agreement table and written summary in step 7. No person reviewed the results, because the checks that need a person apply at high stakes only.'
   };
 
   function builders(i) { return realBuilders(i); }

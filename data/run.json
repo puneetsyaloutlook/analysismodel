@@ -809,16 +809,16 @@
   ]
  },
  "specs": {
-  "TC1-13": "The result lists the hypotheses and gives a matrix of evidence items against hypotheses with a consistency rating in each cell. It names the evidence items that discriminate between hypotheses and the hypothesis with the fewest inconsistencies.",
-  "MM-10": "The result is a table with one row per text and target, giving the stance label of favour, oppose, neutral or none. It reports stance by source and over time, and the share of none labels.",
+  "PE-02": "The result has the cleaned text or document-term matrix, a log listing every cleaning rule applied, and a sensitivity table showing the main result under each cleaning regime. It ends by stating whether the themes or rankings changed across regimes.",
+  "HE1-13": "The result is a set of themes, each with a name, a description of the pattern of meaning it captures, and data extracts that support it. It ends with a written account that interprets the themes across the data.",
   "CM1-05": "The result is a matrix with one row per case and one column per question asked of every case, each cell holding that case's answer. It names the patterns that are consistent across cases and the deviant cases.",
   "HE1-15": "The result is a category structure or a table of category frequencies, with one row per category and a count or interpretation of how often the category is used. It reports agreement between coders where more than one coder was used.",
-  "TC1-17": "The result is a table with one row per changed assumption or inclusion rule and the result obtained under each, alongside the original result. It ends by stating whether the conclusion reverses under any row.",
-  "PE-02": "The result has the cleaned text or document-term matrix, a log listing every cleaning rule applied, and a sensitivity table showing the main result under each cleaning regime. It ends by stating whether the themes or rankings changed across regimes.",
-  "DM-02": "The result is a tree in which the main claim is split into the sub-claims that must all be true for it to be true, down to leaf claims. It lists the leaf claims for which no evidence is possible.",
+  "TC1-13": "The result lists the hypotheses and gives a matrix of evidence items against hypotheses with a consistency rating in each cell. It names the evidence items that discriminate between hypotheses and the hypothesis with the fewest inconsistencies.",
   "TC1-16": "The result names the claim under test, lists the evidence that would contradict it, and records for each item whether it was found or not found. It states the search used for each item and ends with what the findings mean for the claim.",
-  "HE1-13": "The result is a set of themes, each with a name, a description of the pattern of meaning it captures, and data extracts that support it. It ends with a written account that interprets the themes across the data.",
+  "CK-17": "The result is a pass or fail list with one row per extracted statement, giving the statement, the exact passage it points to, whether that passage exists by string match and whether the passage supports the claim. It ends with the list of statements that failed.",
   "HE1-14": "The result is a matrix with one row per case and one column per theme, each cell holding a short summary of the coded data for that case and theme. It notes the empty cells and states what reading across the rows and down the columns shows.",
-  "CK-17": "The result is a pass or fail list with one row per extracted statement, giving the statement, the exact passage it points to, whether that passage exists by string match and whether the passage supports the claim. It ends with the list of statements that failed."
+  "MM-10": "The result is a table with one row per text and target, giving the stance label of favour, oppose, neutral or none. It reports stance by source and over time, and the share of none labels.",
+  "TC1-17": "The result is a table with one row per changed assumption or inclusion rule and the result obtained under each, alongside the original result. It ends by stating whether the conclusion reverses under any row.",
+  "DM-02": "The result is a tree in which the main claim is split into the sub-claims that must all be true for it to be true, down to leaf claims. It lists the leaf claims for which no evidence is possible."
  }
 }
