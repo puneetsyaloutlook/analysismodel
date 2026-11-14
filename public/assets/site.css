@@ -159,6 +159,7 @@ table.matrix th{font-size:.8rem}
 .pill.conf-medium{background:#fff6e0;border-color:#efd48a;color:#6b4a00}
 .pill.conf-low{background:#fdecec;border-color:#f3b8b8;color:#7a1f1f}
 .lead-answer{font-size:1.05rem;font-weight:500}
+.concl .ct{margin:.2rem 0 .3rem;font-size:1.02rem;line-height:1.35}
 .concl .rh{display:flex;gap:.6rem;align-items:center}
 
 .stepblock{padding:1.1rem 0 .5rem;margin:0;border-top:1px solid var(--line);scroll-margin-top:calc(var(--top) + 1rem)}

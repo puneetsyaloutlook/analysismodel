@@ -97,15 +97,30 @@
 <p>Additional sources. A conclusion that depends on an additional source whose wording code could not check, for example a summary returned by a fetch tool, is limited to medium, and the reason names the source.</p>
 <p>Failed checks at high stakes. At high stakes a failed check makes the label low for each conclusion that depends on it, and the reason names the check.</p>
 <p>Challenge findings do not change the label. A challenge finding is an added finding and appears in the answer next to the conclusion it examines.</p>
+<p>Titles and scope. Each conclusion has a title that states the finding as a sentence, an explanation of two to four sentences, the label and a reason in plain words. A statement about what the process did not look at is not a conclusion and gets no label. It goes in the answer under what was not covered. A statement that the material does not contain something, found by a technique, is a conclusion and gets a label.</p>
+<p>Insights. When the request asks for insights, or when a conclusion goes against what the request assumed, step 7 also writes insights. Each states what the request or the material would lead a reader to expect, what the analysis found instead, and why the difference matters. An insight gets a label by the same rule as the conclusions it rests on. A recommendation is not an insight. The answer gives recommendations only when the request asks for them.</p>
 <h3 id="step-8-answer">Step 8: Answer</h3>
 <p>The answer is the only output of the process. Everything produced in steps 1 to 7 is work.</p>
 <ul>
+<li>Where the application can create a document, the answer is delivered as a document, so that the user can keep, share and export it. Otherwise it is given in the reply (decision 44).</li>
 <li>The answer is always given to the user. It must be complete without the work, so it names the techniques that ran and the checks that were not done.</li>
 <li>The work is kept. How much of it the user sees depends on the application that runs the process: it can show the work as it happens, show it on request or not show it.</li>
 <li>Where the process asks the user to decide something, it always shows what the user needs for that decision: the brief at intake, the findings from 5.1, the methods offered in step 7 and the gaps behind a follow-up round.</li>
 <li>The user can change the chosen techniques only in an application that shows them.</li>
 </ul>
-<p>The answer gives the conclusions with their labels and reasons. It then states three things as facts.</p>
+<p>The answer has these parts, in this order.</p>
+<ol>
+<li><strong>Summary.</strong> The direct answer to the request, in two to four short paragraphs of whole sentences with no technique codes. It says what the analysis found, in the order a reader needs it, how far to trust it and what it leaves open. A reader who has seen nothing else must be able to understand what was found.</li>
+<li><strong>Conclusions.</strong> Each shows its title, then its explanation, its confidence label and its reason. The conclusions have no codes. Before the first one the answer states what the confidence levels mean, in the fixed words below.</li>
+<li><strong>Insights,</strong> when step 7 wrote any, introduced by the fixed words below.</li>
+<li><strong>What was not covered.</strong> The parts of the request the analysis did not answer, and what the process did not look at. These have no label.</li>
+<li><strong>Strength of statement reached.</strong></li>
+<li><strong>What the answer is based on.</strong></li>
+<li><strong>The offer of a follow-up round.</strong></li>
+</ol>
+<p>Fixed words for the confidence levels: "Confidence shows how well the analysis supports a conclusion as it is written. It does not show how important the conclusion is. High means two or more techniques that read the material in different ways agree, and their checks passed. Medium means one technique supports it, or several agree but a check failed or was not done, or they read the material in the same way. Low means one technique supports it and its checks did not pass, or the techniques conflict and the conflict is not resolved. All the techniques read the same material and used the same language model, which limits every label."</p>
+<p>Fixed words for the insights: "An insight is a finding that goes against, or beyond, what your question or the material would lead a reader to expect. Each one states the expectation and what the analysis found instead."</p>
+<p>Parts 5 and 6 are stated as facts.</p>
 <p><strong>Strength of statement reached.</strong> Which chosen techniques reach the strength of statement the user needed, and which conclusions they support. When none did, the answer says so in its first lines.</p>
 <p><strong>What the answer is based on.</strong></p>
 <ul>

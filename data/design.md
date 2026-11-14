@@ -1,6 +1,6 @@
 # ANLYSIS: design document
 
-Version 1.2.7, 15 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
+Version 1.2.8, 15 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
 
 ## 1. Purpose and status
 
@@ -15,7 +15,7 @@ Status:
 - Every part has been built and tested on small cases.
 - One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.4 of this design. Steps 1 to 5 ran before decision 38, which changes only step 6. Its output is shown in the simulator on the documentation site.
 - The documentation site is built from this document, the schema and the catalogue.
-- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.7 add decisions 31 to 42. The scripts, the step 3 instruction and the stored run follow version 1.2.4. Section 10 lists what is untested.
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.8 add decisions 31 to 44. The scripts, the step 3 instruction and the stored run follow version 1.2.4. Section 10 lists what is untested.
 - All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
@@ -53,7 +53,9 @@ Each term below has one meaning in this document.
 | Removed, dropped | Removed: failed a requirement in step 2. Dropped: chosen, then left out because the additional source it needs was not found, or because its run did not finish. |
 | Result | Everything one technique produces. |
 | Finding | One statement in a result. |
-| Conclusion | One statement in the answer, drawn from the findings. |
+| Conclusion | One statement in the answer, drawn from the findings. It has a title that states the finding as a sentence, an explanation, a confidence label and a reason. |
+| Insight | A finding that goes against, or beyond, what the request or the material would lead a reader to expect. It states the expectation and what the analysis found instead. |
+| Summary | The first part of the answer: the direct answer to the request in plain sentences, with how far to trust it and what it leaves open. |
 | Library check | One of the 18 checks in the check library, such as a spot check or repeat runs. It is applied to one result. |
 | Work | Everything produced in steps 1 to 7: the description of the material, the eligible and chosen techniques, the sequence, each technique's result, the checks and the combined findings. |
 | Output | The answer given to the user in step 8. It is the only output. |
@@ -281,16 +283,35 @@ Failed checks at high stakes. At high stakes a failed check makes the label low 
 
 Challenge findings do not change the label. A challenge finding is an added finding and appears in the answer next to the conclusion it examines.
 
+Titles and scope. Each conclusion has a title that states the finding as a sentence, an explanation of two to four sentences, the label and a reason in plain words. A statement about what the process did not look at is not a conclusion and gets no label. It goes in the answer under what was not covered. A statement that the material does not contain something, found by a technique, is a conclusion and gets a label.
+
+Insights. When the request asks for insights, or when a conclusion goes against what the request assumed, step 7 also writes insights. Each states what the request or the material would lead a reader to expect, what the analysis found instead, and why the difference matters. An insight gets a label by the same rule as the conclusions it rests on. A recommendation is not an insight. The answer gives recommendations only when the request asks for them.
+
 ### Step 8: Answer
 
 The answer is the only output of the process. Everything produced in steps 1 to 7 is work.
 
+- Where the application can create a document, the answer is delivered as a document, so that the user can keep, share and export it. Otherwise it is given in the reply (decision 44).
 - The answer is always given to the user. It must be complete without the work, so it names the techniques that ran and the checks that were not done.
 - The work is kept. How much of it the user sees depends on the application that runs the process: it can show the work as it happens, show it on request or not show it.
 - Where the process asks the user to decide something, it always shows what the user needs for that decision: the brief at intake, the findings from 5.1, the methods offered in step 7 and the gaps behind a follow-up round.
 - The user can change the chosen techniques only in an application that shows them.
 
-The answer gives the conclusions with their labels and reasons. It then states three things as facts.
+The answer has these parts, in this order.
+
+1. **Summary.** The direct answer to the request, in two to four short paragraphs of whole sentences with no technique codes. It says what the analysis found, in the order a reader needs it, how far to trust it and what it leaves open. A reader who has seen nothing else must be able to understand what was found.
+2. **Conclusions.** Each shows its title, then its explanation, its confidence label and its reason. The conclusions have no codes. Before the first one the answer states what the confidence levels mean, in the fixed words below.
+3. **Insights,** when step 7 wrote any, introduced by the fixed words below.
+4. **What was not covered.** The parts of the request the analysis did not answer, and what the process did not look at. These have no label.
+5. **Strength of statement reached.**
+6. **What the answer is based on.**
+7. **The offer of a follow-up round.**
+
+Fixed words for the confidence levels: "Confidence shows how well the analysis supports a conclusion as it is written. It does not show how important the conclusion is. High means two or more techniques that read the material in different ways agree, and their checks passed. Medium means one technique supports it, or several agree but a check failed or was not done, or they read the material in the same way. Low means one technique supports it and its checks did not pass, or the techniques conflict and the conflict is not resolved. All the techniques read the same material and used the same language model, which limits every label."
+
+Fixed words for the insights: "An insight is a finding that goes against, or beyond, what your question or the material would lead a reader to expect. Each one states the expectation and what the analysis found instead."
+
+Parts 5 and 6 are stated as facts.
 
 **Strength of statement reached.** Which chosen techniques reach the strength of statement the user needed, and which conclusions they support. When none did, the answer says so in its first lines.
 
@@ -423,6 +444,8 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 | 40 | The 5.1 question gained an option the design did not have (add outside sources). A search for a pool of 11 sources then ran before the plan existed, and the user was asked to select from the list. The user pointed out that techniques do not need approval for what they need to do, and that everything not typed in by the user is outside, so the word did not separate anything. Decided on 15 November 2026. | Sources the process finds are called additional sources, and the user's material is what the user typed, attached or linked. 5.1 offers only keep or edit. 5.2 runs after the plan, finds one item per need, uses it and records it. The approval decision point is removed, leaving six. The answer lists each additional source, and a conclusion that depends on one whose wording code could not check is limited to medium. This supersedes the approval in decision 33. |
 | 41 | The skill and the site do not have to share a name. Decided on 15 November 2026. | The skill is named analysis (folder `analysis`, file `analysis.zip`, working folder `analysis_run`). ANLYSIS stays the name of the design and ANLYSIS.work the site (decision 39). |
 | 42 | In the user's run inside Claude, a subagent stopped because the user's weekly usage limit in Claude was reached. The design did not say what the process does when a technique's run does not finish, for that or any other reason. Decided on 15 November 2026. | The technique is dropped with the reason "did not finish". The process never writes its result itself, tells the user which technique stopped, and lists it among the techniques dropped in the answer. |
+| 43 | The answer in the user's own run was hard to read. The summary was one short paragraph of compressed sentences. Conclusions were named by codes (T1 to T7) that the answer never explained. A conclusion about what the process had not looked at carried a high label, which read as confidence that the topic was examined. The insights were recommendations, not findings. Decided on 15 November 2026. | The answer starts with a summary of two to four short paragraphs. Each conclusion has a title that states the finding, with its label and reason after it. The meaning of the labels is stated in fixed words before the first conclusion, and says the label measures support for the conclusion as written, not importance. A statement about what the process did not look at is not a conclusion: it goes under what was not covered, with no label. An insight is a finding that goes against or beyond what the request or the material would lead a reader to expect, and states the expectation and the finding. Recommendations are given only when the request asks for them. |
+| 44 | The answer was given as text in the conversation, which is awkward to keep, share or export. Decided on 15 November 2026. | Where the application can create a document, the answer is delivered as a document. Otherwise it is given in the reply. |
 
 ## 10. Open items
 
@@ -451,6 +474,7 @@ Design:
 - Not decided: whether the answer includes a section on the process followed by default, or only on request.
 - Steps 6 to 8 have run once, on one small brief.
 - Result formats are tested on five of 236 techniques.
+- The answer form of decisions 43 and 44 has been tested only by running steps 7 and 8 again on the stored run. Delivery of the answer as a document has not been run inside Claude.
 - The skill has run once inside Claude, started by the user on an article. Its technique runs, checks, combining and answer steps ran as separate subagents. The output of that run is not stored here, and the changes in version 1.2.6 have not been run.
 - Intake does not read images, audio or video. The rules for document type, language and personal information are untested on long documents, scanned PDFs and non-English text. The rules for strength of statement and kind of finding are keyword matches.
 
@@ -472,7 +496,7 @@ Catalogue data (from the spot check; the first six were fixed):
 | File | Role |
 |---|---|
 | `master/Analysis methods design.md` | This document. |
-| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.7. |
+| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.8. |
 | `master/master_tagged.csv` | The catalogue: 236 rows, 52 columns, with result formats. |
 | `master/master_base.csv`, `master/tags/tags_A.json` to `tags_F.json` | Sources of the CSV text and tags. |
 | `master/specs/out_1.json` to `out_6.json` | Result formats. |
