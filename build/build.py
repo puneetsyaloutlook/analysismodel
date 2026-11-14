@@ -98,7 +98,7 @@ def add_page(path, title, group, body_html, desc="", toc=True, wide=False, scrip
 
 
 SECTION_PAGE = {
-    1: "/",
+    1: "/status/",
     2: "/process/",
     3: "/process/intake/",
     4: "/process/choosing-techniques/",
@@ -107,7 +107,7 @@ SECTION_PAGE = {
     7: "/process/checks-and-answer/",
     8: "/catalogue/",
     9: "/project/decisions/",
-    10: "/project/open-items/",
+    10: "/status/#open-items",
     11: "/project/files-and-change-rule/",
     12: "/project/files-and-change-rule/",
 }
@@ -211,8 +211,15 @@ def make_process_pages():
 def make_project_pages():
     add_page("/project/decisions/", "Decisions", "Project record", section_html(9),
              "A dated history of the decisions behind the design. The current rules are on the process pages.")
-    add_page("/project/open-items/", "Open items", "Project record", section_html(10),
-             "What is untested, unbuilt or known to be wrong in the catalogue data.")
+    add_page("/status/", "Status", "The project", section_html(1) + '<h2 id="open-items">Open items</h2>' + section_html(10),
+             "What the project is, what has been built and run, and what is untested, unbuilt or known to be wrong.")
+    add_page("/project/", "Project record", "The project", """
+<p>The project record is the history and the evidence behind the design. The current rules are on the <a href="/process/">process pages</a>. Current status and open items are on the <a href="/status/">status page</a>.</p>
+<ul>
+<li><a href="/project/decisions/">Decisions</a>: a dated history of each decision, with the problem that prompted it.</li>
+<li><a href="/project/test-evidence/">Test evidence</a>: the two tests run on the catalogue so far.</li>
+<li><a href="/project/files-and-change-rule/">Files and change rule</a>: which file holds what, and how to change the design without creating conflicts.</li>
+</ul>""", "The decisions, test evidence and files behind the design.")
     files = section_html(11) + "<h2>Change rule</h2>" + section_html(12)
     add_page("/project/files-and-change-rule/", "Files and change rule", "Project record", files,
              "Which file holds what, and how to change the model without creating conflicts.")
@@ -247,13 +254,14 @@ def make_home():
 <p>The catalogue holds {len(rows)} techniques in {len(FAMILIES)} families. This site documents the process and the catalogue. It is generated from the design document, the schema and the catalogue file in the repository, so it changes only when those change.</p>
 <div class="cards">
   <a class="card" href="/process/"><p class="card-title">Process</p><p>Eight steps, from intake to the answer.</p></a>
-  <a class="card" href="/skill/"><p class="card-title">Use the skill</p><p>Download it and install it in Claude or GitHub Copilot.</p></a>
-  <a class="card" href="/catalogue/"><p class="card-title">Catalogue</p><p>{len(rows)} techniques in {len(FAMILIES)} families, with a page for each.</p></a>
-  <a class="card" href="/reference/fields/"><p class="card-title">Reference</p><p>The dictionary behind the technique pages: what each tag means, and which checks and relations the process uses.</p></a>
-  <a class="card" href="/project/decisions/"><p class="card-title">Project record</p><p>Decisions, open items and test evidence.</p></a>
+  <a class="card" href="/simulator/"><p class="card-title">Simulator</p><p>Replay a stored run, step by step.</p></a>
+  <a class="card" href="/skill/"><p class="card-title">Skill</p><p>Download it and install it in Claude or GitHub Copilot.</p></a>
+  <a class="card" href="/catalogue/"><p class="card-title">Techniques</p><p>{len(rows)} techniques in {len(FAMILIES)} families, with a page for each.</p></a>
+  <a class="card" href="/reference/"><p class="card-title">Dictionary</p><p>The dictionary behind the technique pages: what each tag means, and which checks and relations the process uses.</p></a>
+  <a class="card" href="/status/"><p class="card-title">Status</p><p>What has been built and run, and what is untested.</p></a>
+  <a class="card" href="/project/"><p class="card-title">Project record</p><p>Decisions, test evidence and files.</p></a>
 </div>
-<h2>Purpose and status</h2>
-{section_html(1)}
+<p>What has been built and run, and what is untested, is on the <a href="/status/">status page</a>.</p>
 <h2>Catalogue at a glance</h2>
 <table><thead><tr><th>Family</th><th>Techniques</th></tr></thead><tbody>
 {''.join(f'<tr><td><a href="/catalogue/{FAM_SLUG[f]}/">{esc(f)}</a></td><td>{counts[f]}</td></tr>' for f in FAMILY_ORDER)}
@@ -280,7 +288,7 @@ def make_catalogue_index():
 <h2>Families, field names and working documents</h2>
 {intro}
 """
-    add_page("/catalogue/", "Catalogue", "Catalogue", body, f"All {len(rows)} techniques, searchable.")
+    add_page("/catalogue/", "Techniques", "The model", body, f"All {len(rows)} techniques, searchable.")
 
 
 def tech_url(r):
@@ -446,15 +454,15 @@ def make_technique_page(r):
 
 def make_reference():
     ov = (DATA / "reference-overview.md").read_text(encoding="utf-8")
-    add_page("/reference/", "About the reference", "Reference", md_block(ov),
-             "What the reference pages are for, with a worked example, and which page answers which question.")
+    add_page("/reference/", "Dictionary", "The model", md_block(ov),
+             "What the dictionary is for, with a worked example, and which page answers which question.")
     # fields
     groups = []
     for g in ["identity", "input profile", "selection", "sequencing", "robustness", "application"]:
         fs = [f for f in schema["fields"] if f["group"] == g]
         if fs:
             groups.append((g, fs))
-    body = [f"<p>{len(schema['fields'])} fields. Every technique page shows the values of these fields for that technique. A field has a requirement type, which says what the process does with it: some fields remove a technique that does not fit your material (step 2), some change the order in which techniques are offered (step 3), some raise a warning, and some are information only. The table below defines the types, and each field then shows its type, its definition, the rule used to tag it and its allowed values. Field keys are the names used in the schema and the catalogue file. <a href=\"/reference/\">About the reference</a> has a worked example.</p>"]
+    body = [f"<p>{len(schema['fields'])} fields. Every technique page shows the values of these fields for that technique. A field has a requirement type, which says what the process does with it: some fields remove a technique that does not fit your material (step 2), some change the order in which techniques are offered (step 3), some raise a warning, and some are information only. The table below defines the types, and each field then shows its type, its definition, the rule used to tag it and its allowed values. Field keys are the names used in the schema and the catalogue file. The <a href=\"/reference/\">dictionary overview</a> has a worked example.</p>"]
     body.append("<h2 id=\"requirement-types\">Requirement types</h2><table><thead><tr><th>Type</th><th>Name in the schema</th><th>Meaning</th></tr></thead><tbody>" +
                 "".join(f"<tr><td>{esc(c.get('label', c['value']))}</td><td><code>{esc(c['value'])}</code></td><td>{esc(c['definition'])}</td></tr>" for c in schema["gate_classes"]) + "</tbody></table>")
     for g, fs in groups:
@@ -515,46 +523,61 @@ def make_reference():
 
 # ------------------------------------------------------------------ nav
 NAV = [
-    ("Overview", [("/", "Overview"), ("/simulator/", "Simulator")]),
-    ("Process", [("/process/", "The process"), ("/process/intake/", "1. Intake"), ("/process/choosing-techniques/", "2 and 3. Rule out and choose"),
-                 ("/process/planning-the-sequence/", "4. Plan analysis sequence"), ("/process/running-the-techniques/", "5. Run the techniques"),
-                 ("/process/checks-and-answer/", "6 to 8. Check, combine and answer")]),
-    ("Skill", [("/skill/", "Use the skill")]),
-    ("Catalogue", [("/catalogue/", "All techniques")] + [(f"/catalogue/{FAM_SLUG[f]}/", f"{f} ({len(FAMILIES[f])})") for f in FAMILY_ORDER]),
-    ("Reference", [("/reference/", "About the reference"), ("/reference/fields/", "Fields"), ("/reference/artefact-types/", "Working document types"),
-                   ("/reference/checks/", "Check library"), ("/reference/phases-and-tiers/", "Steps, kinds, stakes and relations")]),
-    ("Project record", [("/project/decisions/", "Decisions"), ("/project/open-items/", "Open items"),
-                        ("/project/test-evidence/", "Test evidence"), ("/project/files-and-change-rule/", "Files and change rule")]),
+    ("The model", [
+        ("/process/", "Process", [("/process/intake/", "1. Intake"), ("/process/choosing-techniques/", "2 and 3. Rule out and choose"),
+                                  ("/process/planning-the-sequence/", "4. Plan analysis sequence"), ("/process/running-the-techniques/", "5. Run the techniques"),
+                                  ("/process/checks-and-answer/", "6 to 8. Check, combine and answer")]),
+        ("/catalogue/", "Techniques", [(f"/catalogue/{FAM_SLUG[f]}/", f"{f} ({len(FAMILIES[f])})") for f in FAMILY_ORDER]),
+        ("/reference/", "Dictionary", [("/reference/fields/", "Fields"), ("/reference/artefact-types/", "Working document types"),
+                                       ("/reference/checks/", "Check library"), ("/reference/phases-and-tiers/", "Steps, kinds, stakes and relations")]),
+    ]),
+    ("Try it", [("/simulator/", "Simulator", []), ("/skill/", "Skill", [])]),
+    ("The project", [
+        ("/status/", "Status", []),
+        ("/project/", "Project record", [("/project/decisions/", "Decisions"), ("/project/test-evidence/", "Test evidence"),
+                                         ("/project/files-and-change-rule/", "Files and change rule")]),
+    ]),
 ]
-# Reading order: all nav pages including family pages
-ORDER = [p[0] for _, items in NAV for p in items]
+NAV_TITLES = {}
+ORDER = []
+for _g, _items in NAV:
+    for _u, _t, _kids in _items:
+        NAV_TITLES[_u] = _t
+        ORDER.append(_u)
+        for _ku, _kt in _kids:
+            NAV_TITLES[_ku] = _kt
+            ORDER.append(_ku)
 
 
 def nav_html(current):
     out = []
     for grp, items in NAV:
-        open_attr = " open" if any(current == u or (grp == "Catalogue" and current.startswith("/catalogue/")) or (grp != "Catalogue" and current.startswith(u) and u != "/") for u, _ in items) or grp == "Overview" else ""
         lis = []
-        for u, t in items:
-            is_family = re.match(r"/catalogue/[a-z0-9-]+/$", u) and u != "/catalogue/"
-            cur = ' aria-current="page"' if (u == current or (is_family and current.startswith(u))) else ""
-            lis.append(f'<li><a href="{u}"{cur}>{esc(t)}</a></li>')
-        if grp == "Overview":
-            out.append(f'<ul class="nav-top">{"".join(lis)}</ul>')
-        else:
-            out.append(f'<details{open_attr}><summary>{esc(grp)}</summary><ul>{"".join(lis)}</ul></details>')
-    return "<nav aria-label=\"Documentation\">" + "".join(out) + "</nav>"
+        for u, t, kids in items:
+            on = current.startswith(u)
+            cur = ' aria-current="page"' if u == current else ""
+            cls = ' class="on"' if (on and u != current) else ""
+            sub = ""
+            if kids and on:
+                ks = []
+                for ku, kt in kids:
+                    kc = ' aria-current="page"' if (ku == current or (ku.startswith("/catalogue/") and current.startswith(ku))) else ""
+                    ks.append(f'<li><a href="{ku}"{kc}>{esc(kt)}</a></li>')
+                sub = '<ul class="sub">' + "".join(ks) + "</ul>"
+            lis.append(f'<li><a href="{u}"{cur}{cls}>{esc(t)}</a>{sub}</li>')
+        out.append(f'<div class="nav-group"><p class="nav-label">{esc(grp)}</p><ul>{"".join(lis)}</ul></div>')
+    return '<nav aria-label="Documentation">' + "".join(out) + "</nav>"
 
 
 def crumbs(page):
     path = page["path"]
-    items = [("/", "Overview")]
+    items = [("/", "Home")]
     if path == "/":
         return ""
     if path.startswith("/process/"):
-        items.append(("/process/", "Process")) if path != "/process/" else None
+        items.append(("/process/", "Process"))
     elif path.startswith("/catalogue/"):
-        items.append(("/catalogue/", "Catalogue"))
+        items.append(("/catalogue/", "Techniques"))
         segs = path.strip("/").split("/")
         if len(segs) == 3:
             fam = next(f for f in FAMILY_ORDER if FAM_SLUG[f] == segs[1])
@@ -562,9 +585,9 @@ def crumbs(page):
     elif path.startswith("/skill/"):
         pass
     elif path.startswith("/reference/"):
-        items.append(("/reference/", "Reference"))
+        items.append(("/reference/", "Dictionary"))
     elif path.startswith("/project/"):
-        items.append(("/project/decisions/", "Project record"))
+        items.append(("/project/", "Project record"))
     # drop duplicates of current
     items = [i for i in items if i[0] != path]
     parts = [f'<li><a href="{u}">{esc(t)}</a></li>' for u, t in items]
@@ -618,7 +641,7 @@ def prev_next(page):
             nxt = (tech_url(items[idx + 1]), f"{items[idx+1]['id']} {clean_name(items[idx+1]['technique'])}")
     elif path in ORDER:
         i = ORDER.index(path)
-        titles = {u: t for _, its in NAV for u, t in its}
+        titles = NAV_TITLES
         if i > 0:
             prev = (ORDER[i - 1], titles[ORDER[i - 1]])
         if i < len(ORDER) - 1:

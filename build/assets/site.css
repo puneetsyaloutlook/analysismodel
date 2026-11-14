@@ -270,3 +270,4 @@ details.acc.tech>summary{font-size:1rem}
 details.acc.tech>summary .tname{font-weight:600}
 
 .button{display:inline-block;padding:.5rem 1rem;margin-right:.75rem;border-radius:6px;background:var(--teal-700);color:#fff;text-decoration:none;font-weight:600}.button:hover{background:var(--teal-900);color:#fff}
+.nav-group{margin-bottom:.4rem}.nav-label{margin:1rem 0 .25rem;padding:0 .5rem;font:600 .72rem var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}.side a.on{color:var(--ink);font-weight:600}.side .sub{margin:.1rem 0 .5rem .6rem;border-left:1px solid var(--line)}

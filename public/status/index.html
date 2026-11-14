@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Open items | ANLYSIS</title>
-<meta name="description" content="What is untested, unbuilt or known to be wrong in the catalogue data.">
+<title>Status | ANLYSIS</title>
+<meta name="description" content="What the project is, what has been built and run, and what is untested, unbuilt or known to be wrong.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap">
@@ -22,11 +22,21 @@
   </div>
 </header>
 <div class="shell">
-  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/">Overview</a></li><li><a href="/simulator/">Simulator</a></li></ul><details><summary>Process</summary><ul><li><a href="/process/">The process</a></li><li><a href="/process/intake/">1. Intake</a></li><li><a href="/process/choosing-techniques/">2 and 3. Rule out and choose</a></li><li><a href="/process/planning-the-sequence/">4. Plan analysis sequence</a></li><li><a href="/process/running-the-techniques/">5. Run the techniques</a></li><li><a href="/process/checks-and-answer/">6 to 8. Check, combine and answer</a></li></ul></details><details><summary>Skill</summary><ul><li><a href="/skill/">Use the skill</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details><summary>Reference</summary><ul><li><a href="/reference/">About the reference</a></li><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Working document types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Steps, kinds, stakes and relations</a></li></ul></details><details open><summary>Project record</summary><ul><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/open-items/" aria-current="page">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></details></nav></aside>
+  <aside id="sidebar" class="side"><nav aria-label="Documentation"><div class="nav-group"><p class="nav-label">The model</p><ul><li><a href="/process/">Process</a></li><li><a href="/catalogue/">Techniques</a></li><li><a href="/reference/">Dictionary</a></li></ul></div><div class="nav-group"><p class="nav-label">Try it</p><ul><li><a href="/simulator/">Simulator</a></li><li><a href="/skill/">Skill</a></li></ul></div><div class="nav-group"><p class="nav-label">The project</p><ul><li><a href="/status/" aria-current="page">Status</a></li><li><a href="/project/">Project record</a></li></ul></div></nav></aside>
   <main id="main" class="content">
-    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Overview</a></li><li><a href="/project/decisions/">Project record</a></li><li aria-current="page">Open items</li></ol></nav>
-    <h1>Open items</h1>
-    <div class="prose"><p>Changed since the run of 13 November 2026 (version 1.2.4):</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Status</li></ol></nav>
+    <h1>Status</h1>
+    <div class="prose"><p>ANLYSIS is the name of the whole design: the catalogue, the process and the rules. It replaces "analysis model", which was confused with the language model that does the work. In this document "the model" always means the language model. The name is written ANLYSIS in running text and ANLYSIS.work when it refers to the site or its address (decision 39). The skill that runs the process is named analysis (decision 41).</p>
+<p>The catalogue lists 236 analytical techniques in 12 families. It is packaged as a skill that a chat or agent calls. The skill is built (a zip with the process, the catalogue, the schema, the prompts and seven scripts). The user has run it once inside Claude, on an article (decision 40 came from that run). Its high-stakes path, personal information waiver and follow-up round have not been run.</p>
+<p>Given a brief, the process chooses the techniques that fit, runs them in order, checks their findings and combines them into one answer.</p>
+<p>Status:</p>
+<ul>
+<li>Every part has been built and tested on small cases.</li>
+<li>One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.4 of this design. Steps 1 to 5 ran before decision 38, which changes only step 6. Steps 7 and 8 were run again on 15 November 2026 under version 1.2.8, to show the answer form of decisions 43 and 44. Its output is shown in the simulator on the documentation site.</li>
+<li>The documentation site is built from this document, the schema and the catalogue. It also has a page, Use the skill, with the skill to download and the steps to install it in Claude and in GitHub Copilot (decision 45).</li>
+<li>Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.9 add decisions 31 to 45. The scripts and the skill follow version 1.2.9. The stored run follows version 1.2.4 for steps 1 to 6 and version 1.2.8 for steps 7 and 8. Section 10 lists what is untested.</li>
+<li>All tag values are inference unless a row or a named source says otherwise.</li>
+</ul><h2 id="open-items">Open items</h2><p>Changed since the run of 13 November 2026 (version 1.2.4):</p>
 <ul>
 <li>
 <p>Version 1.2.6 changed how additional sources are handled and renamed the skill (decisions 40 and 41). Version 1.2.7 added the rule for a run that does not finish (decision 42). Version 1.2.8 changed the answer form and its delivery (decisions 43 and 44). None of these versions has been run inside Claude.</p>
@@ -72,7 +82,7 @@
 <li>Review the 15 techniques whose strongest statement is the effect of an action and the 12 whose strongest statement is how or why.</li>
 <li>Some frameworks could not be confirmed (the PHIA technique list, Heuer and Pherson names). Most opened sources were abstracts or secondary pages. No framework specifies checks per stakes level, so that field is entirely inference.</li>
 </ul></div>
-    <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/project/decisions/"><span>Previous</span>Decisions</a><a class="next" href="/project/test-evidence/"><span>Next</span>Test evidence</a></nav>
+    <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/skill/"><span>Previous</span>Skill</a><a class="next" href="/project/"><span>Next</span>Project record</a></nav>
   </main>
   <aside class="rail"></aside>
 </div>

@@ -71,7 +71,7 @@ Where the application can create a document, the answer is delivered as a docume
 
 ## What has and has not been tested
 
-The skill has run once on ten interview quotes, with each technique as a separate agent, and once inside Claude on an article. It has not run in GitHub Copilot. These parts have not been run anywhere: the high-stakes review of a sample, delivery of the answer as a document, the personal information waiver, and a follow-up round. The confidence rule is a design choice, and the tags that decide which techniques fit are inference unless a catalogue row says otherwise. The [open items](/project/open-items/) page lists the rest.
+The skill has run once on ten interview quotes, with each technique as a separate agent, and once inside Claude on an article. It has not run in GitHub Copilot. These parts have not been run anywhere: the high-stakes review of a sample, delivery of the answer as a document, the personal information waiver, and a follow-up round. The confidence rule is a design choice, and the tags that decide which techniques fit are inference unless a catalogue row says otherwise. The open items on the [status page](/status/#open-items) list the rest.
 
 ## Updating
 
