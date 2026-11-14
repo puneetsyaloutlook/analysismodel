@@ -153,7 +153,7 @@ def make_simulator():
     steps = [st["name"] for st in schema["steps"]]
     rail = "".join(f'<li data-step="{i}"><button type="button" class="step-btn"><span class="dot" aria-hidden="true"></span><span class="txt"><span class="lbl">{i + 1}. {esc(t)}</span><span class="st"></span></span></button></li>' for i, t in enumerate(steps))
     body = f"""
-<p class="lede">This shows ANLYSIS working on a real question about ten interview quotes. Submit the form to start. Each section shows one step, in order: what you entered, what ANLYSIS did, and the report at the end.</p>
+<p class="lede">Watch ANLYSIS take a question and some material through the eight steps. Each section shows one step, in order: what you entered, what ANLYSIS did, and the report at the end.</p>
 <div class="sim-note" id="sim-note"></div>
 <div class="sim-controls">
   <label for="sim-job">Brief</label>

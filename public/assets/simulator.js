@@ -44,7 +44,11 @@
 
   // Each step builds an array of "blocks": {html, pause}. Blocks appear one at a time inside a wrapper.
   var NOTES = {
-    real: '<strong>This replays one real run of ANLYSIS</strong> on ten interview quotes. Steps 1 to 6 were made under version 1.2.4 of the design, and steps 7 and 8 were run again under version 1.2.8 to show the current answer form. Every result, conclusion and answer was produced by the run and stored. Nothing is calculated in your browser, so changing the form does not change the result. <strong>Limits.</strong> The question, stakes, strength of statement and kind of finding were set by the person who ran it. The person kept the question after step 5.1 and chose the agreement table and written summary in step 7. No person reviewed the results, because the checks that need a person apply at high stakes only.'
+    real: '<p><strong>What this is.</strong> A replay of one recorded run of ANLYSIS. The run was made earlier and every result, conclusion and answer was stored, so nothing is calculated in your browser. Changing the form or answering a question below does not change what you see.</p>'
+      + '<p><strong>What the run was about.</strong> The question was whether eight customer interviews on voice AI customer support support three hypotheses (customers find it more satisfying than older voice automation, do not hang up when they learn it is an AI, and do not immediately ask for a human). The material was ten quotes from those interviews, with the hypotheses, about 500 words in all. The result will be used as one input to a decision, and the strongest statement needed was a link between things.</p>'
+      + '<p><strong>How to use it.</strong> Select Submit on the form to start, or tick the box beside it to move one step at a time. Each step opens below the last. Open any technique to see its result. Where the process would stop and ask you something, such as whether to change your question, it pauses and waits.</p>'
+      + '<p><strong>What was decided by a person.</strong> The person who ran it set the question, the stakes, the strength of statement and the kind of finding. They kept the question after step 5.1 and chose the agreement table and written summary in step 7. No person reviewed the results, because checks that need a person apply at high stakes only.</p>'
+      + '<p class="small">Steps 1 to 6 were run under version 1.2.4 of the design. Steps 7 and 8 were run again under version 1.2.8 to show the current form of the answer.</p>'
   };
 
   function builders(i) { return realBuilders(i); }
