@@ -249,7 +249,7 @@ def make_home():
   <a class="card" href="/process/"><p class="card-title">Process</p><p>Eight steps, from intake to the answer.</p></a>
   <a class="card" href="/skill/"><p class="card-title">Use the skill</p><p>Download it and install it in Claude or GitHub Copilot.</p></a>
   <a class="card" href="/catalogue/"><p class="card-title">Catalogue</p><p>{len(rows)} techniques in {len(FAMILIES)} families, with a page for each.</p></a>
-  <a class="card" href="/reference/fields/"><p class="card-title">Reference</p><p>The 52 fields, 21 working document types, 18 checks, kinds of technique and stakes levels.</p></a>
+  <a class="card" href="/reference/fields/"><p class="card-title">Reference</p><p>The dictionary behind the technique pages: what each tag means, and which checks and relations the process uses.</p></a>
   <a class="card" href="/project/decisions/"><p class="card-title">Project record</p><p>Decisions, open items and test evidence.</p></a>
 </div>
 <h2>Purpose and status</h2>
@@ -445,13 +445,16 @@ def make_technique_page(r):
 
 
 def make_reference():
+    ov = (DATA / "reference-overview.md").read_text(encoding="utf-8")
+    add_page("/reference/", "About the reference", "Reference", md_block(ov),
+             "What the reference pages are for, with a worked example, and which page answers which question.")
     # fields
     groups = []
     for g in ["identity", "input profile", "selection", "sequencing", "robustness", "application"]:
         fs = [f for f in schema["fields"] if f["group"] == g]
         if fs:
             groups.append((g, fs))
-    body = [f"<p>{len(schema['fields'])} fields. The requirement type says what a field does when techniques are ruled out and chosen. Field keys are the names used in the schema and the catalogue file.</p>"]
+    body = [f"<p>{len(schema['fields'])} fields. Every technique page shows the values of these fields for that technique. A field has a requirement type, which says what the process does with it: some fields remove a technique that does not fit your material (step 2), some change the order in which techniques are offered (step 3), some raise a warning, and some are information only. The table below defines the types, and each field then shows its type, its definition, the rule used to tag it and its allowed values. Field keys are the names used in the schema and the catalogue file. <a href=\"/reference/\">About the reference</a> has a worked example.</p>"]
     body.append("<h2 id=\"requirement-types\">Requirement types</h2><table><thead><tr><th>Type</th><th>Name in the schema</th><th>Meaning</th></tr></thead><tbody>" +
                 "".join(f"<tr><td>{esc(c.get('label', c['value']))}</td><td><code>{esc(c['value'])}</code></td><td>{esc(c['definition'])}</td></tr>" for c in schema["gate_classes"]) + "</tbody></table>")
     for g, fs in groups:
@@ -469,7 +472,7 @@ def make_reference():
     add_page("/reference/fields/", "Fields", "Reference", "".join(body), "All 52 catalogue fields grouped by purpose, with requirement type and values.")
 
     # artefacts
-    ab = ["<p>Working documents are what techniques need as input and make as output. The schema calls them artefacts. The order of preparation techniques follows from them.</p>"]
+    ab = ["<p>Working documents are what techniques need as input and make as output. The schema calls them artefacts. If a technique needs a document that nothing has made yet, such as a coded corpus, step 4 adds a preparation technique that makes it, and the order of those techniques follows from the documents. Each type below has a definition and the states it can be in, such as draft or checked. A type marked single use is spent by the first technique that reads it. The types are grouped by kind: the brief, material that has been prepared, findings, and reports.</p>"]
     kinds = {}
     for a in schema["artefact_types"]:
         kinds.setdefault(a["kind"], []).append(a)
@@ -481,7 +484,7 @@ def make_reference():
     add_page("/reference/artefact-types/", "Working document types", "Reference", "".join(ab), "The 21 types of working document and their states.")
 
     # checks
-    cb = ["<p>" + esc(schema.get("check_library_note", "")) + "</p>",
+    cb = ["<p>A check tests one result for a specific weakness, for example by running the technique a second time or by comparing a sample with the source. Each technique lists the checks it needs at each stakes level, and a higher level includes the checks of the level below. Step 6 applies them. The last two columns say whether a person must be involved and whether the check counts as corroboration of a finding.</p><p>" + esc(schema.get("check_library_note", "")) + "</p>",
           "<table><thead><tr><th>Check</th><th>What it tests</th><th>Person involved</th><th>Corroboration</th></tr></thead><tbody>"]
     for c in schema["check_library"]:
         cb.append(f'<tr id="{slug(c["code"])}"><td><strong>{esc(c["code"])}</strong><br><span class="small">{esc(c["definition"])}</span></td><td>{esc(c["tests"])}</td><td>{esc(c["human_involvement"]["level"])}<br><span class="small">{esc(c["human_involvement"]["detail"])}</span></td><td>{esc(c["counts_as_corroboration"])}</td></tr>')
@@ -491,7 +494,7 @@ def make_reference():
     # phases and tiers
     KIND = {"frame": "Question technique, 5.1", "gather": "Preparation technique, 5.2", "verify and prepare": "Preparation technique, 5.2",
             "analyse": "Primary technique, 5.3", "validate": "Verification or challenge technique, step 6", "conclude": "Not a technique: step 7", "report": "Not a technique: step 8"}
-    pb = ["<h2 id=\"steps\">Process steps</h2><table><thead><tr><th>Step</th><th>What happens</th></tr></thead><tbody>" +
+    pb = ["<p>Short definitions of the eight steps, the kinds of technique, the stakes levels and the relations between techniques. The steps and kinds are explained in full on the <a href=\"/process/\">process pages</a>. The stakes level you give at intake decides how many checks run, and the relations are used when techniques are chosen and ordered.</p>", "<h2 id=\"steps\">Process steps</h2><table><thead><tr><th>Step</th><th>What happens</th></tr></thead><tbody>" +
           "".join(f"<tr><td>{esc(st['number'])}. {esc(st['name'])}</td><td>{esc(st['does'])}</td></tr>" for st in schema["steps"]) + "</tbody></table>",
           "<h2 id=\"phases\">Kinds of technique</h2><p>Each technique has a phase tag. The tag gives its kind and the step it runs in.</p><table><thead><tr><th>Phase tag</th><th>Kind and step</th><th>Definition of the tag</th></tr></thead><tbody>"]
     for p in schema["phases"]:
@@ -518,7 +521,7 @@ NAV = [
                  ("/process/checks-and-answer/", "6 to 8. Check, combine and answer")]),
     ("Skill", [("/skill/", "Use the skill")]),
     ("Catalogue", [("/catalogue/", "All techniques")] + [(f"/catalogue/{FAM_SLUG[f]}/", f"{f} ({len(FAMILIES[f])})") for f in FAMILY_ORDER]),
-    ("Reference", [("/reference/fields/", "Fields"), ("/reference/artefact-types/", "Working document types"),
+    ("Reference", [("/reference/", "About the reference"), ("/reference/fields/", "Fields"), ("/reference/artefact-types/", "Working document types"),
                    ("/reference/checks/", "Check library"), ("/reference/phases-and-tiers/", "Steps, kinds, stakes and relations")]),
     ("Project record", [("/project/decisions/", "Decisions"), ("/project/open-items/", "Open items"),
                         ("/project/test-evidence/", "Test evidence"), ("/project/files-and-change-rule/", "Files and change rule")]),
@@ -559,7 +562,7 @@ def crumbs(page):
     elif path.startswith("/skill/"):
         pass
     elif path.startswith("/reference/"):
-        items.append(("/reference/fields/", "Reference"))
+        items.append(("/reference/", "Reference"))
     elif path.startswith("/project/"):
         items.append(("/project/decisions/", "Project record"))
     # drop duplicates of current
