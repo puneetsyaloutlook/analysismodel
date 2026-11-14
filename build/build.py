@@ -228,6 +228,12 @@ def make_project_pages():
              "The two tests run on the catalogue so far.")
 
 
+def make_skill_page():
+    text = (DATA / "use-the-skill.md").read_text(encoding="utf-8")
+    add_page("/skill/", "Use the skill", "Skill", md_block(text),
+             "Download the analysis skill and install it in Claude or GitHub Copilot, with what to give it, what it asks and what it returns.")
+
+
 def demote(text):
     """Turn ## into ### so test documents sit under a page level h2."""
     return re.sub(r"^(#{2,5}) ", lambda m: "#" * (len(m.group(1)) + 1) + " ", text, flags=re.M)
@@ -241,6 +247,7 @@ def make_home():
 <p>The catalogue holds {len(rows)} techniques in {len(FAMILIES)} families. This site documents the process and the catalogue. It is generated from the design document, the schema and the catalogue file in the repository, so it changes only when those change.</p>
 <div class="cards">
   <a class="card" href="/process/"><p class="card-title">Process</p><p>Eight steps, from intake to the answer.</p></a>
+  <a class="card" href="/skill/"><p class="card-title">Use the skill</p><p>Download it and install it in Claude or GitHub Copilot.</p></a>
   <a class="card" href="/catalogue/"><p class="card-title">Catalogue</p><p>{len(rows)} techniques in {len(FAMILIES)} families, with a page for each.</p></a>
   <a class="card" href="/reference/fields/"><p class="card-title">Reference</p><p>The 52 fields, 21 working document types, 18 checks, kinds of technique and stakes levels.</p></a>
   <a class="card" href="/project/decisions/"><p class="card-title">Project record</p><p>Decisions, open items and test evidence.</p></a>
@@ -509,6 +516,7 @@ NAV = [
     ("Process", [("/process/", "The process"), ("/process/intake/", "1. Intake"), ("/process/choosing-techniques/", "2 and 3. Rule out and choose"),
                  ("/process/planning-the-sequence/", "4. Plan analysis sequence"), ("/process/running-the-techniques/", "5. Run the techniques"),
                  ("/process/checks-and-answer/", "6 to 8. Check, combine and answer")]),
+    ("Skill", [("/skill/", "Use the skill")]),
     ("Catalogue", [("/catalogue/", "All techniques")] + [(f"/catalogue/{FAM_SLUG[f]}/", f"{f} ({len(FAMILIES[f])})") for f in FAMILY_ORDER]),
     ("Reference", [("/reference/fields/", "Fields"), ("/reference/artefact-types/", "Working document types"),
                    ("/reference/checks/", "Check library"), ("/reference/phases-and-tiers/", "Steps, kinds, stakes and relations")]),
@@ -548,6 +556,8 @@ def crumbs(page):
         if len(segs) == 3:
             fam = next(f for f in FAMILY_ORDER if FAM_SLUG[f] == segs[1])
             items.append((f"/catalogue/{segs[1]}/", fam))
+    elif path.startswith("/skill/"):
+        pass
     elif path.startswith("/reference/"):
         items.append(("/reference/fields/", "Reference"))
     elif path.startswith("/project/"):
@@ -697,6 +707,8 @@ def main():
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)
     shutil.copytree(ASSETS_SRC, OUT / "assets", dirs_exist_ok=True)
+    (OUT / "downloads").mkdir()
+    shutil.copy(DATA / "analysis.zip", OUT / "downloads" / "analysis.zip")
 
     make_home()
     make_process_pages()
@@ -706,6 +718,7 @@ def main():
         make_technique_page(r)
     make_reference()
     make_project_pages()
+    make_skill_page()
     make_simulator()
     for p in PAGES:
         render(p)

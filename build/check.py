@@ -29,6 +29,9 @@ for f,p in pages.items():
     here=str(f.relative_to(PUB))
     for l in p.links:
         if l.startswith(('http','mailto:')): continue
+        if l.endswith('.zip'):
+            if not (PUB / l.lstrip('/')).exists(): print('MISSING FILE',here,l); bad+=1
+            continue
         base,_,frag=l.partition('#')
         if base=='' : tgt=p
         else:
