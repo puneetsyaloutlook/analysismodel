@@ -63,7 +63,7 @@ out = {
     "picks": [{"id": p["id"], "name": clean(p["id"]), "url": url(p["id"]), "reason": p["reason"]} for p in picks["picks"]],
     "gaps": picks.get("gaps", ""),
     "held": [{"id": h, "name": clean(h), "url": url(h)} for h in held],
-    "outside": plan["outside_material"],
+    "additional": plan["additional_sources"],
     "stages": stages, "checks": checks,
     "results": results,
     "ck17": {"checked": len(spans), "failed": [{"file": k, "span": s} for k, s, ok in spans if not ok]},

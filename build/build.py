@@ -383,7 +383,7 @@ def make_technique_page(r):
         req += f'<p class="small">Not restricted on: {esc(", ".join(free))}.</p>'
     req += kv_table([
         ("Minimum material", esc(r["requires_minimum"])),
-        ("Outside material needed", esc(r["external_material_needed"])),
+        ("Additional sources needed", esc(r["external_material_needed"])),
         ("Not for (rules)", esc(r["not_for_rules"])),
         ("Not for (text)", esc(r["not_for_text"])),
     ])

@@ -109,7 +109,7 @@
    ]
   }
  ],
- "outside_material": [],
+ "additional_sources": [],
  "checks": {
   "CM1-05": [
    "assumption and limitation statement",

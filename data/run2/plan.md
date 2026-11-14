@@ -22,11 +22,16 @@ Claim level needed: associate. Stakes: decision-informing.
 
 ## Checks by stakes tier, applied to each analysis result
 - CM1-05: assumption and limitation statement, alternative explanations check, source-span citation
-- HE1-13: spot check, human review sample
-- HE1-14: spot check, human review sample
-- HE1-15: spot check, repeat runs, human review sample
-- MM-10: spot check, repeat runs, gold standard agreement, human review sample
+- HE1-13: spot check
+- HE1-14: spot check
+- HE1-15: spot check, repeat runs
+- MM-10: spot check, repeat runs
 - TC1-13: assumption and limitation statement, alternative explanations check, source-span citation
+
+Left out below high stakes (they need a person): HE1-13: human review sample; HE1-14: human review sample; HE1-15: human review sample; MM-10: gold standard agreement, human review sample.
+
+## Pause after step 6 (high stakes only)
+If a chosen technique has a check that needs a person, show a small sample of the results with the labels or findings the model produced, and ask the user to review it, skip it or defer it. Skipped or deferred: list the check as not done and limit the confidence label to medium. Below high stakes this pause does not happen.
 
 ## Pause after 5.1
 If a question technique produced findings, show them and ask the user to keep or edit the request. Edit: run steps 2 to 4 again. No reply: keep the request and say in the answer that it was not confirmed.
@@ -40,9 +45,9 @@ Alongside: one confidence label (high, medium or low) and a one-line reason for 
 
 ## 8 answer: what it is based on (facts only, no judgements about the material)
 - Material given: one source(s); content types: text. Name each source, its type and its size.
-- Outside material used: none.
+- Additional sources used: none.
 - Techniques run, and what each used: CK-17 (the findings of the analysis); CM1-05 (the brief and the material); DM-02 (the brief and the material); HE1-13 (the brief and the material); HE1-14 (the brief and the material); HE1-15 (the brief and the material); MM-10 (the brief and the material); PE-02 (the brief and the material); TC1-13 (the brief and the material); TC1-16 (the findings of the analysis); TC1-17 (the findings of the analysis).
-- Checks not done because they need a person: gold standard agreement, human review sample.
+- Checks that need a person: left out at this stakes level. State that no person reviewed the results.
 - Techniques dropped, and why; files that could not be read.
 
 ## Follow-up round (only if the user asks)

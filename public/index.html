@@ -37,15 +37,15 @@
   <a class="card" href="/project/decisions/"><p class="card-title">Project record</p><p>Decisions, open items and test evidence.</p></a>
 </div>
 <h2 id="purpose-and-status">Purpose and status</h2>
-<p>ANLYSIS is the name of the whole design: the catalogue, the process and the rules. It replaces "analysis model", which was confused with the language model that does the work. In this document "the model" always means the language model. The name is written ANLYSIS in running text and ANLYSIS.work when it refers to the site or its address (decision 39).</p>
-<p>The catalogue lists 236 analytical techniques in 12 families. It is packaged as a skill that a chat or agent calls. The skill is built (a zip with the process, the catalogue, the schema, the prompts and seven scripts). It has not been tested inside Claude.</p>
+<p>ANLYSIS is the name of the whole design: the catalogue, the process and the rules. It replaces "analysis model", which was confused with the language model that does the work. In this document "the model" always means the language model. The name is written ANLYSIS in running text and ANLYSIS.work when it refers to the site or its address (decision 39). The skill that runs the process is named analysis (decision 41).</p>
+<p>The catalogue lists 236 analytical techniques in 12 families. It is packaged as a skill that a chat or agent calls. The skill is built (a zip with the process, the catalogue, the schema, the prompts and seven scripts). The user has run it once inside Claude, on an article (decision 40 came from that run). Its high-stakes path, personal information waiver and follow-up round have not been run.</p>
 <p>Given a brief, the process chooses the techniques that fit, runs them in order, checks their findings and combines them into one answer.</p>
 <p>Status:</p>
 <ul>
 <li>Every part has been built and tested on small cases.</li>
 <li>One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.4 of this design. Steps 1 to 5 ran before decision 38, which changes only step 6. Its output is shown in the simulator on the documentation site.</li>
 <li>The documentation site is built from this document, the schema and the catalogue.</li>
-<li>Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.5 add decisions 31 to 39. The scripts, the step 3 instruction and the stored run follow version 1.2.4. Section 10 lists what is untested.</li>
+<li>Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.6 add decisions 31 to 41. The scripts, the step 3 instruction and the stored run follow version 1.2.4. Section 10 lists what is untested.</li>
 <li>All tag values are inference unless a row or a named source says otherwise.</li>
 </ul>
 <h2 id="catalogue-at-a-glance">Catalogue at a glance</h2>

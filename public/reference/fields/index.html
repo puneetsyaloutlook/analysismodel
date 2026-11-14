@@ -166,10 +166,10 @@
 <p class="small">Schema name: <code>requires_minimum</code></p>
 <p>Minimum amounts the technique needs, such as sample size, number of variables, number of sources or number of periods. Free text so that each can carry its own unit.</p>
 <p class="small"><strong>Tagging rule.</strong> Write each minimum with its unit, for example at least 30 records per group. Write none if no minimum is known.</p>
-</section><section class="field" id="external_material_needed"><h3 id="outside-material-needed-applies-in-some-cases">Outside material needed <span class="pill g-conditional">Applies in some cases</span></h3>
-<p class="small">Schema name: <code>external_material_needed</code> (Material needed from outside the input)</p>
-<p>What the user must supply that the input does not contain. None cannot be combined with other values.</p>
-<p class="small"><strong>Tagging rule.</strong> List what must be supplied. Write none if the input is enough.</p>
+</section><section class="field" id="external_material_needed"><h3 id="additional-sources-needed-applies-in-some-cases">Additional sources needed <span class="pill g-conditional">Applies in some cases</span></h3>
+<p class="small">Schema name: <code>external_material_needed</code> (Additional sources needed)</p>
+<p>What the technique needs beyond the user&#x27;s material. The process finds it in 5.2, or the user supplies it when none is found. None cannot be combined with other values.</p>
+<p class="small"><strong>Tagging rule.</strong> List what the technique needs beyond the user&#x27;s material. Write none if the material is enough.</p>
 <div class="table-wrap"><table class='vals'><thead><tr><th>Value</th><th>Meaning</th></tr></thead><tbody><tr><td><code>none</code></td><td>Nothing beyond the input.</td></tr><tr><td><code>comparator</code></td><td>A second case, group, period or standard to compare with.</td></tr><tr><td><code>reference structure</code></td><td>A codebook, schema, rule set, protocol or population benchmark.</td></tr><tr><td><code>earlier period</code></td><td>Data or documents from before the period of interest.</td></tr></tbody></table></div></section><section class="field" id="not_for_rules"><h3 id="not-for-rules-always-applies">Not for rules <span class="pill g-hard-gate">Always applies</span></h3>
 <p class="small">Schema name: <code>not_for_rules</code></p>
 <p>Machine-checkable exclusions. The technique is removed when all clauses of any one exclusion are true for the job.</p>
