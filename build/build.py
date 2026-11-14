@@ -163,11 +163,12 @@ def make_simulator():
   <button type="button" id="sim-reset" class="btn">Start again</button>
 </div>
 <div class="tally" aria-label="Running totals">
-  <div><span class="n" id="t-cat">{len(rows)}</span><span class="k">techniques ANLYSIS knows</span></div>
-  <div><span class="n" id="t-pass">-</span><span class="k">can work with your content</span></div>
-  <div><span class="n" id="t-pick">-</span><span class="k">chosen for your question</span></div>
-  <div><span class="n" id="t-run">-</span><span class="k">placed in sequence</span></div>
-  <div><span class="n" id="t-person">-</span><span class="k">checks that need a person</span></div>
+  <div><span class="n" id="t-mat">-</span><span class="k">words of material read</span></div>
+  <div><span class="n" id="t-run">-</span><span class="k" id="t-run-k">techniques run</span></div>
+  <div><span class="n" id="t-add">-</span><span class="k">additional sources used</span></div>
+  <div><span class="n" id="t-chk">-</span><span class="k" id="t-chk-k">checks done</span></div>
+  <div><span class="n" id="t-concl">-</span><span class="k">conclusions: well supported and weaker support</span></div>
+  <div><span class="n" id="t-ins">-</span><span class="k">insights</span></div>
 </div>
 <ul class="legend" aria-label="Key to the colours"><li><span class="sw sw-input"></span>Your input: what you enter or decide</li><li><span class="sw sw-work"></span>What ANLYSIS did on the way to the answer</li><li><span class="sw sw-output"></span>Output: the report you receive at the end</li></ul>
 <div class="sim-app">
