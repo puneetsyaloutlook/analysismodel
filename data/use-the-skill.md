@@ -13,6 +13,7 @@ Read `SKILL.md` and the scripts before you install them, as you would for any sk
 ## What you need
 
 - Python 3 and a way for the model to run code. In Claude this is the code execution setting. In Copilot it is terminal access.
+- `pdftotext` (part of the poppler tools) if your material includes PDF files. The skill reads other file types without it.
 - A request and some material: documents, interview transcripts, a data file, pasted article text or a link to an article.
 - Time and usage allowance. A run starts many separate model calls, one for each technique and each check. One run inside Claude on an article, under an earlier version, used about 1.4 million input tokens in the main conversation and about 570,000 more across five separate agents. If a call stops, for example because you reached a usage limit, that technique is dropped and the answer says so (decision 42).
 
