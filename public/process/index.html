@@ -134,7 +134,7 @@
 </tr>
 <tr>
 <td>Removed, dropped</td>
-<td>Removed: failed a requirement in step 2. Dropped: chosen, then left out because the additional source it needs was not found.</td>
+<td>Removed: failed a requirement in step 2. Dropped: chosen, then left out because the additional source it needs was not found, or because its run did not finish.</td>
 </tr>
 <tr>
 <td>Result</td>
@@ -218,6 +218,7 @@
 <li>Stakes and strength of statement are set for the brief. They are never stored per technique.</li>
 <li>Only the user changes the request. The process can show the user what it found about the request and ask. It never rewrites the request itself.</li>
 <li>The process never starts a follow-up round on its own.</li>
+<li>A technique whose run does not finish is dropped, with the reason. The process never writes a result for it. The answer lists it among the techniques that were dropped.</li>
 </ol>
 <h3 id="status">Status</h3>
 <p>The process defines the states of a run so that whatever runs it (a chat, an agent, an editor assistant or a script) can show where the run is. The design defines the states. It does not define how they are delivered: an application can narrate them, send them as events, keep them in a record or map them to its own task list. A run does not have to be resumable.</p>
