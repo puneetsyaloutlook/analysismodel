@@ -21,7 +21,8 @@
   function list(a) { return Array.isArray(a) ? a.join(', ') : a; }
 
   function setTally(k, v) { $(k).textContent = v; }
-  function resetTally() { ['t-pass', 't-pick', 't-run', 't-person'].forEach(function (k) { setTally(k, '-'); }); }
+  function resetTally() { ['t-mat', 't-run', 't-add', 't-chk', 't-concl', 't-ins'].forEach(function (k) { setTally(k, '-'); }); setTally('t-run-k', 'techniques run'); setTally('t-chk-k', 'checks done'); }
+  function setTallies(list) { list.forEach(function (p) { setTally(p[0], p[1]); }); }
 
   function mark(i, state) {
     var li = steps[i];
@@ -38,7 +39,7 @@
     bar.style.width = '0';
     submitted = false; title.textContent = '1. Intake';
     out.innerHTML = ''; out.appendChild(intakeForm(job));
-    resetTally(); setTally('t-cat', job.total);
+    resetTally();
     $('sim-run').disabled = true; $('sim-step').disabled = true;
     $('sim-controls').hidden = true; $('sim-step').hidden = false; $('sim-run').hidden = false;
   }
@@ -122,7 +123,7 @@
     markOn(f);
     Array.prototype.forEach.call(f.querySelectorAll('input:not(#sim-stepwise), textarea'), function (i) { i.disabled = true; });
     f.classList.add('locked'); $('sim-submit').disabled = true; $('sim-submit').textContent = 'Submitted'; $('sim-stepwise').disabled = true;
-    focusApp();
+    focusApp(); setTally('t-mat', j.source.words);
     $('sim-controls').hidden = false;
     if (!stepwise) { $('sim-step').hidden = true; $('sim-run').hidden = true; }
     if (stepwise) { stepOnce().then(function () { setBusy(false); }); } else { runAll(); }
@@ -156,7 +157,7 @@
         });
       });
       b.push({ role: 'work', html: '<p>ANLYSIS put the ' + Math.min(10, j.picks.length) + ' chosen techniques in four groups, in the order they will run.</p>' });
-      b.push({ role: 'work', html: '<div class="table-wrap"><table class="plan"><thead><tr><th>Technique</th><th>What it does</th><th>Needs an additional source</th></tr></thead><tbody>' + rows + '</tbody></table></div>', tally: ['t-run', total] });
+      b.push({ role: 'work', html: '<div class="table-wrap"><table class="plan"><thead><tr><th>Technique</th><th>What it does</th><th>Needs an additional source</th></tr></thead><tbody>' + rows + '</tbody></table></div>' });
       b.push({ role: 'work', html: need.length ? '<p>' + need.map(function (x) { return esc(x.name); }).join(' and ') + (need.length > 1 ? ' need an additional source each' : ' needs an additional source') + ' to run. In step 5 ANLYSIS looks in your material first. Only if the item is missing does ANLYSIS look elsewhere, and the answer lists every source it used.</p>' : '<p>No technique needs an additional source.</p>' });
     } else if (i === 4) {
       b.push({ role: 'work', html: '<p>ANLYSIS ran each technique separately on your question and content. Open a technique below to read its result.</p>' });
@@ -168,15 +169,18 @@
       S.prepare.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your content') }); });
       b.push({ role: 'work', html: sub('5.3 Analyse the material', S.analyse.length) });
       S.analyse.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your content') }); });
+      var ids = {}; [S.frame, S.prepare, S.analyse, S.check].forEach(function (g) { g.forEach(function (x) { ids[x.id] = 1; }); });
+      var dropped = j.picks.filter(function (p) { return !ids[p.id]; }).length;
+      b.push({ role: 'work', html: '<p class="result">' + (S.frame.length + S.prepare.length + S.analyse.length) + ' techniques ran in step 5. ' + dropped + ' were dropped.</p>', tally: [['t-run', S.frame.length + S.prepare.length + S.analyse.length], ['t-run-k', 'techniques run, ' + dropped + ' dropped'], ['t-add', j.additional.length]] });
     } else if (i === 5) {
       var ck = j.ck17;
       b.push({ role: 'work', html: '<p>ANLYSIS checked the findings from step 5. It confirmed the quotes, looked for evidence against the findings, and tested how easily they change.</p>' });
-      b.push({ role: 'work', html: '<div class="run"><div class="rh"><strong><a href="/catalogue/check-extracted-results/ck-17/">Quote check</a></strong><span class="pill">looked at: the findings from step 5</span></div><p>ANLYSIS found ' + ck.checked + ' quoted phrases in the eight results from steps 5.1 to 5.3. ' + (ck.checked - ck.failed.length) + ' match your content word for word. The other ' + ck.failed.length + ' are labels, terms or one paraphrase that a technique put in quotation marks, and not quotes from a participant.</p><p class="small">The ' + ck.failed.length + ' phrases: ' + ck.failed.map(function (f) { return '"' + esc(f.span) + '"'; }).join(', ') + '.</p></div>', tally: ['t-run', S.frame.length + S.prepare.length + S.analyse.length + S.check.length] });
+      b.push({ role: 'work', html: '<div class="run"><div class="rh"><strong><a href="/catalogue/check-extracted-results/ck-17/">Quote check</a></strong><span class="pill">looked at: the findings from step 5</span></div><p>ANLYSIS found ' + ck.checked + ' quoted phrases in the eight results from steps 5.1 to 5.3. ' + (ck.checked - ck.failed.length) + ' match your content word for word. The other ' + ck.failed.length + ' are labels, terms or one paraphrase that a technique put in quotation marks, and not quotes from a participant.</p><p class="small">The ' + ck.failed.length + ' phrases: ' + ck.failed.map(function (f) { return '"' + esc(f.span) + '"'; }).join(', ') + '.</p></div>' });
       S.check.filter(function (x) { return x.id !== 'CK-17'; }).forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'the findings from step 5') }); });
-      var needed = {};
+      var needed = {}, nChk = 0, nNot = 0;
       j.checks.forEach(function (c) {
         var lis = c.list.map(function (k) {
-          var st;
+          var st; if (k.code === 'assumption and limitation statement' || k.code === 'alternative explanations check' || k.code === 'source-span citation' || k.code === 'spot check' || k.code === 'repeat runs') nChk++; else nNot++;
           if (k.code === 'assumption and limitation statement') st = '<span class="pill">present in the result</span>';
           else if (k.code === 'alternative explanations check') st = '<span class="pill">section present, quality not rated</span>';
           else if (k.code === 'source-span citation') st = '<span class="pill">done by code (CK-17)</span>';
@@ -186,7 +190,7 @@
           else st = '<span class="pill warn">not done</span>';
           return '<li>' + esc(k.code) + ' ' + st + '</li>';
         }).join('');
-        b.push({ role: 'work', html: '<div class="stage"><h3>Checks on ' + link(c) + '</h3><ul>' + lis + '</ul></div>', tally: ['t-person', Object.keys(needed).length] });
+        b.push({ role: 'work', html: '<div class="stage"><h3>Checks on ' + link(c) + '</h3><ul>' + lis + '</ul></div>', tally: [['t-chk', nChk], ['t-chk-k', 'checks done' + (nNot ? ', ' + nNot + ' not done' : '')], ['t-run', S.frame.length + S.prepare.length + S.analyse.length + S.check.length]] });
       });
       var lo = Object.keys(j.left_out || {}).length;
       b.push({ role: 'work', html: '<p class="result">' + (lo ? 'Checks that need a person (human review sample, gold standard agreement) are not in this plan, because the stakes are below high-stakes. No person reviewed the results. At high stakes ANLYSIS would stop here and ask you to review a sample.' : 'Every check in the plan was done.') + '</p>' });
@@ -197,6 +201,8 @@
       var body = sy.conclusions.map(function (c) { return '<tr><th scope="row">' + esc(c.title) + '</th>' + T.map(function (t) { var v = c.cells[t] || 'S'; return '<td class="cell-' + v + '" title="' + esc(sy.legend[v]) + '">' + ({ D: 'C', S: 'N' }[v] || v) + '</td>'; }).join('') + '</tr>'; }).join('');
       b.push({ role: 'work', html: '<h3>Agreement table</h3><div class="table-wrap"><table class="matrix"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div><p class="small">Each column is a technique. A: it agrees with the conclusion. P: it partly agrees. C: it conflicts. N: it does not cover it.</p>' });
       sy.conclusions.forEach(function (c) { b.push({ role: 'work', html: conclHtml(c) }); });
+      var nWell = sy.conclusions.filter(function (c) { return c.label === 'high'; }).length;
+      b.push({ role: 'work', html: '<p class="result">' + sy.conclusions.length + ' conclusions: ' + nWell + ' well supported and ' + (sy.conclusions.length - nWell) + ' with weaker support, and ' + (sy.insights ? sy.insights.length : 0) + ' insights.</p>', tally: [['t-concl', nWell + ' and ' + (sy.conclusions.length - nWell)], ['t-ins', sy.insights ? sy.insights.length : 0]] });
       if (sy.insights && sy.insights.length) {
         b.push({ role: 'work', html: '<h3>Insights</h3>' });
         sy.insights.forEach(function (x) { b.push({ role: 'work', html: insightHtml(x) }); });
@@ -253,16 +259,16 @@
     b.push({ role: 'work', html: '<p>ANLYSIS has ' + j.total + ' analysis techniques. It ruled out the ones that cannot work on your content. Each technique is counted once, under the first reason that rules it out.</p>' });
     Object.keys(j.removed).forEach(function (g) {
       left -= j.removed[g];
-      b.push({ role: 'work', html: '<div class="gate"><span class="g">' + esc(WHY[g] || prop(g)) + '</span><span class="meter"><i style="width:' + Math.round(j.removed[g] / j.total * 100) + '%"></i></span><span class="r">' + j.removed[g] + ' set aside</span><span class="l">' + left + ' left</span></div>', tally: ['t-pass', left] });
+      b.push({ role: 'work', html: '<div class="gate"><span class="g">' + esc(WHY[g] || prop(g)) + '</span><span class="meter"><i style="width:' + Math.round(j.removed[g] / j.total * 100) + '%"></i></span><span class="r">' + j.removed[g] + ' set aside</span><span class="l">' + left + ' left</span></div>' });
     });
-    b.push({ role: 'work', html: '<p class="result">ANLYSIS ruled out <strong>' + (j.total - j.passed) + '</strong> techniques that cannot work on your content, which leaves <strong>' + j.passed + '</strong>.' + (j.claim === 'describe' ? '' : ' Of those, <strong>' + j.reach_claim + '</strong> can support a conclusion at the strength you asked for, which is to ' + esc(CLAIM_PLAIN[j.claim]) + ', or stronger. The other ' + (j.passed - j.reach_claim) + ' can only describe.') + '</p>', tally: ['t-pass', j.passed] });
+    b.push({ role: 'work', html: '<p class="result">ANLYSIS ruled out <strong>' + (j.total - j.passed) + '</strong> techniques that cannot work on your content, which leaves <strong>' + j.passed + '</strong>.' + (j.claim === 'describe' ? '' : ' Of those, <strong>' + j.reach_claim + '</strong> can support a conclusion at the strength you asked for, which is to ' + esc(CLAIM_PLAIN[j.claim]) + ', or stronger. The other ' + (j.passed - j.reach_claim) + ' can only describe.') + '</p>' });
     return b;
   }
   function builders_pick(j) {
     var b = [];
     b.push({ role: 'work', html: '<p>ANLYSIS went through the ' + j.passed + ' techniques that can work on your content and chose ' + Math.min(10, j.picks.length) + ' for your question. Each one is listed with the reason it was chosen.</p>' });
     j.picks.slice(0, 10).forEach(function (p, n) {
-      b.push({ role: 'work', html: '<div class="pick"><span class="no">' + (n + 1) + '</span><div><strong>' + link(p) + '</strong><p>' + esc(plainReason(p.reason)) + '</p></div></div>', tally: ['t-pick', n + 1] });
+      b.push({ role: 'work', html: '<div class="pick"><span class="no">' + (n + 1) + '</span><div><strong>' + link(p) + '</strong><p>' + esc(plainReason(p.reason)) + '</p></div></div>', });
     });
     if (j.held.length) b.push({ role: 'work', html: '<p class="small"><strong>Also suitable, kept for a follow-up round:</strong> ' + j.held.map(link).join(', ') + '.</p>' });
     if (j.gaps) b.push({ role: 'work', html: '<details><summary>What these techniques may not cover</summary><p>' + esc(j.gaps) + '</p></details>' });
@@ -300,7 +306,7 @@
       if (!key) panel = null;
       else if (key !== prevKey || !panel) { panel = makePanel(blk.role, blk.by); cont.appendChild(panel); }
       prevKey = key; (panel || cont).appendChild(d);
-      if (blk.tally) setTally(blk.tally[0], blk.tally[1]);
+      if (blk.tally) setTallies(blk.tally);
       bar.style.width = Math.round(k / blocks.length * 100) + '%';
       if (blk.confirm) {
         return new Promise(function (resolve) {
