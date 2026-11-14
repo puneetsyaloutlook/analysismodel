@@ -1,5 +1,5 @@
 {
- "version": "1.2.6",
+ "version": "1.2.7",
  "title": "ANLYSIS: metadata schema and process design for a catalogue of 236 analytical techniques",
  "conventions": {
   "language": "Australian English. Sentence case for headings, field labels and value names. No em dashes, en dashes or double hyphens.",
@@ -4143,7 +4143,7 @@
    },
    {
     "state": "dropped",
-    "meaning": "Chosen, then left out because the additional source it needs was not found. The reason is given."
+    "meaning": "Chosen, then left out because the additional source it needs was not found, or because its run did not finish. The reason is given."
    }
   ],
   "library_check_states": [

@@ -1,6 +1,6 @@
 # ANLYSIS: design document
 
-Version 1.2.6, 15 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
+Version 1.2.7, 15 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
 
 ## 1. Purpose and status
 
@@ -15,7 +15,7 @@ Status:
 - Every part has been built and tested on small cases.
 - One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.4 of this design. Steps 1 to 5 ran before decision 38, which changes only step 6. Its output is shown in the simulator on the documentation site.
 - The documentation site is built from this document, the schema and the catalogue.
-- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.6 add decisions 31 to 41. The scripts, the step 3 instruction and the stored run follow version 1.2.4. Section 10 lists what is untested.
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.7 add decisions 31 to 42. The scripts, the step 3 instruction and the stored run follow version 1.2.4. Section 10 lists what is untested.
 - All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
@@ -50,7 +50,7 @@ Each term below has one meaning in this document.
 | Chosen technique | An eligible technique the model selected in step 3. |
 | Sequence | The order in which the chosen techniques run, in four named groups. |
 | Reserve list | Techniques the model wanted beyond the limit. They are offered in a follow-up round. |
-| Removed, dropped | Removed: failed a requirement in step 2. Dropped: chosen, then left out because the additional source it needs was not found. |
+| Removed, dropped | Removed: failed a requirement in step 2. Dropped: chosen, then left out because the additional source it needs was not found, or because its run did not finish. |
 | Result | Everything one technique produces. |
 | Finding | One statement in a result. |
 | Conclusion | One statement in the answer, drawn from the findings. |
@@ -80,6 +80,7 @@ The kind comes from the technique's phase tag: frame gives a question technique,
 3. Stakes and strength of statement are set for the brief. They are never stored per technique.
 4. Only the user changes the request. The process can show the user what it found about the request and ask. It never rewrites the request itself.
 5. The process never starts a follow-up round on its own.
+6. A technique whose run does not finish is dropped, with the reason. The process never writes a result for it. The answer lists it among the techniques that were dropped.
 
 ### Status
 
@@ -421,12 +422,13 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 | 39 | The provisional name ANLYSIS was replaced when the address anlysis.work was registered. The correctly spelt analysis.work is a premium domain. Decided on 14 November 2026. | The name is ANLYSIS in running text, to refer to the design, the process and the skill, and ANLYSIS.work when it refers to the site or its address. The GitHub repository keeps the name `analysismodel` until the site is deployed. |
 | 40 | The 5.1 question gained an option the design did not have (add outside sources). A search for a pool of 11 sources then ran before the plan existed, and the user was asked to select from the list. The user pointed out that techniques do not need approval for what they need to do, and that everything not typed in by the user is outside, so the word did not separate anything. Decided on 15 November 2026. | Sources the process finds are called additional sources, and the user's material is what the user typed, attached or linked. 5.1 offers only keep or edit. 5.2 runs after the plan, finds one item per need, uses it and records it. The approval decision point is removed, leaving six. The answer lists each additional source, and a conclusion that depends on one whose wording code could not check is limited to medium. This supersedes the approval in decision 33. |
 | 41 | The skill and the site do not have to share a name. Decided on 15 November 2026. | The skill is named analysis (folder `analysis`, file `analysis.zip`, working folder `analysis_run`). ANLYSIS stays the name of the design and ANLYSIS.work the site (decision 39). |
+| 42 | In the user's run inside Claude, a subagent stopped because the user's weekly usage limit in Claude was reached. The design did not say what the process does when a technique's run does not finish, for that or any other reason. Decided on 15 November 2026. | The technique is dropped with the reason "did not finish". The process never writes its result itself, tells the user which technique stopped, and lists it among the techniques dropped in the answer. |
 
 ## 10. Open items
 
 Changed to version 1.2.4 and run once:
 
-- Version 1.2.6 changed how additional sources are handled and renamed the skill (decisions 40 and 41). That version has not been run.
+- Version 1.2.6 changed how additional sources are handled and renamed the skill (decisions 40 and 41). Version 1.2.7 added the rule for a run that does not finish (decision 42). Neither version has been run.
 
 - The scripts (`select.py`, `sequence.py`), the step 3 instruction and the stored run follow version 1.2.4. The stored run of 13 November 2026 ran on ten interview quotes: the 5.1 findings were shown to the user, who kept the request, and the user chose the combining method. Each technique ran as a separate agent.
 - The personal information waiver in `select.py` (decision 29) has not been tested on content that contains personal information.
@@ -470,7 +472,7 @@ Catalogue data (from the spot check; the first six were fixed):
 | File | Role |
 |---|---|
 | `master/Analysis methods design.md` | This document. |
-| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.6. |
+| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.7. |
 | `master/master_tagged.csv` | The catalogue: 236 rows, 52 columns, with result formats. |
 | `master/master_base.csv`, `master/tags/tags_A.json` to `tags_F.json` | Sources of the CSV text and tags. |
 | `master/specs/out_1.json` to `out_6.json` | Result formats. |
