@@ -1,6 +1,6 @@
 The skill runs the ANLYSIS process on your question and your material. It is named `analysis`. It works in Claude and in GitHub Copilot, because both read the same skill format: a folder with a `SKILL.md` file, reference files and scripts.
 
-<p><a class="button" href="/downloads/analysis.zip" download>Download analysis.zip</a> Version 1.2.9, 227 KB. It unzips to one folder named <code>analysis</code>.</p>
+<p><a class="button" href="/downloads/analysis.zip" download>Download analysis.zip</a> Version 1.2.10, 228 KB. It unzips to one folder named <code>analysis</code>.</p>
 
 ## What is in the zip
 
@@ -65,7 +65,7 @@ The skill finds any additional sources a technique needs by itself, after the pl
 
 ## What you get
 
-One answer, in this order: a summary of two to four paragraphs, the conclusions, insights where the analysis found something that goes against what the question or the material would lead a reader to expect, what was not covered, the strength of statement reached, what the answer is based on, and an offer of a follow-up round. Each conclusion has a title that states the finding, a confidence label and the reason for the label. The [answer step](/process/checks-and-answer/) explains the labels, and the [simulator](/simulator/) replays a stored run so you can see the form before you install anything.
+One answer, in this order: a summary of two to four paragraphs, the conclusions, insights where the analysis found something that goes against what the question or the material would lead a reader to expect, what was not covered, the strength of statement reached, what the answer is based on, and an offer of a follow-up round. The conclusions come in two groups: those that are well supported, and those with weaker support, each of which carries a sentence saying why. Each conclusion has a title that states the finding. The labels (high, medium and low) are recorded and shown if you ask for them. The [answer step](/process/checks-and-answer/) explains the form, and the [simulator](/simulator/) replays a stored run so you can see the form before you install anything.
 
 Where the application can create a document, the answer is delivered as a document you can keep, share and export. Otherwise it is given in the chat.
 

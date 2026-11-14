@@ -1,5 +1,5 @@
 {
- "version": "1.2.9",
+ "version": "1.2.10",
  "title": "ANLYSIS: metadata schema and process design for a catalogue of 236 analytical techniques",
  "conventions": {
   "language": "Australian English. Sentence case for headings, field labels and value names. No em dashes, en dashes or double hyphens.",
@@ -3791,7 +3791,7 @@
    }
   },
   "answer_form": {
-   "definition": "The answer has these parts in this order: summary, conclusions, insights (when step 7 wrote any), what was not covered, strength of statement reached, what the answer is based on, and the offer of a follow-up round. Each conclusion has a title that states the finding as a sentence, an explanation, a confidence label and a reason. The conclusions have no codes. A statement about what the process did not look at is not a conclusion and gets no label. An insight is a finding that goes against or beyond what the request or the material would lead a reader to expect. A recommendation is given only when the request asks for one.",
+   "definition": "The answer has these parts in this order: summary, conclusions, insights (when step 7 wrote any), what was not covered, strength of statement reached, what the answer is based on, and the offer of a follow-up round. Each conclusion has a title that states the finding as a sentence, an explanation, a confidence label and a reason, which are recorded. The answer shows the conclusions in two groups, well supported (label high) and weaker support (label medium or low), and shows the labels and reasons only when the user asks. A conclusion in the second group, and an insight whose label is medium or low, carries a caveat in plain words. The conclusions have no codes. A statement about what the process did not look at is not a conclusion and gets no label. An insight is a finding that goes against or beyond what the request or the material would lead a reader to expect. A recommendation is given only when the request asks for one.",
    "parts": [
     "summary",
     "conclusions",
@@ -3809,7 +3809,13 @@
     "type": "inference",
     "sources": [],
     "note": "Decided with the user on 15 November 2026 after reading the answer from the first run inside Claude."
-   }
+   },
+   "support_groups": {
+    "well_supported_text": "Two or more techniques that read the material in different ways agree on each of these conclusions, and the checks on them passed.",
+    "weaker_text": "The analysis supports these conclusions less well. After each one, a sentence says why.",
+    "limit_text": "All the techniques read the same material and used the same language model, which limits how far any conclusion can be trusted."
+   },
+   "confidence_levels_text_use": "Shown only when the user asks to see the labels."
   }
  },
  "interaction": {

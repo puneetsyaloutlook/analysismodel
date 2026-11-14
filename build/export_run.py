@@ -69,7 +69,7 @@ out = {
     "ck17": {"checked": len(spans), "failed": [{"file": k, "span": s} for k, s, ok in spans if not ok]},
     "synthesis": json.loads((run / "synthesis.json").read_text()),
     "answer": json.loads((run / "answer.json").read_text()),
-    "fixed": {k: json.loads((data / "schema.json").read_text())["synthesis"]["answer_form"][k] for k in ("confidence_levels_text", "insights_text")},
+    "fixed": {k: json.loads((data / "schema.json").read_text())["synthesis"]["answer_form"][k] for k in ("confidence_levels_text", "insights_text", "support_groups")},
     "spot": json.loads((run / "spot_check_result.json").read_text()),
     "repeat": json.loads((run / "repeat_compare_result.json").read_text()),
     "left_out": plan.get("left_out", {}),
