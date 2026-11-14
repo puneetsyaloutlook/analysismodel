@@ -253,13 +253,13 @@ def make_home():
 <p>The name is ANLYSIS in running text. ANLYSIS.work is the address of this site.</p>
 <p>The catalogue holds {len(rows)} techniques in {len(FAMILIES)} families. This site documents the process and the catalogue. It is generated from the design document, the schema and the catalogue file in the repository, so it changes only when those change.</p>
 <div class="cards">
-  <a class="card" href="/process/"><p class="card-title">Process</p><p>Eight steps, from intake to the answer.</p></a>
-  <a class="card" href="/catalogue/"><p class="card-title">Techniques</p><p>{len(rows)} techniques in {len(FAMILIES)} families, with a page for each.</p></a>
-  <a class="card" href="/reference/"><p class="card-title">Dictionary</p><p>The dictionary behind the technique pages: what each tag means, and which checks and relations the process uses.</p></a>
-  <a class="card" href="/simulator/"><p class="card-title">Simulator</p><p>Replay a stored run, step by step.</p></a>
-  <a class="card" href="/skill/"><p class="card-title">Skill</p><p>Download it and install it in Claude or GitHub Copilot.</p></a>
-  <a class="card" href="/status/"><p class="card-title">Status</p><p>What has been built and run, and what is untested.</p></a>
-  <a class="card" href="/project/"><p class="card-title">Project record</p><p>Decisions, test evidence and files.</p></a>
+  <a class="card" href="/process/"><p class="card-title">Process</p><p>How a request and some material become one answer, in eight steps from intake to the answer.</p></a>
+  <a class="card" href="/catalogue/"><p class="card-title">Techniques</p><p>The {len(rows)} analytical techniques the process chooses from, with when each fits and what it needs from your material.</p></a>
+  <a class="card" href="/reference/"><p class="card-title">Dictionary</p><p>What each tag on a technique page means, and the checks and relations the process uses.</p></a>
+  <a class="card" href="/simulator/"><p class="card-title">Simulator</p><p>Replay one stored run step by step, to see what the process does and the answer it gives.</p></a>
+  <a class="card" href="/skill/"><p class="card-title">Skill</p><p>The skill that runs the process. Download it and install it in Claude or GitHub Copilot.</p></a>
+  <a class="card" href="/status/"><p class="card-title">Status</p><p>What has been built and run so far, and what is still untested.</p></a>
+  <a class="card" href="/project/"><p class="card-title">Project record</p><p>Why the design is as it is: dated decisions, test evidence and the files.</p></a>
 </div>
 <p>What has been built and run, and what is untested, is on the <a href="/status/">status page</a>.</p>
 <h2>Catalogue at a glance</h2>
