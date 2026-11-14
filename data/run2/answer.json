@@ -40,7 +40,7 @@
  ],
  "basis": [
   "What the user gave: one source, text, 512 words.",
-  "Outside material used: none.",
+  "Additional sources used: none.",
   "Techniques that ran and what each worked on: DM-02 (brief and material), PE-02 (brief and material), CM1-05, HE1-13, HE1-14, HE1-15, MM-10, TC1-13 (brief and material, each run separately), CK-17 by code, TC1-16 and TC1-17 (the findings).",
   "Techniques dropped: none. Files that could not be read: none.",
   "Checks done by the process: source-span citation by code (CK-17: 146 quoted spans, 6 failed, all labels, terms or one paraphrase in quotation marks, not source quotes); a spot check by code of quote and participant pairings (55 pairs across 10 results, 0 mismatches; HE1-14, HE1-15, MM-10 and TC1-13 had 0 to 3 pairs each); repeat runs of HE1-15 (same quotes coded in 4 of 4 compared categories) and MM-10 (28 of 30 stance labels the same on the three targets matching H1 to H3; Q7 on H1 and Q10 on H2 differed); the assumption and limitation statement and the alternative explanations check.",

@@ -149,15 +149,15 @@
         });
       });
       b.push({ role: 'work', html: '<p>ANLYSIS put the ' + Math.min(10, j.picks.length) + ' chosen techniques in four groups, in the order they will run.</p>' });
-      b.push({ role: 'work', html: '<div class="table-wrap"><table class="plan"><thead><tr><th>Technique</th><th>What it does</th><th>Needs outside material</th></tr></thead><tbody>' + rows + '</tbody></table></div>', tally: ['t-run', total] });
-      b.push({ role: 'work', html: need.length ? '<p>' + need.map(function (x) { return esc(x.name); }).join(' and ') + ' needs extra material to run. In step 5 ANLYSIS looks for it in your content first. Only if it is missing does ANLYSIS look elsewhere, and it asks you before using anything it finds.</p>' : '<p>No technique needs material from outside your content.</p>' });
+      b.push({ role: 'work', html: '<div class="table-wrap"><table class="plan"><thead><tr><th>Technique</th><th>What it does</th><th>Needs an additional source</th></tr></thead><tbody>' + rows + '</tbody></table></div>', tally: ['t-run', total] });
+      b.push({ role: 'work', html: need.length ? '<p>' + need.map(function (x) { return esc(x.name); }).join(' and ') + (need.length > 1 ? ' need an additional source each' : ' needs an additional source') + ' to run. In step 5 ANLYSIS looks in your material first. Only if the item is missing does ANLYSIS look elsewhere, and the answer lists every source it used.</p>' : '<p>No technique needs an additional source.</p>' });
     } else if (i === 4) {
       b.push({ role: 'work', html: '<p>ANLYSIS ran each technique separately on your question and content. Open a technique below to read its result.</p>' });
       b.push({ role: 'work', html: sub('5.1 Examine the question', S.frame.length) });
       S.frame.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your question') }); });
       b.push({ role: 'input', confirm: true, html: '<div class="confirm"><h3>Do you want to change your question?</h3><p>The technique above examined your question. Open 5.1 above to read what it found, then choose. ANLYSIS continues when you answer.</p><p class="req">' + esc(j.request) + '</p><div class="form-actions"><button type="button" class="btn primary" data-keep>Keep my question</button><button type="button" class="btn" disabled title="Not available in this replay">Edit my question</button></div></div>' });
       b.push({ role: 'work', html: sub('5.2 Prepare the material', S.prepare.length) });
-      b.push({ role: 'work', html: '<div class="seq"><p class="seq-h"><strong>Outside material</strong></p><p>' + (j.outside.length ? esc(JSON.stringify(j.outside)) : 'None of the techniques in this plan needs material from outside your content, so nothing was gathered and nothing needed your approval.') + '</p></div>' });
+      b.push({ role: 'work', html: '<div class="seq"><p class="seq-h"><strong>Additional sources</strong></p><p>' + (j.additional.length ? esc(JSON.stringify(j.additional)) : 'None of the techniques in this plan needs an additional source, so nothing was gathered.') + '</p></div>' });
       S.prepare.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your content') }); });
       b.push({ role: 'work', html: sub('5.3 Analyse the material', S.analyse.length) });
       S.analyse.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your content') }); });

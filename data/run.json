@@ -116,7 +116,7 @@
  ],
  "gaps": "With eight interviews from one source these techniques support an associational statement only and cannot show how common a view is in the wider population or that voice AI causes any outcome. Interviewee selection, interviewer prompting and the unknown data condition are not tested, and the hypothesis wording is not checked for ambiguity.",
  "held": [],
- "outside": [],
+ "additional": [],
  "stages": {
   "frame": [
    {
@@ -508,7 +508,7 @@
   ],
   "basis": [
    "What the user gave: one source, text, 512 words.",
-   "Outside material used: none.",
+   "Additional sources used: none.",
    "Techniques that ran and what each worked on: DM-02 (brief and material), PE-02 (brief and material), CM1-05, HE1-13, HE1-14, HE1-15, MM-10, TC1-13 (brief and material, each run separately), CK-17 by code, TC1-16 and TC1-17 (the findings).",
    "Techniques dropped: none. Files that could not be read: none.",
    "Checks done by the process: source-span citation by code (CK-17: 146 quoted spans, 6 failed, all labels, terms or one paraphrase in quotation marks, not source quotes); a spot check by code of quote and participant pairings (55 pairs across 10 results, 0 mismatches; HE1-14, HE1-15, MM-10 and TC1-13 had 0 to 3 pairs each); repeat runs of HE1-15 (same quotes coded in 4 of 4 compared categories) and MM-10 (28 of 30 stance labels the same on the three targets matching H1 to H3; Q7 on H1 and Q10 on H2 differed); the assumption and limitation statement and the alternative explanations check.",
@@ -601,16 +601,16 @@
   ]
  },
  "specs": {
-  "HE1-15": "The result is a category structure or a table of category frequencies, with one row per category and a count or interpretation of how often the category is used. It reports agreement between coders where more than one coder was used.",
   "CK-17": "The result is a pass or fail list with one row per extracted statement, giving the statement, the exact passage it points to, whether that passage exists by string match and whether the passage supports the claim. It ends with the list of statements that failed.",
-  "TC1-16": "The result names the claim under test, lists the evidence that would contradict it, and records for each item whether it was found or not found. It states the search used for each item and ends with what the findings mean for the claim.",
-  "HE1-13": "The result is a set of themes, each with a name, a description of the pattern of meaning it captures, and data extracts that support it. It ends with a written account that interprets the themes across the data.",
-  "TC1-17": "The result is a table with one row per changed assumption or inclusion rule and the result obtained under each, alongside the original result. It ends by stating whether the conclusion reverses under any row.",
-  "HE1-14": "The result is a matrix with one row per case and one column per theme, each cell holding a short summary of the coded data for that case and theme. It notes the empty cells and states what reading across the rows and down the columns shows.",
-  "DM-02": "The result is a tree in which the main claim is split into the sub-claims that must all be true for it to be true, down to leaf claims. It lists the leaf claims for which no evidence is possible.",
-  "PE-02": "The result has the cleaned text or document-term matrix, a log listing every cleaning rule applied, and a sensitivity table showing the main result under each cleaning regime. It ends by stating whether the themes or rankings changed across regimes.",
   "CM1-05": "The result is a matrix with one row per case and one column per question asked of every case, each cell holding that case's answer. It names the patterns that are consistent across cases and the deviant cases.",
+  "HE1-13": "The result is a set of themes, each with a name, a description of the pattern of meaning it captures, and data extracts that support it. It ends with a written account that interprets the themes across the data.",
+  "HE1-14": "The result is a matrix with one row per case and one column per theme, each cell holding a short summary of the coded data for that case and theme. It notes the empty cells and states what reading across the rows and down the columns shows.",
+  "TC1-17": "The result is a table with one row per changed assumption or inclusion rule and the result obtained under each, alongside the original result. It ends by stating whether the conclusion reverses under any row.",
   "MM-10": "The result is a table with one row per text and target, giving the stance label of favour, oppose, neutral or none. It reports stance by source and over time, and the share of none labels.",
-  "TC1-13": "The result lists the hypotheses and gives a matrix of evidence items against hypotheses with a consistency rating in each cell. It names the evidence items that discriminate between hypotheses and the hypothesis with the fewest inconsistencies."
+  "TC1-16": "The result names the claim under test, lists the evidence that would contradict it, and records for each item whether it was found or not found. It states the search used for each item and ends with what the findings mean for the claim.",
+  "HE1-15": "The result is a category structure or a table of category frequencies, with one row per category and a count or interpretation of how often the category is used. It reports agreement between coders where more than one coder was used.",
+  "DM-02": "The result is a tree in which the main claim is split into the sub-claims that must all be true for it to be true, down to leaf claims. It lists the leaf claims for which no evidence is possible.",
+  "TC1-13": "The result lists the hypotheses and gives a matrix of evidence items against hypotheses with a consistency rating in each cell. It names the evidence items that discriminate between hypotheses and the hypothesis with the fewest inconsistencies.",
+  "PE-02": "The result has the cleaned text or document-term matrix, a log listing every cleaning rule applied, and a sensitivity table showing the main result under each cleaning regime. It ends by stating whether the themes or rankings changed across regimes."
  }
 }
