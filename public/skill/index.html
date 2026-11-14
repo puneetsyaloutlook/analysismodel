@@ -39,7 +39,7 @@
 <h2 id="what-you-need">What you need</h2>
 <ul>
 <li>Python 3 and a way for the model to run code. In Claude this is the code execution setting. In Copilot it is terminal access.</li>
-<li><code>pdftotext</code> (part of the poppler tools) if your material includes PDF files. The skill reads other file types without it.</li>
+<li>Extra tools for some file types. PDF files need <code>pdftotext</code> (from the poppler tools). HTML, Word and Excel files need the Python packages <code>beautifulsoup4</code>, <code>python-docx</code> and <code>openpyxl</code>. Text, Markdown, CSV and TSV files need nothing extra. Claude's code execution environment normally has these already. On your own computer, install any that are missing.</li>
 <li>A request and some material: documents, interview transcripts, a data file, pasted article text or a link to an article.</li>
 <li>Time and usage allowance. A run starts many separate model calls, one for each technique and each check. One run inside Claude on an article, under an earlier version, used about 1.4 million input tokens in the main conversation and about 570,000 more across five separate agents. If a call stops, for example because you reached a usage limit, that technique is dropped and the answer says so (decision 42).</li>
 </ul>
