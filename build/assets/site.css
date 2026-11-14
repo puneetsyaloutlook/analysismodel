@@ -273,3 +273,4 @@ details.acc.tech>summary .tname{font-weight:600}
 .nav-group{margin-bottom:.4rem}.nav-label{margin:1rem 0 .25rem;padding:0 .5rem;font:600 .72rem var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}.side a.on{color:var(--ink);font-weight:600}.side .sub{margin:.1rem 0 .5rem .6rem;border-left:1px solid var(--line)}
 .brand img{display:block;height:1.8rem;width:auto}
 .sim-note{padding:.4rem 1rem;margin:.75rem 0}.sim-note summary{cursor:pointer;font-weight:600;color:var(--teal-700);padding:.2rem 0}.sim-note summary:hover{color:var(--teal-900)}.sim-note details[open] summary{margin-bottom:.5rem}
+.sim-controls[hidden]{display:none}
