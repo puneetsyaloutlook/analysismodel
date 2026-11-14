@@ -33,7 +33,7 @@
   function reset() {
     token = (token || 0) + 1; running = false; done = -1; current = -1; cache = {};
     job = DATA.filter(function (d) { return d.id === $('sim-job').value; })[0];
-    $('sim-note').innerHTML = NOTES.real;
+    $('sim-note').innerHTML = '<details><summary>About this run and how to use the simulator</summary>' + NOTES.real + '</details>';
     steps.forEach(function (_, i) { mark(i, 'wait'); });
     bar.style.width = '0';
     submitted = false; title.textContent = '1. Intake';
