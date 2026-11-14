@@ -248,6 +248,8 @@ def demote(text):
 
 def make_home():
     counts = {f: len(v) for f, v in FAMILIES.items()}
+    step_page = {1: "/process/intake/", 2: "/process/choosing-techniques/", 3: "/process/choosing-techniques/", 4: "/process/planning-the-sequence/", 5: "/process/running-the-techniques/", 6: "/process/checks-and-answer/", 7: "/process/checks-and-answer/", 8: "/process/checks-and-answer/"}
+    process_rows = "".join(f'<tr><td><a href="{step_page[int(st["number"])]}">{esc(str(st["number"]))}. {esc(st["name"])}</a></td><td>{esc(st["does"])}</td></tr>' for st in schema["steps"])
     body = f"""
 <p class="lede">ANLYSIS is a catalogue of analytical techniques and a process for choosing and running them. It takes a request and some material, chooses the analytical techniques that can run on that material, runs them in order, checks their findings and combines them into one answer with a confidence label for each conclusion.</p>
 <p>The name is ANLYSIS in running text. ANLYSIS.work is the address of this site.</p>
@@ -261,11 +263,17 @@ def make_home():
   <a class="card" href="/status/"><p class="card-title">Status</p><p>What has been built and run so far, and what is still untested.</p></a>
   <a class="card" href="/project/"><p class="card-title">Project record</p><p>Why the design is as it is: dated decisions, test evidence and the files.</p></a>
 </div>
+<h2>Process at a glance</h2>
+<p>The process turns a request and some material into one answer. The user is asked only at the decision points. Each step links to the page that explains it.</p>
+<table><thead><tr><th>Step</th><th>What happens</th></tr></thead><tbody>
+{process_rows}
+</tbody></table>
+<h2>Techniques at a glance</h2>
+<p>The {len(rows)} techniques are in {len(FAMILIES)} families. A family groups techniques by what they do for a request. The <a href="/catalogue/">techniques page</a> explains how to read a technique and lists them all.</p>
+<table><thead><tr><th>Family</th><th>Techniques</th><th>What the family is for</th></tr></thead><tbody>
+{''.join(f'<tr><td><a href="/catalogue/{FAM_SLUG[f]}/">{esc(f)}</a></td><td>{counts[f]}</td><td>{esc(FAMILY_INTROS[f]["short"])}</td></tr>' for f in FAMILY_ORDER)}
+<tr><td><strong>Total</strong></td><td><strong>{len(rows)}</strong></td><td></td></tr></tbody></table>
 <p>What has been built and run, and what is untested, is on the <a href="/status/">status page</a>.</p>
-<h2>Catalogue at a glance</h2>
-<table><thead><tr><th>Family</th><th>Techniques</th></tr></thead><tbody>
-{''.join(f'<tr><td><a href="/catalogue/{FAM_SLUG[f]}/">{esc(f)}</a></td><td>{counts[f]}</td></tr>' for f in FAMILY_ORDER)}
-<tr><td><strong>Total</strong></td><td><strong>{len(rows)}</strong></td></tr></tbody></table>
 """
     add_page("/", "ANLYSIS", "Overview", body, "Documentation of ANLYSIS: a catalogue of analytical techniques and a process for choosing and running them.")
 
