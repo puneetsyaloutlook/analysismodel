@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About the reference | ANLYSIS</title>
+<meta name="description" content="What the reference pages are for, with a worked example, and which page answers which question.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <button class="menu-btn" aria-expanded="false" aria-controls="sidebar">Menu</button>
+  <a class="brand" href="/">ANLYSIS</a>
+  <div class="search" role="search">
+    <label for="q" class="sr">Search the documentation</label>
+    <input id="q" type="search" autocomplete="off" placeholder="Search pages and techniques" aria-controls="results">
+    <ul id="results" hidden></ul>
+  </div>
+</header>
+<div class="shell">
+  <aside id="sidebar" class="side"><nav aria-label="Documentation"><ul class="nav-top"><li><a href="/">Overview</a></li><li><a href="/simulator/">Simulator</a></li></ul><details><summary>Process</summary><ul><li><a href="/process/">The process</a></li><li><a href="/process/intake/">1. Intake</a></li><li><a href="/process/choosing-techniques/">2 and 3. Rule out and choose</a></li><li><a href="/process/planning-the-sequence/">4. Plan analysis sequence</a></li><li><a href="/process/running-the-techniques/">5. Run the techniques</a></li><li><a href="/process/checks-and-answer/">6 to 8. Check, combine and answer</a></li></ul></details><details><summary>Skill</summary><ul><li><a href="/skill/">Use the skill</a></li></ul></details><details><summary>Catalogue</summary><ul><li><a href="/catalogue/">All techniques</a></li><li><a href="/catalogue/frame-the-question/">Frame the question (6)</a></li><li><a href="/catalogue/decompose-and-map/">Decompose and map (21)</a></li><li><a href="/catalogue/compare/">Compare (17)</a></li><li><a href="/catalogue/trace-cause-and-test-claims/">Trace cause and test claims (34)</a></li><li><a href="/catalogue/handle-evidence/">Handle evidence (29)</a></li><li><a href="/catalogue/project-forward/">Project forward (25)</a></li><li><a href="/catalogue/assess-actors-options-and-risks/">Assess actors, options and risks (19)</a></li><li><a href="/catalogue/challenge/">Challenge (15)</a></li><li><a href="/catalogue/prepare-and-extract/">Prepare and extract (14)</a></li><li><a href="/catalogue/measure-and-model/">Measure and model (16)</a></li><li><a href="/catalogue/integrate-across-sources/">Integrate across sources (11)</a></li><li><a href="/catalogue/check-extracted-results/">Check extracted results (29)</a></li></ul></details><details open><summary>Reference</summary><ul><li><a href="/reference/" aria-current="page">About the reference</a></li><li><a href="/reference/fields/">Fields</a></li><li><a href="/reference/artefact-types/">Working document types</a></li><li><a href="/reference/checks/">Check library</a></li><li><a href="/reference/phases-and-tiers/">Steps, kinds, stakes and relations</a></li></ul></details><details><summary>Project record</summary><ul><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/open-items/">Open items</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></details></nav></aside>
+  <main id="main" class="content">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Overview</a></li><li aria-current="page">About the reference</li></ol></nav>
+    <h1>About the reference</h1>
+    <div class="prose"><p>The reference section is the dictionary behind the catalogue. Every technique page shows a set of tags, such as "Level of detail available: requires record-level", and the process reads those tags to rule techniques out, choose and order them, and decide which checks to run. The four reference pages define each tag, each allowed value, each type of working document, each check and each relation between techniques.</p>
+<p>You do not need the reference pages to run the skill or to read the process pages. You need them in three situations:</p>
+<ul>
+<li>You are reading a technique page and want to know exactly what a tag means.</li>
+<li>You want to know why the process removed a technique for your material, or why it kept one.</li>
+<li>You are changing the catalogue or the rules and need to know which field to edit.</li>
+</ul>
+<h2 id="a-worked-example">A worked example</h2>
+<p>Open the page for HE-06, the opt-in panel respondent quality check. Under "Requirements on the material" it shows <strong>Level of detail available</strong>, with the requirement type <strong>Always applies</strong> and the requirement <strong>requires=record-level</strong>.</p>
+<ol>
+<li>The <a href="/reference/fields/">Fields</a> page defines "Level of detail available" as the deepest level of detail the material gives access to. The values run from narrative only, through aggregate tables, to record-level, and a requirement means that level or deeper.</li>
+<li>The same page says what "Always applies" means in the table of requirement types: the technique is removed in step 2 when the material fails the requirement. Level of detail is never waived.</li>
+<li>So if you give the skill only a summary table of survey results, step 2 removes HE-06, because the technique has to read the answer of each respondent. If you give it the respondent-level file, HE-06 stays eligible.</li>
+</ol>
+<p>Another tag on the same page, "Strongest statement: describe", is defined on the Fields page as the strongest claim the technique can support. That field never removes a technique. It only raises a warning when none of the chosen techniques reaches the strength of statement you need.</p>
+<h2 id="what-each-page-answers">What each page answers</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Page</th>
+<th>It answers</th>
+<th>Read it when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/reference/fields/">Fields</a></td>
+<td>What does each of the 52 tags on a technique page mean, what values can it take, and what does it do in the process: remove a technique, change the order, raise a warning, or nothing?</td>
+<td>A technique page uses a tag you do not recognise, or you want to know why a technique was removed.</td>
+</tr>
+<tr>
+<td><a href="/reference/artefact-types/">Working document types</a></td>
+<td>What are the 21 kinds of document that techniques read and make (a coded corpus, a claims register, a validation report and so on), and what states can each be in?</td>
+<td>You want to know why a preparation technique was added to the plan, or what a technique needs before it can run.</td>
+</tr>
+<tr>
+<td><a href="/reference/checks/">Check library</a></td>
+<td>What are the 18 checks, what does each test, and does it need a person?</td>
+<td>You want to know what the process did to check a result, or which checks are left out below high stakes.</td>
+</tr>
+<tr>
+<td><a href="/reference/phases-and-tiers/">Steps, kinds, stakes and relations</a></td>
+<td>What are the eight steps, the five kinds of technique, the three stakes levels and the seven relations between techniques?</td>
+<td>You want the short definitions in one place, or you want to know how two techniques relate (one substitutes for another, or must run after it).</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="how-the-field-groups-connect-to-the-steps">How the field groups connect to the steps</h2>
+<p>The Fields page groups the 52 fields by what they do in the process.</p>
+<ul>
+<li><strong>Identity fields</strong> name and describe the technique. They are what the model reads when it chooses techniques in step 3.</li>
+<li><strong>Input profile fields</strong> state what the material must look like. Step 2 tests them against the description of your material and removes techniques that fail.</li>
+<li><strong>Selection fields</strong> say what the technique is for, such as the kind of finding it produces and the strongest statement it supports. Step 3 uses them to order and choose.</li>
+<li><strong>Sequencing fields</strong> say what a technique needs as input and makes as output. Step 4 uses them to place techniques in order and to add preparation techniques. The working document types page defines the documents these fields name.</li>
+<li><strong>Robustness fields</strong> say how reliable a technique is and which checks it needs at each stakes level. Step 6 uses them, together with the check library.</li>
+<li><strong>Application fields</strong> hold the result format that tells the model what a technique's result must contain.</li>
+</ul>
+<h2 id="names-in-the-schema-and-names-on-the-site">Names in the schema and names on the site</h2>
+<p>The schema keeps its original field names, and some differ from the plain names used on this site, for example "hard gate" in the schema and "Always applies" here. Each page shows both, and the table of names is in section 8 of the design, on the <a href="/catalogue/">catalogue page</a>.</p></div>
+    <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/catalogue/check-extracted-results/"><span>Previous</span>Check extracted results (29)</a><a class="next" href="/reference/fields/"><span>Next</span>Fields</a></nav>
+  </main>
+  <aside class="rail"><nav class="toc" aria-label="On this page"><h2>On this page</h2><ul><li class="l2"><a href="#a-worked-example">A worked example</a></li><li class="l2"><a href="#what-each-page-answers">What each page answers</a></li><li class="l2"><a href="#how-the-field-groups-connect-to-the-steps">How the field groups connect to the steps</a></li><li class="l2"><a href="#names-in-the-schema-and-names-on-the-site">Names in the schema and names on the site</a></li></ul></nav></aside>
+</div>
+<script src="/assets/site.js" defer></script>
+
+</body>
+</html>
