@@ -155,14 +155,12 @@ def make_simulator():
     body = f"""
 <p class="lede">Watch ANLYSIS take a question and some material through the eight steps. Each section shows one step, in order: what you entered, what ANLYSIS did, and the report at the end.</p>
 <div class="sim-note" id="sim-note"></div>
-<div class="sim-controls">
-  <label for="sim-job">Brief</label>
-  <select id="sim-job">{opts}</select>
-  <button type="button" id="sim-run" class="btn">Run to end</button>
+<div class="sim-controls" id="sim-controls" hidden>
+  <input type="hidden" id="sim-job" value="{esc(data[0]["id"])}">
+  <input type="hidden" id="sim-speed" value="1">
   <button type="button" id="sim-step" class="btn">Next step</button>
-  <button type="button" id="sim-reset" class="btn">Reset</button>
-  <label for="sim-speed">Speed</label>
-  <select id="sim-speed"><option value="1">Normal</option><option value="0.4">Fast</option><option value="2.2">Slow</option></select>
+  <button type="button" id="sim-run" class="btn">Run to end</button>
+  <button type="button" id="sim-reset" class="btn">Start again</button>
 </div>
 <div class="tally" aria-label="Running totals">
   <div><span class="n" id="t-cat">{len(rows)}</span><span class="k">techniques ANLYSIS knows</span></div>

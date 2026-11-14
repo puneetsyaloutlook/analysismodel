@@ -40,6 +40,7 @@
     out.innerHTML = ''; out.appendChild(intakeForm(job));
     resetTally(); setTally('t-cat', job.total);
     $('sim-run').disabled = true; $('sim-step').disabled = true;
+    $('sim-controls').hidden = true; $('sim-step').hidden = false; $('sim-run').hidden = false;
   }
 
   // Each step builds an array of "blocks": {html, pause}. Blocks appear one at a time inside a wrapper.
@@ -122,6 +123,8 @@
     Array.prototype.forEach.call(f.querySelectorAll('input:not(#sim-stepwise), textarea'), function (i) { i.disabled = true; });
     f.classList.add('locked'); $('sim-submit').disabled = true; $('sim-submit').textContent = 'Submitted'; $('sim-stepwise').disabled = true;
     focusApp();
+    $('sim-controls').hidden = false;
+    if (!stepwise) { $('sim-step').hidden = true; $('sim-run').hidden = true; }
     if (stepwise) { stepOnce().then(function () { setBusy(false); }); } else { runAll(); }
   }
 
