@@ -1,0 +1,50 @@
+{
+ "Frame the question": {
+  "short": "Turn a vague topic into a clear question, before any analysis starts.",
+  "long": "These techniques work on your request, not on your material. They split a vague topic into named parts, start from the decision to be made, replace ambiguous terms with working definitions, or read the topic through several models. They run first, in step 5.1, and show you what they found so that you can keep or edit the request."
+ },
+ "Decompose and map": {
+  "short": "Break a topic into parts and show how the parts relate.",
+  "long": "These techniques give a topic structure: an issue tree whose branches do not overlap, a tree of the sub-claims that must all be true, a taxonomy, a value chain, or an affinity diagram that groups many comments or quotes into clusters. Use them when the material is large or loosely organised and you need a structure before you can judge anything."
+ },
+ "Compare": {
+  "short": "Set cases, periods or groups side by side to see what differs.",
+  "long": "These techniques compare a present topic with a past case, or compare cases with each other, to find what differs between those that share an outcome and those that do not. They include historical analogy, Mill's methods of agreement and difference, comparative case studies and the selection of cases to compare."
+ },
+ "Trace cause and test claims": {
+  "short": "Look for causes, and test whether a claim holds.",
+  "long": "This is the largest family. It holds techniques for finding the cause of a problem (five whys, fishbone diagrams, fault trees), for testing rival explanations against evidence (process tracing, counterfactual analysis) and for estimating the effect of a change (difference-in-differences). The techniques support different strengths of statement, and the Dictionary explains how each technique's strongest statement is recorded."
+ },
+ "Handle evidence": {
+  "short": "Judge how far to trust sources, and prepare them for use.",
+  "long": "These techniques grade the reliability of a source and the credibility of its information, check a source against criteria such as currency, authority and purpose, read what other sources say about a publisher, and compare independent lines of evidence. Use them when sources vary in quality and the answer has to say how far each can be trusted."
+ },
+ "Project forward": {
+  "short": "Estimate what may happen next.",
+  "long": "These techniques produce forecasts and ranges: extending a measured trend, using the outcomes of similar past cases as a base rate, collecting anonymous expert estimates over several rounds (Delphi), reading a prediction market price as a probability, and eliciting structured expert estimates. Each states the form of projection it gives."
+ },
+ "Assess actors, options and risks": {
+  "short": "Work out who is affected, what the choices are and what could go wrong.",
+  "long": "These techniques identify the people and groups who affect or are affected by a topic and rank them by interest, influence or urgency, explain why a problem persists through institutions and incentives, map a customer's journey, and describe user groups as personas. The family also covers options and risks."
+ },
+ "Challenge": {
+  "short": "Test a conclusion by arguing against it.",
+  "long": "These techniques look for what is wrong with a line of reasoning: listing and testing its assumptions, building the strongest case against it, having two teams argue competing views, modelling how an adversary would decide, or working out pathways to an unlikely but serious event. They examine the findings and never the request, because only you change the request."
+ },
+ "Prepare and extract": {
+  "short": "Get the material ready, so that counts and themes describe what you think they do.",
+  "long": "These techniques decide which documents enter the analysis, clean text and test whether the cleaning choices change the result, find duplicates so that repeats are not counted as separate evidence, profile data for gaps and errors, treat missing data, and list each use of a keyword in its context. Most run in step 5.2, before the analysis."
+ },
+ "Measure and model": {
+  "short": "Analyse records with statistics and models.",
+  "long": "These techniques work on tables of records: exploratory plots and summaries, detection of outliers, clustering, reduction of many correlated fields to a few, survival and duration analysis, and survey weighting. They need record-level data, so step 2 removes them when you only have summary tables or narrative text."
+ },
+ "Integrate across sources": {
+  "short": "Combine sources that overlap or disagree.",
+  "long": "These techniques decide which records refer to the same entity, match fields and concepts across sources, convert sources to one shared structure, resolve conflicting values, estimate the true value and each source's reliability from conflicting claims, and detect sources that copy from each other, so that their agreement is not counted as independent support."
+ },
+ "Check extracted results": {
+  "short": "Check results that came from coding or extraction, including model output.",
+  "long": "These techniques measure how far coders, human or model, agree, score a model against a human coder, put a confidence interval around an agreement figure, build a human-coded sample as a standard, test on held-out items and correct bias in model labels using a human-coded subsample. They are how the process tests its own coding and labelling."
+ }
+}
