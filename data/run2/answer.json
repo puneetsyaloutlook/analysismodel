@@ -1,50 +1,137 @@
 {
- "lead": "The eight interviews do not support H1, H2 or H3 as worded. H1 cannot be tested because no quote compares the AI with traditional voice automation, and the reactions to the AI are mixed. For H2 and H3, no quote supports either hypothesis, and two participants say they would hang up or ask for a human, but those statements are hypothetical, partly hedged and not tied to learning that it is an AI or to a stated time. These are patterns within this sample only, and only six of the eight participants are quoted.",
+ "summary": [
+  "The eight interviews do not support the three hypotheses as a set. The quoted evidence leans towards a favourable view of the voice AI for the first hypothesis, that customers find voice AI more satisfying than traditional voice automation, and against the third, that customers do not immediately ask for a human agent. None of the three is shown in the form it was written.",
+  "The first hypothesis is supported in direction only. Three participants speak well of the voice AI and a fourth comes round to it, while two object. No quote compares the voice AI with traditional voice automation, because the comparisons are with website chat bots, a robot voice and having to repeat yourself. The second hypothesis, that customers do not hang up immediately on learning they are speaking with an AI, has no affirming statement, and neither does the third. Two participants say they would have hung up, and two say they would ask for a human. If any early exit or request counts, the second and third hypotheses are contradicted. If the cause must be learning that it is an AI, or if hypothetical statements are excluded, both are untested.",
+  "Ten techniques reached the same direction, and 21 changes to the inclusion rules did not reverse it. The quotation and spot checks passed, and no person reviewed the results. The techniques read the same material with the same model, so their agreement is not independent evidence. The main limit is the material: ten selected quotes from six of eight participants, an unknown basis for choosing them, and only hypothetical statements about hanging up and asking for a human.",
+  "The analysis leaves open whether the voice AI itself drives the reactions, how common they are, and how the voice AI compares with traditional voice automation."
+ ],
  "conclusions": [
   {
    "id": "C1",
-   "text": "H1 (customers find voice AI more satisfying than traditional voice automation) cannot be tested as worded. No quote compares the AI with traditional voice automation by name, and no quote rates satisfaction. Q1 compares it with chat bots, Q3 refers only to having to \"repeat yourself\", and Q2 gives one indirect voice comparison: \"sometimes when you are talking to a more of a robot, it sounds more like a robot voice\".",
-   "label": "medium",
-   "reason": "Nine techniques agree and TC1-16 agrees in part, because it finds Q2 is one indirect voice comparison and that HE1-13, HE1-14 and HE1-15 overstate the gap when they say no quote compares at all. The repeat run of MM-10 disagreed on this target: Q7 on H1 was none in the original and oppose in the repeat, so the check for this conclusion is limited. The CK-17 spans that failed were labels, terms or one paraphrase, not source quotes, and the spot check found no mismatches. No person reviewed the results."
+   "title": "The quotes do not show support for the three hypotheses as a set.",
+   "text": "The first hypothesis has a favourable direction from three participants but is not tested as a comparison. The second and third hypotheses receive no affirming statement, and each is contradicted only by the hypothetical statements of two participants. When 21 changes to the inclusion rules were tried, none produced support for the first hypothesis as a comparison, for the second or for the third.",
+   "label": "high",
+   "reason": "All ten techniques agree on the direction. The techniques read the quotes in different ways: the case matrix, hypothesis tree and framework matrix lay the quotes out by participant, the content analysis, stance detection and word-cue count tally them, the thematic analysis reads them for meaning, the competing hypotheses matrix rates them against rival explanations, and the disconfirmation search looked for statements that would overturn the reading and found none. The sensitivity test found no reversal in 21 changed rows. The quotation and spot checks passed."
   },
   {
    "id": "C2",
-   "text": "Reactions to the AI are mixed among the six quoted participants. P1 (Q1), P2 (Q2) and P3 (Q3) speak well of it, and P4 (Q5) ends at \"a really good process\" after first wanting to speak to someone. P10 (Q4, Q8), P1 (Q6) and P5 (Q7) are unfavourable. The balance runs from a tie of three against three to four against one, depending on how P1 and P4 are coded and whether complaints tied to one context count.",
+   "title": "No quote compares the voice AI with traditional voice automation, so the first hypothesis as worded is untested.",
+   "text": "The comparators named are website chat bots (P1), a robot voice (P2) and having to repeat yourself (P3). Only P2's remark that a robot \"sounds more like a robot voice\" refers to a voice system, and it is an indirect comparison. Satisfaction relative to traditional voice automation therefore cannot be read from these quotes.",
    "label": "high",
-   "reason": "All ten techniques find favourable and unfavourable quotes. PE-02 finds four quotes with a positive cue and four with a negative cue under all six cleaning regimes, and TC1-17 finds that no change to the inclusion rules removes either side, although the balance moves. The repeat of MM-10 did not label general stance, so its Q7 difference on H1 does not test this conclusion. The checks passed, and no person reviewed the results."
+   "reason": "Nine techniques agree, and the disconfirmation search partly agrees: it found that P2's remark is one indirect voice comparison, so the wording here says no direct comparison and not no comparison at all. The techniques read the quotes in different ways (tabulation by participant, word-cue counting, stance labels, a search for disconfirming statements, and a re-run with a stricter rule for the comparator). The checks passed. The stance detection repeat run gave the same label on 28 of 30 targets, and the two differences (Q7 on the first hypothesis, Q10 on the second) do not change which comparators were named."
   },
   {
    "id": "C3",
-   "text": "The reasons participants give for unfavourable reactions are several specific features, not one cause. They are the voice and accent (Q4, Q7), the length of the introduction (Q8), a stressful setting (Q7) and earlier experience with AI agents (Q6). Learning that it is an AI is not ruled out: P5 names \"AI in its current state\" in Q7 and P10 says \"this sounds very much like an AI voice\" in Q4. The link from Q7 to the motor claim scenario is inferred, not recorded.",
+   "title": "Quoted participants are split on the voice AI, with three favourable and three unfavourable at least once.",
+   "text": "P1, P2 and P3 speak well of it, and P4 reaches approval after initial reluctance. P5 and P10 object, and P1 also records annoyance in a second quote. Depending on how P1, P4 and the context-specific complaints are coded, the split is a tie or four favourable against two unfavourable.",
    "label": "medium",
-   "reason": "Most techniques name the same drivers. PE-02, HE1-15 and MM-10 only raise context as an alternative explanation and cannot test a cause, and TC1-17 notes that its combined rows cannot isolate one. TC1-16 finds that Q4 and Q6 do not fit a single context explanation, that Q7 names the AI, and that the scenario link is an inference, and this limits the label. These are stated reasons, not tested causes."
+   "reason": "Eight techniques agree on the split, using different readings (participant matrix, tree of sub-claims, themes, stance labels, content codes and a rival-hypotheses rating). The word-cue count only partly agrees because its lexicon wrongly counted the word robot in Q2 as negative. The sensitivity test shows the exact balance changes with the coding. In the stance detection repeat run, the label for Q7 on the first hypothesis differed on one of two runs, and Q7 is one of the unfavourable quotes. The label is medium for these reasons, although the checks passed."
   },
   {
    "id": "C4",
-   "text": "H2 (customers do not hang up immediately when they learn they are speaking with an AI) is untested on a strict reading, and no quote supports it. P10 says \"I would've definitely have hung up at the intro.\" (Q8) and gives the length of the introduction as the reason. P5 would probably have hung up only after not getting a human (Q10). On a loose reading these two participants run against H2, but neither links the hang-up to learning that it is an AI, and the material does not say where the AI is disclosed. No quote says a participant would stay on the line. P4 in Q5 ends at a good process, which is about the process and not about hanging up.",
+   "title": "The second hypothesis is untested as worded: no quote links a hang-up to learning that it is an AI.",
+   "text": "P10 says \"I would've definitely have hung up at the intro\" and gives the reason as \"way too long\". P5 would probably have hung up only if no human was provided. No quote says a participant would stay on the line, and P4's move from reluctance to approval is at most weak support. The material does not say where the AI is disclosed.",
    "label": "medium",
-   "reason": "The techniques split. DM-02, HE1-13, HE1-15, TC1-16 and TC1-17 find H2 untested or the verdict dependent on definitions, while PE-02, CM1-05 and HE1-14 report it as contradicted and MM-10 and TC1-13 report it as mixed. TC1-17 shows the contradiction disappears if hypothetical statements are excluded or if the cause must be learning it is an AI. The repeat run of MM-10 disagreed on Q10 for H2 (original oppose, repeat neutral), so the check for this conclusion is limited."
+   "reason": "The techniques agree on the facts but differ in the label they give the second hypothesis, and the cause is a difference in definition. Where hanging up counts as evidence against it whatever its cause (stance detection, word-cue count, framework matrix and the case matrix), it is contradicted for two participants. Where the cause must be learning it is an AI, or where hypothetical statements are excluded, it is untested (hypothesis tree, thematic analysis, content analysis, and the sensitivity test in rows 8, 12 and 21). This conclusion takes the stricter definition because it is the wording of the hypothesis. The stance detection repeat run gave a different label on Q10 for the second hypothesis on one of two runs. One verification finding limits it: the disconfirmation search found that P5's reference to \"AI in its current state\" means the disclosure cannot be ruled out as a driver."
   },
   {
    "id": "C5",
-   "text": "H3 (customers do not immediately ask for a human agent) is not supported, and two participants say they would ask for a human. P5 says \"I would've asked for a human.\" (Q10) with no timing. P4 says \"If I was gonna do it, that's probably where I would do it\" (Q9), which is hedged and was said about the introduction in the material's note, not in P4's words, and Q5 says the wish to speak to someone fades as the process goes on. No quote says a participant would decline to ask. Under a strict reading of \"immediately\" the contradiction depends on one participant or on none.",
+   "title": "The third hypothesis is not supported, and two participants say they would ask for a human, as hedged intentions.",
+   "text": "P4 says they would probably want to speak to someone \"at first\" and, about asking at the introduction, \"If I was gonna do it, that's probably where I would do it\". P5 says \"I would've asked for a human.\" with no timing. No quote says a participant would decline to ask, and the silence of P1, P2 and P3 is not evidence of a view.",
    "label": "medium",
-   "reason": "Eight techniques agree on the loose reading. TC1-16 and TC1-17 show it depends on two participants, on hypothetical and hedged statements, and on timing the quotes do not give, and TC1-17 leaves no contradiction when the strict rules are combined. This verification finding limits the label. The repeat of MM-10 agreed on all three H3 labels, and the other checks passed."
+   "reason": "Eight techniques agree that the third hypothesis is contradicted for P4 and P5 and that nothing supports it, reading the quotes in different ways (matrix, tree, themes, stance labels, counts and ratings). The disconfirmation search limits the conclusion: P4's statement is hedged twice, the note naming the introduction is the compiler's gloss and not P4's words, and P5 gives no timing, so \"immediately\" is not confirmed. The sensitivity test shows the contradiction rests on one participant each in several rows and becomes untested when hypothetical statements are excluded. The checks passed."
   },
   {
    "id": "C6",
-   "text": "The evidence has limits that every finding records. P8 and P9 have no quote, the basis for choosing the ten quotes is not given, every hang-up or human-request statement is a hypothetical reaction to a prerecorded scenario, and the material does not say where the AI is disclosed or which scenario each quote refers to apart from the motor claim reference in Q7. Each finding was produced by one coder. Counts describe the selected quotes, not how common a view is.",
+   "title": "Participants tie reservations to the voice, a stressful setting, a long introduction and earlier experience, but not separably from the AI itself.",
+   "text": "P10 objects that the voice is American and \"sounds very much like an AI voice\", P5 calls the voice \"very cold in clinical\" and imagines a car accident, P10 calls the introduction too long, and P1 refers to earlier experiences with AI agents. Several techniques read these as context and not as rejection of voice AI. The disconfirmation search points out that P5 also names \"AI in its current state\", and that the link between Q7 and the motor claim scenario is inferred, not recorded.",
+   "label": "medium",
+   "reason": "Most techniques agree that reservations point to named features, and they read the quotes in different ways. The conflict is between findings worded as context and not the AI (case matrix, thematic analysis, framework matrix) and the disconfirmation search, which shows that Q4 and Q7 name the AI and that one driver does not cover Q4 and Q6. The cause is the wording of those two quotes combined with the absence of any record of where the AI is disclosed, so the conflict is resolved only by stating several drivers and leaving the AI's own role open, which this conclusion does. A verification finding therefore limits it to medium."
+  },
+  {
+   "id": "C7",
+   "title": "Every hang-up and human-request statement is hypothetical, so no behaviour was observed.",
+   "text": "Participants heard prerecorded scenarios, and each relevant statement uses \"would\" or \"if I was\". P1's Q6 reports that a human could be requested, which describes what the scenario offered. The quotes therefore show intentions, which may overstate or understate what customers do in a live call.",
    "label": "high",
-   "reason": "All ten techniques state these limits, and the limits come from the material itself. The CK-17 spans that failed were labels, terms or one paraphrase, not source quotes, and the spot check found no mismatches, although its coverage is thin for HE1-14, HE1-15, MM-10 and TC1-13. No person reviewed the results."
+   "reason": "All ten techniques agree, using different readings, including a tense check in the disconfirmation search (no observed behaviour found) and a sensitivity row that removes every hypothetical statement. The checks passed."
+  },
+  {
+   "id": "C8",
+   "title": "Where leaving or asking for a human is imagined, it is placed at the start of the call.",
+   "text": "P10 places the hang-up \"at the intro\", and P4's remark about asking for a human is about the introduction. P5 gives no timing, and P4 says the wish to speak to someone changes as the process goes on. The pattern is therefore about the opening moments, and it should not be netted against the favourable reactions, which concern the whole experience.",
+   "label": "medium",
+   "reason": "Three techniques (thematic analysis, framework matrix and content analysis) state the pattern directly, and the others agree in part or list it as an alternative explanation. The wording of the introduction link rests on one explicit quote (Q8) and one quote whose timing comes from the compiler's note (Q9), and the disconfirmation search found that P5 gives no timing. The sensitivity test shows the pattern is not reversed when timing is required, but it then rests on one participant for each behaviour. The checks passed."
+  },
+  {
+   "id": "C9",
+   "title": "Two of the eight participants have no quote, and the basis for choosing the quotes is not given.",
+   "text": "P8 and P9 are not quoted, and the material says only that some participants are quoted. Every finding therefore covers six participants and ten selected quotes. If the selection favoured strong reactions, the split between favourable and unfavourable views would be exaggerated.",
+   "label": "high",
+   "reason": "All ten techniques report the gap, and the sensitivity test bounded it by assuming invented positions for P8 and P9, which could produce at most a tie. This is a finding about what the material contains, and the checks passed."
   }
  ],
+ "insights": [
+  {
+   "id": "I1",
+   "title": "The praise for the voice AI is a comparison with worse systems, not with traditional voice automation.",
+   "expected": "The favourable quotes would show that customers find voice AI more satisfying than the voice automation they know.",
+   "found": "The favourable comparators are website chat bots, a robot voice and repeating yourself, and no quote names a phone menu or interactive voice response system.",
+   "why_it_matters": "A favourable reaction in these interviews cannot be used as evidence that voice AI beats the voice automation it would replace.",
+   "label": "medium",
+   "reason": "It rests on the finding that no quote compares the voice AI with traditional voice automation, which is high, and the finding that participants are split, which is medium, so the insight takes the lower label. The same comparators may also reflect a low baseline from earlier tools, which the quotes cannot separate from real satisfaction."
+  },
+  {
+   "id": "I2",
+   "title": "Wanting a human may be a first reaction that fades as the call goes on.",
+   "expected": "The third hypothesis assumes that customers either ask for a human straight away or do not.",
+   "found": "P4 says they would probably want to speak to someone at first, then finds it \"a really good process\" as it goes on, so the same participant is on both sides at different points.",
+   "why_it_matters": "A route to a human at the start may matter more than whether customers keep using it later.",
+   "label": "medium",
+   "reason": "The findings on the third hypothesis and on the start of the call are both medium. The fading is stated by one participant in one quote, and no technique had a second participant to compare it with."
+  },
+  {
+   "id": "I3",
+   "title": "The stated reasons for hanging up are about the introduction and a refused human, not about learning it is an AI.",
+   "expected": "The second hypothesis assumes that the moment of learning it is an AI is what triggers a hang-up.",
+   "found": "P10 gives the length of the introduction and P5 makes the hang-up conditional on not getting a human, and the material does not say when the AI is disclosed.",
+   "why_it_matters": "The contradiction of the second hypothesis depends on counting any early exit as evidence, and a design change to the introduction could address both stated reasons.",
+   "label": "medium",
+   "reason": "The findings on the second hypothesis and on the participants' stated reservations are both medium. The disconfirmation search shows that the AI itself cannot be ruled out as a driver for P5 and P10."
+  },
+  {
+   "id": "I4",
+   "title": "The split is within people as well as between them.",
+   "expected": "The favourable and unfavourable quotes would come from two kinds of customer, enthusiasts and sceptics.",
+   "found": "P1 is favourable in Q1 and annoyed in Q6, and P4 moves from reluctance to approval in Q5, so the quotes attach to features and moments more than to types of customer.",
+   "why_it_matters": "Sorting participants into accepting and rejecting groups would misrepresent these interviews.",
+   "label": "medium",
+   "reason": "The findings on the split and on the stated reservations are both medium. The pattern rests on two participants, and the favourable and unfavourable groups may differ in the question each was answering and not in feeling."
+  }
+ ],
+ "not_covered": [
+  "The request asked whether customers find voice AI more satisfying than traditional voice automation. The analysis could not answer this, because no quote compares the two.",
+  "The analysis did not answer whether customers hang up on learning that they are speaking with an AI, because the material does not say where the AI is disclosed.",
+  "The analysis did not look at what P8 and P9 said, because the material has no quote from them.",
+  "The analysis did not look at the full transcripts, the basis for choosing the ten quotes, or any recording of the scenarios.",
+  "The analysis did not observe any customer behaviour, because every hang-up and human-request statement is hypothetical.",
+  "The analysis did not estimate how common any view is among customers.",
+  "The process did not search for or use any source outside the material given, and it did not use the web.",
+  "The process did not include a review of the results by a person."
+ ],
  "basis": [
-  "What the user gave: one source, text, 512 words.",
+  "Material given: one source, eight customer interviews on voice AI customer support, text, 512 words, with ten quotes from six of the eight participants, and three hypotheses (H1 to H3).",
   "Additional sources used: none.",
-  "Techniques that ran and what each worked on: DM-02 (brief and material), PE-02 (brief and material), CM1-05, HE1-13, HE1-14, HE1-15, MM-10, TC1-13 (brief and material, each run separately), CK-17 by code, TC1-16 and TC1-17 (the findings).",
-  "Techniques dropped: none. Files that could not be read: none.",
-  "Checks done by the process: source-span citation by code (CK-17: 146 quoted spans, 6 failed, all labels, terms or one paraphrase in quotation marks, not source quotes); a spot check by code of quote and participant pairings (55 pairs across 10 results, 0 mismatches; HE1-14, HE1-15, MM-10 and TC1-13 had 0 to 3 pairs each); repeat runs of HE1-15 (same quotes coded in 4 of 4 compared categories) and MM-10 (28 of 30 stance labels the same on the three targets matching H1 to H3; Q7 on H1 and Q10 on H2 differed); the assumption and limitation statement and the alternative explanations check.",
-  "No person reviewed the results. The checks that need a person (human review sample, gold standard agreement) are not part of the plan at decision-informing stakes.",
-  "The user was shown the 5.1 findings and chose to keep the request as written. The user chose the convergence matrix then narrative method."
+  "Techniques that ran, each as a separate agent: Hypothesis tree (DM-02), Preprocessing sensitivity testing (PE-02), Case matrix (CM1-05), Reflexive thematic analysis (HE1-13), Framework analysis (HE1-14), Content analysis (HE1-15), Stance detection (MM-10) and Analysis of competing hypotheses (TC1-13) worked on the request and the material.",
+  "Disconfirmation search (TC1-16) and Sensitivity analysis (TC1-17) worked on the findings of the analysis.",
+  "The quotation check (CK-17) was done by code on the findings.",
+  "Techniques dropped: none.",
+  "Files that could not be read: none.",
+  "Quotation check by code: 146 quoted spans checked and 6 not found in the source; all six were labels or terms in quotation marks and not quotations.",
+  "Spot check by code: 55 quote and participant pairs checked and 0 wrong, with 0 to 3 pairs for four of the techniques.",
+  "Repeat runs: Content analysis coded the same in 4 of 4 runs, and Stance detection gave the same result in 28 of 30 targets.",
+  "Checks not done: checks that need a person were left out because the stakes are decision-informing.",
+  "No person reviewed the results.",
+  "The user confirmed the request after the first group of techniques by keeping it as it was.",
+  "The user chose the agreement table followed by a narrative summary as the combining method."
  ]
 }

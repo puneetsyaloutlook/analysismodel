@@ -1,5 +1,5 @@
 {
- "version": "1.2.7",
+ "version": "1.2.8",
  "title": "ANLYSIS: metadata schema and process design for a catalogue of 236 analytical techniques",
  "conventions": {
   "language": "Australian English. Sentence case for headings, field labels and value names. No em dashes, en dashes or double hyphens.",
@@ -3788,6 +3788,27 @@
     "type": "inference",
     "sources": [],
     "note": "Decided with the user on 11 November 2026. Replaces the earlier idea of a material ceiling on the claim level."
+   }
+  },
+  "answer_form": {
+   "definition": "The answer has these parts in this order: summary, conclusions, insights (when step 7 wrote any), what was not covered, strength of statement reached, what the answer is based on, and the offer of a follow-up round. Each conclusion has a title that states the finding as a sentence, an explanation, a confidence label and a reason. The conclusions have no codes. A statement about what the process did not look at is not a conclusion and gets no label. An insight is a finding that goes against or beyond what the request or the material would lead a reader to expect. A recommendation is given only when the request asks for one.",
+   "parts": [
+    "summary",
+    "conclusions",
+    "insights",
+    "what was not covered",
+    "strength of statement reached",
+    "what the answer is based on",
+    "follow-up round"
+   ],
+   "summary": "Two to four short paragraphs of whole sentences with no technique codes. It says what the analysis found, how far to trust it and what it leaves open.",
+   "confidence_levels_text": "Confidence shows how well the analysis supports a conclusion as it is written. It does not show how important the conclusion is. High means two or more techniques that read the material in different ways agree, and their checks passed. Medium means one technique supports it, or several agree but a check failed or was not done, or they read the material in the same way. Low means one technique supports it and its checks did not pass, or the techniques conflict and the conflict is not resolved. All the techniques read the same material and used the same language model, which limits every label.",
+   "insights_text": "An insight is a finding that goes against, or beyond, what your question or the material would lead a reader to expect. Each one states the expectation and what the analysis found instead.",
+   "delivery": "Where the application can create a document, the answer is delivered as a document. Otherwise it is given in the reply.",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Decided with the user on 15 November 2026 after reading the answer from the first run inside Claude."
    }
   }
  },

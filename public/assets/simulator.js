@@ -187,26 +187,42 @@
       var sy = j.synthesis, T = sy.techniques;
       b.push({ role: 'work', html: '<p>ANLYSIS compared what the techniques found and wrote the conclusions. It used an agreement table and then a written summary.</p>' });
       var head = '<tr><th>Conclusion</th>' + T.map(function (t) { return '<th>' + esc(t) + '</th>'; }).join('') + '</tr>';
-      var body = sy.conclusions.map(function (c) { return '<tr><th scope="row">' + esc(c.id) + '</th>' + T.map(function (t) { var v = c.cells[t] || 'S'; return '<td class="cell-' + v + '" title="' + esc(sy.legend[v]) + '">' + ({ D: 'C', S: 'N' }[v] || v) + '</td>'; }).join('') + '</tr>'; }).join('');
+      var body = sy.conclusions.map(function (c) { return '<tr><th scope="row">' + esc(c.title) + '</th>' + T.map(function (t) { var v = c.cells[t] || 'S'; return '<td class="cell-' + v + '" title="' + esc(sy.legend[v]) + '">' + ({ D: 'C', S: 'N' }[v] || v) + '</td>'; }).join('') + '</tr>'; }).join('');
       b.push({ role: 'work', html: '<h3>Agreement table</h3><div class="table-wrap"><table class="matrix"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div><p class="small">Each column is a technique. A: it agrees with the conclusion. P: it partly agrees. C: it conflicts. N: it does not cover it.</p>' });
-      sy.conclusions.forEach(function (c) {
-        b.push({ role: 'work', html: '<div class="concl"><div class="rh"><strong>' + esc(c.id) + '</strong><span class="pill conf-' + c.label + '">' + esc(sentence(c.label)) + ' confidence</span></div><p>' + esc(c.text) + '</p><p class="small"><strong>Reason.</strong> ' + esc(c.reason) + '</p></div>' });
-      });
+      sy.conclusions.forEach(function (c) { b.push({ role: 'work', html: conclHtml(c) }); });
+      if (sy.insights && sy.insights.length) {
+        b.push({ role: 'work', html: '<h3>Insights</h3>' });
+        sy.insights.forEach(function (x) { b.push({ role: 'work', html: insightHtml(x) }); });
+      }
     } else if (i === 7) {
       var a = j.answer;
-      b.push({ role: 'output', html: '<p class="lead-answer">' + esc(a.lead) + '</p>' });
-      a.conclusions.forEach(function (c) {
-        b.push({ role: 'output', html: '<div class="concl"><div class="rh"><strong>' + esc(c.id) + '</strong><span class="pill conf-' + c.label + '">' + esc(sentence(c.label)) + ' confidence</span></div><p>' + esc(c.text) + '</p><p class="small"><strong>Reason.</strong> ' + esc(c.reason) + '</p></div>' });
-      });
+      b.push({ role: 'output', html: '<h3>Summary</h3>' + a.summary.map(function (p, k) { return '<p' + (k === 0 ? ' class="lead-answer"' : '') + '>' + esc(p) + '</p>'; }).join('') });
+      b.push({ role: 'output', html: '<h3>Conclusions</h3><p class="small">' + esc(j.fixed.confidence_levels_text) + '</p>' });
+      a.conclusions.forEach(function (c) { b.push({ role: 'output', html: conclHtml(c) }); });
+      if (a.insights && a.insights.length) {
+        b.push({ role: 'output', html: '<h3>Insights</h3><p class="small">' + esc(j.fixed.insights_text) + '</p>' });
+        a.insights.forEach(function (x) { b.push({ role: 'output', html: insightHtml(x) }); });
+      }
+      if (a.not_covered && a.not_covered.length) {
+        b.push({ role: 'output', html: '<h3>What was not covered</h3><ul>' + a.not_covered.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' });
+      }
       var need = CLAIM_ORDER.indexOf(j.claim), reach = j.picks.slice(0, 10).filter(function (p) { return CLAIM_ORDER.indexOf(p.ceiling) >= need; });
-      var supported = j.synthesis.conclusions.filter(function (c) { return reach.some(function (p) { return c.cells[p.id] === 'A' || c.cells[p.id] === 'P'; }); }).map(function (c) { return c.id; });
-      b.push({ role: 'output', html: '<h3>How strong a statement this supports</h3><p>You needed to ' + esc(CLAIM_PLAIN[j.claim]) + '. ' + (reach.length ? reach.length + ' of the chosen techniques can support that: ' + reach.map(link).join(', ') + '. They support conclusions ' + esc(supported.join(', ')) + '.' : 'None of the chosen techniques can support that.') + '</p>' });
+      var supported = j.synthesis.conclusions.filter(function (c) { return reach.some(function (p) { return c.cells[p.id] === 'A' || c.cells[p.id] === 'P'; }); }).map(function (c) { return c.title; });
+      var supText = !supported.length ? 'none of the conclusions' : (supported.length === j.synthesis.conclusions.length ? 'all ' + supported.length + ' conclusions' : 'these conclusions: ' + supported.join('; '));
+      b.push({ role: 'output', html: '<h3>How strong a statement this supports</h3><p>You needed to ' + esc(CLAIM_PLAIN[j.claim]) + '. ' + (reach.length ? reach.length + ' of the chosen techniques can support that: ' + reach.map(link).join(', ') + '. They support ' + esc(supText) + '.' : 'None of the chosen techniques can support that.') + '</p>' });
       b.push({ role: 'output', html: '<h3>What the answer is based on</h3>' });
       a.basis.forEach(function (x) { b.push({ role: 'output', html: '<div class="row1">' + esc(x) + '</div>', fast: true }); });
       b.push({ role: 'input', html: '<div class="confirm"><h3>Do you want a follow-up round?</h3><p>ANLYSIS would then choose more techniques for the gaps and unresolved conflicts found in step 7. It would leave out the techniques that already ran. A follow-up round adds up to 5 techniques.</p><div class="form-actions"><button type="button" class="btn" disabled title="Not available in this replay">Ask for a follow-up round</button></div></div>' });
       b.push({ html: '<p class="result">End of the run.</p>' });
     }
     return b;
+  }
+
+  function conclHtml(c) {
+    return '<div class="concl"><h4 class="ct">' + esc(c.title) + '</h4><p>' + esc(c.text) + '</p><p class="small"><span class="pill conf-' + c.label + '">' + esc(sentence(c.label)) + ' confidence</span></p><p class="small">' + esc(c.reason) + '</p></div>';
+  }
+  function insightHtml(x) {
+    return '<div class="concl"><h4 class="ct">' + esc(x.title) + '</h4><p><strong>You might expect.</strong> ' + esc(x.expected) + '</p><p><strong>The analysis found.</strong> ' + esc(x.found) + '</p><p><strong>Why it matters.</strong> ' + esc(x.why_it_matters) + '</p><p class="small"><span class="pill conf-' + x.label + '">' + esc(sentence(x.label)) + ' confidence</span></p><p class="small">' + esc(x.reason) + '</p></div>';
   }
 
   function builders_gates(j) {

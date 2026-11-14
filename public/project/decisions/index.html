@@ -271,6 +271,16 @@
 <td>In the user's run inside Claude, a subagent stopped because the user's weekly usage limit in Claude was reached. The design did not say what the process does when a technique's run does not finish, for that or any other reason. Decided on 15 November 2026.</td>
 <td>The technique is dropped with the reason "did not finish". The process never writes its result itself, tells the user which technique stopped, and lists it among the techniques dropped in the answer.</td>
 </tr>
+<tr>
+<td>43</td>
+<td>The answer in the user's own run was hard to read. The summary was one short paragraph of compressed sentences. Conclusions were named by codes (T1 to T7) that the answer never explained. A conclusion about what the process had not looked at carried a high label, which read as confidence that the topic was examined. The insights were recommendations, not findings. Decided on 15 November 2026.</td>
+<td>The answer starts with a summary of two to four short paragraphs. Each conclusion has a title that states the finding, with its label and reason after it. The meaning of the labels is stated in fixed words before the first conclusion, and says the label measures support for the conclusion as written, not importance. A statement about what the process did not look at is not a conclusion: it goes under what was not covered, with no label. An insight is a finding that goes against or beyond what the request or the material would lead a reader to expect, and states the expectation and the finding. Recommendations are given only when the request asks for them.</td>
+</tr>
+<tr>
+<td>44</td>
+<td>The answer was given as text in the conversation, which is awkward to keep, share or export. Decided on 15 November 2026.</td>
+<td>Where the application can create a document, the answer is delivered as a document. Otherwise it is given in the reply.</td>
+</tr>
 </tbody>
 </table></div></div>
     <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/reference/phases-and-tiers/"><span>Previous</span>Steps, kinds, stakes and relations</a><a class="next" href="/project/open-items/"><span>Next</span>Open items</a></nav>
