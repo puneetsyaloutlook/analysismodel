@@ -1,6 +1,6 @@
 # ANLYSIS: design document
 
-Version 1.2.8, 15 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
+Version 1.2.9, 15 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
 
 ## 1. Purpose and status
 
@@ -14,8 +14,8 @@ Status:
 
 - Every part has been built and tested on small cases.
 - One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.4 of this design. Steps 1 to 5 ran before decision 38, which changes only step 6. Steps 7 and 8 were run again on 15 November 2026 under version 1.2.8, to show the answer form of decisions 43 and 44. Its output is shown in the simulator on the documentation site.
-- The documentation site is built from this document, the schema and the catalogue.
-- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.8 add decisions 31 to 44. The scripts and the skill follow version 1.2.8. The stored run follows version 1.2.4 for steps 1 to 6 and version 1.2.8 for steps 7 and 8. Section 10 lists what is untested.
+- The documentation site is built from this document, the schema and the catalogue. It also has a page, Use the skill, with the skill to download and the steps to install it in Claude and in GitHub Copilot (decision 45).
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.9 add decisions 31 to 45. The scripts and the skill follow version 1.2.9. The stored run follows version 1.2.4 for steps 1 to 6 and version 1.2.8 for steps 7 and 8. Section 10 lists what is untested.
 - All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
@@ -446,6 +446,7 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 | 42 | In the user's run inside Claude, a subagent stopped because the user's weekly usage limit in Claude was reached. The design did not say what the process does when a technique's run does not finish, for that or any other reason. Decided on 15 November 2026. | The technique is dropped with the reason "did not finish". The process never writes its result itself, tells the user which technique stopped, and lists it among the techniques dropped in the answer. |
 | 43 | The answer in the user's own run was hard to read. The summary was one short paragraph of compressed sentences. Conclusions were named by codes (T1 to T7) that the answer never explained. A conclusion about what the process had not looked at carried a high label, which read as confidence that the topic was examined. The insights were recommendations, not findings. Decided on 15 November 2026. | The answer starts with a summary of two to four short paragraphs. Each conclusion has a title that states the finding, with its label and reason after it. The meaning of the labels is stated in fixed words before the first conclusion, and says the label measures support for the conclusion as written, not importance. A statement about what the process did not look at is not a conclusion: it goes under what was not covered, with no label. An insight is a finding that goes against or beyond what the request or the material would lead a reader to expect, and states the expectation and the finding. Recommendations are given only when the request asks for them. |
 | 44 | The answer was given as text in the conversation, which is awkward to keep, share or export. Decided on 15 November 2026. | Where the application can create a document, the answer is delivered as a document. Otherwise it is given in the reply. |
+| 45 | The site documented the design, and nothing on it said how to get the skill or install it. Decided on 15 November 2026. | The site has a page, Use the skill. It offers `analysis.zip` for download, gives installation steps for Claude (claude.ai, Claude desktop and Claude Code) and for GitHub Copilot (VS Code, Copilot CLI and the Copilot cloud agent), says what to give the skill, what it asks and what it returns, and says what has and has not been tested. The zip is the only form in which the scripts are published. The page text is `data/use-the-skill.md` and the zip is `data/analysis.zip`, both in the site repository, and the build copies the zip to the site. |
 
 ## 10. Open items
 
@@ -475,6 +476,7 @@ Design:
 - Steps 6 to 8 have run once, on one small brief.
 - Result formats are tested on five of 236 techniques.
 - The answer form of decisions 43 and 44 has been tested only by running steps 7 and 8 again on the stored run. Delivery of the answer as a document has not been run inside Claude.
+- The skill has not been run in GitHub Copilot. Its instructions say to start separate agents and, where that is not possible, to run each technique in turn. How Copilot handles that, and whether it asks for approval before each script, is untested.
 - The skill has run once inside Claude, started by the user on an article. Its technique runs, checks, combining and answer steps ran as separate subagents. The output of that run is not stored here, and the changes in versions 1.2.6 to 1.2.8 have not been run there.
 - Intake does not read images, audio or video. The rules for document type, language and personal information are untested on long documents, scanned PDFs and non-English text. The rules for strength of statement and kind of finding are keyword matches.
 
@@ -496,16 +498,16 @@ Catalogue data (from the spot check; the first six were fixed):
 | File | Role |
 |---|---|
 | `master/Analysis methods design.md` | This document. |
-| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.8. |
+| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.9. |
 | `master/master_tagged.csv` | The catalogue: 236 rows, 52 columns, with result formats. |
 | `master/master_base.csv`, `master/tags/tags_A.json` to `tags_F.json` | Sources of the CSV text and tags. |
 | `master/specs/out_1.json` to `out_6.json` | Result formats. |
 | `scripts/intake.py`, `select.py`, `sequence.py`, `validate_tags.py` | Process scripts for steps 1, 2 and 4, and the tag validator. |
 | `master/test_jobs/`, `intake_test/`, `master/card_test/` | Test briefs, intake inputs and the result format test. |
 | `master/spot_check.md` | The independent check of 30 rows. |
-| `analysis.zip` | The skill: `SKILL.md`, `references/` (this document, the schema, the catalogue and the prompts) and `scripts/`. |
+| `analysis.zip` | The skill: `SKILL.md`, `references/` (this document, the schema, the catalogue and the prompts) and `scripts/`. The site repository keeps a copy as `data/analysis.zip`, which the site offers for download. |
 | `run2/` | The complete run of 13 November 2026: inputs, plan, results, combined findings and answer. |
 
 ## 12. Change rule
 
-A change to a field, a requirement, a step or a method is made in `schema.json` and in this document together. A change to a technique's text or tags is made in the source files and the CSV is rebuilt. After any change, run the validator (`python3 -I scripts/validate_tags.py master/tags/tags_*.json`), then run `select.py` and `sequence.py` on the test briefs and compare the counts with the last recorded run.
+A change to a field, a requirement, a step or a method is made in `schema.json` and in this document together. A change to a technique's text or tags is made in the source files and the CSV is rebuilt. When the skill changes, replace `data/analysis.zip` in the site repository with the new zip, so that the download matches the version in this document. After any change, run the validator (`python3 -I scripts/validate_tags.py master/tags/tags_*.json`), then run `select.py` and `sequence.py` on the test briefs and compare the counts with the last recorded run.

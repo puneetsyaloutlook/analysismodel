@@ -268,3 +268,5 @@ details.acc>.acc-body{padding-bottom:.4rem}
 details.acc.tech{margin-left:1.8rem}
 details.acc.tech>summary{font-size:1rem}
 details.acc.tech>summary .tname{font-weight:600}
+
+.button{display:inline-block;padding:.5rem 1rem;margin-right:.75rem;border-radius:6px;background:var(--teal-700);color:#fff;text-decoration:none;font-weight:600}.button:hover{background:var(--teal-900);color:#fff}
