@@ -270,11 +270,21 @@ def make_home():
     add_page("/", "ANLYSIS", "Overview", body, "Documentation of ANLYSIS: a catalogue of analytical techniques and a process for choosing and running them.")
 
 
+FAMILY_INTROS = json.loads((DATA / "family-intros.json").read_text(encoding="utf-8"))
+assert set(FAMILY_INTROS) == set(FAMILY_ORDER), "family intros do not match the families"
+
+
 def make_catalogue_index():
-    intro = section_html(8)
+    intro = md_block(link_sections(sections[8][1][sections[8][1].index("Each technique has 52 columns"):]))
+    ov = md_block((DATA / "techniques-overview.md").read_text(encoding="utf-8"))
+    fam_table = ("<table><thead><tr><th>Family</th><th>Techniques</th><th>What the family is for</th></tr></thead><tbody>" +
+                 "".join(f'<tr><td><a href="/catalogue/{FAM_SLUG[f]}/">{esc(f)}</a></td><td>{len(FAMILIES[f])}</td><td>{esc(FAMILY_INTROS[f]["short"])}</td></tr>' for f in FAMILY_ORDER) +
+                 f"<tr><td><strong>Total</strong></td><td><strong>{len(rows)}</strong></td><td></td></tr></tbody></table>")
+    ov = ov.replace("<p>FAMILY_TABLE</p>", fam_table)
+    assert "FAMILY_TABLE" not in ov
     # Section 8 starts with the family table; keep the prose and the artefact notes, and add search.
     body = f"""
-<p>Filter the {len(rows)} techniques by name, purpose or family. Each technique has its own page.</p>
+{ov}
 <div class="filter">
   <label for="tech-filter">Filter techniques</label>
   <input id="tech-filter" type="search" autocomplete="off" placeholder="Type a word, such as survey, bias or forecast">
@@ -285,7 +295,7 @@ def make_catalogue_index():
 <table class="tech-table" id="tech-table"><thead><tr><th>ID</th><th>Technique</th><th>Family</th><th>Purpose</th></tr></thead><tbody>
 {''.join(f'<tr data-family="{esc(r["family"])}"><td><a href="{tech_url(r)}">{esc(r["id"])}</a></td><td><a href="{tech_url(r)}">{esc(clean_name(r["technique"]))}</a></td><td>{esc(r["family"])}</td><td>{esc(r["purpose"])}</td></tr>' for r in rows)}
 </tbody></table>
-<h2>Families, field names and working documents</h2>
+<h2>How the data is organised</h2>
 {intro}
 """
     add_page("/catalogue/", "Techniques", "The model", body, f"All {len(rows)} techniques, searchable.")
@@ -298,7 +308,8 @@ def tech_url(r):
 def make_family_pages():
     for f in FAMILY_ORDER:
         items = FAMILIES[f]
-        body = f"""<p>{len(items)} techniques.</p>
+        body = f"""<p>{esc(FAMILY_INTROS[f]["long"])}</p>
+<p>{len(items)} techniques. Open one to see what it does, when it fits and what it needs from your material.</p>
 <table><thead><tr><th>ID</th><th>Technique</th><th>Purpose</th><th>Evidence status</th></tr></thead><tbody>
 {''.join(f'<tr><td><a href="{tech_url(r)}">{esc(r["id"])}</a></td><td><a href="{tech_url(r)}">{esc(clean_name(r["technique"]))}</a></td><td>{esc(r["purpose"])}</td><td>{esc(r["evidence_status"])}</td></tr>' for r in items)}
 </tbody></table>"""
