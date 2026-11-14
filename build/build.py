@@ -203,7 +203,7 @@ def make_process_pages():
     add_page("/process/running-the-techniques/", "Step 5: Run the techniques", "Process", section_html(6),
              "Examine the question, prepare the material and analyse it, and how one technique is run.")
     add_page("/process/checks-and-answer/", "Steps 6 to 8: Check, combine and answer", "Process", section_html(7),
-             "How findings are checked and combined, how confidence is labelled, and what the answer states.")
+             "How findings are checked and combined, how support for each conclusion is judged, and what the answer states.")
 
 
 def make_project_pages():
@@ -249,7 +249,7 @@ def make_home():
     step_page = {1: "/process/intake/", 2: "/process/choosing-techniques/", 3: "/process/choosing-techniques/", 4: "/process/planning-the-sequence/", 5: "/process/running-the-techniques/", 6: "/process/checks-and-answer/", 7: "/process/checks-and-answer/", 8: "/process/checks-and-answer/"}
     process_rows = "".join(f'<tr><td><a href="{step_page[int(st["number"])]}">{esc(str(st["number"]))}. {esc(st["name"])}</a></td><td>{esc(st["does"])}</td></tr>' for st in schema["steps"])
     body = f"""
-<p class="lede">ANLYSIS is a catalogue of analytical techniques and a process for choosing and running them. It takes a request and some material, chooses the analytical techniques that can run on that material, runs them in order, checks their findings and combines them into one answer with a confidence label for each conclusion.</p>
+<p class="lede">ANLYSIS is a catalogue of analytical techniques and a process for choosing and running them. It takes a request and some material, chooses the analytical techniques that can run on that material, runs them in order, checks their findings and combines them into one answer, with the conclusions grouped by how well each is supported.</p>
 <p>The name is ANLYSIS in running text. ANLYSIS.work is the address of this site.</p>
 <p>The catalogue holds {len(rows)} techniques in {len(FAMILIES)} families. This site documents the process and the catalogue. It is generated from the design document, the schema and the catalogue file in the repository, so it changes only when those change.</p>
 <div class="cards">

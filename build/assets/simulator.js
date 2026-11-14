@@ -49,7 +49,7 @@
       + '<p><strong>What the run was about.</strong> The question was whether eight customer interviews on voice AI customer support support three hypotheses (customers find it more satisfying than older voice automation, do not hang up when they learn it is an AI, and do not immediately ask for a human). The material was ten quotes from those interviews, with the hypotheses, about 500 words in all. The result will be used as one input to a decision, and the strongest statement needed was a link between things.</p>'
       + '<p><strong>How to use it.</strong> Select Submit on the form to start, or tick the box beside it to move one step at a time. Each step opens below the last. Open any technique to see its result. Where the process would stop and ask you something, such as whether to change your question, it pauses and waits.</p>'
       + '<p><strong>What was decided by a person.</strong> The person who ran it set the question, the stakes, the strength of statement and the kind of finding. They kept the question after step 5.1 and chose the agreement table and written summary in step 7. No person reviewed the results, because checks that need a person apply at high stakes only.</p>'
-      + '<p class="small">Steps 1 to 6 were run under version 1.2.4 of the design. Steps 7 and 8 were run again under version 1.2.8 to show the current form of the answer.</p>'
+      + '<p class="small">Steps 1 to 6 were run under version 1.2.4 of the design. Step 7 was run again under version 1.2.8 and step 8 under version 1.2.10, to show the current form of the answer.</p>'
   };
 
   function builders(i) { return realBuilders(i); }
@@ -204,11 +204,21 @@
     } else if (i === 7) {
       var a = j.answer;
       b.push({ role: 'output', html: '<h3>Summary</h3>' + a.summary.map(function (p, k) { return '<p' + (k === 0 ? ' class="lead-answer"' : '') + '>' + esc(p) + '</p>'; }).join('') });
-      b.push({ role: 'output', html: '<h3>Conclusions</h3><p class="small">' + esc(j.fixed.confidence_levels_text) + '</p>' });
-      a.conclusions.forEach(function (c) { b.push({ role: 'output', html: conclHtml(c) }); });
+      var sg = j.fixed.support_groups, lim = ' ' + sg.limit_text;
+      var well = a.conclusions.filter(function (c) { return c.label === 'high'; });
+      var weak = a.conclusions.filter(function (c) { return c.label !== 'high'; });
+      if (well.length) {
+        b.push({ role: 'output', html: '<h3>Well supported conclusions</h3><p class="small">' + esc(sg.well_supported_text + lim) + '</p>' });
+        well.forEach(function (c) { b.push({ role: 'output', html: outConclHtml(c) }); });
+        lim = '';
+      }
+      if (weak.length) {
+        b.push({ role: 'output', html: '<h3>Conclusions with weaker support</h3><p class="small">' + esc(sg.weaker_text + lim) + '</p>' });
+        weak.forEach(function (c) { b.push({ role: 'output', html: outConclHtml(c) }); });
+      }
       if (a.insights && a.insights.length) {
         b.push({ role: 'output', html: '<h3>Insights</h3><p class="small">' + esc(j.fixed.insights_text) + '</p>' });
-        a.insights.forEach(function (x) { b.push({ role: 'output', html: insightHtml(x) }); });
+        a.insights.forEach(function (x) { b.push({ role: 'output', html: outInsightHtml(x) }); });
       }
       if (a.not_covered && a.not_covered.length) {
         b.push({ role: 'output', html: '<h3>What was not covered</h3><ul>' + a.not_covered.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' });
@@ -227,6 +237,12 @@
 
   function conclHtml(c) {
     return '<div class="concl"><h4 class="ct">' + esc(c.title) + '</h4><p>' + esc(c.text) + '</p><p class="small"><span class="pill conf-' + c.label + '">' + esc(sentence(c.label)) + ' confidence</span></p><p class="small">' + esc(c.reason) + '</p></div>';
+  }
+  function outConclHtml(c) {
+    return '<div class="concl"><h4 class="ct">' + esc(c.title) + '</h4><p>' + esc(c.text) + '</p>' + (c.caveat ? '<p><strong>Why the support is weaker.</strong> ' + esc(c.caveat) + '</p>' : '') + '</div>';
+  }
+  function outInsightHtml(x) {
+    return '<div class="concl"><h4 class="ct">' + esc(x.title) + '</h4><p><strong>You might expect.</strong> ' + esc(x.expected) + '</p><p><strong>The analysis found.</strong> ' + esc(x.found) + '</p><p><strong>Why it matters.</strong> ' + esc(x.why_it_matters) + '</p>' + (x.caveat ? '<p><strong>Why the support is weaker.</strong> ' + esc(x.caveat) + '</p>' : '') + '</div>';
   }
   function insightHtml(x) {
     return '<div class="concl"><h4 class="ct">' + esc(x.title) + '</h4><p><strong>You might expect.</strong> ' + esc(x.expected) + '</p><p><strong>The analysis found.</strong> ' + esc(x.found) + '</p><p><strong>Why it matters.</strong> ' + esc(x.why_it_matters) + '</p><p class="small"><span class="pill conf-' + x.label + '">' + esc(sentence(x.label)) + ' confidence</span></p><p class="small">' + esc(x.reason) + '</p></div>';
