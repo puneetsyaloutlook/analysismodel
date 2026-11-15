@@ -41,7 +41,7 @@
     out.innerHTML = ''; out.appendChild(intakeForm(job));
     resetTally();
     $('sim-run').disabled = true; $('sim-step').disabled = true;
-    $('sim-controls').hidden = true; $('sim-step').hidden = false; $('sim-run').hidden = false;
+    $('sim-controls').hidden = true; $('sim-reset-li').hidden = true; $('sim-step').hidden = false; $('sim-run').hidden = false;
   }
 
   // Each step builds an array of "blocks": {html, pause}. Blocks appear one at a time inside a wrapper.
@@ -124,7 +124,7 @@
     Array.prototype.forEach.call(f.querySelectorAll('input:not(#sim-stepwise), textarea'), function (i) { i.disabled = true; });
     f.classList.add('locked'); $('sim-submit').disabled = true; $('sim-submit').textContent = 'Submitted'; $('sim-stepwise').disabled = true;
     focusApp(); setTally('t-mat', j.source.words);
-    $('sim-controls').hidden = false;
+    $('sim-controls').hidden = false; $('sim-reset-li').hidden = false;
     if (!stepwise) { $('sim-step').hidden = true; $('sim-run').hidden = true; }
     if (stepwise) { stepOnce().then(function () { setBusy(false); }); } else { runAll(); }
   }
@@ -202,7 +202,7 @@
       b.push({ role: 'work', html: '<h3>Agreement table</h3><div class="table-wrap"><table class="matrix"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div><p class="small">Each column is a technique. A: it agrees with the conclusion. P: it partly agrees. C: it conflicts. N: it does not cover it.</p>' });
       sy.conclusions.forEach(function (c) { b.push({ role: 'work', html: conclHtml(c) }); });
       var nWell = sy.conclusions.filter(function (c) { return c.label === 'high'; }).length;
-      b.push({ role: 'work', html: '<p class="result">' + sy.conclusions.length + ' conclusions: ' + nWell + ' well supported and ' + (sy.conclusions.length - nWell) + ' with weaker support, and ' + (sy.insights ? sy.insights.length : 0) + ' insights.</p>', tally: [['t-concl', nWell + ' and ' + (sy.conclusions.length - nWell)], ['t-ins', sy.insights ? sy.insights.length : 0]] });
+      b.push({ role: 'work', html: '<p class="result">' + sy.conclusions.length + ' conclusions: ' + nWell + ' well supported and ' + (sy.conclusions.length - nWell) + ' with weaker support, and ' + (sy.insights ? sy.insights.length : 0) + ' insights.</p>', tally: [['t-concl', sy.conclusions.length - nWell], ['t-ins', sy.insights ? sy.insights.length : 0]] });
       if (sy.insights && sy.insights.length) {
         b.push({ role: 'work', html: '<h3>Insights</h3>' });
         sy.insights.forEach(function (x) { b.push({ role: 'work', html: insightHtml(x) }); });
