@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Change log | ANLYSIS</title>
+<meta name="description" content="What changed in each version of the design, newest first, and how to check the version of your copy of the skill.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <button class="menu-btn" aria-expanded="false" aria-controls="sidebar">Menu</button>
+  <a class="brand" href="/"><img src="/assets/logo.svg" width="261" height="51" alt="ANLYSIS.work home"></a>
+  <div class="search" role="search">
+    <label for="q" class="sr">Search the documentation</label>
+    <input id="q" type="search" autocomplete="off" placeholder="Search pages and techniques" aria-controls="results">
+    <ul id="results" hidden></ul>
+  </div>
+</header>
+<div class="shell">
+  <aside id="sidebar" class="side"><nav aria-label="Documentation"><div class="nav-group"><p class="nav-label">The model</p><ul><li><a href="/process/">Process</a></li><li><a href="/catalogue/">Techniques</a></li><li><a href="/reference/">Dictionary</a></li><li><a href="/limits/">Limits</a></li></ul></div><div class="nav-group"><p class="nav-label">Try it</p><ul><li><a href="/simulator/">Simulator</a></li><li><a href="/skill/">Skill</a></li></ul></div><div class="nav-group"><p class="nav-label">The project</p><ul><li><a href="/status/">Status</a></li><li><a href="/changes/" aria-current="page">Change log</a></li><li><a href="/project/">Project record</a></li></ul></div></nav></aside>
+  <main id="main" class="content">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Change log</li></ol></nav>
+    <h1>Change log</h1>
+    <div class="prose"><p>This page lists what changed in each version of the design, in plain terms, newest first. The numbers in the last column are decisions on the <a href="/project/decisions/">decisions page</a>, which gives the reason for each. The current version is 1.2.13.</p>
+<p>To check which version your copy of the skill follows, open <code>references/design.md</code> in the skill folder. The version is stated near the top. The download on the <a href="/skill/">skill page</a> states the version it carries.</p>
+<p>Versions that change only the website say so. The skill is unchanged by them.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>What changed</th>
+<th>Decisions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.2.13</td>
+<td>15 Nov 2026</td>
+<td>New pages: Choose by hand, Limits and Change log. Website only.</td>
+<td>49</td>
+</tr>
+<tr>
+<td>1.2.12</td>
+<td>15 Nov 2026</td>
+<td>In the simulator, Start again moved into the left navigation, and the conclusions measure shows the conclusions to review. Website only.</td>
+<td>48</td>
+</tr>
+<tr>
+<td>1.2.11</td>
+<td>15 Nov 2026</td>
+<td>The simulator shows six measures of the run in place of five counters of technique numbers. Website only.</td>
+<td>47</td>
+</tr>
+<tr>
+<td>1.2.10</td>
+<td>15 Nov 2026</td>
+<td>The answer groups conclusions as well supported and weaker support, with a caveat on each weaker one. The labels (high, medium, low) are recorded and shown only when you ask.</td>
+<td>46</td>
+</tr>
+<tr>
+<td>1.2.9</td>
+<td>15 Nov 2026</td>
+<td>The site gained the Use the skill page, with the download and install steps for Claude and GitHub Copilot. Website only.</td>
+<td>45</td>
+</tr>
+<tr>
+<td>1.2.8</td>
+<td>15 Nov 2026</td>
+<td>The answer starts with a summary in plain sentences. Conclusions have titles instead of codes, and an insight is defined as a finding that goes against or beyond what you would expect. The answer is delivered as a document where the application can make one.</td>
+<td>43, 44</td>
+</tr>
+<tr>
+<td>1.2.7</td>
+<td>15 Nov 2026</td>
+<td>A technique whose run does not finish is dropped, with the reason, and listed in the answer.</td>
+<td>42</td>
+</tr>
+<tr>
+<td>1.2.6</td>
+<td>15 Nov 2026</td>
+<td>Outside material is now called additional sources and is found after the plan, one item per need, without asking you to approve it. The skill is named analysis.</td>
+<td>40, 41</td>
+</tr>
+<tr>
+<td>1.2.5</td>
+<td>14 Nov 2026</td>
+<td>The design was renamed ANLYSIS, and the site address is anlysis.work.</td>
+<td>39</td>
+</tr>
+<tr>
+<td>1.2.4</td>
+<td>14 Nov 2026</td>
+<td>Checks that need a person apply at high stakes only. At high stakes you review a sample of the results at the end of step 6.</td>
+<td>38</td>
+</tr>
+<tr>
+<td>1.2.3</td>
+<td>13 Nov 2026</td>
+<td>The plan is a table in four named groups, with each technique described. Outside material is resolved in step 5.2, with your approval. The states of a step, a technique, a check and the answer are defined.</td>
+<td>33 to 37</td>
+</tr>
+<tr>
+<td>1.2.2</td>
+<td>13 Nov 2026</td>
+<td>Steps 3 and 4 were renamed Choose analysis techniques and Plan analysis sequence. The sequence records a reason for each position.</td>
+<td>32</td>
+</tr>
+<tr>
+<td>1.2.1</td>
+<td>13 Nov 2026</td>
+<td>The answer is the only output. Everything before it is work, shown as far as the application allows.</td>
+<td>31</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>12 Nov 2026</td>
+<td>One numbered process of eight steps. Question techniques run first and you can keep or edit the request. The answer says whether the strength of statement you needed was reached. Step 3 has four criteria. The confidence rule covers agreement, conflict and checks that need a person. Five kinds of technique. One term for one thing.</td>
+<td>24 to 30</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td>11 Nov 2026</td>
+<td>The brief has one request. The process loops only when you ask. At most ten techniques in the first round and five in each follow-up round. Challenge techniques work on the findings, not on the brief. One confidence label and a one-line reason per conclusion. A technique that fails only on content type or structure is kept when another technique can produce what it needs.</td>
+<td>11 to 23</td>
+</tr>
+<tr>
+<td>1.0</td>
+<td>Before 11 Nov 2026</td>
+<td>The design, the schema and the scripts were reconciled, and ten conflicts between them were resolved.</td>
+<td>1 to 10</td>
+</tr>
+</tbody>
+</table></div></div>
+    <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/status/"><span>Previous</span>Status</a><a class="next" href="/project/"><span>Next</span>Project record</a></nav>
+  </main>
+  <aside class="rail"></aside>
+</div>
+<script src="/assets/site.js" defer></script>
+
+</body>
+</html>

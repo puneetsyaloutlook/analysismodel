@@ -24,3 +24,7 @@ The property names in the requirements table link to their definitions in the [d
 ## Find a technique
 
 Filter the table by name, purpose or family, or open a family from the list above. The table lists all 236 techniques.
+
+## Using the catalogue without the skill
+
+You can choose techniques yourself, following the same steps as the process. [Choose techniques by hand](/catalogue/choose-by-hand/) explains how.
