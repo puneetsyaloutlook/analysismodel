@@ -240,9 +240,9 @@ def make_skill_page():
 
 
 def make_choose_page():
-    text = (DATA / "choose-by-hand.md").read_text(encoding="utf-8")
-    add_page("/catalogue/choose-by-hand/", "Choose techniques by hand", "Techniques", md_block(text),
-             "How to use the catalogue without the skill: settings, ruling out, shortlisting, ordering, checks and evidence status.")
+    text = (DATA / "use-by-hand.md").read_text(encoding="utf-8")
+    add_page("/by-hand/", "Use by hand", "Try it", md_block(text),
+             "How to follow the whole process yourself, without the skill, step by step from the brief to the answer.")
 
 
 def make_limits_page():
@@ -281,6 +281,7 @@ def make_home():
   <a class="card" href="/limits/"><p class="card-title">Limits</p><p>What the process does not do, what has not been tested and where its answers are weaker than they look.</p></a>
   <a class="card" href="/simulator/"><p class="card-title">Simulator</p><p>Replay one stored run step by step, to see what the process does and the answer it gives.</p></a>
   <a class="card" href="/skill/"><p class="card-title">Skill</p><p>The skill that runs the process. Download it and install it in Claude or GitHub Copilot.</p></a>
+  <a class="card" href="/by-hand/"><p class="card-title">Use by hand</p><p>Follow the whole process yourself, without the skill, from the brief to the answer.</p></a>
   <a class="card" href="/status/"><p class="card-title">Status</p><p>What has been built and run so far, and what is still untested.</p></a>
   <a class="card" href="/changes/"><p class="card-title">Change log</p><p>What changed in each version of the design, and how to check the version of your copy of the skill.</p></a>
   <a class="card" href="/project/"><p class="card-title">Project record</p><p>Why the design is as it is: dated decisions, test evidence and the files.</p></a>
@@ -568,12 +569,12 @@ NAV = [
         ("/process/", "Process", [("/process/intake/", "1. Intake"), ("/process/choosing-techniques/", "2 and 3. Rule out and choose"),
                                   ("/process/planning-the-sequence/", "4. Plan analysis sequence"), ("/process/running-the-techniques/", "5. Run the techniques"),
                                   ("/process/checks-and-answer/", "6 to 8. Check, combine and answer")]),
-        ("/catalogue/", "Techniques", [("/catalogue/choose-by-hand/", "Choose by hand")] + [(f"/catalogue/{FAM_SLUG[f]}/", f"{f} ({len(FAMILIES[f])})") for f in FAMILY_ORDER]),
+        ("/catalogue/", "Techniques", [(f"/catalogue/{FAM_SLUG[f]}/", f"{f} ({len(FAMILIES[f])})") for f in FAMILY_ORDER]),
         ("/reference/", "Dictionary", [("/reference/fields/", "Fields"), ("/reference/artefact-types/", "Working document types"),
                                        ("/reference/checks/", "Check library"), ("/reference/phases-and-tiers/", "Steps, kinds, stakes and relations")]),
         ("/limits/", "Limits", []),
     ]),
-    ("Try it", [("/simulator/", "Simulator", []), ("/skill/", "Skill", [])]),
+    ("Try it", [("/simulator/", "Simulator", []), ("/skill/", "Skill", []), ("/by-hand/", "Use by hand", [])]),
     ("The project", [
         ("/status/", "Status", []),
         ("/changes/", "Change log", []),
@@ -627,7 +628,7 @@ def crumbs(page):
         if len(segs) == 3:
             fam = next(f for f in FAMILY_ORDER if FAM_SLUG[f] == segs[1])
             items.append((f"/catalogue/{segs[1]}/", fam))
-    elif path.startswith("/skill/") or path in ("/limits/", "/changes/"):
+    elif path.startswith("/skill/") or path in ("/limits/", "/changes/", "/by-hand/"):
         pass
     elif path.startswith("/reference/"):
         items.append(("/reference/", "Dictionary"))

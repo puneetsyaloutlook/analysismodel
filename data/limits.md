@@ -2,7 +2,7 @@ This page says what ANLYSIS does not do, what has not been tested and where its 
 
 ## What has been tested
 
-The process has run completely once, on a short set of interview quotes (507 words) with a question about three hypotheses. Steps 7 and 8 were then run again on that run to show later versions of the answer. The skill has been run once inside Claude, by its author, on an article. It has not been run in GitHub Copilot. The stored run is the evidence for every claim on this site about how the process behaves, and it is one run on one small brief.
+The process has run completely once, on a short set of interview quotes (507 words) with a question about three hypotheses. Steps 7 and 8 were then run again on that run to show later versions of the answer. The skill has been run once inside Claude, by its author, on an article. It has not been run in GitHub Copilot. Following the process by hand, as described on [Use by hand](/by-hand/), has not been tested by anyone. The page restates the process. The stored run is the evidence for every claim on this site about how the process behaves, and it is one run on one small brief.
 
 Not run at all:
 

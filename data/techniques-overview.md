@@ -27,4 +27,4 @@ Filter the table by name, purpose or family, or open a family from the list abov
 
 ## Using the catalogue without the skill
 
-You can choose techniques yourself, following the same steps as the process. [Choose techniques by hand](/catalogue/choose-by-hand/) explains how.
+You can choose techniques yourself, following the same steps as the process. [Use by hand](/by-hand/) explains how, from the brief to the answer.
