@@ -22,7 +22,7 @@
   </div>
 </header>
 <div class="shell">
-  <aside id="sidebar" class="side"><nav aria-label="Documentation"><div class="nav-group"><p class="nav-label">The model</p><ul><li><a href="/process/">Process</a></li><li><a href="/catalogue/">Techniques</a></li><li><a href="/reference/">Dictionary</a></li></ul></div><div class="nav-group"><p class="nav-label">Try it</p><ul><li><a href="/simulator/">Simulator</a></li><li><a href="/skill/">Skill</a></li></ul></div><div class="nav-group"><p class="nav-label">The project</p><ul><li><a href="/status/">Status</a></li><li><a href="/project/" class="on">Project record</a><ul class="sub"><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/" aria-current="page">Files and change rule</a></li></ul></li></ul></div></nav></aside>
+  <aside id="sidebar" class="side"><nav aria-label="Documentation"><div class="nav-group"><p class="nav-label">The model</p><ul><li><a href="/process/">Process</a></li><li><a href="/catalogue/">Techniques</a></li><li><a href="/reference/">Dictionary</a></li><li><a href="/limits/">Limits</a></li></ul></div><div class="nav-group"><p class="nav-label">Try it</p><ul><li><a href="/simulator/">Simulator</a></li><li><a href="/skill/">Skill</a></li></ul></div><div class="nav-group"><p class="nav-label">The project</p><ul><li><a href="/status/">Status</a></li><li><a href="/changes/">Change log</a></li><li><a href="/project/" class="on">Project record</a><ul class="sub"><li><a href="/project/decisions/">Decisions</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/" aria-current="page">Files and change rule</a></li></ul></li></ul></div></nav></aside>
   <main id="main" class="content">
     <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/project/">Project record</a></li><li aria-current="page">Files and change rule</li></ol></nav>
     <h1>Files and change rule</h1>
@@ -40,7 +40,7 @@
 </tr>
 <tr>
 <td><code>schema/schema.json</code></td>
-<td>Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.12.</td>
+<td>Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.13.</td>
 </tr>
 <tr>
 <td><code>master/master_tagged.csv</code></td>
@@ -71,11 +71,15 @@
 <td>The skill: <code>SKILL.md</code>, <code>references/</code> (this document, the schema, the catalogue and the prompts) and <code>scripts/</code>. The site repository keeps a copy as <code>data/analysis.zip</code>, which the site offers for download.</td>
 </tr>
 <tr>
+<td><code>data/choose-by-hand.md</code>, <code>data/limits.md</code>, <code>data/change-log.md</code></td>
+<td>The text of the pages Choose by hand, Limits and Change log, in the site repository.</td>
+</tr>
+<tr>
 <td><code>run2/</code></td>
 <td>The complete run of 13 November 2026: inputs, plan, results, combined findings and answer.</td>
 </tr>
 </tbody>
-</table></div><h2 id="change-rule">Change rule</h2><p>A change to a field, a requirement, a step or a method is made in <code>schema.json</code> and in this document together. A change to a technique's text or tags is made in the source files and the CSV is rebuilt. When the skill changes, replace <code>data/analysis.zip</code> in the site repository with the new zip, so that the download matches the version in this document. After any change, run the validator (<code>python3 -I scripts/validate_tags.py master/tags/tags_*.json</code>), then run <code>select.py</code> and <code>sequence.py</code> on the test briefs and compare the counts with the last recorded run.</p></div>
+</table></div><h2 id="change-rule">Change rule</h2><p>A change to a field, a requirement, a step or a method is made in <code>schema.json</code> and in this document together. A change to a technique's text or tags is made in the source files and the CSV is rebuilt. When the skill changes, replace <code>data/analysis.zip</code> in the site repository with the new zip, so that the download matches the version in this document. Add a row to <code>data/change-log.md</code> for every new version. The build fails when the newest row does not match the version at the top of this document. When section 10 or the tested items change, update <code>data/limits.md</code> to match. After any change, run the validator (<code>python3 -I scripts/validate_tags.py master/tags/tags_*.json</code>), then run <code>select.py</code> and <code>sequence.py</code> on the test briefs and compare the counts with the last recorded run.</p></div>
     <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/project/test-evidence/"><span>Previous</span>Test evidence</a><span></span></nav>
   </main>
   <aside class="rail"></aside>

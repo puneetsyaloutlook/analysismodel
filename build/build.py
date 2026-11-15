@@ -239,6 +239,28 @@ def make_skill_page():
              "Download the analysis skill and install it in Claude or GitHub Copilot, with what to give it, what it asks and what it returns.")
 
 
+def make_choose_page():
+    text = (DATA / "choose-by-hand.md").read_text(encoding="utf-8")
+    add_page("/catalogue/choose-by-hand/", "Choose techniques by hand", "Techniques", md_block(text),
+             "How to use the catalogue without the skill: settings, ruling out, shortlisting, ordering, checks and evidence status.")
+
+
+def make_limits_page():
+    text = (DATA / "limits.md").read_text(encoding="utf-8")
+    add_page("/limits/", "Limits", "Limits", md_block(text),
+             "What ANLYSIS does not do, what has not been tested and where its answers are weaker than they look.")
+
+
+def make_changes_page():
+    text = (DATA / "change-log.md").read_text(encoding="utf-8")
+    ver = re.search(r"^Version (\S+?),", design_text, flags=re.M).group(1)
+    first = re.search(r"^\| (\S+) \|", text.split("|---|---|---|---|")[1], flags=re.M).group(1)
+    assert first == ver, f"change log newest version {first} is not the design version {ver}"
+    assert f"The current version is {ver}." in text, "change log must state the current version"
+    add_page("/changes/", "Change log", "Change log", md_block(text),
+             "What changed in each version of the design, newest first, and how to check the version of your copy of the skill.")
+
+
 def demote(text):
     """Turn ## into ### so test documents sit under a page level h2."""
     return re.sub(r"^(#{2,5}) ", lambda m: "#" * (len(m.group(1)) + 1) + " ", text, flags=re.M)
@@ -256,9 +278,11 @@ def make_home():
   <a class="card" href="/process/"><p class="card-title">Process</p><p>How a request and some material become one answer, in eight steps from intake to the answer.</p></a>
   <a class="card" href="/catalogue/"><p class="card-title">Techniques</p><p>The {len(rows)} analytical techniques the process chooses from, with when each fits and what it needs from your material.</p></a>
   <a class="card" href="/reference/"><p class="card-title">Dictionary</p><p>What each tag on a technique page means, and the checks and relations the process uses.</p></a>
+  <a class="card" href="/limits/"><p class="card-title">Limits</p><p>What the process does not do, what has not been tested and where its answers are weaker than they look.</p></a>
   <a class="card" href="/simulator/"><p class="card-title">Simulator</p><p>Replay one stored run step by step, to see what the process does and the answer it gives.</p></a>
   <a class="card" href="/skill/"><p class="card-title">Skill</p><p>The skill that runs the process. Download it and install it in Claude or GitHub Copilot.</p></a>
   <a class="card" href="/status/"><p class="card-title">Status</p><p>What has been built and run so far, and what is still untested.</p></a>
+  <a class="card" href="/changes/"><p class="card-title">Change log</p><p>What changed in each version of the design, and how to check the version of your copy of the skill.</p></a>
   <a class="card" href="/project/"><p class="card-title">Project record</p><p>Why the design is as it is: dated decisions, test evidence and the files.</p></a>
 </div>
 <h2>Process at a glance</h2>
@@ -544,13 +568,15 @@ NAV = [
         ("/process/", "Process", [("/process/intake/", "1. Intake"), ("/process/choosing-techniques/", "2 and 3. Rule out and choose"),
                                   ("/process/planning-the-sequence/", "4. Plan analysis sequence"), ("/process/running-the-techniques/", "5. Run the techniques"),
                                   ("/process/checks-and-answer/", "6 to 8. Check, combine and answer")]),
-        ("/catalogue/", "Techniques", [(f"/catalogue/{FAM_SLUG[f]}/", f"{f} ({len(FAMILIES[f])})") for f in FAMILY_ORDER]),
+        ("/catalogue/", "Techniques", [("/catalogue/choose-by-hand/", "Choose by hand")] + [(f"/catalogue/{FAM_SLUG[f]}/", f"{f} ({len(FAMILIES[f])})") for f in FAMILY_ORDER]),
         ("/reference/", "Dictionary", [("/reference/fields/", "Fields"), ("/reference/artefact-types/", "Working document types"),
                                        ("/reference/checks/", "Check library"), ("/reference/phases-and-tiers/", "Steps, kinds, stakes and relations")]),
+        ("/limits/", "Limits", []),
     ]),
     ("Try it", [("/simulator/", "Simulator", []), ("/skill/", "Skill", [])]),
     ("The project", [
         ("/status/", "Status", []),
+        ("/changes/", "Change log", []),
         ("/project/", "Project record", [("/project/decisions/", "Decisions"), ("/project/test-evidence/", "Test evidence"),
                                          ("/project/files-and-change-rule/", "Files and change rule")]),
     ]),
@@ -601,7 +627,7 @@ def crumbs(page):
         if len(segs) == 3:
             fam = next(f for f in FAMILY_ORDER if FAM_SLUG[f] == segs[1])
             items.append((f"/catalogue/{segs[1]}/", fam))
-    elif path.startswith("/skill/"):
+    elif path.startswith("/skill/") or path in ("/limits/", "/changes/"):
         pass
     elif path.startswith("/reference/"):
         items.append(("/reference/", "Dictionary"))
@@ -764,6 +790,9 @@ def main():
     make_reference()
     make_project_pages()
     make_skill_page()
+    make_choose_page()
+    make_limits_page()
+    make_changes_page()
     make_simulator()
     for p in PAGES:
         render(p)

@@ -22,7 +22,7 @@
   </div>
 </header>
 <div class="shell">
-  <aside id="sidebar" class="side"><nav aria-label="Documentation"><div class="nav-group"><p class="nav-label">The model</p><ul><li><a href="/process/">Process</a></li><li><a href="/catalogue/">Techniques</a></li><li><a href="/reference/">Dictionary</a></li></ul></div><div class="nav-group"><p class="nav-label">Try it</p><ul><li><a href="/simulator/">Simulator</a></li><li><a href="/skill/">Skill</a></li></ul></div><div class="nav-group"><p class="nav-label">The project</p><ul><li><a href="/status/">Status</a></li><li><a href="/project/" class="on">Project record</a><ul class="sub"><li><a href="/project/decisions/" aria-current="page">Decisions</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></li></ul></div></nav></aside>
+  <aside id="sidebar" class="side"><nav aria-label="Documentation"><div class="nav-group"><p class="nav-label">The model</p><ul><li><a href="/process/">Process</a></li><li><a href="/catalogue/">Techniques</a></li><li><a href="/reference/">Dictionary</a></li><li><a href="/limits/">Limits</a></li></ul></div><div class="nav-group"><p class="nav-label">Try it</p><ul><li><a href="/simulator/">Simulator</a></li><li><a href="/skill/">Skill</a></li></ul></div><div class="nav-group"><p class="nav-label">The project</p><ul><li><a href="/status/">Status</a></li><li><a href="/changes/">Change log</a></li><li><a href="/project/" class="on">Project record</a><ul class="sub"><li><a href="/project/decisions/" aria-current="page">Decisions</a></li><li><a href="/project/test-evidence/">Test evidence</a></li><li><a href="/project/files-and-change-rule/">Files and change rule</a></li></ul></li></ul></div></nav></aside>
   <main id="main" class="content">
     <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/project/">Project record</a></li><li aria-current="page">Decisions</li></ol></nav>
     <h1>Decisions</h1>
@@ -300,6 +300,11 @@
 <td>48</td>
 <td>In the simulator the Start again button sat in the bar above the measures, away from the other controls in the left navigation. The conclusions measure read "4 and 5", which does not say what to do with the numbers. Decided on 15 November 2026.</td>
 <td>Start again is an item under Simulator in the left navigation, shown once a run has started. The conclusions measure shows one number, the conclusions with weaker support, labelled conclusions to review. Decision 47 is otherwise unchanged. This changes the site only.</td>
+</tr>
+<tr>
+<td>49</td>
+<td>The site explained the model and the project but gave a reader no way to use the catalogue without the skill, no plain statement of what the process does not do, and no list of what changed in each version. Decided on 15 November 2026.</td>
+<td>Three pages are added. Choose by hand, under Techniques, shows how to use the catalogue with the same steps as the process. Limits states what has been tested, what the answer rests on, the catalogue's weaknesses, what the process cannot read or judge and what is not recorded. Change log lists each version, newest first, in plain terms, with its decisions. The page texts are <code>data/choose-by-hand.md</code>, <code>data/limits.md</code> and <code>data/change-log.md</code>. The build fails if the newest row of the change log is not this document's version. This changes the site only.</td>
 </tr>
 </tbody>
 </table></div></div>
