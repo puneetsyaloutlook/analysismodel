@@ -160,14 +160,13 @@ def make_simulator():
   <input type="hidden" id="sim-speed" value="1">
   <button type="button" id="sim-step" class="btn">Next step</button>
   <button type="button" id="sim-run" class="btn">Run to end</button>
-  <button type="button" id="sim-reset" class="btn">Start again</button>
 </div>
 <div class="tally" aria-label="Running totals">
   <div><span class="n" id="t-mat">-</span><span class="k">words of material read</span></div>
   <div><span class="n" id="t-run">-</span><span class="k" id="t-run-k">techniques run</span></div>
   <div><span class="n" id="t-add">-</span><span class="k">additional sources used</span></div>
   <div><span class="n" id="t-chk">-</span><span class="k" id="t-chk-k">checks done</span></div>
-  <div><span class="n" id="t-concl">-</span><span class="k">conclusions: well supported and weaker support</span></div>
+  <div><span class="n" id="t-concl">-</span><span class="k">conclusions to review</span></div>
   <div><span class="n" id="t-ins">-</span><span class="k">insights</span></div>
 </div>
 <ul class="legend" aria-label="Key to the colours"><li><span class="sw sw-input"></span>Your input: what you enter or decide</li><li><span class="sw sw-work"></span>What ANLYSIS did on the way to the answer</li><li><span class="sw sw-output"></span>Output: the report you receive at the end</li></ul>
@@ -582,6 +581,8 @@ def nav_html(current):
                     kc = ' aria-current="page"' if (ku == current or (ku.startswith("/catalogue/") and current.startswith(ku))) else ""
                     ks.append(f'<li><a href="{ku}"{kc}>{esc(kt)}</a></li>')
                 sub = '<ul class="sub">' + "".join(ks) + "</ul>"
+            if u == "/simulator/" and current == u:
+                sub = '<ul class="sub"><li hidden id="sim-reset-li"><button type="button" id="sim-reset" class="navbtn">Start again</button></li></ul>'
             lis.append(f'<li><a href="{u}"{cur}{cls}>{esc(t)}</a>{sub}</li>')
         out.append(f'<div class="nav-group"><p class="nav-label">{esc(grp)}</p><ul>{"".join(lis)}</ul></div>')
     return '<nav aria-label="Documentation">' + "".join(out) + "</nav>"
