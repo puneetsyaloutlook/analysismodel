@@ -282,7 +282,7 @@ def make_home():
   <a class="card" href="/simulator/"><p class="card-title">Simulator</p><p>Replay one stored run step by step, to see what the process does and the answer it gives.</p></a>
   <a class="card" href="/skill/"><p class="card-title">Skill</p><p>The skill that runs the process. Download it and install it in Claude or GitHub Copilot.</p></a>
   <a class="card" href="/by-hand/"><p class="card-title">Use by hand</p><p>Follow the whole process yourself, without the skill, from the brief to the answer.</p></a>
-  <a class="card" href="/status/"><p class="card-title">Status</p><p>What is built, what has been run and what is untested.</p></a>
+  <a class="card" href="/status/"><p class="card-title">Status</p><p>Build and test updates.</p></a>
   <a class="card" href="/changes/"><p class="card-title">Change log</p><p>What changed in each version of the design, and how to check the version of your copy of the skill.</p></a>
   <a class="card" href="/project/"><p class="card-title">Project record</p><p>Why the design is as it is: dated decisions, test evidence and the files.</p></a>
 </div>
@@ -296,7 +296,7 @@ def make_home():
 <table><thead><tr><th>Family</th><th>Techniques</th><th>What the family is for</th></tr></thead><tbody>
 {''.join(f'<tr><td><a href="/catalogue/{FAM_SLUG[f]}/">{esc(f)}</a></td><td>{counts[f]}</td><td>{esc(FAMILY_INTROS[f]["short"])}</td></tr>' for f in FAMILY_ORDER)}
 <tr><td><strong>Total</strong></td><td><strong>{len(rows)}</strong></td><td></td></tr></tbody></table>
-<p>The <a href="/status/">status page</a> says what is built, what has been run and what is untested.</p>
+<p>The <a href="/status/">status page</a> lists build and test updates.</p>
 """
     add_page("/", "ANLYSIS", "Overview", body, "Documentation of ANLYSIS: a catalogue of analytical techniques and a process for choosing and running them.")
 
