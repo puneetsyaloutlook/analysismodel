@@ -210,7 +210,7 @@ def make_project_pages():
     add_page("/project/decisions/", "Decisions", "Project record", section_html(9),
              "A dated history of the decisions behind the design. The current rules are on the process pages.")
     add_page("/status/", "Status", "The project", section_html(1) + '<h2 id="open-items">Open items</h2>' + section_html(10),
-             "What the project is, what has been built and run, and what is untested, unbuilt or known to be wrong.")
+             "What the project is, what is built, what has been run, and what is untested, unbuilt or known to be wrong.")
     add_page("/project/", "Project record", "The project", """
 <p>The project record is the history and the evidence behind the design. The current rules are on the <a href="/process/">process pages</a>. Current status and open items are on the <a href="/status/">status page</a>.</p>
 <ul>
@@ -282,7 +282,7 @@ def make_home():
   <a class="card" href="/simulator/"><p class="card-title">Simulator</p><p>Replay one stored run step by step, to see what the process does and the answer it gives.</p></a>
   <a class="card" href="/skill/"><p class="card-title">Skill</p><p>The skill that runs the process. Download it and install it in Claude or GitHub Copilot.</p></a>
   <a class="card" href="/by-hand/"><p class="card-title">Use by hand</p><p>Follow the whole process yourself, without the skill, from the brief to the answer.</p></a>
-  <a class="card" href="/status/"><p class="card-title">Status</p><p>What has been built and run so far, and what is still untested.</p></a>
+  <a class="card" href="/status/"><p class="card-title">Status</p><p>What is built, what has been run and what is untested.</p></a>
   <a class="card" href="/changes/"><p class="card-title">Change log</p><p>What changed in each version of the design, and how to check the version of your copy of the skill.</p></a>
   <a class="card" href="/project/"><p class="card-title">Project record</p><p>Why the design is as it is: dated decisions, test evidence and the files.</p></a>
 </div>
@@ -296,7 +296,7 @@ def make_home():
 <table><thead><tr><th>Family</th><th>Techniques</th><th>What the family is for</th></tr></thead><tbody>
 {''.join(f'<tr><td><a href="/catalogue/{FAM_SLUG[f]}/">{esc(f)}</a></td><td>{counts[f]}</td><td>{esc(FAMILY_INTROS[f]["short"])}</td></tr>' for f in FAMILY_ORDER)}
 <tr><td><strong>Total</strong></td><td><strong>{len(rows)}</strong></td><td></td></tr></tbody></table>
-<p>What has been built and run, and what is untested, is on the <a href="/status/">status page</a>.</p>
+<p>The <a href="/status/">status page</a> says what is built, what has been run and what is untested.</p>
 """
     add_page("/", "ANLYSIS", "Overview", body, "Documentation of ANLYSIS: a catalogue of analytical techniques and a process for choosing and running them.")
 
