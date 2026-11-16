@@ -33,7 +33,7 @@ Start from the [families](/catalogue/). Each family page says what its technique
 1. Make sure every part of your request has at least one technique.
 2. Include at least one technique that reaches the strength of statement you need, if one fits. If none does, say so in your write-up.
 3. Match the kind of finding you want.
-4. Where two techniques serve the same part of the request, prefer a pair that reads the material in different ways, because agreement between them counts for more than agreement between near-copies.
+4. Where two techniques serve the same part of the request, prefer a pair that reads the material in different ways, because agreement between techniques that read the material in different ways counts for more than agreement between techniques that read it the same way.
 
 Stop at ten, a default chosen for the design and not a measured value. Before you keep a technique, read its When it does not fit section and its Failure modes and limits. Write one line for each technique saying which part of the request it serves.
 

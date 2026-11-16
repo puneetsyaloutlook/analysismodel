@@ -1,6 +1,6 @@
 A technique is a named way of analysing something, such as five whys, difference-in-differences or lateral reading. The catalogue holds 236 of them. Each has a plain description of what it does and what it produces, a statement of when it fits and when it does not, the conditions your material must meet, and a result format that tells the model what a run of the technique must contain.
 
-The catalogue is not a textbook. It records enough about each technique for the process to do three things without a person: decide whether the technique can run on your material (step 2), choose the ones that fit your request (step 3), and put them in a workable order with the right checks (steps 4 to 6). The [process pages](/process/) explain those steps.
+The catalogue records enough about each technique for the process to do three things without a person: decide whether the technique can run on your material (step 2), choose the ones that fit your request (step 3), and put them in a workable order with the right checks (steps 4 to 6). The [process pages](/process/) explain those steps.
 
 ## How the techniques are grouped
 
