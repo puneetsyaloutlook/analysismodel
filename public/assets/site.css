@@ -340,3 +340,8 @@ details.acc.tech>summary .tname{font-weight:600}
 
 .rf-famname{font-weight:500}
 .rf-fam td:first-child{white-space:nowrap}
+
+/* navigation: section names stand apart from the links */
+.nav-group{margin:1.3rem 0 .6rem}
+.nav-group:first-child{margin-top:.2rem}
+.nav-label{margin:0 0 .35rem;padding:.4rem .6rem;font:700 .8rem var(--sans);letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--teal-700);border-radius:6px}
