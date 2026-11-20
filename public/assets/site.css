@@ -344,4 +344,4 @@ details.acc.tech>summary .tname{font-weight:600}
 /* navigation: section names stand apart from the links */
 .nav-group{margin:1.3rem 0 .6rem}
 .nav-group:first-child{margin-top:.2rem}
-.nav-label{margin:0 0 .35rem;padding:.4rem .6rem;font:700 .8rem var(--sans);letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--teal-700);border-radius:6px}
+.nav-label{margin:0 0 .3rem;padding:.2rem .5rem .3rem;font:700 .76rem var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--teal-700);border-bottom:2px solid var(--teal-200)}
