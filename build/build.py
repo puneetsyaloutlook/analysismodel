@@ -647,8 +647,10 @@ def make_technique_page(r):
             c = CHECKS.get(code)
             hi = c["human_involvement"]["level"] if c else "unknown"
             corr = c["counts_as_corroboration"] if c else "unknown"
+            if hi in ("needed", "conditional") and tier != "high-stakes":
+                hi = f"{hi}; left out below high stakes"
             chk_rows.append(f'<tr><td>{esc(tier)}</td><td><a href="/reference/checks/#{slug(code)}">{esc(code)}</a></td><td>{esc(hi)}</td><td>{esc(corr)}</td></tr>')
-    chk = "<h2 id=\"checks\">Library checks by stakes</h2><p>Each stakes level includes the checks of the level below it. Repeatability: " + esc(r["repeatability"]) + ".</p>"
+    chk = "<h2 id=\"checks\">Library checks by stakes</h2><p>Each stakes level includes the checks of the level below it. Checks that need a person apply at high stakes only, so the process leaves them out at lower stakes (<a href=\"/project/decisions/\">decision 38</a>). Repeatability: " + esc(r["repeatability"]) + ".</p>"
     chk += '<table><thead><tr><th>Stakes</th><th>Check</th><th>Person involved</th><th>Counts as a different method</th></tr></thead><tbody>' + "".join(chk_rows) + "</tbody></table>"
     # failure modes
     fail = "<h2 id=\"failure-modes-and-limits\">Failure modes and limits</h2>" + kv_table([

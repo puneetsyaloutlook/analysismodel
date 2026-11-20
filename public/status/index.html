@@ -34,7 +34,7 @@
 <li>Every part has been built and tested on small cases.</li>
 <li>One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.4 of this design. Steps 1 to 5 ran before decision 38, which changes only step 6. Steps 7 and 8 were run again on 15 November 2026 under version 1.2.8, to show the answer form of decisions 43 and 44, and step 8 once more under version 1.2.10, to show the grouped conclusions of decision 46. Its output is shown in the simulator on the documentation site.</li>
 <li>The documentation site is built from this document, the schema and the catalogue. It also has a page, Use the skill, with the skill to download and the steps to install it in Claude and in GitHub Copilot (decision 45).</li>
-<li>Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.19 add decisions 31 to 55. The scripts and the skill follow version 1.2.10 (versions 1.2.11 to 1.2.19 change the site only). The stored run follows version 1.2.4 for steps 1 to 6, version 1.2.8 for step 7 and version 1.2.10 for step 8. Section 10 lists what is untested.</li>
+<li>Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.20 add decisions 31 to 56. The scripts and the skill follow version 1.2.10 (versions 1.2.11 to 1.2.20 change the site and the record only). The stored run follows version 1.2.4 for steps 1 to 6, version 1.2.8 for step 7 and version 1.2.10 for step 8. Section 10 lists what is untested.</li>
 <li>All tag values are inference unless a row or a named source says otherwise.</li>
 </ul><h2 id="open-items">Open items</h2><p>Changed since the run of 13 November 2026 (version 1.2.4):</p>
 <ul>
@@ -74,12 +74,11 @@
 <li>Fixed: TC1-08 (claim ceiling), TC-03 (access depth), HE-05 and CK-12 (model suitability), CM1-12 (source count), HE1-11 (consumes appraised evidence base).</li>
 <li>Not fixed: PE-02 (consumes and produces no result artefact), CH-03 and CH-11 (inconsistent consumes and produces), IS-06 (linkage requirement).</li>
 <li>Frame family: FQ-01 to FQ-06 share one identical minimum-checks string, including a second technique at high stakes.</li>
-<li>Input validation is listed for deterministic techniques but used by 22 non-deterministic rows. HE-06 (deterministic) uses repeat runs.</li>
+<li>Input validation is listed for deterministic techniques but used by 23 non-deterministic rows. HE-06 (deterministic) uses repeat runs.</li>
 <li>Only 14 of 236 rows use <code>not_for_rules</code>. HE1-06 and IS-05 use source dependence, a field that only changes the order, as an exclusion.</li>
-<li>Access depth is written two ways for the same meaning (<code>any</code> and <code>requires=narrative only</code>). Use <code>any</code>.</li>
 <li>About 30 relation targets in other families were chosen from titles or short descriptions.</li>
 <li>No working document type for diagrams, argument maps, personas, a labelled gold set, an event table or a provenance graph. No unit of analysis for actor, case, option, text span or event.</li>
-<li>Review the 15 techniques whose strongest statement is the effect of an action and the 12 whose strongest statement is how or why.</li>
+<li>Review the 9 techniques whose strongest statement is the effect of an action and the 5 whose strongest statement is how or why.</li>
 <li>Some frameworks could not be confirmed (the PHIA technique list, Heuer and Pherson names). Most opened sources were abstracts or secondary pages. No framework specifies checks per stakes level, so that field is entirely inference.</li>
 </ul></div>
     <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/limits/"><span>Previous</span>Limits</a><a class="next" href="/research/"><span>Next</span>Source research</a></nav>

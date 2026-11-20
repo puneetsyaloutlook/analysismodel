@@ -1,6 +1,6 @@
 # ANLYSIS: design document
 
-Version 1.2.19, 21 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
+Version 1.2.20, 21 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
 
 ## 1. Purpose and status
 
@@ -15,7 +15,7 @@ Status:
 - Every part has been built and tested on small cases.
 - One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.4 of this design. Steps 1 to 5 ran before decision 38, which changes only step 6. Steps 7 and 8 were run again on 15 November 2026 under version 1.2.8, to show the answer form of decisions 43 and 44, and step 8 once more under version 1.2.10, to show the grouped conclusions of decision 46. Its output is shown in the simulator on the documentation site.
 - The documentation site is built from this document, the schema and the catalogue. It also has a page, Use the skill, with the skill to download and the steps to install it in Claude and in GitHub Copilot (decision 45).
-- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.19 add decisions 31 to 55. The scripts and the skill follow version 1.2.10 (versions 1.2.11 to 1.2.19 change the site only). The stored run follows version 1.2.4 for steps 1 to 6, version 1.2.8 for step 7 and version 1.2.10 for step 8. Section 10 lists what is untested.
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.20 add decisions 31 to 56. The scripts and the skill follow version 1.2.10 (versions 1.2.11 to 1.2.20 change the site and the record only). The stored run follows version 1.2.4 for steps 1 to 6, version 1.2.8 for step 7 and version 1.2.10 for step 8. Section 10 lists what is untested.
 - All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
@@ -459,6 +459,7 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 | 53 | Decision 52 gave the research its own group in the navigation. The user wanted it in the project section, as its own page next to Status, and not under Project record, which is about how the project was built. Decided on 21 November 2026. | The page Research findings is an item in the project section of the navigation, after Status. It stays at `/research/` and keeps its card on the home page. Decision 52 is replaced for the placement only. This changes the site only. |
 | 54 | The navigation called the page Research findings. The user wanted it called Source research, because it is the research the catalogue was built from. Decided on 21 November 2026. | The navigation item and the home page card are named Source research. The page keeps its title, its address `/research/` and its content. This changes the site only. |
 | 55 | The navigation started with The model, which suits a reader who wants the design. A new reader wants to see what the process does and to use it first. Decided on 21 November 2026. | Try it (Simulator, Skill, Use by hand) is the first group in the navigation, before The model. The order of the previous and next links on each page follows the navigation. This changes the site only. |
+| 56 | A consistency scan of the site found statements that no longer matched the catalogue or the rules. Technique pages listed checks that need a person at decision-informing stakes without saying that decision 38 leaves them out. The schema named two decision points with old terms (synthesis method, commensurable estimates). Three open items gave counts that had changed or described a problem that was fixed. The Limits page said every evidence status came from the earlier reports, which is not true of AO-19 and PE-14. The Source research page called the five whys documented and showed "Also serves" notes as part of technique names. Decided on 21 November 2026. | Technique pages mark a check that needs a person, below high stakes, as left out, and say why. The schema uses the names the skill and the site use: choose the combining method, and confirm that estimates measure the same thing. The open items give the current counts and drop the fixed item. The Limits page names the two techniques. The Source research page is corrected. No rule changes. |
 
 ## 10. Open items
 
@@ -497,12 +498,11 @@ Catalogue data (from the spot check; the first six were fixed):
 - Fixed: TC1-08 (claim ceiling), TC-03 (access depth), HE-05 and CK-12 (model suitability), CM1-12 (source count), HE1-11 (consumes appraised evidence base).
 - Not fixed: PE-02 (consumes and produces no result artefact), CH-03 and CH-11 (inconsistent consumes and produces), IS-06 (linkage requirement).
 - Frame family: FQ-01 to FQ-06 share one identical minimum-checks string, including a second technique at high stakes.
-- Input validation is listed for deterministic techniques but used by 22 non-deterministic rows. HE-06 (deterministic) uses repeat runs.
+- Input validation is listed for deterministic techniques but used by 23 non-deterministic rows. HE-06 (deterministic) uses repeat runs.
 - Only 14 of 236 rows use `not_for_rules`. HE1-06 and IS-05 use source dependence, a field that only changes the order, as an exclusion.
-- Access depth is written two ways for the same meaning (`any` and `requires=narrative only`). Use `any`.
 - About 30 relation targets in other families were chosen from titles or short descriptions.
 - No working document type for diagrams, argument maps, personas, a labelled gold set, an event table or a provenance graph. No unit of analysis for actor, case, option, text span or event.
-- Review the 15 techniques whose strongest statement is the effect of an action and the 12 whose strongest statement is how or why.
+- Review the 9 techniques whose strongest statement is the effect of an action and the 5 whose strongest statement is how or why.
 - Some frameworks could not be confirmed (the PHIA technique list, Heuer and Pherson names). Most opened sources were abstracts or secondary pages. No framework specifies checks per stakes level, so that field is entirely inference.
 
 ## 11. Files
@@ -510,7 +510,7 @@ Catalogue data (from the spot check; the first six were fixed):
 | File | Role |
 |---|---|
 | `master/Analysis methods design.md` | This document. |
-| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.19. |
+| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.20. |
 | `master/master_tagged.csv` | The catalogue: 236 rows, 52 columns, with result formats. |
 | `master/master_base.csv`, `master/tags/tags_A.json` to `tags_F.json` | Sources of the CSV text and tags. |
 | `master/specs/out_1.json` to `out_6.json` | Result formats. |
