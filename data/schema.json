@@ -1,5 +1,5 @@
 {
- "version": "1.2.19",
+ "version": "1.2.20",
  "title": "ANLYSIS: metadata schema and process design for a catalogue of 236 analytical techniques",
  "conventions": {
   "language": "Australian English. Sentence case for headings, field labels and value names. No em dashes, en dashes or double hyphens.",
@@ -3834,11 +3834,11 @@
     "what": "Asked only at the high-stakes level, at the end of step 6, when a chosen technique has a check that needs a person. The process shows a small sample of the results with the labels or findings it produced. The user reviews it, skips it or defers it. A skipped or deferred review is listed as not done and limits the confidence label to medium."
    },
    {
-    "point": "choose the synthesis method",
+    "point": "choose the combining method",
     "what": "The skill lists the methods whose applies_when is met, marks the recommended one with its reason, and runs it if the user does not reply."
    },
    {
-    "point": "confirm commensurable estimates",
+    "point": "confirm that estimates measure the same thing",
     "what": "Asked only when two or more numeric findings could estimate the same quantity. Pooling is left out of the list otherwise."
    },
    {
@@ -4193,8 +4193,8 @@
     "confirm the brief",
     "confirm the request after 5.1",
     "review a sample of the results",
-    "choose the synthesis method",
-    "confirm commensurable estimates",
+    "choose the combining method",
+    "confirm that estimates measure the same thing",
     "follow-up round"
    ]
   },

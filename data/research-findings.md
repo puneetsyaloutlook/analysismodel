@@ -109,7 +109,7 @@ Status was assigned from abstracts and secondary pages for most studies.
 
 #### 2.3 Widely used techniques such as SWOT have no controlled study of their effect.
 
-The research found no controlled study of effect for the SWOT matrix, Porter's Five Forces, Cynefin or Wardley maps, although all four are widely used. Critiques of other documented techniques are analytical and not experimental. A peer-reviewed commentary finds no evidence of effectiveness for the five whys, and Cox (2008) found that typical risk matrices reliably compare under 10 per cent of random hazard pairs.
+The research found no controlled study of effect for the SWOT matrix, Porter's Five Forces, Cynefin or Wardley maps, although all four are widely used. Critiques of two other techniques are analytical and not experimental. A peer-reviewed commentary finds no evidence of effectiveness for the five whys, and Cox (2008) found that typical risk matrices reliably compare under 10 per cent of random hazard pairs.
 
 A study may exist that the search did not reach.
 
@@ -316,7 +316,7 @@ The catalogue lists 236 techniques. Each row below gives the identifier, the nam
 | DM-16 | Levels-of-analysis models | Documented |
 | DM-17 | Process mapping | Unconfirmed |
 | DM-18 | Design structure matrix | Documented |
-| DM-19 | Causal loop diagram Also serves: Trace cause and test claims. | Documented |
+| DM-19 | Causal loop diagram | Documented |
 | DM-20 | Stock and flow modelling | Documented |
 | DM-21 | Social network analysis | Documented |
 
@@ -348,10 +348,10 @@ The catalogue lists 236 techniques. Each row below gives the identifier, the nam
 |:-|:-|:-|
 | TC1-01 | Five whys | Practice |
 | TC1-02 | Fishbone diagram | Documented |
-| TC1-03 | Fault tree analysis Also serves: Assess actors, options and risks. | Documented |
+| TC1-03 | Fault tree analysis | Documented |
 | TC1-04 | Process tracing | Documented |
 | TC1-05 | Counterfactual analysis | Documented |
-| TC1-06 | Difference-in-differences Also serves: Compare. | Documented |
+| TC1-06 | Difference-in-differences | Documented |
 | TC1-07 | Quasi-experimental designs | Unconfirmed |
 | TC1-08 | Confounder identification with directed acyclic graphs | Unconfirmed |
 | TC1-09 | Logic model and theory of change | Documented |
@@ -404,7 +404,7 @@ The catalogue lists 236 techniques. Each row below gives the identifier, the nam
 | HE1-17 | Grounded theory coding | Unconfirmed |
 | HE1-18 | Document and policy analysis | Unconfirmed |
 | HE1-19 | Bibliometric analysis | Unconfirmed |
-| HE1-20 | Trend and time-series decomposition Also serves: Project forward. | Unconfirmed |
+| HE1-20 | Trend and time-series decomposition | Unconfirmed |
 | HE1-21 | Distribution, outlier and base-rate checks | Unconfirmed |
 | HE-01 | Grey literature appraisal checklist | Documented |
 | HE-02 | Critical appraisal checklist by study design | Documented |
@@ -478,12 +478,12 @@ The catalogue lists 236 techniques. Each row below gives the identifier, the nam
 | CH-03 | Devil's advocacy | Documented |
 | CH-04 | Team A and Team B | Documented |
 | CH-05 | Red team analysis | Documented |
-| CH-06 | High-impact and low-probability analysis Also serves: Project forward. | Documented |
-| CH-07 | What if analysis Also serves: Project forward. | Documented |
+| CH-06 | High-impact and low-probability analysis | Documented |
+| CH-07 | What if analysis | Documented |
 | CH-08 | Premortem | Practice |
 | CH-09 | Structured self-critique | Documented |
 | CH-10 | Rapoport's rules | Documented |
-| CH-11 | Steelmanning Also serves: Compare. | Practice |
+| CH-11 | Steelmanning | Practice |
 | CH-12 | Socratic questioning | Documented |
 | CH-13 | Cognitive bias checks and debiasing | Unconfirmed |
 | CH-14 | Structured brainstorming | Documented |
