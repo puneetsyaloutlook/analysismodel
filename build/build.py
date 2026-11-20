@@ -215,7 +215,6 @@ def make_project_pages():
 <p>The project record is the history and the evidence behind the design. The current rules are on the <a href="/process/">process pages</a>. Current status and open items are on the <a href="/status/">status page</a>.</p>
 <ul>
 <li><a href="/project/decisions/">Decisions</a>: a dated history of each decision, with the problem that prompted it.</li>
-<li><a href="/project/research-findings/">Research findings</a>: what techniques exist, what evidence supports them, how widely they are used and what the catalogue does not cover.</li>
 <li><a href="/project/test-evidence/">Test evidence</a>: the two tests run on the catalogue so far.</li>
 <li><a href="/project/files-and-change-rule/">Files and change rule</a>: which file holds what, and how to change the design without creating conflicts.</li>
 </ul>""", "The decisions, test evidence and files behind the design.")
@@ -407,7 +406,7 @@ def make_research_page():
                    f'<div class="table-wrap"><table><thead><tr><th>ID</th><th>Technique</th><th>Evidence status</th></tr></thead><tbody>{"".join(rws)}</tbody></table></div></details>')
     assert seen == len(rows), seen
 
-    add_page("/project/research-findings/", title, "Project record", "".join(out),
+    add_page("/research/", title, "Research", "".join(out),
              "What techniques exist, what evidence supports them, how widely they are used and what the catalogue does not cover, with the list of all 236 techniques.",
              wide=False, scripts=("/assets/research.js",))
 
@@ -457,6 +456,7 @@ def make_home():
   <a class="card" href="/process/"><p class="card-title">Process</p><p>How a request and some material become one answer, in eight steps from intake to the answer.</p></a>
   <a class="card" href="/catalogue/"><p class="card-title">Techniques</p><p>The {len(rows)} analytical techniques the process chooses from, with when each fits and what it needs from your material.</p></a>
   <a class="card" href="/reference/"><p class="card-title">Dictionary</p><p>What each tag on a technique page means, and the checks and relations the process uses.</p></a>
+  <a class="card" href="/research/"><p class="card-title">Research findings</p><p>What techniques exist, what evidence supports them, how widely they are used and what the catalogue does not cover.</p></a>
   <a class="card" href="/limits/"><p class="card-title">Limits</p><p>What the process does not do, what has not been tested and where its answers are weaker than they look.</p></a>
   <a class="card" href="/simulator/"><p class="card-title">Simulator</p><p>Replay one stored run step by step, to see what the process does and the answer it gives.</p></a>
   <a class="card" href="/skill/"><p class="card-title">Skill</p><p>The skill that runs the process. Download it and install it in Claude or GitHub Copilot.</p></a>
@@ -753,11 +753,12 @@ NAV = [
                                        ("/reference/checks/", "Check library"), ("/reference/phases-and-tiers/", "Steps, kinds, stakes and relations")]),
         ("/limits/", "Limits", []),
     ]),
+    ("Research", [("/research/", "Research findings", [])]),
     ("Try it", [("/simulator/", "Simulator", []), ("/skill/", "Skill", []), ("/by-hand/", "Use by hand", [])]),
     ("The project", [
         ("/status/", "Status", []),
         ("/changes/", "Change log", []),
-        ("/project/", "Project record", [("/project/decisions/", "Decisions"), ("/project/research-findings/", "Research findings"), ("/project/test-evidence/", "Test evidence"),
+        ("/project/", "Project record", [("/project/decisions/", "Decisions"), ("/project/test-evidence/", "Test evidence"),
                                          ("/project/files-and-change-rule/", "Files and change rule")]),
     ]),
 ]
