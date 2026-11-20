@@ -744,6 +744,7 @@ def make_reference():
 
 # ------------------------------------------------------------------ nav
 NAV = [
+    ("Try it", [("/simulator/", "Simulator", []), ("/skill/", "Skill", []), ("/by-hand/", "Use by hand", [])]),
     ("The model", [
         ("/process/", "Process", [("/process/intake/", "1. Intake"), ("/process/choosing-techniques/", "2 and 3. Rule out and choose"),
                                   ("/process/planning-the-sequence/", "4. Plan analysis sequence"), ("/process/running-the-techniques/", "5. Run the techniques"),
@@ -753,7 +754,6 @@ NAV = [
                                        ("/reference/checks/", "Check library"), ("/reference/phases-and-tiers/", "Steps, kinds, stakes and relations")]),
         ("/limits/", "Limits", []),
     ]),
-    ("Try it", [("/simulator/", "Simulator", []), ("/skill/", "Skill", []), ("/by-hand/", "Use by hand", [])]),
     ("The project", [
         ("/status/", "Status", []),
         ("/research/", "Source research", []),
