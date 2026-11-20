@@ -456,7 +456,7 @@ def make_home():
   <a class="card" href="/process/"><p class="card-title">Process</p><p>How a request and some material become one answer, in eight steps from intake to the answer.</p></a>
   <a class="card" href="/catalogue/"><p class="card-title">Techniques</p><p>The {len(rows)} analytical techniques the process chooses from, with when each fits and what it needs from your material.</p></a>
   <a class="card" href="/reference/"><p class="card-title">Dictionary</p><p>What each tag on a technique page means, and the checks and relations the process uses.</p></a>
-  <a class="card" href="/research/"><p class="card-title">Research findings</p><p>What techniques exist, what evidence supports them, how widely they are used and what the catalogue does not cover.</p></a>
+  <a class="card" href="/research/"><p class="card-title">Source research</p><p>What techniques exist, what evidence supports them, how widely they are used and what the catalogue does not cover.</p></a>
   <a class="card" href="/limits/"><p class="card-title">Limits</p><p>What the process does not do, what has not been tested and where its answers are weaker than they look.</p></a>
   <a class="card" href="/simulator/"><p class="card-title">Simulator</p><p>Replay one stored run step by step, to see what the process does and the answer it gives.</p></a>
   <a class="card" href="/skill/"><p class="card-title">Skill</p><p>The skill that runs the process. Download it and install it in Claude or GitHub Copilot.</p></a>
@@ -756,7 +756,7 @@ NAV = [
     ("Try it", [("/simulator/", "Simulator", []), ("/skill/", "Skill", []), ("/by-hand/", "Use by hand", [])]),
     ("The project", [
         ("/status/", "Status", []),
-        ("/research/", "Research findings", []),
+        ("/research/", "Source research", []),
         ("/changes/", "Change log", []),
         ("/project/", "Project record", [("/project/decisions/", "Decisions"), ("/project/test-evidence/", "Test evidence"),
                                          ("/project/files-and-change-rule/", "Files and change rule")]),

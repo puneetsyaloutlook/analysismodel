@@ -1,6 +1,6 @@
 # ANLYSIS: design document
 
-Version 1.2.17, 21 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
+Version 1.2.18, 21 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
 
 ## 1. Purpose and status
 
@@ -15,7 +15,7 @@ Status:
 - Every part has been built and tested on small cases.
 - One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.4 of this design. Steps 1 to 5 ran before decision 38, which changes only step 6. Steps 7 and 8 were run again on 15 November 2026 under version 1.2.8, to show the answer form of decisions 43 and 44, and step 8 once more under version 1.2.10, to show the grouped conclusions of decision 46. Its output is shown in the simulator on the documentation site.
 - The documentation site is built from this document, the schema and the catalogue. It also has a page, Use the skill, with the skill to download and the steps to install it in Claude and in GitHub Copilot (decision 45).
-- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.17 add decisions 31 to 53. The scripts and the skill follow version 1.2.10 (versions 1.2.11 to 1.2.17 change the site only). The stored run follows version 1.2.4 for steps 1 to 6, version 1.2.8 for step 7 and version 1.2.10 for step 8. Section 10 lists what is untested.
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.18 add decisions 31 to 54. The scripts and the skill follow version 1.2.10 (versions 1.2.11 to 1.2.18 change the site only). The stored run follows version 1.2.4 for steps 1 to 6, version 1.2.8 for step 7 and version 1.2.10 for step 8. Section 10 lists what is untested.
 - All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
@@ -457,6 +457,7 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 | 51 | The research behind the catalogue was in two reports and some survey notes that were not on the site. A reader could not see what techniques exist, what evidence supports them, how widely they are used or what the catalogue does not cover. Decided on 21 November 2026. | The site has a page, Research findings, under Project record. It combines the two technique reports with research on how widely techniques are used and on the frameworks consultancies publish. It has three levels: a summary, six themes, and 29 findings in six groups, each finding with one caveat and its sources. The last section lists the 236 techniques with their evidence status. The findings are expandable, and each group has its own colour. The page text is `data/research-findings.md`. This changes the site only. |
 | 52 | The Research findings page was placed under Project record. Project record is about how the project was built (decisions, test evidence, files). The research is the background input to the catalogue and does not belong with it. Decided on 21 November 2026. | The page moves to its own group in the navigation, Research, at `/research/`, and has a card on the home page. The old address redirects to the new one. Decision 51 is otherwise unchanged. This changes the site only. |
 | 53 | Decision 52 gave the research its own group in the navigation. The user wanted it in the project section, as its own page next to Status, and not under Project record, which is about how the project was built. Decided on 21 November 2026. | The page Research findings is an item in the project section of the navigation, after Status. It stays at `/research/` and keeps its card on the home page. Decision 52 is replaced for the placement only. This changes the site only. |
+| 54 | The navigation called the page Research findings. The user wanted it called Source research, because it is the research the catalogue was built from. Decided on 21 November 2026. | The navigation item and the home page card are named Source research. The page keeps its title, its address `/research/` and its content. This changes the site only. |
 
 ## 10. Open items
 
@@ -508,7 +509,7 @@ Catalogue data (from the spot check; the first six were fixed):
 | File | Role |
 |---|---|
 | `master/Analysis methods design.md` | This document. |
-| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.17. |
+| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.18. |
 | `master/master_tagged.csv` | The catalogue: 236 rows, 52 columns, with result formats. |
 | `master/master_base.csv`, `master/tags/tags_A.json` to `tags_F.json` | Sources of the CSV text and tags. |
 | `master/specs/out_1.json` to `out_6.json` | Result formats. |
@@ -516,7 +517,7 @@ Catalogue data (from the spot check; the first six were fixed):
 | `master/test_jobs/`, `intake_test/`, `master/card_test/` | Test briefs, intake inputs and the result format test. |
 | `master/spot_check.md` | The independent check of 30 rows. |
 | `analysis.zip` | The skill: `SKILL.md`, `references/` (this document, the schema, the catalogue and the prompts) and `scripts/`. The site repository keeps a copy as `data/analysis.zip`, which the site offers for download. |
-| `data/use-by-hand.md`, `data/limits.md`, `data/change-log.md`, `data/research-findings.md` | The text of the pages Use by hand, Limits, Change log and Research findings, in the site repository. |
+| `data/use-by-hand.md`, `data/limits.md`, `data/change-log.md`, `data/research-findings.md` | The text of the pages Use by hand, Limits, Change log and Source research, in the site repository. |
 | `run2/` | The complete run of 13 November 2026: inputs, plan, results, combined findings and answer. |
 
 ## 12. Change rule
