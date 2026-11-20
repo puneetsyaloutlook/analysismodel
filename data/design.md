@@ -1,6 +1,6 @@
 # ANLYSIS: design document
 
-Version 1.2.14, 15 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
+Version 1.2.15, 21 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
 
 ## 1. Purpose and status
 
@@ -15,7 +15,7 @@ Status:
 - Every part has been built and tested on small cases.
 - One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.4 of this design. Steps 1 to 5 ran before decision 38, which changes only step 6. Steps 7 and 8 were run again on 15 November 2026 under version 1.2.8, to show the answer form of decisions 43 and 44, and step 8 once more under version 1.2.10, to show the grouped conclusions of decision 46. Its output is shown in the simulator on the documentation site.
 - The documentation site is built from this document, the schema and the catalogue. It also has a page, Use the skill, with the skill to download and the steps to install it in Claude and in GitHub Copilot (decision 45).
-- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.14 add decisions 31 to 50. The scripts and the skill follow version 1.2.10 (versions 1.2.11 to 1.2.14 change the site only). The stored run follows version 1.2.4 for steps 1 to 6, version 1.2.8 for step 7 and version 1.2.10 for step 8. Section 10 lists what is untested.
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.15 add decisions 31 to 51. The scripts and the skill follow version 1.2.10 (versions 1.2.11 to 1.2.15 change the site only). The stored run follows version 1.2.4 for steps 1 to 6, version 1.2.8 for step 7 and version 1.2.10 for step 8. Section 10 lists what is untested.
 - All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
@@ -454,6 +454,7 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 | 48 | In the simulator the Start again button sat in the bar above the measures, away from the other controls in the left navigation. The conclusions measure read "4 and 5", which does not say what to do with the numbers. Decided on 15 November 2026. | Start again is an item under Simulator in the left navigation, shown once a run has started. The conclusions measure shows one number, the conclusions with weaker support, labelled conclusions to review. Decision 47 is otherwise unchanged. This changes the site only. |
 | 49 | The site explained the model and the project but gave a reader no way to use the catalogue without the skill, no plain statement of what the process does not do, and no list of what changed in each version. Decided on 15 November 2026. | Three pages are added. Choose by hand, under Techniques, shows how to use the catalogue with the same steps as the process. Limits states what has been tested, what the answer rests on, the catalogue's weaknesses, what the process cannot read or judge and what is not recorded. Change log lists each version, newest first, in plain terms, with its decisions. The page texts are `data/choose-by-hand.md`, `data/limits.md` and `data/change-log.md`. The build fails if the newest row of the change log is not this document's version. This changes the site only. |
 | 50 | The page Choose by hand sat under Techniques and stopped after the choice of techniques and the plan of checks. It is a way of running the whole process without the skill, so it belongs next to the skill and has to cover all eight steps. Decided on 16 November 2026. | The page is renamed Use by hand and moves to Try it, after Skill. It follows the eight steps in order: write the brief, rule out, choose, plan the sequence, run the techniques (including additional sources and a run that does not finish), check, combine (the methods, the label rule and the rules for insights) and write the answer. It ends with what the reader loses compared with the skill. The Limits page says that running the process by hand has not been tested. The page text is `data/use-by-hand.md`. This changes the site only. |
+| 51 | The research behind the catalogue was in two reports and some survey notes that were not on the site. A reader could not see what techniques exist, what evidence supports them, how widely they are used or what the catalogue does not cover. Decided on 21 November 2026. | The site has a page, Research findings, under Project record. It combines the two technique reports with research on how widely techniques are used and on the frameworks consultancies publish. It has three levels: a summary, six themes, and 29 findings in six groups, each finding with one caveat and its sources. The last section lists the 236 techniques with their evidence status. The findings are expandable, and each group has its own colour. The page text is `data/research-findings.md`. This changes the site only. |
 
 ## 10. Open items
 
@@ -505,7 +506,7 @@ Catalogue data (from the spot check; the first six were fixed):
 | File | Role |
 |---|---|
 | `master/Analysis methods design.md` | This document. |
-| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.14. |
+| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.15. |
 | `master/master_tagged.csv` | The catalogue: 236 rows, 52 columns, with result formats. |
 | `master/master_base.csv`, `master/tags/tags_A.json` to `tags_F.json` | Sources of the CSV text and tags. |
 | `master/specs/out_1.json` to `out_6.json` | Result formats. |
@@ -513,7 +514,7 @@ Catalogue data (from the spot check; the first six were fixed):
 | `master/test_jobs/`, `intake_test/`, `master/card_test/` | Test briefs, intake inputs and the result format test. |
 | `master/spot_check.md` | The independent check of 30 rows. |
 | `analysis.zip` | The skill: `SKILL.md`, `references/` (this document, the schema, the catalogue and the prompts) and `scripts/`. The site repository keeps a copy as `data/analysis.zip`, which the site offers for download. |
-| `data/use-by-hand.md`, `data/limits.md`, `data/change-log.md` | The text of the pages Use by hand, Limits and Change log, in the site repository. |
+| `data/use-by-hand.md`, `data/limits.md`, `data/change-log.md`, `data/research-findings.md` | The text of the pages Use by hand, Limits, Change log and Research findings, in the site repository. |
 | `run2/` | The complete run of 13 November 2026: inputs, plan, results, combined findings and answer. |
 
 ## 12. Change rule

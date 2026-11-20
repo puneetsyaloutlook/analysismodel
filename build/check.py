@@ -7,6 +7,8 @@ PUB = Path(__file__).resolve().parent.parent / "public"
 BANNED = "align boasts comprehensive crucial delve ecosystem elevate empower foster journey landscape leverage navigating nuanced pivotal realm robust stakeholders tapestry testament transformative underscore unlock unprecedented".split()
 US = r"\b\w*(?:ize|izes|ized|izing|ization|yze|yzed|yzing|or\b)"  # filtered below
 US_WORDS = "organize organization analyze analyzed behavior color center favor honor program's modeling labeled canceled license".split()
+# Proper names and technique names that contain a banned or US word. They are quoted as published.
+NAMES = ['consumer decision journey','customer journey mapping','leverage points','robust decision making','behavior research methods']
 class P(HTMLParser):
     def __init__(s):
         super().__init__(); s.ids=set(); s.links=[]; s.text=[]; s.skip=0
@@ -41,6 +43,7 @@ for f,p in pages.items():
     txt=' '.join(p.text)
     for m in re.finditer('[–—]|--',txt): print('DASH',here,txt[max(0,m.start()-30):m.end()+30]); bad+=1
     low=txt.lower()
+    for nm in NAMES: low=low.replace(nm,'')
     authored = not here.startswith(('catalogue/','reference/'))  # catalogue and schema text uses defined terms such as robustness and stakeholders
     for w in (BANNED if authored else []):
         for m in re.finditer(r'\b'+w+r'\w*',low):

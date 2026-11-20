@@ -215,6 +215,7 @@ def make_project_pages():
 <p>The project record is the history and the evidence behind the design. The current rules are on the <a href="/process/">process pages</a>. Current status and open items are on the <a href="/status/">status page</a>.</p>
 <ul>
 <li><a href="/project/decisions/">Decisions</a>: a dated history of each decision, with the problem that prompted it.</li>
+<li><a href="/project/research-findings/">Research findings</a>: what techniques exist, what evidence supports them, how widely they are used and what the catalogue does not cover.</li>
 <li><a href="/project/test-evidence/">Test evidence</a>: the two tests run on the catalogue so far.</li>
 <li><a href="/project/files-and-change-rule/">Files and change rule</a>: which file holds what, and how to change the design without creating conflicts.</li>
 </ul>""", "The decisions, test evidence and files behind the design.")
@@ -231,6 +232,184 @@ def make_project_pages():
             "<h2>Spot check of 30 rows</h2>" + md_block(demote(t2)))
     add_page("/project/test-evidence/", "Test evidence", "Project record", body,
              "The two tests run on the catalogue so far.")
+
+
+# ----------------------------------------------------------- research findings
+RF_STATUS = [("Tested", "tested"), ("Documented", "documented"), ("Practice", "practice"), ("Unconfirmed", "unconfirmed")]
+
+
+def rf_bar(counts, scale, label):
+    """Stacked bar of the four evidence statuses. scale is the count that fills the track."""
+    total = sum(counts)
+    segs = "".join(
+        f'<i class="seg st-{k}" style="width:{(c / scale) * 100:.2f}%"></i>' for (n, k), c in zip(RF_STATUS, counts) if c)
+    return f'<span class="rf-track" role="img" aria-label="{esc(label)}"><span class="rf-fill" style="width:{(total / scale) * 100:.2f}%">{segs}</span></span>'
+
+
+def rf_family_bars(table_md):
+    lines = [l for l in table_md.strip().splitlines() if l.startswith("|")]
+    data = []
+    for l in lines[2:]:
+        cells = [c.strip() for c in l.strip().strip("|").split("|")]
+        if cells[0].startswith("**"):
+            continue
+        data.append((cells[0], [int(x) for x in cells[1:]]))
+    top = max(d[1][0] for d in data)
+    legend = '<ul class="rf-legend" aria-label="Key to the bars">' + "".join(
+        f'<li><span class="sw-st st-{k}"></span>{n}</li>' for n, k in RF_STATUS) + "</ul>"
+    out = ['<div class="rf-bars">', legend]
+    for fam, v in data:
+        n, tested, doc, prac, unc = v
+        label = f"{fam}: {n} techniques, {tested} tested, {doc} documented, {prac} practice, {unc} unconfirmed"
+        out.append(f'<div class="rf-row"><span class="rf-famname">{esc(fam)}</span>{rf_bar([tested, doc, prac, unc], top, label)}'
+                   f'<span class="rf-nums"><b>{n}</b> <span>{tested} / {doc} / {prac} / {unc}</span></span></div>')
+    out.append('<p class="small rf-key">Bar length is the number of techniques. The numbers after it are tested, documented, practice and unconfirmed, in that order.</p></div>')
+    out.append('<details class="rf-asTable"><summary>Show as a table</summary>' + md_block(table_md) + "</details>")
+    return "".join(out)
+
+
+def rf_sources(block):
+    items = re.findall(r"([^;]+?) \((https?://\S+?)\)(?=;|\.?$)", block[len("Sources:"):].strip())
+    lis = "".join(f'<li><a href="{esc(u)}">{esc(n.strip())}</a></li>' for n, u in items)
+    return f'<div class="rf-sources"><p class="rf-lab">Sources</p><ul>{lis}</ul></div>'
+
+
+def rf_blocks(text):
+    return [b for b in re.split(r"\n\s*\n", text.strip()) if b.strip()]
+
+
+def make_research_page():
+    text = (DATA / "research-findings.md").read_text(encoding="utf-8")
+    title = re.match(r"# (.*)", text).group(1).strip()
+    secs = {}
+    for s in re.split(r"^## ", text, flags=re.M)[1:]:
+        head, _, body = s.partition("\n")
+        secs[head.strip()] = body.strip("\n")
+    n_find = n_groups = 0
+
+    # level 1
+    short = secs["In short"]
+    out = ['<section class="rf-short" aria-labelledby="in-short"><h2 id="in-short">In short</h2>' + md_block(short) + "</section>"]
+    out.append('<p class="rf-how">This page has three levels. The summary above gives the answer. The six themes below group what the research found. '
+               'The findings under them give the figures, the sources and one caveat each. The last section lists every technique.</p>')
+
+    # level 2: themes
+    theme_chunks = re.split(r"^### ", secs["What the research shows"], flags=re.M)[1:]
+    out.append('<h2 id="themes">What the research shows</h2><div class="rf-themes">')
+    closing = ""
+    for ch in theme_chunks:
+        head, _, body = ch.partition("\n")
+        num, ttl = re.match(r"(\d+)\.\s+(.*)", head.strip()).groups()
+        paras = rf_blocks(body)
+        if len(paras) > 1 and "Detail:" not in paras[-1]:
+            closing = paras[-1]
+            paras = paras[:-1]
+        main = paras[0]
+        m = re.search(r"\s*Detail: findings (\d+)\.(\d+) to (\d+)\.(\d+)\.$", main)
+        main = main[:m.start()]
+        out.append(f'<article class="rf-theme g{num}" id="theme-{num}"><span class="rf-badge">{num}</span><div><h3>{esc(ttl)}</h3>'
+                   f'<p>{md_inline(main)}</p><p class="rf-go"><a href="#group-{num}" data-open="group-{num}">See findings {m.group(1)}.{m.group(2)} to {m.group(3)}.{m.group(4)}</a></p></div></article>')
+    out.append("</div>")
+    if closing:
+        out.append(f'<p class="rf-note">{md_inline(closing)}</p>')
+
+    # level 3: findings
+    ev = secs["The evidence in detail"]
+    intro, _, rest = ev.partition("\n### ")
+    groups = re.split(r"^### ", "### " + rest, flags=re.M)[1:]
+    ib = rf_blocks(intro)
+    ranges = {}
+    glist = []
+    for g in groups:
+        head, _, body = g.partition("\n")
+        mm = re.match(r"(\d+)\.\s+(.*)", head.strip())
+        if mm:
+            fs = re.findall(r"^#### (\d+)\.(\d+) ", body, flags=re.M)
+            glist.append((mm.group(1), mm.group(2), len(fs), f"{fs[0][0]}.{fs[0][1]} to {fs[-1][0]}.{fs[-1][1]}"))
+    out.append('<h2 id="findings">The evidence in detail</h2>')
+    out.append(f'<p>{md_inline(ib[0])}</p>')
+    out.append('<ol class="rf-toc">' + "".join(
+        f'<li class="g{n}"><a href="#group-{n}" data-open="group-{n}">{esc(t)}</a><span>findings {r}</span></li>' for n, t, c, r in glist) + "</ol>")
+    out.append(f'<p>{md_inline(ib[-1])}</p>')
+    out.append('<div class="rf-tools"><button type="button" class="btn" data-all="open">Open all findings</button> <button type="button" class="btn" data-all="close">Close all</button></div>')
+    for g in groups:
+        head, _, body = g.partition("\n")
+        mm = re.match(r"(\d+)\.\s+(.*)", head.strip())
+        n_groups += 1
+        if mm:
+            gn, gt = mm.group(1), mm.group(2)
+            cls, gid = f"g{gn}", f"group-{gn}"
+            badge = f'<span class="rf-badge">{gn}</span>'
+        else:
+            gt, cls, gid = head.strip(), "g7", "not-found"
+            badge = '<span class="rf-badge">?</span>'
+        parts = re.split(r"^#### ", body, flags=re.M)
+        lead = parts[0].strip()
+        finds = []
+        for f in parts[1:]:
+            fh, _, fb = f.partition("\n")
+            fm = re.match(r"(\d+\.\d+)\s+(.*)", fh.strip())
+            fid, fttl = fm.groups()
+            blocks = rf_blocks(fb)
+            cav = blocks[-1]
+            inner = []
+            for b in blocks[:-1]:
+                if b.startswith("|") and "| Family |" in b:
+                    inner.append(rf_family_bars(b))
+                elif b.startswith("Sources:"):
+                    inner.append(rf_sources(b))
+                else:
+                    inner.append(md_block(b))
+            inner.append(f'<p class="rf-caveat"><span class="rf-lab">Caveat</span> {md_inline(cav)}</p>')
+            n_find += 1
+            finds.append(f'<details class="rf-find" id="f-{fid.replace(".", "-")}"><summary><span class="rf-id">{fid}</span><span class="rf-ft">{md_inline(fttl)}</span></summary>'
+                         f'<div class="rf-body">{"".join(inner)}</div></details>')
+        if mm:
+            count = f'{len(finds)} findings'
+            body_html = "".join(finds)
+        else:
+            count = "5 items"
+            body_html = md_block(lead)
+        out.append(f'<details class="rf-group {cls}" id="{gid}" open><summary>{badge}<span class="rf-gt">{esc(gt)}</span><span class="rf-count">{count}</span></summary>'
+                   f'<div class="rf-gbody">{body_html}</div></details>')
+    assert n_find == 29, n_find
+
+    # techniques
+    tx = secs["The techniques"]
+    intro, _, rest = tx.partition("\n### ")
+    fams = re.split(r"^### ", "### " + rest, flags=re.M)[1:]
+    out.append('<h2 id="technique-list">The techniques</h2>' + md_block(intro))
+    out.append('<div class="rf-filter"><label for="rf-q">Find a technique</label> <input id="rf-q" type="search" placeholder="Name or identifier"> '
+               '<label for="rf-st">Evidence status</label> <select id="rf-st"><option value="">All</option>' +
+               "".join(f'<option value="{k}">{n}</option>' for n, k in RF_STATUS) + '</select> <span id="rf-shown" class="small" aria-live="polite"></span></div>')
+    out.append('<ul class="rf-legend" aria-label="Key to the status colours">' + "".join(
+        f'<li><span class="sw-st st-{k}"></span>{n}</li>' for n, k in RF_STATUS) + "</ul>")
+    seen = 0
+    for fm in fams:
+        fh, _, fb = fm.partition("\n")
+        fam = fh.strip()
+        trs = [l for l in fb.strip().splitlines() if l.startswith("|")][2:]
+        rws = []
+        cnt = {k: 0 for _, k in RF_STATUS}
+        for l in trs:
+            tid, name, stt = [c.strip() for c in l.strip().strip("|").split("|")]
+            r = BY_ID[tid]
+            assert r["family"] == fam and r["evidence_status"] == stt, tid
+            k = stt.lower()
+            cnt[k] += 1
+            seen += 1
+            rws.append(f'<tr data-st="{k}" data-q="{esc((tid + " " + name).lower())}"><td><a href="{tech_url(r)}">{tid}</a></td><td>{esc(name)}</td>'
+                       f'<td><span class="chip st-{k}"><i></i>{stt}</span></td></tr>')
+        n = len(rws)
+        label = f"{fam}: {n} techniques, " + ", ".join(f"{cnt[k]} {n_.lower()}" for n_, k in RF_STATUS)
+        out.append(f'<details class="rf-fam" data-fam="{esc(fam)}"><summary><span class="rf-ftn">{esc(fam)}</span><span class="rf-count">{n}</span>'
+                   f'{rf_bar([cnt[k] for _, k in RF_STATUS], n, label)}</summary>'
+                   f'<div class="table-wrap"><table><thead><tr><th>ID</th><th>Technique</th><th>Evidence status</th></tr></thead><tbody>{"".join(rws)}</tbody></table></div></details>')
+    assert seen == len(rows), seen
+
+    add_page("/project/research-findings/", title, "Project record", "".join(out),
+             "What techniques exist, what evidence supports them, how widely they are used and what the catalogue does not cover, with the list of all 236 techniques.",
+             wide=False, scripts=("/assets/research.js",))
 
 
 def make_skill_page():
@@ -578,7 +757,7 @@ NAV = [
     ("The project", [
         ("/status/", "Status", []),
         ("/changes/", "Change log", []),
-        ("/project/", "Project record", [("/project/decisions/", "Decisions"), ("/project/test-evidence/", "Test evidence"),
+        ("/project/", "Project record", [("/project/decisions/", "Decisions"), ("/project/research-findings/", "Research findings"), ("/project/test-evidence/", "Test evidence"),
                                          ("/project/files-and-change-rule/", "Files and change rule")]),
     ]),
 ]
@@ -790,6 +969,7 @@ def main():
         make_technique_page(r)
     make_reference()
     make_project_pages()
+    make_research_page()
     make_skill_page()
     make_choose_page()
     make_limits_page()

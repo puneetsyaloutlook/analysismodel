@@ -1,4 +1,4 @@
-This page lists what changed in each version of the design, in plain terms, newest first. The numbers in the last column are decisions on the [decisions page](/project/decisions/), which gives the reason for each. The current version is 1.2.14.
+This page lists what changed in each version of the design, in plain terms, newest first. The numbers in the last column are decisions on the [decisions page](/project/decisions/), which gives the reason for each. The current version is 1.2.15.
 
 To check which version your copy of the skill follows, open `references/design.md` in the skill folder. The version is stated near the top. The download on the [skill page](/skill/) states the version it carries.
 
@@ -6,6 +6,7 @@ Versions that change only the website say so. The skill is unchanged by them.
 
 | Version | Date | What changed | Decisions |
 |---|---|---|---|
+| 1.2.15 | 21 Nov 2026 | New page Research findings, under Project record: what techniques exist, what evidence supports them, how widely they are used and what the catalogue does not cover. Website only. | 51 |
 | 1.2.14 | 16 Nov 2026 | The Choose by hand page became Use by hand, moved to Try it and now covers all eight steps, from the brief to the answer. Website only. | 50 |
 | 1.2.13 | 15 Nov 2026 | New pages: Choose by hand, Limits and Change log. Website only. | 49 |
 | 1.2.12 | 15 Nov 2026 | In the simulator, Start again moved into the left navigation, and the conclusions measure shows the conclusions to review. Website only. | 48 |
