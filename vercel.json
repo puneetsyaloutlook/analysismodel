@@ -3,5 +3,12 @@
   "cleanUrls": true,
   "trailingSlash": true,
   "buildCommand": null,
-  "installCommand": null
+  "installCommand": null,
+  "redirects": [
+    {
+      "source": "/project/research-findings/",
+      "destination": "/research/",
+      "permanent": false
+    }
+  ]
 }
