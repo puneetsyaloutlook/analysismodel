@@ -1,6 +1,6 @@
 # ANLYSIS: design document
 
-Version 1.2.16, 21 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
+Version 1.2.17, 21 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
 
 ## 1. Purpose and status
 
@@ -15,7 +15,7 @@ Status:
 - Every part has been built and tested on small cases.
 - One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.4 of this design. Steps 1 to 5 ran before decision 38, which changes only step 6. Steps 7 and 8 were run again on 15 November 2026 under version 1.2.8, to show the answer form of decisions 43 and 44, and step 8 once more under version 1.2.10, to show the grouped conclusions of decision 46. Its output is shown in the simulator on the documentation site.
 - The documentation site is built from this document, the schema and the catalogue. It also has a page, Use the skill, with the skill to download and the steps to install it in Claude and in GitHub Copilot (decision 45).
-- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.16 add decisions 31 to 52. The scripts and the skill follow version 1.2.10 (versions 1.2.11 to 1.2.16 change the site only). The stored run follows version 1.2.4 for steps 1 to 6, version 1.2.8 for step 7 and version 1.2.10 for step 8. Section 10 lists what is untested.
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.17 add decisions 31 to 53. The scripts and the skill follow version 1.2.10 (versions 1.2.11 to 1.2.17 change the site only). The stored run follows version 1.2.4 for steps 1 to 6, version 1.2.8 for step 7 and version 1.2.10 for step 8. Section 10 lists what is untested.
 - All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
@@ -456,6 +456,7 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 | 50 | The page Choose by hand sat under Techniques and stopped after the choice of techniques and the plan of checks. It is a way of running the whole process without the skill, so it belongs next to the skill and has to cover all eight steps. Decided on 16 November 2026. | The page is renamed Use by hand and moves to Try it, after Skill. It follows the eight steps in order: write the brief, rule out, choose, plan the sequence, run the techniques (including additional sources and a run that does not finish), check, combine (the methods, the label rule and the rules for insights) and write the answer. It ends with what the reader loses compared with the skill. The Limits page says that running the process by hand has not been tested. The page text is `data/use-by-hand.md`. This changes the site only. |
 | 51 | The research behind the catalogue was in two reports and some survey notes that were not on the site. A reader could not see what techniques exist, what evidence supports them, how widely they are used or what the catalogue does not cover. Decided on 21 November 2026. | The site has a page, Research findings, under Project record. It combines the two technique reports with research on how widely techniques are used and on the frameworks consultancies publish. It has three levels: a summary, six themes, and 29 findings in six groups, each finding with one caveat and its sources. The last section lists the 236 techniques with their evidence status. The findings are expandable, and each group has its own colour. The page text is `data/research-findings.md`. This changes the site only. |
 | 52 | The Research findings page was placed under Project record. Project record is about how the project was built (decisions, test evidence, files). The research is the background input to the catalogue and does not belong with it. Decided on 21 November 2026. | The page moves to its own group in the navigation, Research, at `/research/`, and has a card on the home page. The old address redirects to the new one. Decision 51 is otherwise unchanged. This changes the site only. |
+| 53 | Decision 52 gave the research its own group in the navigation. The user wanted it in the project section, as its own page next to Status, and not under Project record, which is about how the project was built. Decided on 21 November 2026. | The page Research findings is an item in the project section of the navigation, after Status. It stays at `/research/` and keeps its card on the home page. Decision 52 is replaced for the placement only. This changes the site only. |
 
 ## 10. Open items
 
@@ -507,7 +508,7 @@ Catalogue data (from the spot check; the first six were fixed):
 | File | Role |
 |---|---|
 | `master/Analysis methods design.md` | This document. |
-| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.16. |
+| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.17. |
 | `master/master_tagged.csv` | The catalogue: 236 rows, 52 columns, with result formats. |
 | `master/master_base.csv`, `master/tags/tags_A.json` to `tags_F.json` | Sources of the CSV text and tags. |
 | `master/specs/out_1.json` to `out_6.json` | Result formats. |

@@ -406,7 +406,7 @@ def make_research_page():
                    f'<div class="table-wrap"><table><thead><tr><th>ID</th><th>Technique</th><th>Evidence status</th></tr></thead><tbody>{"".join(rws)}</tbody></table></div></details>')
     assert seen == len(rows), seen
 
-    add_page("/research/", title, "Research", "".join(out),
+    add_page("/research/", title, "The project", "".join(out),
              "What techniques exist, what evidence supports them, how widely they are used and what the catalogue does not cover, with the list of all 236 techniques.",
              wide=False, scripts=("/assets/research.js",))
 
@@ -753,10 +753,10 @@ NAV = [
                                        ("/reference/checks/", "Check library"), ("/reference/phases-and-tiers/", "Steps, kinds, stakes and relations")]),
         ("/limits/", "Limits", []),
     ]),
-    ("Research", [("/research/", "Research findings", [])]),
     ("Try it", [("/simulator/", "Simulator", []), ("/skill/", "Skill", []), ("/by-hand/", "Use by hand", [])]),
     ("The project", [
         ("/status/", "Status", []),
+        ("/research/", "Research findings", []),
         ("/changes/", "Change log", []),
         ("/project/", "Project record", [("/project/decisions/", "Decisions"), ("/project/test-evidence/", "Test evidence"),
                                          ("/project/files-and-change-rule/", "Files and change rule")]),
