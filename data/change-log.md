@@ -1,4 +1,4 @@
-This page lists what changed in each version of the design, in plain terms, newest first. The numbers in the last column are decisions on the [decisions page](/project/decisions/), which gives the reason for each. The current version is 1.2.18.
+This page lists what changed in each version of the design, in plain terms, newest first. The numbers in the last column are decisions on the [decisions page](/project/decisions/), which gives the reason for each. The current version is 1.2.19.
 
 To check which version your copy of the skill follows, open `references/design.md` in the skill folder. The version is stated near the top. The download on the [skill page](/skill/) states the version it carries.
 
@@ -6,6 +6,7 @@ Versions that change only the website say so. The skill is unchanged by them.
 
 | Version | Date | What changed | Decisions |
 |---|---|---|---|
+| 1.2.19 | 21 Nov 2026 | Try it is the first group in the navigation. Website only. | 55 |
 | 1.2.18 | 21 Nov 2026 | The navigation item and home card Research findings are renamed Source research. Website only. | 54 |
 | 1.2.17 | 21 Nov 2026 | Research findings moved from its own group into the project section of the navigation, after Status. Website only. | 53 |
 | 1.2.16 | 21 Nov 2026 | The Research findings page moved out of Project record into its own group, Research, and has a card on the home page. Website only. | 52 |
