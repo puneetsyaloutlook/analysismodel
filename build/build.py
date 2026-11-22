@@ -4,7 +4,7 @@
 Sources (all in data/):
   design.md       the design document, split by second-level heading into process pages
   schema.json     field vocabularies, artefact types, check library, phases, tiers
-  catalogue.csv   304 techniques, 52 columns
+  catalogue.csv   304 techniques, 53 columns
   test-*.md       test evidence
 
 Run from the repository root:  python3 build/build.py
@@ -495,7 +495,7 @@ assert set(FAMILY_INTROS) == set(FAMILY_ORDER), "family intros do not match the 
 
 
 def make_catalogue_index():
-    intro = md_block(link_sections(sections[8][1][sections[8][1].index("Each technique has 52 columns"):]))
+    intro = md_block(link_sections(sections[8][1][sections[8][1].index("Each technique has 53 columns"):]))
     ov = md_block((DATA / "techniques-overview.md").read_text(encoding="utf-8"))
     fam_table = ("<table><thead><tr><th>Family</th><th>Techniques</th><th>What the family is for</th></tr></thead><tbody>" +
                  "".join(f'<tr><td><a href="/catalogue/{FAM_SLUG[f]}/">{esc(f)}</a></td><td>{len(FAMILIES[f])}</td><td>{esc(FAMILY_INTROS[f]["short"])}</td></tr>' for f in FAMILY_ORDER) +
@@ -611,6 +611,7 @@ def make_technique_page(r):
 <h2 id="use-when">When to use it</h2><p>{esc(r['use_when'])}</p>
 <h2 id="fit-test">When it does not fit</h2><p>{esc(r['fit_test'])}</p>
 <h2 id="result-format">Result format</h2><p>{esc(r['output_spec'])}</p>
+{('<h2 id="method-steps">Method steps</h2>' + md_block(r['method_steps'])) if r.get('method_steps', '').strip() else ''}
 """
     # requirements: facets that are not 'any'
     req_rows, free = [], []
@@ -714,7 +715,7 @@ def make_reference():
 <p>{esc(f['definition'])}</p>
 <p class="small"><strong>Tagging rule.</strong> {esc(f.get('tagging_rule', ''))}</p>
 {vals}</section>""")
-    add_page("/reference/fields/", "Fields", "Reference", "".join(body), "All 52 catalogue fields grouped by purpose, with requirement type and values.")
+    add_page("/reference/fields/", "Fields", "Reference", "".join(body), f"All {len(schema['fields'])} catalogue fields grouped by purpose, with requirement type and values.")
 
     # artefacts
     ab = ["<p>Working documents are what techniques need as input and make as output. The schema calls them artefacts. If a technique needs a document that nothing has made yet, such as a coded corpus, step 4 adds a preparation technique that makes it, and the order of those techniques follows from the documents. Each type below has a definition and the states it can be in, such as draft or checked. A type marked single use is spent by the first technique that reads it. The types are grouped by kind: the brief, material that has been prepared, findings, and reports.</p>"]

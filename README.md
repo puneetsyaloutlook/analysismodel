@@ -6,7 +6,7 @@ Static documentation site for startthat.work, a catalogue of 304 techniques and 
 
 - `data/design.md`: the design document. Its numbered sections become the process and project record pages.
 - `data/schema.json`: field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for the eight steps. It keeps its original field names, and section 8 of the design document maps them to the names used on the site.
-- `data/catalogue.csv`: the 304 techniques (52 columns). Each row becomes a technique page.
+- `data/catalogue.csv`: the 304 techniques (53 columns). Each row becomes a technique page.
 - `data/test-*.md`: test evidence pages. They were written under version 1.1 and use its terms.
 - `data/run.json` and `data/run1/`: the stored run of 11 November 2026 that the simulator replays. `run1/` contains the inputs and each technique's result. `build/export_run.py` rebuilds `run.json` from `run1/`. It needs the process scripts, which are not in this repository.
 - `data/simulator.json` and `build/export_simulator.py`: five earlier recorded test jobs. The site no longer uses them, because they contain no technique results.

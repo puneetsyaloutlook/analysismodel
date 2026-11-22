@@ -28,7 +28,7 @@ Checks by code cover few cases for some techniques. In the stored run the spot c
 
 ## The catalogue
 
-The 304 techniques are described from published sources, but most of the sources opened were abstracts or secondary pages. Evidence status is copied from the three reports and never upgraded: 55 techniques are tested, 195 documented, 13 in practice and 41 unconfirmed. Choosing conclusion and report techniques in steps 7 and 8 has not been run yet. Two techniques, AO-19 and PE-14, are in neither report, and their status comes from the sources on their own pages. No framework specifies checks for each stakes level, so that field is inference. All tag values are inference unless a row or a named source says otherwise.
+The 304 techniques are described from published sources, but most of the sources opened were abstracts or secondary pages. Evidence status comes from the three reports, and a row moves up when a source that opened describes the technique: 55 techniques are tested, 205 documented, 13 in practice and 31 unconfirmed. Method steps are written for the practice and unconfirmed rows, 11 so far. Choosing conclusion and report techniques in steps 7 and 8 has not been run yet. Two techniques, AO-19 and PE-14, are in neither report, and their status comes from the sources on their own pages. No framework specifies checks for each stakes level, so that field is inference. All tag values are inference unless a row or a named source says otherwise.
 
 A spot check of 30 rows found problems. Six were fixed. Others remain, for example inconsistent inputs and outputs on a few techniques, and about 30 relations to techniques in other families that were chosen from titles or short descriptions.
 

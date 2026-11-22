@@ -83,7 +83,7 @@ The fit ratings are mostly inference from the sources.
 
 #### 2.1 Most techniques have a description but no test of their effect.
 
-Of the 236 techniques, 33 are tested, meaning at least one published study measured the effect or accuracy. 150 are documented, meaning a text, guidance or summary describes them without a test. 13 are practice, meaning they are used with no published description found. 40 are unconfirmed, meaning no source was opened or a source failed to load. A status of documented, practice or unconfirmed means no study was found. It does not mean the technique was tested and found ineffective.
+Of the 236 techniques, 33 are tested, meaning at least one published study measured the effect or accuracy. 160 are documented, meaning a text, guidance or summary describes them without a test. 13 are practice, meaning they are used with no published description found. 30 are unconfirmed, meaning no source was opened or a source failed to load. A status of documented, practice or unconfirmed means no study was found. It does not mean the technique was tested and found ineffective.
 
 | Family | Techniques | Tested | Documented | Practice | Unconfirmed |
 |:-|-:|-:|-:|-:|-:|
@@ -391,23 +391,23 @@ The catalogue lists 304 techniques: 236 analysis techniques in the first 12 fami
 | HE1-02 | Quality of information check | Documented |
 | HE1-03 | CRAAP test | Documented |
 | HE1-04 | SIFT | Practice |
-| HE1-05 | Lateral reading | Unconfirmed |
-| HE1-06 | Triangulation | Unconfirmed |
+| HE1-05 | Lateral reading | Documented |
+| HE1-06 | Triangulation | Documented |
 | HE1-07 | Evidence hierarchies and certainty grading | Documented |
 | HE1-08 | Systematic review | Documented |
 | HE1-09 | Rapid review | Documented |
-| HE1-10 | Scoping review | Unconfirmed |
+| HE1-10 | Scoping review | Documented |
 | HE1-11 | Meta-analysis | Documented |
 | HE1-12 | Narrative, thematic and qualitative evidence synthesis | Documented |
 | HE1-13 | Reflexive thematic analysis | Documented |
 | HE1-14 | Framework analysis | Documented |
-| HE1-15 | Content analysis | Unconfirmed |
-| HE1-16 | Discourse analysis | Unconfirmed |
-| HE1-17 | Grounded theory coding | Unconfirmed |
-| HE1-18 | Document and policy analysis | Unconfirmed |
-| HE1-19 | Bibliometric analysis | Unconfirmed |
-| HE1-20 | Trend and time-series decomposition | Unconfirmed |
-| HE1-21 | Distribution, outlier and base-rate checks | Unconfirmed |
+| HE1-15 | Content analysis | Documented |
+| HE1-16 | Discourse analysis | Documented |
+| HE1-17 | Grounded theory coding | Documented |
+| HE1-18 | Document and policy analysis | Documented |
+| HE1-19 | Bibliometric analysis | Documented |
+| HE1-20 | Trend and time-series decomposition | Documented |
+| HE1-21 | Distribution, outlier and base-rate checks | Documented |
 | HE-01 | Grey literature appraisal checklist | Documented |
 | HE-02 | Critical appraisal checklist by study design | Documented |
 | HE-03 | Appraisal of a systematic review | Documented |

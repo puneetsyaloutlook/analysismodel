@@ -1,5 +1,5 @@
 {
- "version": "1.3.2",
+ "version": "1.4.0",
  "title": "startthat.work: metadata schema and process design for a catalogue of 304 techniques, 236 for analysis and 68 for combining and reporting",
  "conventions": {
   "language": "Australian English. Sentence case for headings, field labels and value names. No em dashes, en dashes or double hyphens.",
@@ -2106,6 +2106,24 @@
    "ordered": false,
    "cell_syntax": "plain",
    "plain_label": "Result format"
+  },
+  {
+   "key": "method_steps",
+   "group": "application",
+   "label": "Method steps",
+   "definition": "A numbered list of the actions to take, in order, for a technique whose evidence status is Practice or Unconfirmed. The last line names the source the steps were drawn from. Empty for other techniques, which run from the record and the output specification.",
+   "type": "free text",
+   "gate_class": "not applicable",
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Added in version 1.4.0 (decision 63). Each list is written from the sources named on its last line."
+   },
+   "tagging_rule": "Written from a source that opened. One action per step. Ends with a line beginning Steps drawn from, with links. Filled only where evidence_status is Practice or Unconfirmed, and kept when a row moves to Documented.",
+   "material_cardinality": "not applicable",
+   "ordered": false,
+   "cell_syntax": "plain",
+   "plain_label": "Method steps"
   }
  ],
  "artefact_types": [
@@ -3944,8 +3962,8 @@
   }
  },
  "application": {
-  "definition": "Each selected technique runs on the brief, independently of the others. The model is given the technique record and its output specification and writes a result in that shape.",
-  "rule": "A full method card is not written for any technique unless a test run shows the record and output specification produce a wrong or incomplete result.",
+  "definition": "Each selected technique runs on the brief, independently of the others. The model is given the technique record and its output specification and writes a result in that shape. Where the technique has method steps, the record includes them and the model follows them in order.",
+  "rule": "Method steps are written for every technique whose evidence status is Practice or Unconfirmed, and for any other technique where a test run shows the record and output specification produce a wrong or incomplete result.",
   "test": "Five techniques were each run with the row only and with the row plus an output specification, and scored blind against eight-item checklists written by the schema designer: 33 of 40 without and 37 of 40 with. One run per cell, so the gap is within noise. The specification helped most for absence analysis and disconfirmation search.",
   "basis": {
    "type": "inference",

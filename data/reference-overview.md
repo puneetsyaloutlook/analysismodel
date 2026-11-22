@@ -20,14 +20,14 @@ Another tag on the same page, "Strongest statement: describe", is defined on the
 
 | Page | It answers | Read it when |
 |---|---|---|
-| [Fields](/reference/fields/) | What does each of the 52 tags on a technique page mean, what values can it take, and what does it do in the process: remove a technique, change the order, raise a warning, or nothing? | A technique page uses a tag you do not recognise, or you want to know why a technique was removed. |
+| [Fields](/reference/fields/) | What does each of the 53 fields on a technique page mean, what values can it take, and what does it do in the process: remove a technique, change the order, raise a warning, or nothing? | A technique page uses a tag you do not recognise, or you want to know why a technique was removed. |
 | [Working document types](/reference/artefact-types/) | What are the 21 kinds of document that techniques read and make (a coded corpus, a claims register, a validation report and so on), and what states can each be in? | You want to know why a preparation technique was added to the plan, or what a technique needs before it can run. |
 | [Check library](/reference/checks/) | What are the 18 checks, what does each test, and does it need a person? | You want to know what the process did to check a result, or which checks are left out below high stakes. |
 | [Steps, kinds, stakes and relations](/reference/phases-and-tiers/) | What are the eight steps, the seven kinds of technique, the three stakes levels and the seven relations between techniques? | You want the short definitions in one place, or you want to know how two techniques relate (one substitutes for another, or must run after it). |
 
 ## How the field groups connect to the steps
 
-The Fields page groups the 52 fields by what they do in the process.
+The Fields page groups the 53 fields by what they do in the process.
 
 - **Identity fields** name and describe the technique. They are what the model reads when it chooses techniques in step 3.
 - **Input profile fields** state what the material must look like. Step 2 tests them against the description of your material and removes techniques that fail.

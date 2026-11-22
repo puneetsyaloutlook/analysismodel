@@ -371,6 +371,11 @@
 <td>Four of the 68 new techniques were still unconfirmed after decision 61. The user had no PDFs to supply, so other copies were searched for. Decided on 22 November 2026.</td>
 <td>CF-04, CF-09 and RC-04 are now documented. CF-04 rests on the EFSA guidance abstract and full text, CF-09 on a review of the nominal group technique and on the RAND/UCLA manual, and RC-04 on the EQUATOR Network, the PRISMA 2020 statement and the BMJ author guidance. SA-08 stays unconfirmed, because its structure appeared only on promotional or personal pages. The evidence status of the catalogue is now 55 tested, 195 documented, 13 in practice and 41 unconfirmed.</td>
 </tr>
+<tr>
+<td>63</td>
+<td>The model runs a technique from its record, so for a method with little published description it fills in the steps from its own knowledge and can get them wrong. The user was content with some variation for well documented techniques and wanted the less documented ones hardwired to reduce that. Decided on 22 November 2026.</td>
+<td>A new catalogue field, <code>method_steps</code>, holds a numbered list of steps for each technique whose evidence status is Practice or Unconfirmed (54 rows at the time). Each list is written from a source that opened and ends with a line naming that source. The technique record shows the steps, and the run prompt tells the model to follow them in order. Techniques that are Tested or Documented run as before. The steps are written family by family. The 11 Handle evidence rows are done: HE1-04, HE1-05, HE1-06, HE1-10, HE1-15, HE1-16, HE1-17, HE1-18, HE1-19, HE1-20 and HE1-21. Writing the steps used sources that opened for ten rows that were unconfirmed, so they are now documented. The evidence status of the catalogue is now 55 tested, 205 documented, 13 in practice and 31 unconfirmed. This replaces the rule that a full method card is written only after a test run shows a wrong result.</td>
+</tr>
 </tbody>
 </table></div></div>
     <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/project/"><span>Previous</span>Project record</a><a class="next" href="/project/test-evidence/"><span>Next</span>Test evidence</a></nav>
