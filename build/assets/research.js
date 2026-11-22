@@ -34,7 +34,7 @@
       if (active && n) f.open = true;
       total += n;
     });
-    shown.textContent = active ? total + ' of 236 techniques shown' : '';
+    shown.textContent = active ? total + ' of 304 techniques shown' : '';
   }
   if (q && st) { q.addEventListener('input', filter); st.addEventListener('change', filter); }
 })();

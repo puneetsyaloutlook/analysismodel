@@ -28,11 +28,11 @@ Checks by code cover few cases for some techniques. In the stored run the spot c
 
 ## The catalogue
 
-The 236 techniques are described from published sources, but most of the sources opened were abstracts or secondary pages. Evidence status is copied from the earlier reports and never upgraded: 33 techniques are tested, 150 documented, 13 in practice and 40 unconfirmed. Two techniques, AO-19 and PE-14, are in neither report, and their status comes from the sources on their own pages. No framework specifies checks for each stakes level, so that field is inference. All tag values are inference unless a row or a named source says otherwise.
+The 304 techniques are described from published sources, but most of the sources opened were abstracts or secondary pages. Evidence status is copied from the three reports and never upgraded: 55 techniques are tested, 183 documented, 13 in practice and 53 unconfirmed. Choosing conclusion and report techniques in steps 7 and 8 has not been run yet. Two techniques, AO-19 and PE-14, are in neither report, and their status comes from the sources on their own pages. No framework specifies checks for each stakes level, so that field is inference. All tag values are inference unless a row or a named source says otherwise.
 
 A spot check of 30 rows found problems. Six were fixed. Others remain, for example inconsistent inputs and outputs on a few techniques, and about 30 relations to techniques in other families that were chosen from titles or short descriptions.
 
-Result formats, which tell the model what a technique's result must contain, were tested on five of the 236 techniques. In that test they raised the score from 33 of 40 to 37 of 40, with one run per case and the same author writing the formats and the checklists.
+Result formats, which tell the model what a technique's result must contain, were tested on five of the 236 analysis techniques. In that test they raised the score from 33 of 40 to 37 of 40, with one run per case and the same author writing the formats and the checklists.
 
 ## What the process cannot read or judge
 

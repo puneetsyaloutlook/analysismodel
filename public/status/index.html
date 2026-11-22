@@ -27,14 +27,14 @@
     <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Status</li></ol></nav>
     <h1>Status</h1>
     <div class="prose"><p>startthat.work is the name of the whole design: the catalogue, the process and the rules. It is also the address of the site (decision 57). It replaces "analysis model", which was confused with the language model that does the work. In this document "the model" always means the language model. The skill that runs the process is named analysis (decision 41).</p>
-<p>The catalogue lists 236 analytical techniques in 12 families. It is packaged as a skill that a chat or agent calls. The skill is built (a zip with the process, the catalogue, the schema, the prompts and seven scripts). The user has run it once inside Claude, on an article (decision 40 came from that run). Its high-stakes path, personal information waiver and follow-up round have not been run.</p>
+<p>The catalogue lists 304 techniques in 19 families: 236 analysis techniques in 12 families, which steps 3 to 6 use, and 68 techniques for combining and reporting in 7 families, which steps 7 and 8 use. It is packaged as a skill that a chat or agent calls. The skill is built (a zip with the process, the catalogue, the schema, the prompts and seven scripts). The user has run it once inside Claude, on an article (decision 40 came from that run). Its high-stakes path, personal information waiver and follow-up round have not been run.</p>
 <p>Given a brief, the process chooses the techniques that fit, runs them in order, checks their findings and combines them into one answer.</p>
 <p>Status:</p>
 <ul>
 <li>Every part has been built and tested on small cases.</li>
 <li>One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.4 of this design. Steps 1 to 5 ran before decision 38, which changes only step 6. Steps 7 and 8 were run again on 15 November 2026 under version 1.2.8, to show the answer form of decisions 43 and 44, and step 8 once more under version 1.2.10, to show the grouped conclusions of decision 46. Its output is shown in the simulator on the documentation site.</li>
 <li>The documentation site is built from this document, the schema and the catalogue. It also has a page, Use the skill, with the skill to download and the steps to install it in Claude and in GitHub Copilot (decision 45).</li>
-<li>Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.23 add decisions 31 to 59. The scripts and the skill follow version 1.2.10 (versions 1.2.11 to 1.2.23 change the site and the record only, except that 1.2.21 changes the name in the skill text). The stored run follows version 1.2.4 for steps 1 to 6, version 1.2.8 for step 7 and version 1.2.10 for step 8. Section 10 lists what is untested.</li>
+<li>Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.23 add decisions 31 to 59. Version 1.3.0 adds decision 60. The scripts and the skill follow version 1.2.10 (versions 1.2.11 to 1.2.23 change the site and the record only, except that 1.2.21 changes the name in the skill text). Version 1.3.0 changes the catalogue, the schema, steps 3, 7 and 8, the prompts, <code>select.py</code> and the skill text. The stored run follows version 1.2.4 for steps 1 to 6, version 1.2.8 for step 7 and version 1.2.10 for step 8. Section 10 lists what is untested.</li>
 <li>All tag values are inference unless a row or a named source says otherwise.</li>
 </ul><h2 id="open-items">Open items</h2><p>Changed since the run of 13 November 2026 (version 1.2.4):</p>
 <ul>
@@ -78,6 +78,7 @@
 <li>Only 14 of 236 rows use <code>not_for_rules</code>. HE1-06 and IS-05 use source dependence, a field that only changes the order, as an exclusion.</li>
 <li>About 30 relation targets in other families were chosen from titles or short descriptions.</li>
 <li>No working document type for diagrams, argument maps, personas, a labelled gold set, an event table or a provenance graph. No unit of analysis for actor, case, option, text span or event.</li>
+<li>13 of the 68 conclusion and report techniques are unconfirmed (their sources were blocked or not opened). Choosing them in steps 7 and 8, and applying them in the step 7 and 8 agents, has not been run.</li>
 <li>Review the 9 techniques whose strongest statement is the effect of an action and the 5 whose strongest statement is how or why.</li>
 <li>Some frameworks could not be confirmed (the PHIA technique list, Heuer and Pherson names). Most opened sources were abstracts or secondary pages. No framework specifies checks per stakes level, so that field is entirely inference.</li>
 </ul></div>

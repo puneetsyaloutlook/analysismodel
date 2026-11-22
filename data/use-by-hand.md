@@ -14,7 +14,7 @@ Then decide three settings, in the words the [process](/process/intake/) uses.
 | Strength of statement needed | Describe. Show a link between things. Predict, without claiming a cause. Estimate the effect of an action. Explain how or why. |
 | Kind of finding wanted | Pattern, difference, contradiction, cause, trend, gap, risk or option ranking. More than one can apply, and you can leave it empty. |
 
-The strength of statement matters most. Each technique has a strongest statement it can support, shown on its page. Of the 236 techniques, 177 can describe at most, 23 can show a link between things, 22 can predict without claiming a cause, 9 can estimate the effect of an action and 5 can explain how or why. If you need to say that an action caused an outcome, only the last two groups can support that.
+The strength of statement matters most. Each technique has a strongest statement it can support, shown on its page. Of the 236 analysis techniques, 177 can describe at most, 23 can show a link between things, 22 can predict without claiming a cause, 9 can estimate the effect of an action and 5 can explain how or why. If you need to say that an action caused an outcome, only the last two groups can support that.
 
 ## Step 2: Rule out techniques
 
@@ -28,7 +28,7 @@ One exception: a technique that fails only on content type or structure can stil
 
 ## Step 3: Choose techniques
 
-Start from the [families](/catalogue/). Each family page says what its techniques are for. Read the line under each technique name, then its When to use it section. Choose in this order:
+Start from the first 12 [families](/catalogue/), which hold the 236 analysis techniques. The last seven families are for steps 7 and 8. Each family page says what its techniques are for. Read the line under each technique name, then its When to use it section. Choose in this order:
 
 1. Make sure every part of your request has at least one technique.
 2. Include at least one technique that reaches the strength of statement you need, if one fits. If none does, say so in your write-up.
@@ -37,7 +37,7 @@ Start from the [families](/catalogue/). Each family page says what its technique
 
 Stop at ten, a default chosen for the design and not a measured value. Before you keep a technique, read its When it does not fit section and its Failure modes and limits. Write one line for each technique saying which part of the request it serves.
 
-Each technique carries an evidence status, copied from the sources and never upgraded. Tested means at least one published study measured the technique's effect or accuracy (33 techniques). Documented means a text, official guidance or a summary describes it, without a test (150). Practice means it is used with no published description found (13). Unconfirmed means no source was opened or a source failed to load (40). Treat an unconfirmed technique as a lead for you to check, and say so if you rely on it.
+Each technique carries an evidence status, copied from the sources and never upgraded. Tested means at least one published study measured the technique's effect or accuracy (33 of the 236 analysis techniques). Documented means a text, official guidance or a summary describes it, without a test (150). Practice means it is used with no published description found (13). Unconfirmed means no source was opened or a source failed to load (40). Treat an unconfirmed technique as a lead for you to check, and say so if you rely on it.
 
 ## Step 4: Plan the sequence
 
@@ -67,7 +67,7 @@ Checks that need a person (human review sample, independent review, expert revie
 
 ## Step 7: Combine the findings
 
-Choose a method.
+Four methods are fixed. Use each when its condition is met. You do not choose between them.
 
 | Method | Use it when |
 |---|---|
@@ -75,6 +75,8 @@ Choose a method.
 | Narrative summary | Always, after the agreement table for text or mixed findings. |
 | Pooling of estimates | The findings are numeric, and you have confirmed that two or more estimates measure the same thing on the same scale. |
 | Decision analysis and weighting | You want an option ranking. |
+
+Then choose up to three conclusion techniques from the families Combine findings into conclusions and State confidence and uncertainty. Pick those that fit what your findings are like and add something the methods above do not. Skip a technique that needs a panel or decision information that you do not have. Write one line saying what each changes. A conclusion technique changes how a conclusion is formed or how its uncertainty is stated. It does not change the label rule below.
 
 For each conflict between findings, name the cause or state that the conflict is unresolved.
 
@@ -94,21 +96,21 @@ If your request asks for insights, or a conclusion goes against what the request
 
 ## Step 8: Write the answer
 
-The answer is the only thing you hand on. It must be complete without your working notes. Write it in this order.
+The answer is the only thing you hand on. It must be complete without your working notes. First choose up to four report techniques from the families Structure the written answer, Design the display, Display risk and uncertainty, Recommend and tailor to the audience and Hold the report to its evidence. Choose a recommendation technique only if the request asks for recommendations or names an audience, and a display technique only if the answer shows numbers or charts. Skip a technique that needs audience information that you do not have. A report technique changes how the parts below are written and shown. It does not change which parts there are. Then write the answer in this order.
 
 1. **Summary.** The direct answer to the request in two to four short paragraphs of whole sentences, with no technique codes. Say what you found, how far to trust it and what it leaves open.
 2. **Conclusions,** in two groups. Put the well supported ones (label high) first, then the ones with weaker support (medium or low). After each conclusion in the second group, add a caveat: one or two plain sentences saying why the support is weaker. Keep the labels and their reasons in your notes and show them only if the reader asks. State once that every technique read the same material and used the same model, which limits how far any conclusion can be trusted.
 3. **Insights,** if you wrote any, with a caveat on each one whose label is medium or low.
 4. **What was not covered.** The parts of the request the analysis did not answer.
 5. **Strength of statement reached.** Which of your techniques reach the strength you needed and which conclusions they support. If none did, say so in the first lines of the answer.
-6. **What the answer is based on.** The material you gave, with the type and size of each source. Any additional sources, with the details you recorded. The techniques that ran and what each worked on. The techniques dropped, and why. Any checks not done, and whether a person reviewed the results. Whether you kept or edited the request after step 5.1.
+6. **What the answer is based on.** The material you gave, with the type and size of each source. Any additional sources, with the details you recorded. The techniques that ran and what each worked on. The techniques dropped, and why. The conclusion and report techniques you chose, and any you dropped. Any checks not done, and whether a person reviewed the results. Whether you kept or edited the request after step 5.1.
 7. **An offer of a follow-up round.** If the reader accepts, run steps 2 to 4 again for the gaps and unresolved conflicts, leaving out techniques that already ran and starting from the techniques you wanted beyond the limit of ten. Then repeat steps 6 to 8 with all the findings. Do not start a follow-up round yourself.
 
 Do not judge whether the material is representative or large enough. You chose it and you know its limits.
 
 ## An example from the stored run
 
-The [simulator](/simulator/) replays one run. The request was whether eight interviews support three hypotheses, at decision-informing stakes, wanting to show a link between things, looking for a pattern or a contradiction. Of the 236 techniques, 142 could work on the material. Ten were chosen: the hypothesis tree to examine the question, six primary techniques for the interviews and three techniques to test the findings. The process added one preparation technique, preprocessing sensitivity testing, because stance detection needs a cleaned dataset. The run ended with nine conclusions (four well supported and five with weaker support) and four insights.
+The [simulator](/simulator/) replays one run. The request was whether eight interviews support three hypotheses, at decision-informing stakes, wanting to show a link between things, looking for a pattern or a contradiction. Of the 236 analysis techniques, 142 could work on the material. Ten were chosen: the hypothesis tree to examine the question, six primary techniques for the interviews and three techniques to test the findings. The process added one preparation technique, preprocessing sensitivity testing, because stance detection needs a cleaned dataset. The run ended with nine conclusions (four well supported and five with weaker support) and four insights.
 
 ## What you lose compared with the skill
 

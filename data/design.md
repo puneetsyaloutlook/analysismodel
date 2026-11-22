@@ -1,12 +1,12 @@
 # startthat.work: design document
 
-Version 1.2.23, 22 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
+Version 1.3.0, 22 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
 
 ## 1. Purpose and status
 
 startthat.work is the name of the whole design: the catalogue, the process and the rules. It is also the address of the site (decision 57). It replaces "analysis model", which was confused with the language model that does the work. In this document "the model" always means the language model. The skill that runs the process is named analysis (decision 41).
 
-The catalogue lists 236 analytical techniques in 12 families. It is packaged as a skill that a chat or agent calls. The skill is built (a zip with the process, the catalogue, the schema, the prompts and seven scripts). The user has run it once inside Claude, on an article (decision 40 came from that run). Its high-stakes path, personal information waiver and follow-up round have not been run.
+The catalogue lists 304 techniques in 19 families: 236 analysis techniques in 12 families, which steps 3 to 6 use, and 68 techniques for combining and reporting in 7 families, which steps 7 and 8 use. It is packaged as a skill that a chat or agent calls. The skill is built (a zip with the process, the catalogue, the schema, the prompts and seven scripts). The user has run it once inside Claude, on an article (decision 40 came from that run). Its high-stakes path, personal information waiver and follow-up round have not been run.
 
 Given a brief, the process chooses the techniques that fit, runs them in order, checks their findings and combines them into one answer.
 
@@ -15,7 +15,7 @@ Status:
 - Every part has been built and tested on small cases.
 - One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.4 of this design. Steps 1 to 5 ran before decision 38, which changes only step 6. Steps 7 and 8 were run again on 15 November 2026 under version 1.2.8, to show the answer form of decisions 43 and 44, and step 8 once more under version 1.2.10, to show the grouped conclusions of decision 46. Its output is shown in the simulator on the documentation site.
 - The documentation site is built from this document, the schema and the catalogue. It also has a page, Use the skill, with the skill to download and the steps to install it in Claude and in GitHub Copilot (decision 45).
-- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.23 add decisions 31 to 59. The scripts and the skill follow version 1.2.10 (versions 1.2.11 to 1.2.23 change the site and the record only, except that 1.2.21 changes the name in the skill text). The stored run follows version 1.2.4 for steps 1 to 6, version 1.2.8 for step 7 and version 1.2.10 for step 8. Section 10 lists what is untested.
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.23 add decisions 31 to 59. Version 1.3.0 adds decision 60. The scripts and the skill follow version 1.2.10 (versions 1.2.11 to 1.2.23 change the site and the record only, except that 1.2.21 changes the name in the skill text). Version 1.3.0 changes the catalogue, the schema, steps 3, 7 and 8, the prompts, `select.py` and the skill text. The stored run follows version 1.2.4 for steps 1 to 6, version 1.2.8 for step 7 and version 1.2.10 for step 8. Section 10 lists what is untested.
 - All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
@@ -44,7 +44,7 @@ Each term below has one meaning in this document.
 | Material | The content the user gives for analysis. |
 | Description of the material | The properties of the material that requirements are tested against, such as content type and number of sources. |
 | Brief | The request, the settings, the material and the description of the material. |
-| Technique | Any of the 236 analytical techniques in the catalogue. The step names call them analysis techniques. |
+| Technique | Any of the 304 techniques in the catalogue. 236 are analysis techniques, which steps 3 to 6 use, and 68 are techniques for combining and reporting, which steps 7 and 8 use. The step names call the first group analysis techniques. |
 | Requirement | A condition a technique places on the brief. A technique that fails a requirement is removed. |
 | Eligible technique | A technique that meets every requirement that applies. |
 | Chosen technique | An eligible technique the model selected in step 3. |
@@ -63,7 +63,7 @@ Each term below has one meaning in this document.
 
 ### Kinds of technique
 
-Every technique belongs to one of five kinds. The kind decides what the technique works on and when it runs.
+Every technique belongs to one of seven kinds. The kind decides what the technique works on and when it runs.
 
 | Kind | Works on | Produces | Runs in |
 |---|---|---|---|
@@ -72,13 +72,15 @@ Every technique belongs to one of five kinds. The kind decides what the techniqu
 | Primary technique | The material, including prepared material | The findings that the answer is built on | 5.3 |
 | Verification technique | The findings of the analysis | Findings about those findings | 6 |
 | Challenge technique | The findings of the analysis | Findings that question them | 6 |
+| Conclusion technique | The findings of the analysis and of steps 5 and 6 | A conclusion, or a statement of how sure it is | 7 |
+| Report technique | The conclusions | The written answer, its display or a check of it | 8 |
 
-The kind comes from the technique's phase tag: frame gives a question technique, gather or verify and prepare gives a preparation technique, analyse gives a primary technique, and validate gives a verification technique or, in the Challenge family, a challenge technique.
+The kind comes from the technique's phase tag: frame gives a question technique, gather or verify and prepare gives a preparation technique, analyse gives a primary technique, and validate gives a verification technique or, in the Challenge family, a challenge technique. Conclude gives a conclusion technique and report gives a report technique (decision 60).
 
 ### Rules that apply throughout
 
 1. A primary technique works on the material. It never works on another primary technique's result. Primary techniques are independent of each other and can run in any order.
-2. Combining the findings (step 7) is a fixed step, not a technique. The catalogue lists techniques only.
+2. Steps 7 and 8 each have a fixed part that always runs and a part chosen from the catalogue. The fixed part is not a technique. The chosen techniques work on the findings and the conclusions, never on the material alone (decision 60).
 3. Stakes and strength of statement are set for the brief. They are never stored per technique.
 4. Only the user changes the request. The process can show the user what it found about the request and ask. It never rewrites the request itself.
 5. The process never starts a follow-up round on its own.
@@ -95,7 +97,7 @@ The process defines the states of a run so that whatever runs it (a chat, an age
 | A library check | Done. Not done, because it needs a person and the user did not review the sample (high stakes only). Left out, because it needs a person and the stakes are below high-stakes. |
 | The answer | Not yet given. Given. |
 
-A step is waiting for you only at one of the decision points: confirm the brief, confirm the request after 5.1, review a sample of the results (high stakes only), choose the combining method, confirm that estimates measure the same thing, or ask for a follow-up round. The status names the decision point, so the application can show what the user needs to decide.
+A step is waiting for you only at one of the decision points: confirm the brief, confirm the request after 5.1, review a sample of the results (high stakes only), confirm that estimates measure the same thing, or ask for a follow-up round. The status names the decision point, so the application can show what the user needs to decide.
 
 Rules for the status:
 
@@ -157,7 +159,7 @@ Step 2 also counts the eligible techniques that reach the strength of statement 
 
 ### Step 3: Choose analysis techniques
 
-The model receives the brief and a one-line entry (ID, name, purpose, use when) for every eligible technique. The entries are ordered by a score for kind of finding and evidence status. The score changes the order only.
+The model receives the brief and a one-line entry (ID, name, purpose, use when) for every eligible technique. The entries are ordered by a score for kind of finding and evidence status. The score changes the order only. The list holds analysis techniques only. Techniques whose phase is conclude or report are left out, because steps 7 and 8 choose them (decision 60).
 
 The model chooses at most 10 techniques, using these criteria in order:
 
@@ -194,7 +196,7 @@ The plan also adds two things, each with its reason:
 
 The plan keeps the reason for each chosen technique from step 3 and the reason for each addition. The plan is work (section 7). The reasons are kept so that the answer can describe the process followed.
 
-Additional sources. 41 of the 236 techniques need a comparator (14), a reference structure (25) or an earlier period (2). Step 4 only records the need in the third column of the table. Nothing is searched for or gathered in step 4, because no technique has run. Step 5.2 resolves the need.
+Additional sources. 41 of the 236 techniques need a comparator (14), a reference structure (25) or an earlier period (2). Step 4 only records the need in the third column of the table. Nothing is searched for or gathered in step 4, because no technique has run. Step 5.2 resolves the need. The 68 conclude and report techniques need outside material of other kinds: audience information (10), decision information (2) and a panel (1), besides a comparator (7) and a reference structure (24). Step 5.2 does not gather any of it. The model takes it from the brief or from the technique record, and drops the technique when it is not there (decision 60).
 
 Library checks come from two lists that are combined. Each technique lists its own minimum checks for each stakes level, and each higher level includes the checks of the level below. The strength of statement adds further checks, for example a held-out validation for prediction or an alternative explanations check for the effect of an action.
 
@@ -234,7 +236,7 @@ Each primary technique runs on the brief, independently of the others.
 
 ### How a technique is run
 
-The model receives the technique record and its result format, and writes a result in that format. A result format is two to three sentences describing the parts of the result, what each row or cell contains and what the result must name. All 236 techniques have one.
+The model receives the technique record and its result format, and writes a result in that format. A result format is two to three sentences describing the parts of the result, what each row or cell contains and what the result must name. All 304 techniques have one.
 
 Test result: five techniques were each run with the record only and with the record plus the result format, and scored blind against eight-item checklists. The totals were 33 of 40 without and 37 of 40 with. The result format helped most for absence analysis and disconfirmation search. A full method card is therefore written only for a technique where a test run shows the record and result format produce a wrong or incomplete result. The test had one run per cell, and the same author wrote the result formats and the checklists.
 
@@ -254,14 +256,18 @@ Checks that need a person apply at high stakes only. Below high stakes the plan 
 
 ### Step 7: Combine the findings
 
-The process offers the methods that apply and recommends one. It runs the recommended method if the user does not reply.
+Step 7 has a fixed part and a chosen part. The user is not asked to choose between them (decision 60).
 
-| Method | Applies when | Recommended when |
-|---|---|---|
-| Agreement table (agree, partly agree, conflict, not covered) | Two or more techniques ran. | Findings are text or mixed. |
-| Narrative summary | Always. | Findings are text or mixed, after the agreement table. |
-| Pooling of estimates | The user confirms that two or more estimates measure the same thing on the same scale. | Findings are numeric and the user has confirmed. |
-| Decision analysis and weighting | An option ranking is wanted. | An option ranking is wanted. |
+Fixed part. These methods run when their condition is met.
+
+| Method | Runs when |
+|---|---|
+| Agreement table (agree, partly agree, conflict, not covered) | Two or more techniques ran. |
+| Narrative summary | Always, after the agreement table. |
+| Pooling of estimates | The user confirms that two or more estimates measure the same thing on the same scale. |
+| Decision analysis and weighting | An option ranking is wanted. |
+
+Chosen part. `select.py` writes a list of the eligible conclusion techniques (families CF and UC). The model reads the request, the stakes and the findings, and chooses at most 3, with a one-line reason for each. A technique that needs outside material that the brief does not hold (a panel, or decision information) is dropped, and the answer says so. The step 7 agent applies the chosen techniques as it writes the conclusions. They change how a conclusion is formed or how its uncertainty is stated. They do not change the label rule below.
 
 For each conflict between findings, the process names the cause or states that the conflict is unresolved.
 
@@ -294,8 +300,10 @@ The answer is the only output of the process. Everything produced in steps 1 to 
 - Where the application can create a document, the answer is delivered as a document, so that the user can keep, share and export it. Otherwise it is given in the reply (decision 44).
 - The answer is always given to the user. It must be complete without the work, so it names the techniques that ran and the checks that were not done.
 - The work is kept. How much of it the user sees depends on the application that runs the process: it can show the work as it happens, show it on request or not show it.
-- Where the process asks the user to decide something, it always shows what the user needs for that decision: the brief at intake, the findings from 5.1, the methods offered in step 7 and the gaps behind a follow-up round.
+- Where the process asks the user to decide something, it always shows what the user needs for that decision: the brief at intake, the findings from 5.1, the estimates that may be pooled and the gaps behind a follow-up round.
 - The user can change the chosen techniques only in an application that shows them.
+
+Choosing report techniques. `select.py` writes a list of the eligible report techniques (families SA, VD, RU, RA and RC). The model chooses at most 4, with a one-line reason for each. Recommendation techniques (RA) are chosen only when the request asks for recommendations or names an audience. Display techniques (VD and RU) are chosen only when the answer shows numbers or charts. A technique that needs outside material that the brief does not hold, such as audience information, is dropped. The step 8 agent applies the chosen techniques as it writes the answer. They change how the parts below are written and shown, not which parts there are or the fixed words. A technique that checks the report (RC) checks the written answer against the conclusions, and the agent corrects the answer, never a conclusion or a label.
 
 The answer has these parts, in this order.
 
@@ -323,6 +331,7 @@ Parts 5 and 6 are stated as facts.
 - Any additional sources used: the item, where it came from, its type, which technique used it, and whether code could check its wording.
 - Which techniques ran and what each worked on.
 - Which techniques were dropped, and why.
+- Which conclusion and report techniques were chosen, which were dropped and why.
 - Any files that could not be read.
 - Any checks that were not done, and whether a person reviewed the results.
 - Whether the user confirmed the request after 5.1.
@@ -333,7 +342,7 @@ The answer makes no judgement about whether the material is representative or su
 
 **Follow-up round.** The process offers one. If the user accepts, steps 2 to 4 run again for the gaps and unresolved conflicts found in step 7, leaving out techniques that already ran and starting from the reserve list. The new techniques run, and steps 6 to 8 are repeated with all the findings.
 
-The methods in step 7 come from reviews of how to combine evidence from studies. Using them to combine the findings of techniques within one run is an extrapolation, and only abstracts and summary pages were read.
+The fixed methods in step 7 come from reviews of how to combine evidence from studies. Using them to combine the findings of techniques within one run is an extrapolation, and only abstracts and summary pages were read. The 68 conclusion and report techniques come from a third research report (22 November 2026): 22 are tested, 33 documented and 13 unconfirmed.
 
 ## 8. Catalogue and schema
 
@@ -351,7 +360,16 @@ The methods in step 7 come from reviews of how to combine evidence from studies.
 | Measure and model | 16 |
 | Integrate across sources | 11 |
 | Check extracted results | 29 |
-| Total | 236 |
+| Analysis techniques, subtotal | 236 |
+| Combine findings into conclusions (CF) | 9 |
+| State confidence and uncertainty (UC) | 12 |
+| Structure the written answer (SA) | 8 |
+| Design the display (VD) | 15 |
+| Display risk and uncertainty (RU) | 9 |
+| Recommend and tailor to the audience (RA) | 10 |
+| Hold the report to its evidence (RC) | 5 |
+| Conclusion and report techniques, subtotal | 68 |
+| Total | 304 |
 
 Each technique has 52 columns in `master/master_tagged.csv`: identity and text (ID, family, subgroup, name, what it does, fit test, status and evidence), 44 tag columns, and the result format. Tag columns fall into five groups: input profile, selection, sequencing, robustness and the identity fields purpose and use when.
 
@@ -463,6 +481,7 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 | 57 | The name ANLYSIS read as a technical label and gave no sense of what the site is for. The user wanted a casual name that says something about the site, in the form of a short phrase that the .work address completes. Decided on 22 November 2026. | The name is startthat.work, and it is also the address of the site. It replaces ANLYSIS and anlysis.work in running text, the site, the simulator, the README, the schema title, the skill text and the design. The skill keeps the name analysis (decision 41). Decisions 39 and 41 and the change-log row for 1.2.5 keep the old name because they record what was decided then. The GitHub repository keeps the name `analysismodel`. The domain startthat.work has to be registered and added to the Vercel project, and anlysis.work should redirect to it. Both are done outside the repository. This supersedes decision 39. |
 | 58 | The site header still showed the logo for the old name. The user supplied a logo for startthat.work: the words start and that and the .work ending, with a play mark. The header image text also read startthat.work.work after the rename. Decided on 22 November 2026. | The header uses the supplied logo (`build/assets/logo.svg`) and its text description is the name followed by the word home. The change affects the website only. |
 | 59 | The home page tab read "startthat.work: documentation", which described the site as a manual. The user wanted the tab to carry only the name, written as the logo writes it. Decided on 22 November 2026. | Browser tab titles use STARTthat.WORK, as the logo does. The home page tab shows only that name, and every other page shows its title, a vertical bar and the name. Running text, headings and the address stay startthat.work. |
+| 60 | The catalogue had no technique for the last two phases, conclude and report. Step 7 offered four fixed methods and asked the user to choose, and step 8 wrote the answer in one fixed form. A third research report found 68 techniques for combining findings, stating confidence, structuring the answer, displaying it, showing uncertainty, recommending and checking a report against its evidence. The user asked for them to be added and for steps 7 and 8 to choose from them as step 3 does, with the decision kept simple. Decided on 22 November 2026. | The 68 techniques join the catalogue (304 in 19 families), tagged like the others. Their material tags are any, because they work on findings, and what they need (findings from two or more techniques, a panel, audience information) is stated in the minimum requirements. Step 3 chooses from analysis techniques only. Step 7 chooses at most 3 conclusion techniques and step 8 at most 4 report techniques, each with a reason, and drops any that needs outside material the brief does not hold. The fixed parts stay: the agreement table, the narrative summary, pooling, decision analysis, the confidence rule and the seven parts of the answer. The decision point choose the combining method is removed, so five decision points remain. The schema adds the values none (insight type), how sure (question answered) and audience information, decision information and panel (outside material). Their claim ceiling is the highest value, so no gate removes them, and the strength of statement reached comes from the analysis techniques only. The stored run and simulator were made on the 236 analysis techniques and keep their numbers. Kinds of technique rise from five to seven. |
 
 ## 10. Open items
 
@@ -505,6 +524,7 @@ Catalogue data (from the spot check; the first six were fixed):
 - Only 14 of 236 rows use `not_for_rules`. HE1-06 and IS-05 use source dependence, a field that only changes the order, as an exclusion.
 - About 30 relation targets in other families were chosen from titles or short descriptions.
 - No working document type for diagrams, argument maps, personas, a labelled gold set, an event table or a provenance graph. No unit of analysis for actor, case, option, text span or event.
+- 13 of the 68 conclusion and report techniques are unconfirmed (their sources were blocked or not opened). Choosing them in steps 7 and 8, and applying them in the step 7 and 8 agents, has not been run.
 - Review the 9 techniques whose strongest statement is the effect of an action and the 5 whose strongest statement is how or why.
 - Some frameworks could not be confirmed (the PHIA technique list, Heuer and Pherson names). Most opened sources were abstracts or secondary pages. No framework specifies checks per stakes level, so that field is entirely inference.
 
@@ -514,7 +534,7 @@ Catalogue data (from the spot check; the first six were fixed):
 |---|---|
 | `master/Analysis methods design.md` | This document. |
 | `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.23. |
-| `master/master_tagged.csv` | The catalogue: 236 rows, 52 columns, with result formats. |
+| `master/master_tagged.csv` | The catalogue: 304 rows, 52 columns, with result formats. |
 | `master/master_base.csv`, `master/tags/tags_A.json` to `tags_F.json` | Sources of the CSV text and tags. |
 | `master/specs/out_1.json` to `out_6.json` | Result formats. |
 | `scripts/intake.py`, `select.py`, `sequence.py`, `validate_tags.py` | Process scripts for steps 1, 2 and 4, and the tag validator. |

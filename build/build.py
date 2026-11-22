@@ -4,7 +4,7 @@
 Sources (all in data/):
   design.md       the design document, split by second-level heading into process pages
   schema.json     field vocabularies, artefact types, check library, phases, tiers
-  catalogue.csv   236 techniques, 52 columns
+  catalogue.csv   304 techniques, 52 columns
   test-*.md       test evidence
 
 Run from the repository root:  python3 build/build.py
@@ -75,10 +75,19 @@ FAMILY_ORDER = [
     "Measure and model",
     "Integrate across sources",
     "Check extracted results",
+    "Combine findings into conclusions",
+    "State confidence and uncertainty",
+    "Structure the written answer",
+    "Design the display",
+    "Display risk and uncertainty",
+    "Recommend and tailor to the audience",
+    "Hold the report to its evidence",
 ]
+LATE_FAMILIES = FAMILY_ORDER[12:]
 FAMILIES = {f: [r for r in rows if r["family"] == f] for f in FAMILY_ORDER}
 assert sum(len(v) for v in FAMILIES.values()) == len(rows), "family names do not match the catalogue"
 FAM_SLUG = {f: slug(f) for f in FAMILY_ORDER}
+N_LATE = sum(len(FAMILIES[f]) for f in LATE_FAMILIES)
 
 # ------------------------------------------------------------ design doc
 parts = re.split(r"^## ", design_text, flags=re.M)
@@ -194,7 +203,7 @@ def make_simulator():
 def make_process_pages():
     # Overview of the process: section 2
     add_page("/process/", "The process", "Process", section_html(2),
-             "Eight steps from the user's request to the answer, the terms used, the five kinds of technique and the rules that apply throughout.")
+             "Eight steps from the user's request to the answer, the terms used, the seven kinds of technique and the rules that apply throughout.")
     add_page("/process/intake/", "Step 1: Intake", "Process", section_html(3),
              "How four kinds of input become a brief, and which questions the user is asked.")
     add_page("/process/choosing-techniques/", "Steps 2 and 3: Rule out and choose analysis techniques", "Process", section_html(4),
@@ -408,7 +417,7 @@ def make_research_page():
     assert seen == len(rows), seen
 
     add_page("/research/", title, "The project", "".join(out),
-             "What techniques exist, what evidence supports them, how widely they are used and what the catalogue does not cover, with the list of all 236 techniques.",
+             "What techniques exist, what evidence supports them, how widely they are used and what the catalogue does not cover, with the list of all 304 techniques.",
              wide=False, scripts=("/assets/research.js",))
 
 
@@ -455,7 +464,7 @@ def make_home():
 <p>The catalogue holds {len(rows)} techniques in {len(FAMILIES)} families. This site documents the process and the catalogue. It is generated from the design document, the schema and the catalogue file in the repository, so it changes only when those change.</p>
 <div class="cards">
   <a class="card" href="/process/"><p class="card-title">Process</p><p>How a request and some material become one answer, in eight steps from intake to the answer.</p></a>
-  <a class="card" href="/catalogue/"><p class="card-title">Techniques</p><p>The {len(rows)} analytical techniques the process chooses from, with when each fits and what it needs from your material.</p></a>
+  <a class="card" href="/catalogue/"><p class="card-title">Techniques</p><p>The {len(rows)} techniques the process chooses from: {len(rows) - N_LATE} for analysis and {N_LATE} for combining and reporting, with when each fits and what it needs from your material.</p></a>
   <a class="card" href="/reference/"><p class="card-title">Dictionary</p><p>What each tag on a technique page means, and the checks and relations the process uses.</p></a>
   <a class="card" href="/research/"><p class="card-title">Source research</p><p>What techniques exist, what evidence supports them, how widely they are used and what the catalogue does not cover.</p></a>
   <a class="card" href="/limits/"><p class="card-title">Limits</p><p>What the process does not do, what has not been tested and where its answers are weaker than they look.</p></a>
@@ -583,6 +592,10 @@ def kind_of(r):
         return "Preparation technique", "5.2"
     if ph == "validate":
         return ("Challenge technique" if r["family"] == "Challenge" else "Verification technique"), "6"
+    if ph == "conclude":
+        return "Conclusion technique", "7"
+    if ph == "report":
+        return "Report technique", "8"
     return "Primary technique", "5.3"
 
 
@@ -593,7 +606,7 @@ def make_technique_page(r):
     # overview
     ov = f"""
 <p class="lede">{esc(r['purpose'])}</p>
-<div class="meta-row">{pill(fam)}{pill('Evidence: ' + r['evidence_status'])}{pill(kind_of(r)[0] + ', runs in step ' + kind_of(r)[1])}{pill('Strongest statement: ' + CLAIM_PLAIN.get(r['claim_ceiling'].strip(), r['claim_ceiling']))}</div>
+<div class="meta-row">{pill(fam)}{pill('Evidence: ' + r['evidence_status'])}{pill(kind_of(r)[0] + ', runs in step ' + kind_of(r)[1])}{pill('Strongest statement: ' + CLAIM_PLAIN.get(r['claim_ceiling'].strip(), r['claim_ceiling'])) if r['primary_phase'] not in ('conclude', 'report') else ''}</div>
 <h2 id="what-it-does">What it does</h2><p>{esc(r['what_it_does'])}</p>
 <h2 id="use-when">When to use it</h2><p>{esc(r['use_when'])}</p>
 <h2 id="fit-test">When it does not fit</h2><p>{esc(r['fit_test'])}</p>
@@ -631,7 +644,7 @@ def make_technique_page(r):
         ("Other phase tags", esc(r["other_phases"])),
         ("Kind of finding", esc(r["insight_type"])),
         ("Question answered", esc(r["question_answered"])),
-        ("Strongest statement it supports", esc(CLAIM_PLAIN.get(r["claim_ceiling"].strip(), r["claim_ceiling"]))),
+        ("Strongest statement it supports", esc(CLAIM_PLAIN.get(r["claim_ceiling"].strip(), r["claim_ceiling"])) if r["primary_phase"] not in ("conclude", "report") else "Not applicable. It carries the strength of statement of the analysis techniques that ran."),
         ("Needs as input", artefact_list(r["consumes"])),
         ("Makes as output", artefact_list(r["produces"])),
         ("Must exist first", artefact_list(r["requires"])),
@@ -725,7 +738,7 @@ def make_reference():
 
     # phases and tiers
     KIND = {"frame": "Question technique, 5.1", "gather": "Preparation technique, 5.2", "verify and prepare": "Preparation technique, 5.2",
-            "analyse": "Primary technique, 5.3", "validate": "Verification or challenge technique, step 6", "conclude": "Not a technique: step 7", "report": "Not a technique: step 8"}
+            "analyse": "Primary technique, 5.3", "validate": "Verification or challenge technique, step 6", "conclude": "Conclusion technique, step 7", "report": "Report technique, step 8"}
     pb = ["<p>Short definitions of the eight steps, the kinds of technique, the stakes levels and the relations between techniques. The steps and kinds are explained in full on the <a href=\"/process/\">process pages</a>. The stakes level you give at intake decides how many checks run, and the relations are used when techniques are chosen and ordered.</p>", "<h2 id=\"steps\">Process steps</h2><table><thead><tr><th>Step</th><th>What happens</th></tr></thead><tbody>" +
           "".join(f"<tr><td>{esc(st['number'])}. {esc(st['name'])}</td><td>{esc(st['does'])}</td></tr>" for st in schema["steps"]) + "</tbody></table>",
           "<h2 id=\"phases\">Kinds of technique</h2><p>Each technique has a phase tag. The tag gives its kind and the step it runs in.</p><table><thead><tr><th>Phase tag</th><th>Kind and step</th><th>Definition of the tag</th></tr></thead><tbody>"]

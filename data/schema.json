@@ -1,6 +1,6 @@
 {
- "version": "1.2.23",
- "title": "startthat.work: metadata schema and process design for a catalogue of 236 analytical techniques",
+ "version": "1.3.0",
+ "title": "startthat.work: metadata schema and process design for a catalogue of 304 techniques, 236 for analysis and 68 for combining and reporting",
  "conventions": {
   "language": "Australian English. Sentence case for headings, field labels and value names. No em dashes, en dashes or double hyphens.",
   "value_ids": "Value ids are lower case strings, written with spaces and without the characters ; : = | & and the sequence ::, because those are used in cell syntax. The display name is the id with its first letter capitalised. Evidence status keeps the capitalised values used in the earlier reports.",
@@ -1085,7 +1085,7 @@
    "key": "security_classification",
    "group": "input profile",
    "label": "Security classification",
-   "definition": "The protective marking of the material, applied as a pre-filter before matching. On a technique, the cell lists the markings it may be used with. Not used in matching or asked at intake: all 236 techniques are tagged any. Kept so that a deployment can add a requirement later.",
+   "definition": "The protective marking of the material, applied as a pre-filter before matching. On a technique, the cell lists the markings it may be used with. Not used in matching or asked at intake: all 304 techniques are tagged any. Kept so that a deployment can add a requirement later.",
    "type": "multiple values",
    "values": [
     {
@@ -1134,7 +1134,7 @@
    "key": "licence",
    "group": "input profile",
    "label": "Licence",
-   "definition": "The terms under which the material may be used, applied as a pre-filter before matching. It is a different instrument from privacy and security. Not used in matching or asked at intake: all 236 techniques are tagged any. Kept so that a deployment can add a requirement later.",
+   "definition": "The terms under which the material may be used, applied as a pre-filter before matching. It is a different instrument from privacy and security. Not used in matching or asked at intake: all 304 techniques are tagged any. Kept so that a deployment can add a requirement later.",
    "type": "multiple values",
    "values": [
     {
@@ -1336,6 +1336,10 @@
     {
      "value": "option ranking",
      "definition": "Options placed in order."
+    },
+    {
+     "value": "none",
+     "definition": "The output is not read for an insight. It states or shows what other techniques found. None cannot be combined with other values."
     }
    ],
    "gate_class": "weight",
@@ -1381,6 +1385,10 @@
     {
      "value": "which option",
      "definition": "Which choice is best."
+    },
+    {
+     "value": "how sure",
+     "definition": "How well the findings support a statement."
     }
    ],
    "gate_class": "weight",
@@ -1457,7 +1465,7 @@
    "key": "external_material_needed",
    "group": "selection",
    "label": "Additional sources needed",
-   "definition": "What the technique needs beyond the user's material. The process finds it in 5.2, or the user supplies it when none is found. None cannot be combined with other values.",
+   "definition": "What the technique needs beyond the user's material. The process finds it in 5.2, or the user supplies it when none is found. None cannot be combined with other values. For conclusion and report techniques, audience information, decision information and a panel come from the brief. Step 5.2 does not gather them, and the technique is dropped when the brief does not hold them.",
    "type": "multiple values",
    "values": [
     {
@@ -1475,6 +1483,18 @@
     {
      "value": "earlier period",
      "definition": "Data or documents from before the period of interest."
+    },
+    {
+     "value": "audience information",
+     "definition": "Who will read the answer and what they need to do with it. Taken from the brief."
+    },
+    {
+     "value": "decision information",
+     "definition": "The decision to be made, its options and who makes it. Taken from the brief."
+    },
+    {
+     "value": "panel",
+     "definition": "A group of people who rate or discuss the findings. The process cannot supply one, so the technique is dropped unless the user provides the panel."
     }
    ],
    "gate_class": "conditional",
@@ -3541,7 +3561,8 @@
    "Apply not_for_rules and requires. A technique whose consumed artefact cannot exist yet, or that needs external material (comparator, reference structure, earlier period), is kept with a note naming what is missing. The external material is gathered in stage 1 only for techniques that were picked.",
    "Claim ceiling raises a warning only: count the eligible techniques that reach the strength of statement needed and warn when none does.",
    "Step 3: give the model the brief and a one-line entry (ID, name, purpose, use when) for every eligible technique, ordered by a score for insight type, prefers items and evidence status. The score does not cut the list, because a score-ranked shortlist of 15 found 8 of 32 expected picks and the model reading the full list found 22 of 32. The model chooses at most 10 (sequencing limits), using four criteria in order: (1) every part of the request has at least one technique; (2) at least one technique reaches the strength of statement needed when an eligible one fits the request, and if none fits the model says so with the reason; (3) the techniques match the kind of finding wanted, where given; (4) where two techniques serve the same part of the request, prefer a pair with different methods. Each choice has a one-line reason naming the part of the request it serves.",
-   "Step 4: place the chosen techniques in one sequence by kind, with a description of what each group does (sequencing section) and attach library checks from the stakes and strength of statement rules."
+   "Step 4: place the chosen techniques in one sequence by kind, with a description of what each group does (sequencing section) and attach library checks from the stakes and strength of statement rules.",
+   "Stages. Step 3 uses the analysis stage: every technique whose phase is not conclude or report. Step 7 uses the conclude stage and step 8 the report stage. The hard gates run the same way at each stage. Conclusion and report techniques are tagged any on every material field, because they work on findings, so no gate removes them. What they need is in requires_minimum and external_material_needed. The claim ceiling of these techniques is the highest value, so it removes none of them. The strength of statement reached is worked out from the analysis techniques only."
   ],
   "multiple_sources": "When source-level facets differ between sources, a requires is met only if every source meets it. A prefers is scored by the share of sources that meet it."
  },
@@ -3584,21 +3605,21 @@
    "SKILL.md contains the procedure and a compact index of one line per technique (ID, name, family, purpose, use when). It does not contain the full records.",
    "Full records (what it does, fit test, output specification, checks, failure modes) are in reference files, one per family, one level deep, each with a table of contents.",
    "A CSV with one column per field key is queried by scripts: intake.py (profile and gap questions), select.py (gates), sequence.py (stages, checks, synthesis block). Only script output enters context.",
-   "Contraindications are stored as not_for_rules so code applies them. Only 14 of 236 rows use them so far.",
+   "Contraindications are stored as not_for_rules so code applies them. Only 14 of 304 rows use them so far.",
    "Add a full method card to a technique only where a test run shows the output specification is not enough. The first test found it unnecessary for five techniques.",
    "Build a larger test set of briefs with known correct techniques, and measure the index-reading recall and final choice accuracy against a baseline without the skill, with more than one model size."
   ],
   "draft_skill_description": "Selects analytical techniques for a research question and the material available, puts them in a workable order, and states the checks each result needs. Use when a user asks which analysis or approach to apply to documents, reports, survey data, tables, interviews or web sources, how to sequence several analyses, how reliable a finding is, or how much checking an AI-assisted analysis needs. Covers 234 techniques for framing, comparison, causal and claim testing, evidence handling, forecasting, risk assessment, text and data preparation, modelling, source integration and result checking."
  },
  "sequencing": {
-  "rule": "Every technique belongs to one of five kinds, and the kind decides what it works on. A question technique works on the request (5.1). A preparation technique works on the material and produces prepared material (5.2). A primary technique works on the material, including prepared material, and never on another primary technique's result (5.3). Verification and challenge techniques work on the findings of the analysis (step 6). Combining the findings (step 7) is a fixed process step, not a technique. Only the user changes the request.",
+  "rule": "Every technique belongs to one of seven kinds, and the kind decides what it works on. A question technique works on the request (5.1). A preparation technique works on the material and produces prepared material (5.2). A primary technique works on the material, including prepared material, and never on another primary technique's result (5.3). Verification and challenge techniques work on the findings of the analysis (step 6). A conclusion technique works on the findings and produces conclusions or a statement of how sure they are (step 7). A report technique works on the conclusions and produces the written answer, its display or a check of it (step 8). Steps 7 and 8 also have a fixed part that is not a technique. Only the user changes the request.",
   "stages": [
    "5.1 examine the question: chosen techniques whose phase is frame. When they produce findings, the process shows them and asks the user to keep or edit the request. Keep: the run continues at 5.2. Edit: steps 2 to 4 run again on the new request, and question techniques that already ran are not chosen again. No reply: the request stays as it is and the answer says it was not confirmed. The findings are kept in every case and go to step 7.",
    "5.2 prepare the material: chosen techniques whose phase is gather or verify and prepare, any technique that produces prepared material a chosen technique consumes, and de-identification when the material has personal information. Prepared material is still the brief's material. For each chosen technique that needs an additional source (a comparator, a reference structure or an earlier period), 5.2 runs after the plan. It looks in the user's material first. If the item is not there, it finds the one item needed, from a source that is not marketing or personal opinion, and asks the user for it only when none is found. It uses the item and records it, with its source, its type, the technique that used it and whether code could check its wording. The user is not asked to approve it. If none is found, the technique is dropped and the answer says so.",
    "5.3 analyse the material: chosen primary techniques, independent of each other, run in any order, each on the brief.",
    "6 check the findings: chosen verification techniques, then chosen challenge techniques, each on the findings of the analysis, then the library checks for the stakes and the strength of statement, each applied to one result.",
-   "7 combine the findings (process step): collect the findings; run a method from the synthesis section (the process offers those that apply and recommends one); name the cause of each conflict or state that it is unresolved; give each conclusion a confidence label and a one-line reason.",
-   "8 answer: give the conclusions, the strength of statement reached, and what the answer is based on. Offer a follow-up round. If the user accepts, steps 2 to 4 run again for the gaps and unresolved conflicts found in step 7, leaving out techniques that already ran and starting from the reserve list, then the new techniques run and steps 6 to 8 are repeated with all the findings. The process never starts a follow-up round on its own."
+   "7 combine the findings (process step): collect the findings; run the fixed methods whose condition is met (agreement table, narrative summary, pooling when the user confirms, decision analysis when an option ranking is wanted); choose at most 3 conclusion techniques from the eligible list and apply them; name the cause of each conflict or state that it is unresolved; give each conclusion a confidence label and a one-line reason.",
+   "8 answer: choose at most 4 report techniques from the eligible list and apply them; give the conclusions, the strength of statement reached, and what the answer is based on. Offer a follow-up round. If the user accepts, steps 2 to 4 run again for the gaps and unresolved conflicts found in step 7, leaving out techniques that already ran and starting from the reserve list, then the new techniques run and steps 6 to 8 are repeated with all the findings. The process never starts a follow-up round on its own."
   ],
   "basis": {
    "type": "inference",
@@ -3606,7 +3627,7 @@
    "note": "Designed with the user in this session; untested on real jobs."
   },
   "limits": {
-   "definition": "The model chooses at most 10 techniques in the first round, listed in priority order. All kinds of technique count. Preparation techniques added for a chosen technique, de-identification and library checks do not count. Techniques the model wanted beyond the limit go on the reserve list and are offered in a follow-up round. Each follow-up round adds at most 5.",
+   "definition": "The model chooses at most 10 techniques in the first round, listed in priority order. All kinds of technique count. Preparation techniques added for a chosen technique, de-identification and library checks do not count. Techniques the model wanted beyond the limit go on the reserve list and are offered in a follow-up round. Each follow-up round adds at most 5. Step 7 chooses at most 3 conclusion techniques and step 8 at most 4 report techniques, each with a reason.",
    "basis": {
     "type": "inference",
     "sources": [],
@@ -3661,7 +3682,7 @@
   }
  },
  "synthesis": {
-  "definition": "Synthesis is the final process step. It takes the findings of the independent analyses as its input, not the brief's material. No single agreed framework exists for synthesising diverse findings, and the choice of method depends on the aim and the form of the findings, so the skill offers the methods that apply and recommends one.",
+  "definition": "Step 7 has a fixed part and a chosen part. The fixed part is the methods below, which run when their condition is met. It takes the findings of the independent analyses as its input, not the brief's material. The chosen part is up to 3 conclusion techniques from the catalogue (families CF and UC), chosen by the model from an eligible list. No single agreed framework exists for synthesising diverse findings, so the fixed methods are a baseline and the chosen techniques add to it.",
   "basis": {
    "type": "sourced",
    "sources": [
@@ -3699,7 +3720,6 @@
     "name": "convergence matrix",
     "what_it_does": "Lists each technique's findings side by side by theme or question, and marks each as agreement, partial agreement, dissonance or silence. Disagreement is kept as information. Two analysts compare the matrix and resolve differences by discussion.",
     "applies_when": "Two or more analytical techniques were run. Any findings_form.",
-    "recommended_when": "findings_form is textual or mixed",
     "output": "A matrix of findings against techniques, with a global assessment of convergence and a list of dissonant findings.",
     "limits": "It marks agreement but does not weigh findings. Counting how many techniques mention a theme is not a measure of strength.",
     "basis": {
@@ -3721,7 +3741,6 @@
     "name": "narrative synthesis",
     "what_it_does": "Summarises, compares, explains and interprets the findings in words, keeping each finding in its own terms. Used to write the answer to the question once the matrix shows where findings agree and conflict.",
     "applies_when": "Any job. Any findings_form.",
-    "recommended_when": "findings_form is textual or mixed, after the convergence matrix",
     "output": "A written answer that states each conclusion, the findings behind it and the conflicts left unresolved.",
     "limits": "Without a stated structure it can hide which findings were given more weight. State the weighting rule used.",
     "basis": {
@@ -3739,7 +3758,6 @@
     "name": "quantitative pooling",
     "what_it_does": "Combines findings that are estimates of the same quantity into one estimate, by meta-analysis or Bayesian updating, with an interval.",
     "applies_when": "commensurable_estimates is yes.",
-    "recommended_when": "findings_form is numeric and commensurable_estimates is yes",
     "output": "A pooled estimate with an interval, and a measure of how much the findings differ.",
     "limits": "Findings that share a scale but not a design or a population should not be pooled. The pooled interval is too narrow when the estimates are not independent.",
     "basis": {
@@ -3757,7 +3775,6 @@
     "name": "decision analysis and weighting",
     "what_it_does": "Turns findings and stated preferences into weights and scores for the options, and ranks the options.",
     "applies_when": "insight_wanted includes option ranking.",
-    "recommended_when": "insight_wanted includes option ranking",
     "output": "A ranking of the options with the weights and scores shown.",
     "limits": "The weights come from the decision maker, not the evidence. Show how the ranking changes when the weights change.",
     "basis": {
@@ -3781,9 +3798,9 @@
     "note": "Simplified with the user on 11 November 2026 and completed on 12 November 2026 (conflicts, checks not done, different methods). The earlier design used GRADE-style certainty and ICD 203 likelihood terms. The rule is a design choice and is untested."
    }
   },
-  "offer_to_user": "The process lists the methods whose applies_when is met, marks the recommended one with its reason, and asks the user to choose or accept the recommendation. It runs the recommended method if the user does not reply.",
+  "offer_to_user": "The user is not asked to choose a combining method. The fixed methods run when their condition is met, and the model chooses the conclusion techniques. The only question in step 7 is whether estimates measure the same thing, asked when pooling could apply.",
   "answer_basis": {
-   "definition": "The answer states three things as facts and makes no judgement about the material. (1) Strength of statement reached: which chosen techniques reach the strength of statement the user needed and which conclusions they support; when none did, the answer says so in its first lines. (2) What the answer is based on: what the user gave (each source, its type and size), any additional sources used (the item, where it came from, its type, the technique that used it and whether code could check its wording), which techniques ran and what each worked on (the request, the material, or the findings of the analysis), which techniques were dropped and why, any files that could not be read, any checks that were not done (at the high-stakes level, a check that needs a person: needed, or conditional when the condition applies), whether a person reviewed the results, and whether the user confirmed the request after 5.1. (3) The offer of a follow-up round. It does not say whether the material is representative or sufficient.",
+   "definition": "The answer states three things as facts and makes no judgement about the material. (1) Strength of statement reached: which chosen techniques reach the strength of statement the user needed and which conclusions they support; when none did, the answer says so in its first lines. (2) What the answer is based on: what the user gave (each source, its type and size), any additional sources used (the item, where it came from, its type, the technique that used it and whether code could check its wording), which techniques ran and what each worked on (the request, the material, or the findings of the analysis), which techniques were dropped and why, which conclusion and report techniques were chosen and which were dropped and why, any files that could not be read, any checks that were not done (at the high-stakes level, a check that needs a person: needed, or conditional when the condition applies), whether a person reviewed the results, and whether the user confirmed the request after 5.1. (3) The offer of a follow-up round. It does not say whether the material is representative or sufficient.",
    "basis": {
     "type": "inference",
     "sources": [],
@@ -3834,12 +3851,8 @@
     "what": "Asked only at the high-stakes level, at the end of step 6, when a chosen technique has a check that needs a person. The process shows a small sample of the results with the labels or findings it produced. The user reviews it, skips it or defers it. A skipped or deferred review is listed as not done and limits the confidence label to medium."
    },
    {
-    "point": "choose the combining method",
-    "what": "The skill lists the methods whose applies_when is met, marks the recommended one with its reason, and runs it if the user does not reply."
-   },
-   {
     "point": "confirm that estimates measure the same thing",
-    "what": "Asked only when two or more numeric findings could estimate the same quantity. Pooling is left out of the list otherwise."
+    "what": "Asked only when two or more numeric findings could estimate the same quantity. Pooling is not run otherwise."
    },
    {
     "point": "follow-up round",
@@ -3955,7 +3968,7 @@
   {
    "number": "3",
    "name": "Choose analysis techniques",
-   "does": "The model reads a list of the eligible techniques and chooses at most 10, with a reason for each."
+   "does": "The model reads a list of the eligible analysis techniques and chooses at most 10, with a reason for each. Conclusion and report techniques are not on the list."
   },
   {
    "number": "4",
@@ -4002,12 +4015,12 @@
   {
    "number": "7",
    "name": "Combine the findings",
-   "does": "The findings become conclusions. Each conclusion gets a confidence label and a one-line reason."
+   "does": "The findings become conclusions. Each conclusion gets a confidence label and a one-line reason. The model also chooses and applies up to 3 conclusion techniques."
   },
   {
    "number": "8",
    "name": "Answer",
-   "does": "The answer is given with a list of what it is based on. The user can ask for a follow-up round."
+   "does": "The model chooses and applies up to 4 report techniques. The answer is given with a list of what it is based on. The user can ask for a follow-up round."
   }
  ],
  "terms": {
@@ -4193,7 +4206,6 @@
     "confirm the brief",
     "confirm the request after 5.1",
     "review a sample of the results",
-    "choose the combining method",
     "confirm that estimates measure the same thing",
     "follow-up round"
    ]

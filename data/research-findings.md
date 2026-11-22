@@ -4,17 +4,19 @@
 
 This report summarises the research behind the catalogue of 236 analysis techniques. It covers which techniques exist, what evidence supports them, how widely they are used and what the research did not cover. It combines two reports on techniques, one for desk research on any topic and one for text and data, with surveys and interviews on technique use and the frameworks that consultancies publish.
 
-The catalogue has 236 techniques in 12 families. Of these, 33 have a published study of their effect or accuracy, 150 are described without a test, 13 are used in practice with no published description found, and 40 have no source that could be opened. The tests are mostly of techniques whose output can be scored, such as forecasting, text classification and checks on model output. None of the 11 techniques for combining sources has a test. Two experiments on analysis of competing hypotheses found no accuracy gain.
+The analysis part of the catalogue has 236 techniques in 12 families. Of these, 33 have a published study of their effect or accuracy, 150 are described without a test, 13 are used in practice with no published description found, and 40 have no source that could be opened. The tests are mostly of techniques whose output can be scored, such as forecasting, text classification and checks on model output. None of the 11 techniques for combining sources has a test. Two experiments on analysis of competing hypotheses found no accuracy gain.
 
 The most used techniques in the surveys are SWOT (strengths, weaknesses, opportunities, threats) at nearly 80 per cent of 2,148 UK business school alumni, brainstorming at 91.2 per cent of Ontario government analysts, and interview at 89 per cent of Ukrainian business analysts. The least used are specialised or quantitative, such as Markov chain modelling at 0.8 per cent of analysts. No technique has both a use figure and a measured accuracy figure, so the research cannot say whether widely used techniques give better results.
 
 Practitioners use a handful of tools at a time. Consultancies publish named frameworks under their own brands and report wide use of them, and no independent count was found. The catalogue has gaps: five families were not extended to text and data, and many named methods for data, text and combining sources are missing because no source describing them could be opened.
 
+A third report added 68 techniques for combining findings and reporting the answer, which steps 7 and 8 use. Of these, 22 have a published test, 33 are documented and 13 are unconfirmed. The findings in this report describe the 236 analysis techniques. The list at the end covers all 304.
+
 ## What the research shows
 
 ### 1. What techniques exist
 
-The catalogue has 236 techniques in 12 families: eight for desk research on any topic and four added for text and data. The largest family is trace cause and test claims, with 34 techniques, and the smallest is frame the question, with 6. Among the techniques added for text and data, checking extracted results is the largest family, with 29 of 84. Desk evidence alone is enough for 100 of the first 150 techniques. Detail: findings 1.1 to 1.4.
+The analysis part of the catalogue has 236 techniques in 12 families: eight for desk research on any topic and four added for text and data. The largest family is trace cause and test claims, with 34 techniques, and the smallest is frame the question, with 6. Among the techniques added for text and data, checking extracted results is the largest family, with 29 of 84. Desk evidence alone is enough for 100 of the first 150 techniques. Detail: findings 1.1 to 1.4.
 
 ### 2. What has been tested
 
@@ -53,7 +55,7 @@ Each finding gives what the sources report and ends with one caveat about the so
 
 ### 1. What techniques exist
 
-#### 1.1 The catalogue has 236 techniques in 12 families.
+#### 1.1 The analysis part of the catalogue has 236 techniques in 12 families.
 
 The first eight families are for desk research on any topic: frame the question (6), decompose and map (21), compare (17), trace cause and test claims (34), handle evidence (29), project forward (25), assess actors, options and risks (19) and challenge (15). Four families were added for text and data: prepare and extract (14), measure and model (16), integrate across sources (11) and check extracted results (29). Fifteen text and data techniques fit the first eight families and are counted there.
 
@@ -281,7 +283,7 @@ The research searched for each item below and found nothing. It searched web pag
 
 ## The techniques
 
-The catalogue lists 236 techniques. Each row below gives the identifier, the name and the evidence status. The description, fit test and evidence for each technique are in the catalogue. Two techniques, AO-19 and PE-14, are in the catalogue and in neither report, which counted 234. Both are documented.
+The catalogue lists 304 techniques: 236 analysis techniques in the first 12 families and 68 techniques for combining and reporting in the last seven. Each row below gives the identifier, the name and the evidence status. The description, fit test and evidence for each technique are in the catalogue. Two techniques, AO-19 and PE-14, are in the catalogue and in neither report, which counted 234. Both are documented.
 
 ### Frame the question
 
@@ -579,3 +581,105 @@ The catalogue lists 236 techniques. Each row below gives the identifier, the nam
 | CK-28 | Provenance tracking and audit logging | Documented |
 | CK-29 | Scripted reproducible workflow | Practice |
 
+### Combine findings into conclusions
+
+| ID | Technique | Evidence status |
+|:-|:-|:-|
+| CF-01 | Mixed methods matrix | Documented |
+| CF-02 | Following a thread | Documented |
+| CF-03 | Synthesis without meta-analysis reporting | Documented |
+| CF-04 | Weight of evidence assessment | Unconfirmed |
+| CF-05 | Non-pooling summaries of effects | Unconfirmed |
+| CF-06 | Best evidence synthesis | Unconfirmed |
+| CF-07 | Metainference | Unconfirmed |
+| CF-08 | Assurance case | Unconfirmed |
+| CF-09 | Nominal group technique and RAND/UCLA appropriateness method | Unconfirmed |
+
+### State confidence and uncertainty
+
+| ID | Technique | Evidence status |
+|:-|:-|:-|
+| UC-01 | Confidence in qualitative evidence findings | Documented |
+| UC-02 | Words of estimative probability | Tested |
+| UC-03 | PHIA probability yardstick | Documented |
+| UC-04 | Analytical confidence rating stated apart from likelihood | Documented |
+| UC-05 | IPCC calibrated uncertainty language | Tested |
+| UC-06 | Traceable account | Documented |
+| UC-07 | Verbal term with numeric range in the same sentence | Tested |
+| UC-08 | Numeric probability statement | Tested |
+| UC-09 | Point estimate with numeric range | Tested |
+| UC-10 | Certainty-graded effect statements | Documented |
+| UC-11 | NUSAP notation and pedigree matrix | Documented |
+| UC-12 | Ordered scale of uncertainty expressions | Documented |
+
+### Structure the written answer
+
+| ID | Technique | Evidence status |
+|:-|:-|:-|
+| SA-01 | Inverted pyramid | Documented |
+| SA-02 | Structure type choice | Documented |
+| SA-03 | Structured abstract | Tested |
+| SA-04 | Plain language summary with a standard template | Tested |
+| SA-05 | 1:3:25 layered report | Documented |
+| SA-06 | Policy brief | Tested |
+| SA-07 | Headings and preview sentences | Tested |
+| SA-08 | Pyramid principle | Unconfirmed |
+
+### Design the display
+
+| ID | Technique | Evidence status |
+|:-|:-|:-|
+| VD-01 | Encoding choice by perceptual accuracy ranking | Tested |
+| VD-02 | Expressiveness and effectiveness criteria | Documented |
+| VD-03 | Chart choice by message and relationship | Documented |
+| VD-04 | Message headline title with statistical subtitle | Documented |
+| VD-05 | Direct labelling instead of legends | Documented |
+| VD-06 | Annotation | Documented |
+| VD-07 | Small multiples | Documented |
+| VD-08 | Focus chart | Documented |
+| VD-09 | Axis baseline rules | Tested |
+| VD-10 | Separate panels instead of dual axes | Documented |
+| VD-11 | Category and clutter limits | Documented |
+| VD-12 | Gridline and chart size settings | Tested |
+| VD-13 | Narrative visualisation structures | Documented |
+| VD-14 | Infographic summary | Tested |
+| VD-15 | Accessible chart publishing | Documented |
+
+### Display risk and uncertainty
+
+| ID | Technique | Evidence status |
+|:-|:-|:-|
+| RU-01 | Quantile dotplot | Tested |
+| RU-02 | Hypothetical outcome plots | Tested |
+| RU-03 | Interval display with labelled type | Tested |
+| RU-04 | Fan chart | Documented |
+| RU-05 | Icon array | Tested |
+| RU-06 | Absolute risk and frequency formats with consistent denominators | Tested |
+| RU-07 | Both framings with a reference class | Documented |
+| RU-08 | Summary of findings table | Tested |
+| RU-09 | Uncertainty layer for official statistics | Documented |
+
+### Recommend and tailor to the audience
+
+| ID | Technique | Evidence status |
+|:-|:-|:-|
+| RA-01 | Evidence to decision framework | Documented |
+| RA-02 | Recommendation strength labelling | Tested |
+| RA-03 | Cabinet business forms | Documented |
+| RA-04 | Impact analysis with a preferred option | Documented |
+| RA-05 | Five case model | Unconfirmed |
+| RA-06 | Audience analysis and use plan | Documented |
+| RA-07 | Implications statement | Unconfirmed |
+| RA-08 | Actionable messages | Unconfirmed |
+| RA-09 | Knowledge brokering | Tested |
+| RA-10 | Knowledge to action framework | Unconfirmed |
+
+### Hold the report to its evidence
+
+| ID | Technique | Evidence status |
+|:-|:-|:-|
+| RC-01 | Spin detection and classification | Documented |
+| RC-02 | Limitations and caveats statement | Documented |
+| RC-03 | Registered report and pre-registration comparison | Tested |
+| RC-04 | Reporting guideline checklist | Unconfirmed |
+| RC-05 | Qualitative reporting standards | Unconfirmed |

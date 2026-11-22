@@ -1,4 +1,4 @@
-A technique is a named way of analysing something, such as five whys, difference-in-differences or lateral reading. The catalogue holds 236 of them. Each has a plain description of what it does and what it produces, a statement of when it fits and when it does not, the conditions your material must meet, and a result format that tells the model what a run of the technique must contain.
+A technique is a named way of analysing something, such as five whys, difference-in-differences or lateral reading. The catalogue holds 304 of them: 236 for analysing material and 68 for combining the findings and reporting the answer. Each has a plain description of what it does and what it produces, a statement of when it fits and when it does not, the conditions your material must meet, and a result format that tells the model what a run of the technique must contain.
 
 The catalogue records enough about each technique for the process to do three things without a person: decide whether the technique can run on your material (step 2), choose the ones that fit your request (step 3), and put them in a workable order with the right checks (steps 4 to 6). The [process pages](/process/) explain those steps.
 
@@ -23,7 +23,7 @@ The property names in the requirements table link to their definitions in the [d
 
 ## Find a technique
 
-Filter the table by name, purpose or family, or open a family from the list above. The table lists all 236 techniques.
+Filter the table by name, purpose or family, or open a family from the list above. The table lists all 304 techniques.
 
 ## Using the catalogue without the skill
 

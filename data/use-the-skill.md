@@ -1,13 +1,13 @@
 The skill runs the startthat.work process on your question and your material. It is named `analysis`. It works in Claude and in GitHub Copilot, because both read the same skill format: a folder with a `SKILL.md` file, reference files and scripts.
 
-<p><a class="button" href="/downloads/analysis.zip" download>Download analysis.zip</a> Version 1.2.23, 231 KB. It unzips to one folder named <code>analysis</code>.</p>
+<p><a class="button" href="/downloads/analysis.zip" download>Download analysis.zip</a> Version 1.3.0, 259 KB. It unzips to one folder named <code>analysis</code>.</p>
 
 If you cannot install a skill, or want to see what the process does, you can follow the same steps yourself: see [Use by hand](/by-hand/).
 
 ## What is in the zip
 
 - `SKILL.md`: the instructions the model follows, step by step.
-- `references/`: the design document, the schema, the catalogue of 236 techniques and the prompts used for the combining and answer steps.
+- `references/`: the design document, the schema, the catalogue of 304 techniques and the prompts used for choosing techniques, combining the findings and writing the answer.
 - `scripts/`: seven small Python scripts for intake, ruling out techniques, planning the sequence, and the checks that code can do. They write only to the paths the skill passes them, which are in a working folder named `analysis_run`.
 
 Read `SKILL.md` and the scripts before you install them, as you would for any skill. The same files are described on the [process pages](/process/) of this site.

@@ -46,5 +46,33 @@
  "Check extracted results": {
   "short": "Check results that came from coding or extraction, including model output.",
   "long": "These techniques measure how far coders, human or model, agree, score a model against a human coder, put a confidence interval around an agreement figure, build a human-coded sample as a standard, test on held-out items and correct bias in model labels using a human-coded subsample. They are how the process tests its own coding and labelling."
+ },
+ "Combine findings into conclusions": {
+  "short": "Turn the findings of several techniques into stated conclusions.",
+  "long": "These techniques work on the findings, not on your material. They set the findings of different techniques side by side, follow a thread from one to another, weigh several lines of evidence or summarise effects without pooling them. Step 7 chooses from them after the fixed agreement table and narrative summary have run."
+ },
+ "State confidence and uncertainty": {
+  "short": "Say how sure each conclusion is, in words, numbers or both.",
+  "long": "These techniques give a conclusion a stated level of confidence or uncertainty: a fixed vocabulary of likelihood words, a numeric range, a rating of confidence apart from likelihood, or a record of how the conclusion was reached. Step 7 chooses from them. They change how uncertainty is stated and do not change the confidence label."
+ },
+ "Structure the written answer": {
+  "short": "Arrange the conclusions so that a reader finds the answer first.",
+  "long": "These techniques decide the order and layers of a written answer: the conclusion first, a short summary above a longer report, a structured abstract, a plain language summary or a policy brief. Step 8 chooses from them to shape how the seven parts of the answer are written."
+ },
+ "Design the display": {
+  "short": "Choose and build charts and graphics that show the finding.",
+  "long": "These techniques cover how to show a finding as a chart or graphic: which encoding to use, which chart fits the message, how to title and label it, where the axis starts and how to make it accessible. Step 8 chooses from them only when the answer shows numbers or charts."
+ },
+ "Display risk and uncertainty": {
+  "short": "Show how uncertain an estimate or a risk is, so a reader reads it correctly.",
+  "long": "These techniques show uncertainty and risk to a reader: quantile dotplots, fan charts, icon arrays, intervals with a stated type, absolute risks in a consistent format and summary of findings tables. Step 8 chooses from them when the answer reports estimates or risks."
+ },
+ "Recommend and tailor to the audience": {
+  "short": "Turn conclusions into recommendations for a named audience.",
+  "long": "These techniques move from conclusions to action: an evidence to decision framework, labels for the strength of a recommendation, an audience analysis, a statement of implications and actionable messages. Step 8 chooses from them only when the request asks for recommendations or names an audience."
+ },
+ "Hold the report to its evidence": {
+  "short": "Check that the written answer says no more than the findings support.",
+  "long": "These techniques check a report against its evidence: detecting spin, stating limitations and caveats, comparing a report with its pre-registration and checking it against a reporting guideline. Step 8 chooses from them to check the written answer before it is given."
  }
 }
