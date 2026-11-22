@@ -46,7 +46,7 @@
 
   // Each step builds an array of "blocks": {html, pause}. Blocks appear one at a time inside a wrapper.
   var NOTES = {
-    real: '<p><strong>What this is.</strong> A replay of one recorded run of ANLYSIS. The run was made earlier and every result, conclusion and answer was stored, so nothing is calculated in your browser. Changing the form or answering a question below does not change what you see.</p>'
+    real: '<p><strong>What this is.</strong> A replay of one recorded run of startthat.work. The run was made earlier and every result, conclusion and answer was stored, so nothing is calculated in your browser. Changing the form or answering a question below does not change what you see.</p>'
       + '<p><strong>What the run was about.</strong> The question was whether eight customer interviews on voice AI customer support support three hypotheses (customers find it more satisfying than older voice automation, do not hang up when they learn it is an AI, and do not immediately ask for a human). The material was ten quotes from those interviews, with the hypotheses, about 500 words in all. The result will be used as one input to a decision, and the strongest statement needed was a link between things.</p>'
       + '<p><strong>How to use it.</strong> Select Submit on the form to start, or tick the box beside it to move one step at a time. Each step opens below the last. Open any technique to see its result. Where the process would stop and ask you something, such as whether to change your question, it pauses and waits.</p>'
       + '<p><strong>What was decided by a person.</strong> The person who ran it set the question, the stakes, the strength of statement and the kind of finding. They kept the question after step 5.1 and chose the agreement table and written summary in step 7. No person reviewed the results, because checks that need a person apply at high stakes only.</p>'
@@ -136,7 +136,7 @@
   function realBuilders(i) {
     var j = job, b = [], S = j.stages, bm = j.basis_map;
     if (i === 0) {
-      b.push({ role: 'work', html: '<p>ANLYSIS read your content and noted the facts that decide which techniques can be used on it.</p>' });
+      b.push({ role: 'work', html: '<p>startthat.work read your content and noted the facts that decide which techniques can be used on it.</p>' });
       b.push({ role: 'work', html: '<h3>About your content</h3>' });
       Object.keys(j.profile).filter(function (k) { return k !== 'security_classification' && k !== 'licence'; }).forEach(function (k) { b.push({ role: 'work', html: '<div class="row2"><span>' + esc(prop(k)) + '</span><span>' + esc(list(j.profile[k])) + '</span></div>', fast: true }); });
     } else if (i === 1) {
@@ -156,14 +156,14 @@
           rows += '<tr><td>' + link(x) + '</td><td>' + esc(x.does) + '</td><td>' + esc(EXT[x.external] || 'No') + '</td></tr>';
         });
       });
-      b.push({ role: 'work', html: '<p>ANLYSIS put the ' + Math.min(10, j.picks.length) + ' chosen techniques in four groups, in the order they will run.</p>' });
+      b.push({ role: 'work', html: '<p>startthat.work put the ' + Math.min(10, j.picks.length) + ' chosen techniques in four groups, in the order they will run.</p>' });
       b.push({ role: 'work', html: '<div class="table-wrap"><table class="plan"><thead><tr><th>Technique</th><th>What it does</th><th>Needs an additional source</th></tr></thead><tbody>' + rows + '</tbody></table></div>' });
-      b.push({ role: 'work', html: need.length ? '<p>' + need.map(function (x) { return esc(x.name); }).join(' and ') + (need.length > 1 ? ' need an additional source each' : ' needs an additional source') + ' to run. In step 5 ANLYSIS looks in your material first. Only if the item is missing does ANLYSIS look elsewhere, and the answer lists every source it used.</p>' : '<p>No technique needs an additional source.</p>' });
+      b.push({ role: 'work', html: need.length ? '<p>' + need.map(function (x) { return esc(x.name); }).join(' and ') + (need.length > 1 ? ' need an additional source each' : ' needs an additional source') + ' to run. In step 5 startthat.work looks in your material first. Only if the item is missing does startthat.work look elsewhere, and the answer lists every source it used.</p>' : '<p>No technique needs an additional source.</p>' });
     } else if (i === 4) {
-      b.push({ role: 'work', html: '<p>ANLYSIS ran each technique separately on your question and content. Open a technique below to read its result.</p>' });
+      b.push({ role: 'work', html: '<p>startthat.work ran each technique separately on your question and content. Open a technique below to read its result.</p>' });
       b.push({ role: 'work', html: sub('5.1 Examine the question', S.frame.length) });
       S.frame.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your question') }); });
-      b.push({ role: 'input', confirm: true, html: '<div class="confirm"><h3>Do you want to change your question?</h3><p>The technique above examined your question. Open 5.1 above to read what it found, then choose. ANLYSIS continues when you answer.</p><p class="req">' + esc(j.request) + '</p><div class="form-actions"><button type="button" class="btn primary" data-keep>Keep my question</button><button type="button" class="btn" disabled title="Not available in this replay">Edit my question</button></div></div>' });
+      b.push({ role: 'input', confirm: true, html: '<div class="confirm"><h3>Do you want to change your question?</h3><p>The technique above examined your question. Open 5.1 above to read what it found, then choose. startthat.work continues when you answer.</p><p class="req">' + esc(j.request) + '</p><div class="form-actions"><button type="button" class="btn primary" data-keep>Keep my question</button><button type="button" class="btn" disabled title="Not available in this replay">Edit my question</button></div></div>' });
       b.push({ role: 'work', html: sub('5.2 Prepare the material', S.prepare.length) });
       b.push({ role: 'work', html: '<div class="seq"><p class="seq-h"><strong>Additional sources</strong></p><p>' + (j.additional.length ? esc(JSON.stringify(j.additional)) : 'None of the techniques in this plan needs an additional source, so nothing was gathered.') + '</p></div>' });
       S.prepare.forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'your content') }); });
@@ -174,8 +174,8 @@
       b.push({ role: 'work', html: '<p class="result">' + (S.frame.length + S.prepare.length + S.analyse.length) + ' techniques ran in step 5. ' + dropped + ' were dropped.</p>', tally: [['t-run', S.frame.length + S.prepare.length + S.analyse.length], ['t-run-k', 'techniques run, ' + dropped + ' dropped'], ['t-add', j.additional.length]] });
     } else if (i === 5) {
       var ck = j.ck17;
-      b.push({ role: 'work', html: '<p>ANLYSIS checked the findings from step 5. It confirmed the quotes, looked for evidence against the findings, and tested how easily they change.</p>' });
-      b.push({ role: 'work', html: '<div class="run"><div class="rh"><strong><a href="/catalogue/check-extracted-results/ck-17/">Quote check</a></strong><span class="pill">looked at: the findings from step 5</span></div><p>ANLYSIS found ' + ck.checked + ' quoted phrases in the eight results from steps 5.1 to 5.3. ' + (ck.checked - ck.failed.length) + ' match your content word for word. The other ' + ck.failed.length + ' are labels, terms or one paraphrase that a technique put in quotation marks, and not quotes from a participant.</p><p class="small">The ' + ck.failed.length + ' phrases: ' + ck.failed.map(function (f) { return '"' + esc(f.span) + '"'; }).join(', ') + '.</p></div>' });
+      b.push({ role: 'work', html: '<p>startthat.work checked the findings from step 5. It confirmed the quotes, looked for evidence against the findings, and tested how easily they change.</p>' });
+      b.push({ role: 'work', html: '<div class="run"><div class="rh"><strong><a href="/catalogue/check-extracted-results/ck-17/">Quote check</a></strong><span class="pill">looked at: the findings from step 5</span></div><p>startthat.work found ' + ck.checked + ' quoted phrases in the eight results from steps 5.1 to 5.3. ' + (ck.checked - ck.failed.length) + ' match your content word for word. The other ' + ck.failed.length + ' are labels, terms or one paraphrase that a technique put in quotation marks, and not quotes from a participant.</p><p class="small">The ' + ck.failed.length + ' phrases: ' + ck.failed.map(function (f) { return '"' + esc(f.span) + '"'; }).join(', ') + '.</p></div>' });
       S.check.filter(function (x) { return x.id !== 'CK-17'; }).forEach(function (x) { b.push({ role: 'work', html: runRow(j, x, 'the findings from step 5') }); });
       var needed = {}, nChk = 0, nNot = 0;
       j.checks.forEach(function (c) {
@@ -193,10 +193,10 @@
         b.push({ role: 'work', html: '<div class="stage"><h3>Checks on ' + link(c) + '</h3><ul>' + lis + '</ul></div>', tally: [['t-chk', nChk], ['t-chk-k', 'checks done' + (nNot ? ', ' + nNot + ' not done' : '')], ['t-run', S.frame.length + S.prepare.length + S.analyse.length + S.check.length]] });
       });
       var lo = Object.keys(j.left_out || {}).length;
-      b.push({ role: 'work', html: '<p class="result">' + (lo ? 'Checks that need a person (human review sample, gold standard agreement) are not in this plan, because the stakes are below high-stakes. No person reviewed the results. At high stakes ANLYSIS would stop here and ask you to review a sample.' : 'Every check in the plan was done.') + '</p>' });
+      b.push({ role: 'work', html: '<p class="result">' + (lo ? 'Checks that need a person (human review sample, gold standard agreement) are not in this plan, because the stakes are below high-stakes. No person reviewed the results. At high stakes startthat.work would stop here and ask you to review a sample.' : 'Every check in the plan was done.') + '</p>' });
     } else if (i === 6) {
       var sy = j.synthesis, T = sy.techniques;
-      b.push({ role: 'work', html: '<p>ANLYSIS compared what the techniques found and wrote the conclusions. It used an agreement table and then a written summary.</p>' });
+      b.push({ role: 'work', html: '<p>startthat.work compared what the techniques found and wrote the conclusions. It used an agreement table and then a written summary.</p>' });
       var head = '<tr><th>Conclusion</th>' + T.map(function (t) { return '<th>' + esc(t) + '</th>'; }).join('') + '</tr>';
       var body = sy.conclusions.map(function (c) { return '<tr><th scope="row">' + esc(c.title) + '</th>' + T.map(function (t) { var v = c.cells[t] || 'S'; return '<td class="cell-' + v + '" title="' + esc(sy.legend[v]) + '">' + ({ D: 'C', S: 'N' }[v] || v) + '</td>'; }).join('') + '</tr>'; }).join('');
       b.push({ role: 'work', html: '<h3>Agreement table</h3><div class="table-wrap"><table class="matrix"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div><p class="small">Each column is a technique. A: it agrees with the conclusion. P: it partly agrees. C: it conflicts. N: it does not cover it.</p>' });
@@ -235,7 +235,7 @@
       b.push({ role: 'output', html: '<h3>How strong a statement this supports</h3><p>You needed to ' + esc(CLAIM_PLAIN[j.claim]) + '. ' + (reach.length ? reach.length + ' of the chosen techniques can support that: ' + reach.map(link).join(', ') + '. They support ' + esc(supText) + '.' : 'None of the chosen techniques can support that.') + '</p>' });
       b.push({ role: 'output', html: '<h3>What the answer is based on</h3>' });
       a.basis.forEach(function (x) { b.push({ role: 'output', html: '<div class="row1">' + esc(x) + '</div>', fast: true }); });
-      b.push({ role: 'input', html: '<div class="confirm"><h3>Do you want a follow-up round?</h3><p>ANLYSIS would then choose more techniques for the gaps and unresolved conflicts found in step 7. It would leave out the techniques that already ran. A follow-up round adds up to 5 techniques.</p><div class="form-actions"><button type="button" class="btn" disabled title="Not available in this replay">Ask for a follow-up round</button></div></div>' });
+      b.push({ role: 'input', html: '<div class="confirm"><h3>Do you want a follow-up round?</h3><p>startthat.work would then choose more techniques for the gaps and unresolved conflicts found in step 7. It would leave out the techniques that already ran. A follow-up round adds up to 5 techniques.</p><div class="form-actions"><button type="button" class="btn" disabled title="Not available in this replay">Ask for a follow-up round</button></div></div>' });
       b.push({ html: '<p class="result">End of the run.</p>' });
     }
     return b;
@@ -256,17 +256,17 @@
 
   function builders_gates(j) {
     var b = [], left = j.total;
-    b.push({ role: 'work', html: '<p>ANLYSIS has ' + j.total + ' analysis techniques. It ruled out the ones that cannot work on your content. Each technique is counted once, under the first reason that rules it out.</p>' });
+    b.push({ role: 'work', html: '<p>startthat.work has ' + j.total + ' analysis techniques. It ruled out the ones that cannot work on your content. Each technique is counted once, under the first reason that rules it out.</p>' });
     Object.keys(j.removed).forEach(function (g) {
       left -= j.removed[g];
       b.push({ role: 'work', html: '<div class="gate"><span class="g">' + esc(WHY[g] || prop(g)) + '</span><span class="meter"><i style="width:' + Math.round(j.removed[g] / j.total * 100) + '%"></i></span><span class="r">' + j.removed[g] + ' set aside</span><span class="l">' + left + ' left</span></div>' });
     });
-    b.push({ role: 'work', html: '<p class="result">ANLYSIS ruled out <strong>' + (j.total - j.passed) + '</strong> techniques that cannot work on your content, which leaves <strong>' + j.passed + '</strong>.' + (j.claim === 'describe' ? '' : ' Of those, <strong>' + j.reach_claim + '</strong> can support a conclusion at the strength you asked for, which is to ' + esc(CLAIM_PLAIN[j.claim]) + ', or stronger. The other ' + (j.passed - j.reach_claim) + ' can only describe.') + '</p>' });
+    b.push({ role: 'work', html: '<p class="result">startthat.work ruled out <strong>' + (j.total - j.passed) + '</strong> techniques that cannot work on your content, which leaves <strong>' + j.passed + '</strong>.' + (j.claim === 'describe' ? '' : ' Of those, <strong>' + j.reach_claim + '</strong> can support a conclusion at the strength you asked for, which is to ' + esc(CLAIM_PLAIN[j.claim]) + ', or stronger. The other ' + (j.passed - j.reach_claim) + ' can only describe.') + '</p>' });
     return b;
   }
   function builders_pick(j) {
     var b = [];
-    b.push({ role: 'work', html: '<p>ANLYSIS went through the ' + j.passed + ' techniques that can work on your content and chose ' + Math.min(10, j.picks.length) + ' for your question. Each one is listed with the reason it was chosen.</p>' });
+    b.push({ role: 'work', html: '<p>startthat.work went through the ' + j.passed + ' techniques that can work on your content and chose ' + Math.min(10, j.picks.length) + ' for your question. Each one is listed with the reason it was chosen.</p>' });
     j.picks.slice(0, 10).forEach(function (p, n) {
       b.push({ role: 'work', html: '<div class="pick"><span class="no">' + (n + 1) + '</span><div><strong>' + link(p) + '</strong><p>' + esc(plainReason(p.reason)) + '</p></div></div>', });
     });
@@ -278,7 +278,7 @@
   function makePanel(role, by) {
     var p = document.createElement('div'); p.className = 'panel panel-' + role;
     var l = document.createElement('div'); l.className = 'panel-label';
-    l.textContent = role === 'input' ? 'Your input' : role === 'output' ? 'Output: your report' : 'What ANLYSIS did';
+    l.textContent = role === 'input' ? 'Your input' : role === 'output' ? 'Output: your report' : 'What startthat.work did';
     p.appendChild(l); return p;
   }
 
@@ -312,7 +312,7 @@
         return new Promise(function (resolve) {
           var keep = d.querySelector('[data-keep]');
           var ban = document.createElement('p'); ban.className = 'ask-banner'; ban.setAttribute('role', 'status');
-          ban.innerHTML = '<strong>ANLYSIS is waiting for your answer.</strong> <button type="button" class="btn">Go to the question</button>';
+          ban.innerHTML = '<strong>startthat.work is waiting for your answer.</strong> <button type="button" class="btn">Go to the question</button>';
           function go() { d.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' }); keep.focus({ preventScroll: true }); }
           ban.querySelector('button').addEventListener('click', go);
           out.insertBefore(ban, out.firstChild);

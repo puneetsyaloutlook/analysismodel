@@ -1,10 +1,10 @@
-# ANLYSIS: design document
+# startthat.work: design document
 
-Version 1.2.20, 21 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
+Version 1.2.21, 22 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
 
 ## 1. Purpose and status
 
-ANLYSIS is the name of the whole design: the catalogue, the process and the rules. It replaces "analysis model", which was confused with the language model that does the work. In this document "the model" always means the language model. The name is written ANLYSIS in running text and ANLYSIS.work when it refers to the site or its address (decision 39). The skill that runs the process is named analysis (decision 41).
+startthat.work is the name of the whole design: the catalogue, the process and the rules. It is also the address of the site (decision 57). It replaces "analysis model", which was confused with the language model that does the work. In this document "the model" always means the language model. The skill that runs the process is named analysis (decision 41).
 
 The catalogue lists 236 analytical techniques in 12 families. It is packaged as a skill that a chat or agent calls. The skill is built (a zip with the process, the catalogue, the schema, the prompts and seven scripts). The user has run it once inside Claude, on an article (decision 40 came from that run). Its high-stakes path, personal information waiver and follow-up round have not been run.
 
@@ -15,7 +15,7 @@ Status:
 - Every part has been built and tested on small cases.
 - One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.4 of this design. Steps 1 to 5 ran before decision 38, which changes only step 6. Steps 7 and 8 were run again on 15 November 2026 under version 1.2.8, to show the answer form of decisions 43 and 44, and step 8 once more under version 1.2.10, to show the grouped conclusions of decision 46. Its output is shown in the simulator on the documentation site.
 - The documentation site is built from this document, the schema and the catalogue. It also has a page, Use the skill, with the skill to download and the steps to install it in Claude and in GitHub Copilot (decision 45).
-- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.20 add decisions 31 to 56. The scripts and the skill follow version 1.2.10 (versions 1.2.11 to 1.2.20 change the site and the record only). The stored run follows version 1.2.4 for steps 1 to 6, version 1.2.8 for step 7 and version 1.2.10 for step 8. Section 10 lists what is untested.
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.21 add decisions 31 to 57. The scripts and the skill follow version 1.2.10 (versions 1.2.11 to 1.2.21 change the site and the record only, except that 1.2.21 changes the name in the skill text). The stored run follows version 1.2.4 for steps 1 to 6, version 1.2.8 for step 7 and version 1.2.10 for step 8. Section 10 lists what is untested.
 - All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
@@ -460,6 +460,7 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 | 54 | The navigation called the page Research findings. The user wanted it called Source research, because it is the research the catalogue was built from. Decided on 21 November 2026. | The navigation item and the home page card are named Source research. The page keeps its title, its address `/research/` and its content. This changes the site only. |
 | 55 | The navigation started with The model, which suits a reader who wants the design. A new reader wants to see what the process does and to use it first. Decided on 21 November 2026. | Try it (Simulator, Skill, Use by hand) is the first group in the navigation, before The model. The order of the previous and next links on each page follows the navigation. This changes the site only. |
 | 56 | A consistency scan of the site found statements that no longer matched the catalogue or the rules. Technique pages listed checks that need a person at decision-informing stakes without saying that decision 38 leaves them out. The schema named two decision points with old terms (synthesis method, commensurable estimates). Three open items gave counts that had changed or described a problem that was fixed. The Limits page said every evidence status came from the earlier reports, which is not true of AO-19 and PE-14. The Source research page called the five whys documented and showed "Also serves" notes as part of technique names. Decided on 21 November 2026. | Technique pages mark a check that needs a person, below high stakes, as left out, and say why. The schema uses the names the skill and the site use: choose the combining method, and confirm that estimates measure the same thing. The open items give the current counts and drop the fixed item. The Limits page names the two techniques. The Source research page is corrected. No rule changes. |
+| 57 | The name ANLYSIS read as a technical label and gave no sense of what the site is for. The user wanted a casual name that says something about the site, in the form of a short phrase that the .work address completes. Decided on 22 November 2026. | The name is startthat.work, and it is also the address of the site. It replaces ANLYSIS and anlysis.work in running text, the site, the simulator, the README, the schema title, the skill text and the design. The skill keeps the name analysis (decision 41). Decisions 39 and 41 and the change-log row for 1.2.5 keep the old name because they record what was decided then. The GitHub repository keeps the name `analysismodel`. The domain startthat.work has to be registered and added to the Vercel project, and anlysis.work should redirect to it. Both are done outside the repository. This supersedes decision 39. |
 
 ## 10. Open items
 
@@ -510,7 +511,7 @@ Catalogue data (from the spot check; the first six were fixed):
 | File | Role |
 |---|---|
 | `master/Analysis methods design.md` | This document. |
-| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.20. |
+| `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.21. |
 | `master/master_tagged.csv` | The catalogue: 236 rows, 52 columns, with result formats. |
 | `master/master_base.csv`, `master/tags/tags_A.json` to `tags_F.json` | Sources of the CSV text and tags. |
 | `master/specs/out_1.json` to `out_6.json` | Result formats. |

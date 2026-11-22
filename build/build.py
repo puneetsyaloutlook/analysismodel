@@ -25,7 +25,7 @@ DATA = ROOT / "data"
 OUT = ROOT / "public"
 ASSETS_SRC = ROOT / "build" / "assets"
 
-SITE = "ANLYSIS"
+SITE = "startthat.work"
 
 schema = json.loads((DATA / "schema.json").read_text(encoding="utf-8"))
 rows = list(csv.DictReader((DATA / "catalogue.csv").open(encoding="utf-8")))
@@ -153,7 +153,7 @@ def make_simulator():
     steps = [st["name"] for st in schema["steps"]]
     rail = "".join(f'<li data-step="{i}"><button type="button" class="step-btn"><span class="dot" aria-hidden="true"></span><span class="txt"><span class="lbl">{i + 1}. {esc(t)}</span><span class="st"></span></span></button></li>' for i, t in enumerate(steps))
     body = f"""
-<p class="lede">Watch ANLYSIS take a question and some material through the eight steps. Each section shows one step, in order: what you entered, what ANLYSIS did, and the report at the end.</p>
+<p class="lede">Watch startthat.work take a question and some material through the eight steps. Each section shows one step, in order: what you entered, what startthat.work did, and the report at the end.</p>
 <div class="sim-note" id="sim-note"></div>
 <div class="sim-controls" id="sim-controls" hidden>
   <input type="hidden" id="sim-job" value="{esc(data[0]["id"])}">
@@ -169,7 +169,7 @@ def make_simulator():
   <div><span class="n" id="t-concl">-</span><span class="k">conclusions to review</span></div>
   <div><span class="n" id="t-ins">-</span><span class="k">insights</span></div>
 </div>
-<ul class="legend" aria-label="Key to the colours"><li><span class="sw sw-input"></span>Your input: what you enter or decide</li><li><span class="sw sw-work"></span>What ANLYSIS did on the way to the answer</li><li><span class="sw sw-output"></span>Output: the report you receive at the end</li></ul>
+<ul class="legend" aria-label="Key to the colours"><li><span class="sw sw-input"></span>Your input: what you enter or decide</li><li><span class="sw sw-work"></span>What startthat.work did on the way to the answer</li><li><span class="sw sw-output"></span>Output: the report you receive at the end</li></ul>
 <div class="sim-app">
   <ol class="sim-steps" aria-label="Process steps">{rail}</ol>
   <section class="sim-stage" aria-live="polite" aria-labelledby="sim-title">
@@ -426,7 +426,7 @@ def make_choose_page():
 def make_limits_page():
     text = (DATA / "limits.md").read_text(encoding="utf-8")
     add_page("/limits/", "Limits", "Limits", md_block(text),
-             "What ANLYSIS does not do, what has not been tested and where its answers are weaker than they look.")
+             "What startthat.work does not do, what has not been tested and where its answers are weaker than they look.")
 
 
 def make_changes_page():
@@ -449,8 +449,8 @@ def make_home():
     step_page = {1: "/process/intake/", 2: "/process/choosing-techniques/", 3: "/process/choosing-techniques/", 4: "/process/planning-the-sequence/", 5: "/process/running-the-techniques/", 6: "/process/checks-and-answer/", 7: "/process/checks-and-answer/", 8: "/process/checks-and-answer/"}
     process_rows = "".join(f'<tr><td><a href="{step_page[int(st["number"])]}">{esc(str(st["number"]))}. {esc(st["name"])}</a></td><td>{esc(st["does"])}</td></tr>' for st in schema["steps"])
     body = f"""
-<p class="lede">ANLYSIS is a catalogue of analytical techniques and a process for choosing and running them. It takes a request and some material, chooses the analytical techniques that can run on that material, runs them in order, checks their findings and combines them into one answer, with the conclusions grouped by how well each is supported.</p>
-<p>The name is ANLYSIS in running text. ANLYSIS.work is the address of this site.</p>
+<p class="lede">startthat.work is a catalogue of analytical techniques and a process for choosing and running them. It takes a request and some material, chooses the analytical techniques that can run on that material, runs them in order, checks their findings and combines them into one answer, with the conclusions grouped by how well each is supported.</p>
+<p>The name is startthat.work, which is also the address of this site. The skill that runs the process is named <code>analysis</code>.</p>
 <p>The catalogue holds {len(rows)} techniques in {len(FAMILIES)} families. This site documents the process and the catalogue. It is generated from the design document, the schema and the catalogue file in the repository, so it changes only when those change.</p>
 <div class="cards">
   <a class="card" href="/process/"><p class="card-title">Process</p><p>How a request and some material become one answer, in eight steps from intake to the answer.</p></a>
@@ -477,7 +477,7 @@ def make_home():
 <tr><td><strong>Total</strong></td><td><strong>{len(rows)}</strong></td><td></td></tr></tbody></table>
 <p>The <a href="/status/">status page</a> lists build and test updates.</p>
 """
-    add_page("/", "ANLYSIS", "Overview", body, "Documentation of ANLYSIS: a catalogue of analytical techniques and a process for choosing and running them.")
+    add_page("/", "startthat.work", "Overview", body, "Documentation of startthat.work: a catalogue of analytical techniques and a process for choosing and running them.")
 
 
 FAMILY_INTROS = json.loads((DATA / "family-intros.json").read_text(encoding="utf-8"))

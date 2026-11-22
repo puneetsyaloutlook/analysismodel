@@ -1,4 +1,4 @@
-This page lists what changed in each version of the design, in plain terms, newest first. The numbers in the last column are decisions on the [decisions page](/project/decisions/), which gives the reason for each. The current version is 1.2.20.
+This page lists what changed in each version of the design, in plain terms, newest first. The numbers in the last column are decisions on the [decisions page](/project/decisions/), which gives the reason for each. The current version is 1.2.21.
 
 To check which version your copy of the skill follows, open `references/design.md` in the skill folder. The version is stated near the top. The download on the [skill page](/skill/) states the version it carries.
 
@@ -6,6 +6,7 @@ Versions that change only the website say so. The skill is unchanged by them.
 
 | Version | Date | What changed | Decisions |
 |---|---|---|---|
+| 1.2.21 | 22 Nov 2026 | The name changed from ANLYSIS to startthat.work, which is also the site address. The skill text carries the new name. The rules are unchanged. | 57 |
 | 1.2.20 | 21 Nov 2026 | Corrections from a consistency scan: technique pages show which checks are left out below high stakes, two decision points in the schema use the current names, and the open items, Limits and Source research pages match the catalogue. No rule changes. | 56 |
 | 1.2.19 | 21 Nov 2026 | Try it is the first group in the navigation. Website only. | 55 |
 | 1.2.18 | 21 Nov 2026 | The navigation item and home card Research findings are renamed Source research. Website only. | 54 |

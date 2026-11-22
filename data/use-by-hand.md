@@ -1,4 +1,4 @@
-You can follow the whole process yourself, without the skill. This page gives the eight steps in the order the process runs them, with what to do at each one. It is the second way to use ANLYSIS, next to the [skill](/skill/). It is slower, and several jobs that code does in the skill (ruling out techniques, ordering them, the quote check) fall to you. Nobody has tested the process run this way: the page restates the process and does not add to it.
+You can follow the whole process yourself, without the skill. This page gives the eight steps in the order the process runs them, with what to do at each one. It is the second way to use startthat.work, next to the [skill](/skill/). It is slower, and several jobs that code does in the skill (ruling out techniques, ordering them, the quote check) fall to you. Nobody has tested the process run this way: the page restates the process and does not add to it.
 
 Each step names the page that explains the step in full.
 

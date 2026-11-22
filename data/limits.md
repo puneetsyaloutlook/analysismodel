@@ -1,4 +1,4 @@
-This page says what ANLYSIS does not do, what has not been tested and where its answers are weaker than they look. It is written for someone deciding whether to rely on it. The [status page](/status/) lists the same gaps as open items for the project.
+This page says what startthat.work does not do, what has not been tested and where its answers are weaker than they look. It is written for someone deciding whether to rely on it. The [status page](/status/) lists the same gaps as open items for the project.
 
 ## What has been tested
 
