@@ -1,4 +1,4 @@
-This page lists what changed in each version of the design, in plain terms, newest first. The numbers in the last column are decisions on the [decisions page](/project/decisions/), which gives the reason for each. The current version is 1.3.1.
+This page lists what changed in each version of the design, in plain terms, newest first. The numbers in the last column are decisions on the [decisions page](/project/decisions/), which gives the reason for each. The current version is 1.3.2.
 
 To check which version your copy of the skill follows, open `references/design.md` in the skill folder. The version is stated near the top. The download on the [skill page](/skill/) states the version it carries.
 
@@ -6,6 +6,7 @@ Versions that change only the website say so. The skill is unchanged by them.
 
 | Version | Date | What changed | Decisions |
 |---|---|---|---|
+| 1.3.2 | 22 Nov 2026 | CF-04, CF-09 and RC-04 are now documented, from sources found at other addresses. SA-08 is the one conclusion or report technique still unconfirmed. Catalogue evidence text only. | 62 |
 | 1.3.1 | 22 Nov 2026 | Nine of the 13 unconfirmed conclusion and report techniques are now documented, after their sources were fetched. Four stay unconfirmed. Catalogue evidence text only. | 61 |
 | 1.3.0 | 22 Nov 2026 | The catalogue grows from 236 to 304 techniques. The 68 new ones combine findings, state confidence, structure and display the answer, show risk, recommend and check a report against its evidence. Step 3 still chooses from the 236 analysis techniques. Step 7 chooses up to 3 conclusion techniques and step 8 up to 4 report techniques. The question to choose the combining method is removed. Changes the catalogue, schema, skill, prompts and `select.py`. | 60 |
 | 1.2.23 | 22 Nov 2026 | Browser tab titles use STARTthat.WORK, as the logo writes it. The home page tab shows only the name. Website only. | 59 |
