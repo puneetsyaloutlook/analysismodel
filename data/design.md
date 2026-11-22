@@ -1,6 +1,6 @@
 # startthat.work: design document
 
-Version 1.4.1, 22 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
+Version 1.5.0, 22 November 2026. This document describes the whole process, from the user's request to the answer, and is the place to record any change. `schema.json` contains the field vocabularies and tagging rules. Where this document and `schema.json` disagree, fix both in the same edit.
 
 ## 1. Purpose and status
 
@@ -15,7 +15,7 @@ Status:
 - Every part has been built and tested on small cases.
 - One complete run was done on 13 November 2026, on ten interview quotes, under version 1.2.4 of this design. Steps 1 to 5 ran before decision 38, which changes only step 6. Steps 7 and 8 were run again on 15 November 2026 under version 1.2.8, to show the answer form of decisions 43 and 44, and step 8 once more under version 1.2.10, to show the grouped conclusions of decision 46. Its output is shown in the simulator on the documentation site.
 - The documentation site is built from this document, the schema and the catalogue. It also has a page, Use the skill, with the skill to download and the steps to install it in Claude and in GitHub Copilot (decision 45).
-- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.23 add decisions 31 to 59. Versions 1.3.0 to 1.4.1 add decisions 60 to 64. The scripts and the skill follow version 1.2.10 (versions 1.2.11 to 1.2.23 change the site and the record only, except that 1.2.21 changes the name in the skill text). Version 1.3.0 changes the catalogue, the schema, steps 3, 7 and 8, the prompts, `select.py` and the skill text. Versions 1.3.1 and 1.3.2 change catalogue evidence text only. Version 1.4.0 adds the catalogue field `method_steps` and changes the schema, the technique record, the run prompt, the skill text and the site. Version 1.4.1 writes method steps for the other 43 rows and changes catalogue evidence text only. The stored run follows version 1.2.4 for steps 1 to 6, version 1.2.8 for step 7 and version 1.2.10 for step 8. Section 10 lists what is untested.
+- Version 1.2 changes six rules (decisions 24 to 30 in section 9). Versions 1.2.1 to 1.2.23 add decisions 31 to 59. Versions 1.3.0 to 1.5.0 add decisions 60 to 65. The scripts and the skill follow version 1.2.10 (versions 1.2.11 to 1.2.23 change the site and the record only, except that 1.2.21 changes the name in the skill text). Version 1.3.0 changes the catalogue, the schema, steps 3, 7 and 8, the prompts, `select.py` and the skill text. Versions 1.3.1 and 1.3.2 change catalogue evidence text only. Version 1.4.0 adds the catalogue field `method_steps` and changes the schema, the technique record, the run prompt, the skill text and the site. Version 1.4.1 writes method steps for the other 43 rows and changes catalogue evidence text only. Version 1.5.0 changes steps 1 to 3, 5.2, 7 and 8, adds the catalogue column `question_scope` and changes the schema, the scripts, the prompts and the skill text (decision 65). The stored run follows version 1.2.4 for steps 1 to 6, version 1.2.8 for step 7 and version 1.2.10 for step 8. Section 10 lists what is untested.
 - All tag values are inference unless a row or a named source says otherwise.
 
 ## 2. The process
@@ -121,6 +121,8 @@ The output is the brief. Each part is marked stated, inferred or missing.
 
 **The request.** One request, which can have several parts or be open-ended, such as "tell me what insights I can get from this article". It is treated as one request and gets one set of techniques.
 
+**Parts of the request and their scope.** The model splits the request into parts and tags each part with a scope. A part has scope material when the supplied material can answer it: what the text says, how it argues, what it contains or leaves out. A part has scope topic when answering it needs evidence about the world beyond the supplied material, for example whether a text's account of practice is accurate. Code cannot tell the two apart, so the model proposes a scope for each part from the wording and the user confirms it. The parts and their scopes are part of the brief, and only the user changes them (decision 65).
+
 **The settings.**
 
 | Setting | Question to the user | Values | What it changes |
@@ -135,8 +137,9 @@ For an open-ended request the kind of finding is left empty and the strength of 
 
 Questions to the user:
 
-- At most four at once, in this order: missing material or request, stakes, strength of statement, personal information, kind of finding, joining of sources, duplicates. The rest are not asked in that round.
+- At most four at once, in this order: missing material or request, the scope of each part, stakes, strength of statement, personal information, kind of finding, joining of sources, duplicates. The rest are not asked in that round.
 - Each question has a recommended answer where one exists and a one-line reason.
+- When the brief is confirmed, the process shows the request restated in one sentence and split into its parts, each with its scope. The user can correct a part or a scope before any technique is chosen.
 - Time structure, how the sample was chosen, origin, the producer's interest and whether sources depend on each other are never asked. They stay unknown unless the material states them.
 - Security classification and licence are not asked, because no technique uses them.
 
@@ -157,18 +160,22 @@ One waiver applies. A technique that fails only on content type or structure is 
 
 Step 2 also counts the eligible techniques that reach the strength of statement needed, and warns when none does.
 
+Question scope. Each technique has a question scope (the catalogue column `question_scope`): text, when the technique examines the supplied text itself (its argument, wording, credibility or omissions); topic, when it needs evidence about the world beyond the supplied material; both, when it works on the material as data about the world; and not applicable for conclude and report techniques. Scope does not remove a technique. It orders the list: when the brief has a part with scope topic, techniques with scope topic or both are scored higher, and the entry for each technique shows its scope so that the model can match it to the part it serves (decision 65).
+
 ### Step 3: Choose analysis techniques
 
 The model receives the brief and a one-line entry (ID, name, purpose, use when) for every eligible technique. The entries are ordered by a score for kind of finding and evidence status. The score changes the order only. The list holds analysis techniques only. Techniques whose phase is conclude or report are left out, because steps 7 and 8 choose them (decision 60).
 
 The model chooses at most 10 techniques, using these criteria in order:
 
-1. Every part of the request has at least one technique.
+1. Every part of the request has at least one technique that can answer that part. A technique counts for a part only if its requirements are met by the material or by something 5.2 can supply, and only if its scope fits the part: a technique with scope text serves only parts with scope material. Matching the wording of a part is not enough.
 2. At least one technique reaches the strength of statement needed, when an eligible one fits the request. If none fits, the model says so and gives the reason.
 3. The techniques match the kind of finding wanted, where the user gave one.
 4. Where two techniques serve the same part of the request, prefer a pair with different methods, so that their agreement adds confidence (section 7).
 
-The model records a one-line reason for each chosen technique, naming the part of the request it serves. The reasons are kept with the plan (section 5). The chosen techniques are work (section 7), so the user sees them only where the application shows work. Where it does, the user can change the list but is not asked to choose from it.
+The model records a one-line reason for each chosen technique, naming the part of the request it serves. For each part that no eligible technique can answer, it records the part and the reason in the plan as a part the material cannot answer.
+
+Parts the material cannot answer. When such a part exists, the process stops and asks the user one question with three choices: add outside evidence (5.2 then gathers it, and the part is chosen again), edit the request, or continue without that part. With no reply the run continues without the part, and the first paragraph of the answer says which part was not answered (decision 65). A part with scope topic is not unanswerable when outside evidence is permitted, because 5.2 supplies it. The reasons are kept with the plan (section 5). The chosen techniques are work (section 7), so the user sees them only where the application shows work. Where it does, the user can change the list but is not asked to choose from it.
 
 Limits. All kinds of technique count towards the 10. Preparation techniques added for a chosen technique, de-identification and library checks do not count. Techniques the model wanted beyond the limit go on the reserve list. A follow-up round adds at most 5. The numbers are defaults chosen here, not measured.
 
@@ -224,11 +231,20 @@ Preparation techniques run in the order their inputs require. Their output is st
 Additional sources. For each chosen technique that needs one, 5.2 resolves the need in this order, after the plan exists:
 
 1. Look in the user's material. If the item is already there, use it and note where.
-2. If not, find the one item the technique needs, from a source that is not marketing or personal opinion. Ask the user to supply it only when no suitable item is found.
+2. If not, find the one item the technique needs. Any source type can be used, and the item is recorded with its type and what it can show (see Source types below). Ask the user to supply it only when no suitable item is found.
 3. Use the item. Record the item, its source, its source type, the technique that used it and whether code could check its wording.
 4. If none is found, the technique is dropped. The answer says which technique was dropped and why.
 
-Nothing else is gathered. No source is searched for before the plan, and no list of sources is offered. The user is not asked to approve an item, for three reasons. Techniques already work without approval. The user chose the scope when they kept or edited the request at 5.1. The rule on sources applies to the model. The answer lists every additional source (section 7), so the user can check or reject any of them, and a follow-up round can run again without one. A finding that rests on a source whose wording code could not check, such as a summary returned by a fetch tool, is limited in confidence (section 7).
+Nothing else is gathered for additional sources. No source is searched for before the plan, and no list of sources is offered. Gathering outside evidence for a part with scope topic is a separate action, described next. The user is not asked to approve an item, for three reasons. Techniques already work without approval. The user chose the scope when they kept or edited the request at 5.1. The rule on sources applies to the model. The answer lists every additional source (section 7), so the user can check or reject any of them, and a follow-up round can run again without one. A finding that rests on a source whose wording code could not check, such as a summary returned by a fetch tool, is limited in confidence (section 7).
+
+Gathering outside evidence. For each part with scope topic, and only when the user has allowed outside evidence (the choice at the end of step 3, or the answer to the scope question), 5.2 gathers an evidence base:
+
+1. Write one to four questions for the part, each one a question that evidence could answer, such as how common something is, whether one measure predicts another, or what a group of vendors claims or does.
+2. Search for sources for each question. No source type is excluded: research, government and standards bodies, vendors, consultancies, trade press, marketing, opinion and social media can all be sources. Save each source as a file with its link, publisher and date.
+3. Record each source in `evidence_base.json` with its type, how it was read (full text, search summary or fetch summary) and what it is used to show (see Source types).
+4. Techniques that consume an evidence base use these files. The evidence base is the only outside material they read.
+
+Source types. A source is used for one of two purposes, and the record says which. To show what the source says or does, any source type is primary evidence: what a vendor claims, how it prices, what a consultancy framework measures, what an author argues. To show what is true of the world, a promotional, advocacy or opinion source cannot stand alone: the claim is reported as unconfirmed unless a source that does not gain from the claim agrees. Where the question is about promotion itself, such as how vendors describe the value of a product, promotional sources are the material and count as primary. The answer states, for each finding that rests on outside evidence, which purpose its sources served (decision 65).
 
 ### 5.3 Analyse the material
 
@@ -269,7 +285,7 @@ Fixed part. These methods run when their condition is met.
 | Pooling of estimates | The user confirms that two or more estimates measure the same thing on the same scale. |
 | Decision analysis and weighting | An option ranking is wanted. |
 
-Chosen part. `select.py` writes a list of the eligible conclusion techniques (families CF and UC). The model reads the request, the stakes and the findings, and chooses at most 3, with a one-line reason for each. A technique that needs outside material that the brief does not hold (a panel, or decision information) is dropped, and the answer says so. The step 7 agent applies the chosen techniques as it writes the conclusions. They change how a conclusion is formed or how its uncertainty is stated. They do not change the label rule below.
+Chosen part. `select.py` writes a list of the eligible conclusion techniques (families CF and UC). The model reads the request, the stakes and the findings, and chooses at most 3, with a one-line reason for each. A technique that needs a reference structure gets one by the same lookup as 5.2 (the user's material first, then one item from any source type, recorded with its type). A technique that needs outside material that the brief does not hold and that cannot be looked up (a panel, or decision information) is dropped, and the answer says so. The step 7 agent applies the chosen techniques as it writes the conclusions. They change how a conclusion is formed or how its uncertainty is stated. They do not change the label rule below.
 
 For each conflict between findings, the process names the cause or states that the conflict is unresolved.
 
@@ -291,6 +307,8 @@ Failed checks at high stakes. At high stakes a failed check makes the label low 
 
 Challenge findings do not change the label. A challenge finding is an added finding and appears in the answer next to the conclusion it examines.
 
+Facts about the text. A finding that states what the supplied text contains or lacks, and that anyone can check by reading it (for example that it names no source for a claim, or that it uses a word in two senses), is a fact about the text. It is recorded with the label none and a reason that says it was read directly from the text. A judgement about the text, such as whether its argument is sound, is an inference and gets a label (decision 65).
+
 Titles and scope. Each conclusion has a title that states the finding as a sentence, an explanation of two to four sentences, the label and a reason in plain words. A statement about what the process did not look at is not a conclusion and gets no label. It goes in the answer under what was not covered. A statement that the material does not contain something, found by a technique, is a conclusion and gets a label.
 
 Insights. When the request asks for insights, or when a conclusion goes against what the request assumed, step 7 also writes insights. Each states what the request or the material would lead a reader to expect, what the analysis found instead, and why the difference matters. An insight gets a label by the same rule as the conclusions it rests on. A recommendation is not an insight. The answer gives recommendations only when the request asks for them.
@@ -310,9 +328,9 @@ Choosing report techniques. `select.py` writes a list of the eligible report tec
 The answer has these parts, in this order.
 
 1. **Summary.** The direct answer to the request, in two to four short paragraphs of whole sentences with no technique codes. It says what the analysis found, in the order a reader needs it, how far to trust it and what it leaves open. A reader who has seen nothing else must be able to understand what was found.
-2. **Conclusions,** in two groups. Well supported conclusions (label high) come first, then conclusions with weaker support (label medium or low). Each shows its title and its explanation. In the second group each also carries a caveat: one or two plain sentences saying why the support is weaker. The conclusions have no codes, and the answer shows the labels and their reasons only when the user asks for them. Each group is introduced by the fixed words below.
+2. **Conclusions,** in three groups. Facts about the text (label none) come first, shown without a label under the heading "What the text contains" and introduced by the fixed words below. Then well supported conclusions (label high), then then conclusions with weaker support (label medium or low). Each shows its title and its explanation. In the second group each also carries a caveat: one or two plain sentences saying why the support is weaker. The conclusions have no codes, and the answer shows the labels and their reasons only when the user asks for them. Each group is introduced by the fixed words below.
 3. **Insights,** when step 7 wrote any, introduced by the fixed words below. An insight whose label is medium or low carries a caveat in the same way.
-4. **What was not covered.** The parts of the request the analysis did not answer, and what the process did not look at. These have no label.
+4. **What was not covered.** The parts of the request the analysis did not answer, and what the process did not look at. These have no label. When a part of the request could not be answered, the first paragraph of the summary says which part and why.
 5. **Strength of statement reached.**
 6. **What the answer is based on.**
 7. **The offer of a follow-up round.**
@@ -373,7 +391,7 @@ The fixed methods in step 7 come from reviews of how to combine evidence from st
 | Conclusion and report techniques, subtotal | 68 |
 | Total | 304 |
 
-Each technique has 53 columns in `master/master_tagged.csv`: identity and text (ID, family, subgroup, name, what it does, fit test, status and evidence), 44 tag columns, the result format and the method steps (filled for practice and unconfirmed rows). Tag columns fall into five groups: input profile, selection, sequencing, robustness and the identity fields purpose and use when.
+Each technique has 54 columns in `master/master_tagged.csv`: identity and text (ID, family, subgroup, name, what it does, fit test, status and evidence), 45 tag columns, the result format and the method steps (filled for practice and unconfirmed rows). Tag columns fall into five groups: input profile, selection, sequencing, robustness and the identity fields purpose and use when.
 
 The schema and the scripts keep their original field names. This table gives the name used in this document for each.
 
@@ -488,6 +506,7 @@ Decisions made with the user for version 1.2 (12 November 2026), after a review 
 | 62 | Four of the 68 new techniques were still unconfirmed after decision 61. The user had no PDFs to supply, so other copies were searched for. Decided on 22 November 2026. | CF-04, CF-09 and RC-04 are now documented. CF-04 rests on the EFSA guidance abstract and full text, CF-09 on a review of the nominal group technique and on the RAND/UCLA manual, and RC-04 on the EQUATOR Network, the PRISMA 2020 statement and the BMJ author guidance. SA-08 stays unconfirmed, because its structure appeared only on promotional or personal pages. The evidence status of the catalogue is now 55 tested, 195 documented, 13 in practice and 41 unconfirmed. |
 | 63 | The model runs a technique from its record, so for a method with little published description it fills in the steps from its own knowledge and can get them wrong. The user was content with some variation for well documented techniques and wanted the less documented ones hardwired to reduce that. Decided on 22 November 2026. | A new catalogue field, `method_steps`, holds a numbered list of steps for each technique whose evidence status is Practice or Unconfirmed (54 rows at the time). Each list is written from a source that opened and ends with a line naming that source. The technique record shows the steps, and the run prompt tells the model to follow them in order. Techniques that are Tested or Documented run as before. The steps are written family by family. The 11 Handle evidence rows are done: HE1-04, HE1-05, HE1-06, HE1-10, HE1-15, HE1-16, HE1-17, HE1-18, HE1-19, HE1-20 and HE1-21. Writing the steps used sources that opened for ten rows that were unconfirmed, so they are now documented. The evidence status of the catalogue is now 55 tested, 205 documented, 13 in practice and 31 unconfirmed. This replaces the rule that a full method card is written only after a test run shows a wrong result. |
 | 64 | Decision 63 wrote steps for 11 of the 54 practice and unconfirmed rows. The other 43 were written on 22 November 2026. | Each of the 43 rows now has `method_steps`, and each list ends with a line naming its source. Where a source that opened describes the technique, the row moved to Documented (32 rows). Where none was found, the steps follow the row description and the source line says so. Several lists cover only part of a technique, and the status text names the part (IS-09 quantitising only, PJ-21 robust decision making only). The evidence status of the catalogue is now 55 tested, 237 documented, 4 in practice and 8 unconfirmed. This changes catalogue evidence text and `method_steps` only. |
+| 65 | The skill was tested on one article, with a question about whether the article's account of a phenomenon was accurate and its point of view valid. Every technique read only the article, so the result was a check of the article against itself. Seven faults were found: intake never asked whether the material could answer the question; step 3 passed a technique that matched the wording of a part but could not answer it; the skill had no way to gather evidence about a topic; step 2 did not consider the kind of question; confidence labels rewarded agreement between techniques reading the same page; conclusion and report techniques that need a reference structure were always dropped; and catalogue IDs HE-01 and HE1-01 were easy to confuse. Decided on 22 November 2026. | The brief is split into parts, each with a scope, material or topic, which the user confirms (section 3). The catalogue has a new column, `question_scope`, tagged by reading each row, which orders the list in step 2 and limits text-scope techniques to material parts in step 3. A part that no eligible technique can answer stops the run for one question: add outside evidence, edit the request or continue without it (section 4). Step 5.2 gains an evidence-gathering action for topic parts with no source type excluded, and each source is recorded by what it can show: what it says or does, or what is true of the world (section 6). The rule that additional sources must not be marketing or opinion is removed. Facts about the text get no confidence label (section 7). Conclusion techniques can look up a reference structure. The plan prints the name beside each ID, and the model checks each name against its reason. This changes the catalogue, the schema, steps 1, 2, 3, 5.2, 7 and 8, the scripts, the prompts and the skill text. It has not been run. |
 
 ## 10. Open items
 
@@ -499,6 +518,7 @@ Changed since the run of 13 November 2026 (version 1.2.4):
 
 - The stored run follows version 1.2.4 for steps 1 to 6, except that its plan table was regenerated by the current `sequence.py` step 7 was run again under version 1.2.8 and step 8 under version 1.2.10. The stored run of 13 November 2026 ran on ten interview quotes: the 5.1 findings were shown to the user, who kept the request, and the user chose the combining method. Each technique ran as a separate agent.
 - The personal information waiver in `select.py` (decision 29) has not been tested on content that contains personal information.
+- The changes of version 1.5.0 (decision 65) have been tested on the scripts only: the scope question, topic scoring, unanswerable parts and the plan wording. The outside evidence gathering, the pause and the label for facts about the text have not been run end to end.
 - Step 5.2 has not been run to the end under decision 40. The stored run needed no additional sources. In the user's run inside Claude an earlier wording searched for a pool of sources before the plan, which the new text forbids.
 - The step 8 agent was not given the catalogue ceilings, so the strength of statement reached is worked out from the catalogue by the application. The stored run carried out the spot checks (by code) and the repeat runs (HE1-15 and MM-10). It is at decision-informing stakes, so the checks that need a person were left out and the answer says that no person reviewed the results.
 - The high-stakes path has not been run: the pause at the end of step 6 that asks the user to review a sample of the results, and the cap of the label at medium when the user does not.
@@ -542,7 +562,7 @@ Catalogue data (from the spot check; the first six were fixed):
 |---|---|
 | `master/Analysis methods design.md` | This document. |
 | `schema/schema.json` | Field vocabularies, requirement types, working document types, check library, stakes levels, and the rules for steps 1 to 8. Version 1.2.23. |
-| `master/master_tagged.csv` | The catalogue: 304 rows, 53 columns, with result formats and method steps. |
+| `master/master_tagged.csv` | The catalogue: 304 rows, 54 columns, with result formats and method steps. |
 | `master/master_base.csv`, `master/tags/tags_A.json` to `tags_F.json` | Sources of the CSV text and tags. |
 | `master/specs/out_1.json` to `out_6.json` | Result formats. |
 | `scripts/intake.py`, `select.py`, `sequence.py`, `validate_tags.py` | Process scripts for steps 1, 2 and 4, and the tag validator. |

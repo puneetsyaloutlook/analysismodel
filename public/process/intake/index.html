@@ -60,6 +60,7 @@
 </table></div>
 <p>The output is the brief. Each part is marked stated, inferred or missing.</p>
 <p><strong>The request.</strong> One request, which can have several parts or be open-ended, such as "tell me what insights I can get from this article". It is treated as one request and gets one set of techniques.</p>
+<p><strong>Parts of the request and their scope.</strong> The model splits the request into parts and tags each part with a scope. A part has scope material when the supplied material can answer it: what the text says, how it argues, what it contains or leaves out. A part has scope topic when answering it needs evidence about the world beyond the supplied material, for example whether a text's account of practice is accurate. Code cannot tell the two apart, so the model proposes a scope for each part from the wording and the user confirms it. The parts and their scopes are part of the brief, and only the user changes them (decision 65).</p>
 <p><strong>The settings.</strong></p>
 <div class="table-wrap"><table>
 <thead>
@@ -95,8 +96,9 @@
 <p><strong>The description of the material.</strong> One value for each property that a requirement tests, recorded per source where the property belongs to a source. Code fills content type, structure, level of detail available, unit of analysis, number of sources, whether sources can be joined, amount of material, document type, language, signs of personal and sensitive information, and known data problems (duplicates, share of blanks). Units of analysis are offered broadly, because the unit depends on the request: text is offered as document, claim and topic, and as source when there are several.</p>
 <p>Questions to the user:</p>
 <ul>
-<li>At most four at once, in this order: missing material or request, stakes, strength of statement, personal information, kind of finding, joining of sources, duplicates. The rest are not asked in that round.</li>
+<li>At most four at once, in this order: missing material or request, the scope of each part, stakes, strength of statement, personal information, kind of finding, joining of sources, duplicates. The rest are not asked in that round.</li>
 <li>Each question has a recommended answer where one exists and a one-line reason.</li>
+<li>When the brief is confirmed, the process shows the request restated in one sentence and split into its parts, each with its scope. The user can correct a part or a scope before any technique is chosen.</li>
 <li>Time structure, how the sample was chosen, origin, the producer's interest and whether sources depend on each other are never asked. They stay unknown unless the material states them.</li>
 <li>Security classification and licence are not asked, because no technique uses them.</li>
 </ul>

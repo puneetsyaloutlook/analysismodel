@@ -4,7 +4,7 @@
 Sources (all in data/):
   design.md       the design document, split by second-level heading into process pages
   schema.json     field vocabularies, artefact types, check library, phases, tiers
-  catalogue.csv   304 techniques, 53 columns
+  catalogue.csv   304 techniques, 54 columns
   test-*.md       test evidence
 
 Run from the repository root:  python3 build/build.py
@@ -495,7 +495,7 @@ assert set(FAMILY_INTROS) == set(FAMILY_ORDER), "family intros do not match the 
 
 
 def make_catalogue_index():
-    intro = md_block(link_sections(sections[8][1][sections[8][1].index("Each technique has 53 columns"):]))
+    intro = md_block(link_sections(sections[8][1][sections[8][1].index("Each technique has 54 columns"):]))
     ov = md_block((DATA / "techniques-overview.md").read_text(encoding="utf-8"))
     fam_table = ("<table><thead><tr><th>Family</th><th>Techniques</th><th>What the family is for</th></tr></thead><tbody>" +
                  "".join(f'<tr><td><a href="/catalogue/{FAM_SLUG[f]}/">{esc(f)}</a></td><td>{len(FAMILIES[f])}</td><td>{esc(FAMILY_INTROS[f]["short"])}</td></tr>' for f in FAMILY_ORDER) +

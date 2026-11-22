@@ -1,5 +1,5 @@
 {
- "version": "1.4.1",
+ "version": "1.5.0",
  "title": "startthat.work: metadata schema and process design for a catalogue of 304 techniques, 236 for analysis and 68 for combining and reporting",
  "conventions": {
   "language": "Australian English. Sentence case for headings, field labels and value names. No em dashes, en dashes or double hyphens.",
@@ -1354,6 +1354,43 @@
    "ordered": false,
    "cell_syntax": "plain",
    "plain_label": "Kind of finding"
+  },
+  {
+   "key": "question_scope",
+   "group": "selection",
+   "label": "Question scope",
+   "definition": "What the technique examines. It orders the list in step 2 and decides which parts of a request a technique can serve in step 3. It never removes a technique.",
+   "type": "single value",
+   "gate_class": "weight",
+   "values": [
+    {
+     "value": "text",
+     "definition": "Examines the supplied text itself: its argument, wording, credibility or omissions. Serves only parts of a request with scope material."
+    },
+    {
+     "value": "topic",
+     "definition": "Needs evidence about the world beyond the supplied material. Needs an evidence base gathered in step 5.2."
+    },
+    {
+     "value": "both",
+     "definition": "Works on the material as data about the world, and can serve parts with either scope."
+    },
+    {
+     "value": "n/a",
+     "definition": "Conclude and report techniques, which work on findings in steps 7 and 8."
+    }
+   ],
+   "basis": {
+    "type": "inference",
+    "sources": [],
+    "note": "Added in version 1.5.0 (decision 65). Tagged by reading each row against the definitions, with a named list for text and for topic and both as the default. Untested."
+   },
+   "tagging_rule": "Write text only when the technique's evidence is the supplied text itself. Write topic only when the technique cannot run without evidence from outside the material. Write both for techniques that treat the material as data. Write n/a for the families CF, RA, RC, RU, SA, UC and VD.",
+   "material_cardinality": "not applicable",
+   "values_mutually_exclusive": true,
+   "ordered": false,
+   "cell_syntax": "plain",
+   "plain_label": "Question scope"
   },
   {
    "key": "question_answered",
@@ -3578,7 +3615,8 @@
    "Apply conditional gates when their conditions are met: representation, time structure, collection basis, volume class, data condition flags, language, requires_minimum and additional sources needed.",
    "Apply not_for_rules and requires. A technique whose consumed artefact cannot exist yet, or that needs external material (comparator, reference structure, earlier period), is kept with a note naming what is missing. The external material is gathered in stage 1 only for techniques that were picked.",
    "Claim ceiling raises a warning only: count the eligible techniques that reach the strength of statement needed and warn when none does.",
-   "Step 3: give the model the brief and a one-line entry (ID, name, purpose, use when) for every eligible technique, ordered by a score for insight type, prefers items and evidence status. The score does not cut the list, because a score-ranked shortlist of 15 found 8 of 32 expected picks and the model reading the full list found 22 of 32. The model chooses at most 10 (sequencing limits), using four criteria in order: (1) every part of the request has at least one technique; (2) at least one technique reaches the strength of statement needed when an eligible one fits the request, and if none fits the model says so with the reason; (3) the techniques match the kind of finding wanted, where given; (4) where two techniques serve the same part of the request, prefer a pair with different methods. Each choice has a one-line reason naming the part of the request it serves.",
+   "Step 3: give the model the brief and a one-line entry (ID, name, purpose, use when) for every eligible technique, ordered by a score for insight type, prefers items and evidence status. The score does not cut the list, because a score-ranked shortlist of 15 found 8 of 32 expected picks and the model reading the full list found 22 of 32. The model chooses at most 10 (sequencing limits), using four criteria in order: (1) every part of the request has at least one technique that can answer it: a technique counts for a part only if its requirements are met by the material or by something 5.2 can supply and its question scope fits the part (scope text serves only parts with scope material), and matching the wording of a part is not enough; each part that no eligible technique can answer is recorded in the plan as a part the material cannot answer; (2) at least one technique reaches the strength of statement needed when an eligible one fits the request, and if none fits the model says so with the reason; (3) the techniques match the kind of finding wanted, where given; (4) where two techniques serve the same part of the request, prefer a pair with different methods. Each choice has a one-line reason naming the part of the request it serves.",
+   "Parts the material cannot answer: when step 3 records one, the process asks one question with three choices (add outside evidence, edit the request, continue without the part). With no reply the run continues without it and the answer's first paragraph says which part was not answered. A part with scope topic is answerable when outside evidence is permitted, because 5.2 gathers it.",
    "Step 4: place the chosen techniques in one sequence by kind, with a description of what each group does (sequencing section) and attach library checks from the stakes and strength of statement rules.",
    "Stages. Step 3 uses the analysis stage: every technique whose phase is not conclude or report. Step 7 uses the conclude stage and step 8 the report stage. The hard gates run the same way at each stage. Conclusion and report techniques are tagged any on every material field, because they work on findings, so no gate removes them. What they need is in requires_minimum and external_material_needed. The claim ceiling of these techniques is the highest value, so it removes none of them. The strength of statement reached is worked out from the analysis techniques only."
   ],
@@ -3633,7 +3671,7 @@
   "rule": "Every technique belongs to one of seven kinds, and the kind decides what it works on. A question technique works on the request (5.1). A preparation technique works on the material and produces prepared material (5.2). A primary technique works on the material, including prepared material, and never on another primary technique's result (5.3). Verification and challenge techniques work on the findings of the analysis (step 6). A conclusion technique works on the findings and produces conclusions or a statement of how sure they are (step 7). A report technique works on the conclusions and produces the written answer, its display or a check of it (step 8). Steps 7 and 8 also have a fixed part that is not a technique. Only the user changes the request.",
   "stages": [
    "5.1 examine the question: chosen techniques whose phase is frame. When they produce findings, the process shows them and asks the user to keep or edit the request. Keep: the run continues at 5.2. Edit: steps 2 to 4 run again on the new request, and question techniques that already ran are not chosen again. No reply: the request stays as it is and the answer says it was not confirmed. The findings are kept in every case and go to step 7.",
-   "5.2 prepare the material: chosen techniques whose phase is gather or verify and prepare, any technique that produces prepared material a chosen technique consumes, and de-identification when the material has personal information. Prepared material is still the brief's material. For each chosen technique that needs an additional source (a comparator, a reference structure or an earlier period), 5.2 runs after the plan. It looks in the user's material first. If the item is not there, it finds the one item needed, from a source that is not marketing or personal opinion, and asks the user for it only when none is found. It uses the item and records it, with its source, its type, the technique that used it and whether code could check its wording. The user is not asked to approve it. If none is found, the technique is dropped and the answer says so.",
+   "5.2 prepare the material: chosen techniques whose phase is gather or verify and prepare, any technique that produces prepared material a chosen technique consumes, and de-identification when the material has personal information. Prepared material is still the brief's material. For each chosen technique that needs an additional source (a comparator, a reference structure or an earlier period), 5.2 runs after the plan. It looks in the user's material first. If the item is not there, it finds the one item needed, from any source type, and asks the user for it only when none is found. It uses the item and records it, with its source, its type, the technique that used it and whether code could check its wording. The user is not asked to approve it. If none is found, the technique is dropped and the answer says so. For each part with scope topic, when outside evidence is permitted, 5.2 also gathers an evidence base: one to four questions for the part, a search for each with no source type excluded, each source saved and recorded in evidence_base.json with its type, how it was read and what it is used to show. A source shows either what it says or does (any type is primary evidence) or what is true of the world (a promotional, advocacy or opinion source cannot stand alone, and the claim is reported as unconfirmed unless a source that does not gain from it agrees). Where the question is about promotion itself, promotional sources are the material. The answer states which purpose each finding's sources served.",
    "5.3 analyse the material: chosen primary techniques, independent of each other, run in any order, each on the brief.",
    "6 check the findings: chosen verification techniques, then chosen challenge techniques, each on the findings of the analysis, then the library checks for the stakes and the strength of statement, each applied to one result.",
    "7 combine the findings (process step): collect the findings; run the fixed methods whose condition is met (agreement table, narrative summary, pooling when the user confirms, decision analysis when an option ranking is wanted); choose at most 3 conclusion techniques from the eligible list and apply them; name the cause of each conflict or state that it is unresolved; give each conclusion a confidence label and a one-line reason.",
@@ -3808,8 +3846,8 @@
    }
   ],
   "certainty_rating": {
-   "definition": "Not a synthesis method. Each conclusion in the answer gets one confidence label (high, medium or low) and a one-line reason. The user reads the label to decide whether to trust the conclusion or redo the work. No likelihood terms and no roll-up across conclusions.",
-   "rule": "High: two or more techniques with different methods (tiers.corroboration_rule) agree, and their checks passed. Medium: one technique supports the conclusion and its checks passed; or two or more techniques agree and a check failed or was not done, or a verification finding limits the conclusion, or the techniques do not have different methods. Low: one technique supports the conclusion and none of its checks passed; or techniques conflict and the conflict is unresolved. A check that failed or was not done is named in the reason. A check not done because it needs a person limits the label to medium at the high-stakes level only. At the high-stakes level a failed check makes the label low (tiers.stop_rule). A challenge finding does not change the label. It is an added finding and appears in the answer next to the conclusion it examines.",
+   "definition": "Not a synthesis method. Each conclusion in the answer gets one confidence label (high, medium or low, or none for a fact about the text) and a one-line reason. The user reads the label to decide whether to trust the conclusion or redo the work. No likelihood terms and no roll-up across conclusions.",
+   "rule": "High: two or more techniques with different methods (tiers.corroboration_rule) agree, and their checks passed. Medium: one technique supports the conclusion and its checks passed; or two or more techniques agree and a check failed or was not done, or a verification finding limits the conclusion, or the techniques do not have different methods. Low: one technique supports the conclusion and none of its checks passed; or techniques conflict and the conflict is unresolved. A check that failed or was not done is named in the reason. A check not done because it needs a person limits the label to medium at the high-stakes level only. At the high-stakes level a failed check makes the label low (tiers.stop_rule). A challenge finding does not change the label. It is an added finding and appears in the answer next to the conclusion it examines. A fact about the text, meaning a statement of what the supplied text contains or lacks that anyone can check by reading it, gets the label none and a reason that says it was read directly from the text. A judgement about the text is an inference and gets a label.",
    "basis": {
     "type": "inference",
     "sources": [],
@@ -3826,7 +3864,7 @@
    }
   },
   "answer_form": {
-   "definition": "The answer has these parts in this order: summary, conclusions, insights (when step 7 wrote any), what was not covered, strength of statement reached, what the answer is based on, and the offer of a follow-up round. Each conclusion has a title that states the finding as a sentence, an explanation, a confidence label and a reason, which are recorded. The answer shows the conclusions in two groups, well supported (label high) and weaker support (label medium or low), and shows the labels and reasons only when the user asks. A conclusion in the second group, and an insight whose label is medium or low, carries a caveat in plain words. The conclusions have no codes. A statement about what the process did not look at is not a conclusion and gets no label. An insight is a finding that goes against or beyond what the request or the material would lead a reader to expect. A recommendation is given only when the request asks for one.",
+   "definition": "The answer has these parts in this order: summary, conclusions, insights (when step 7 wrote any), what was not covered, strength of statement reached, what the answer is based on, and the offer of a follow-up round. Each conclusion has a title that states the finding as a sentence, an explanation, a confidence label and a reason, which are recorded. The answer shows the conclusions in three groups: facts about the text (label none, shown without a label under the heading What the text contains), well supported (label high) and weaker support (label medium or low), and shows the labels and reasons only when the user asks. A conclusion in the second group, and an insight whose label is medium or low, carries a caveat in plain words. The conclusions have no codes. A statement about what the process did not look at is not a conclusion and gets no label. An insight is a finding that goes against or beyond what the request or the material would lead a reader to expect. A recommendation is given only when the request asks for one.",
    "parts": [
     "summary",
     "conclusions",
@@ -3850,7 +3888,8 @@
     "weaker_text": "The analysis supports these conclusions less well. After each one, a sentence says why.",
     "limit_text": "All the techniques read the same material and used the same language model, which limits how far any conclusion can be trusted."
    },
-   "confidence_levels_text_use": "Shown only when the user asks to see the labels."
+   "confidence_levels_text_use": "Shown only when the user asks to see the labels.",
+   "text_facts_text": "These are facts found by reading the text. They are not inferences, so they carry no confidence label."
   }
  },
  "interaction": {
@@ -3858,7 +3897,11 @@
   "asks": [
    {
     "point": "confirm the brief",
-    "what": "The request restated in one sentence, the strength of statement needed and the stakes. The process asks only for properties the material does not show."
+    "what": "The request restated in one sentence, the strength of statement needed and the stakes. The process asks only for properties the material does not show. The request is shown split into parts, each with its scope (material or topic), so that the user can correct a part before any technique is chosen."
+   },
+   {
+    "point": "parts the material cannot answer",
+    "what": "Asked only when step 3 finds a part of the request that no eligible technique can answer. One question, three choices: add outside evidence (5.2 gathers it and the part is chosen again), edit the request, or continue without that part. With no reply the run continues without the part and the first paragraph of the answer says which part was not answered."
    },
    {
     "point": "confirm the request after 5.1",
@@ -3898,7 +3941,7 @@
   }
  },
  "intake": {
-  "definition": "Step 1. Turns the user input into a brief and lists the gaps as questions. The brief is the request, the settings (stakes, strength of statement needed, kind of finding wanted), the material and the description of the material. The request can have several parts or be open-ended (for example \"tell me what insights I can get from this article\"), and step 3 returns one set of techniques for it. Each chosen technique states which part of the request it serves. For an open-ended request the kind of finding is left empty and the strength of statement defaults to describe.",
+  "definition": "Step 1. Turns the user input into a brief and lists the gaps as questions. The brief is the request, the settings (stakes, strength of statement needed, kind of finding wanted), the material and the description of the material. The request can have several parts or be open-ended (for example \"tell me what insights I can get from this article\"), and step 3 returns one set of techniques for it. Each chosen technique states which part of the request it serves. The model splits the request into parts and tags each with a scope: material, when the supplied material can answer it, or topic, when answering it needs evidence about the world beyond the material. The user confirms the scope of each part. For an open-ended request the kind of finding is left empty and the strength of statement defaults to describe.",
   "inputs": [
    {
     "input": "link to an article or report",
@@ -3936,6 +3979,7 @@
   ],
   "asked": [
    "question",
+   "scope of each part of the request (material or topic)",
    "stakes_tier",
    "claim_level_needed",
    "insight_wanted",
@@ -3953,7 +3997,7 @@
    "security_classification",
    "licence"
   ],
-  "question_rules": "At most four questions at once, in priority order, each with a recommended answer where one exists and a one-line reason. The rest are held back.",
+  "question_rules": "At most four questions at once, in priority order, each with a recommended answer where one exists and a one-line reason. The rest are held back. At the confirmation of the brief the process shows the request restated in one sentence and split into parts, each with its scope.",
   "implemented_in": "scripts/intake.py (profile and gaps commands)",
   "basis": {
    "type": "inference",
@@ -3996,7 +4040,7 @@
   {
    "number": "5",
    "name": "Run the techniques",
-   "does": "5.1 Examine the question. 5.2 Prepare the material, including any additional sources. 5.3 Analyse the material.",
+   "does": "5.1 Examine the question. 5.2 Prepare the material, including any additional sources and, for parts with scope topic, an evidence base. 5.3 Analyse the material.",
    "sub_steps": [
     {
      "number": "5.1",

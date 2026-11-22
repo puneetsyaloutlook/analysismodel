@@ -1,4 +1,4 @@
-This page lists what changed in each version of the design, in plain terms, newest first. The numbers in the last column are decisions on the [decisions page](/project/decisions/), which gives the reason for each. The current version is 1.4.1.
+This page lists what changed in each version of the design, in plain terms, newest first. The numbers in the last column are decisions on the [decisions page](/project/decisions/), which gives the reason for each. The current version is 1.5.0.
 
 To check which version your copy of the skill follows, open `references/design.md` in the skill folder. The version is stated near the top. The download on the [skill page](/skill/) states the version it carries.
 
@@ -6,6 +6,7 @@ Versions that change only the website say so. The skill is unchanged by them.
 
 | Version | Date | What changed | Decisions |
 |---|---|---|---|
+| 1.5.0 | 22 Nov 2026 | Found by running the skill on an article: it checked the article against itself and never examined the topic. The request is now split into parts, each marked as answerable from the material or needing outside evidence. A technique counts for a part only if it can answer it. A part nothing can answer pauses the run with one question. Step 5.2 can gather outside evidence from any source type, recorded by what each source is used to show. A new catalogue column, question scope, orders the list. Facts about the text show first with no confidence label. | 65 |
 | 1.4.1 | 22 Nov 2026 | Method steps are written for the other 43 practice and unconfirmed rows, so all 54 have them. 32 of those rows are now documented, because the sources used for the steps opened. Changes catalogue evidence text only. | 64 |
 | 1.4.0 | 22 Nov 2026 | A new catalogue field, method steps, holds a numbered list of actions for techniques that are in practice or unconfirmed. The technique record shows the steps and the run prompt tells the model to follow them. The 11 Handle evidence rows are written. Ten of them are now documented, because the sources used for the steps opened. Changes the catalogue, schema, skill, prompt, `technique_record.py` and the site. | 63 |
 | 1.3.2 | 22 Nov 2026 | CF-04, CF-09 and RC-04 are now documented, from sources found at other addresses. SA-08 is the one conclusion or report technique still unconfirmed. Catalogue evidence text only. | 62 |
