@@ -376,6 +376,11 @@
 <td>The model runs a technique from its record, so for a method with little published description it fills in the steps from its own knowledge and can get them wrong. The user was content with some variation for well documented techniques and wanted the less documented ones hardwired to reduce that. Decided on 22 November 2026.</td>
 <td>A new catalogue field, <code>method_steps</code>, holds a numbered list of steps for each technique whose evidence status is Practice or Unconfirmed (54 rows at the time). Each list is written from a source that opened and ends with a line naming that source. The technique record shows the steps, and the run prompt tells the model to follow them in order. Techniques that are Tested or Documented run as before. The steps are written family by family. The 11 Handle evidence rows are done: HE1-04, HE1-05, HE1-06, HE1-10, HE1-15, HE1-16, HE1-17, HE1-18, HE1-19, HE1-20 and HE1-21. Writing the steps used sources that opened for ten rows that were unconfirmed, so they are now documented. The evidence status of the catalogue is now 55 tested, 205 documented, 13 in practice and 31 unconfirmed. This replaces the rule that a full method card is written only after a test run shows a wrong result.</td>
 </tr>
+<tr>
+<td>64</td>
+<td>Decision 63 wrote steps for 11 of the 54 practice and unconfirmed rows. The other 43 were written on 22 November 2026.</td>
+<td>Each of the 43 rows now has <code>method_steps</code>, and each list ends with a line naming its source. Where a source that opened describes the technique, the row moved to Documented (32 rows). Where none was found, the steps follow the row description and the source line says so. Several lists cover only part of a technique, and the status text names the part (IS-09 quantitising only, PJ-21 robust decision making only). The evidence status of the catalogue is now 55 tested, 237 documented, 4 in practice and 8 unconfirmed. This changes catalogue evidence text and <code>method_steps</code> only.</td>
+</tr>
 </tbody>
 </table></div></div>
     <nav class="pager" aria-label="Previous and next page"><a class="prev" href="/project/"><span>Previous</span>Project record</a><a class="next" href="/project/test-evidence/"><span>Next</span>Test evidence</a></nav>

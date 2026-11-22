@@ -290,33 +290,33 @@ The catalogue lists 304 techniques: 236 analysis techniques in the first 12 fami
 | ID | Technique | Evidence status |
 |:-|:-|:-|
 | FQ-01 | PICO family | Documented |
-| FQ-02 | Decision-first framing | Unconfirmed |
+| FQ-02 | Decision-first framing | Documented |
 | FQ-03 | Definitional analysis | Documented |
 | FQ-04 | Reframing and issue redefinition | Practice |
-| FQ-05 | Multiple mental models | Practice |
-| FQ-06 | SMART check | Practice |
+| FQ-05 | Multiple mental models | Documented |
+| FQ-06 | SMART check | Documented |
 
 ### Decompose and map
 
 | ID | Technique | Evidence status |
 |:-|:-|:-|
-| DM-01 | MECE decomposition and issue tree | Practice |
-| DM-02 | Hypothesis tree | Unconfirmed |
+| DM-01 | MECE decomposition and issue tree | Documented |
+| DM-02 | Hypothesis tree | Documented |
 | DM-03 | Morphological analysis | Documented |
 | DM-04 | Value chain analysis | Documented |
 | DM-05 | Taxonomy building | Documented |
 | DM-06 | Affinity diagram | Documented |
 | DM-07 | Lens application | Unconfirmed |
-| DM-08 | Two by two matrix | Unconfirmed |
+| DM-08 | Two by two matrix | Documented |
 | DM-09 | PESTLE | Documented |
 | DM-10 | SWOT | Documented |
 | DM-11 | Porter's Five Forces | Documented |
 | DM-12 | Cynefin framework | Documented |
 | DM-13 | System archetypes | Documented |
 | DM-14 | Leverage points | Documented |
-| DM-15 | Wardley mapping | Practice |
+| DM-15 | Wardley mapping | Documented |
 | DM-16 | Levels-of-analysis models | Documented |
-| DM-17 | Process mapping | Unconfirmed |
+| DM-17 | Process mapping | Documented |
 | DM-18 | Design structure matrix | Documented |
 | DM-19 | Causal loop diagram | Documented |
 | DM-20 | Stock and flow modelling | Documented |
@@ -331,9 +331,9 @@ The catalogue lists 304 techniques: 236 analysis techniques in the first 12 fami
 | CM1-03 | Mill's method of difference and most similar systems design | Documented |
 | CM1-04 | Concomitant variation and method of residues | Documented |
 | CM1-05 | Comparative case study | Documented |
-| CM1-06 | Case selection techniques | Unconfirmed |
+| CM1-06 | Case selection techniques | Documented |
 | CM1-07 | Qualitative comparative analysis | Documented |
-| CM1-08 | Cross-case synthesis | Unconfirmed |
+| CM1-08 | Cross-case synthesis | Documented |
 | CM1-09 | Contrast with a structural opposite | Unconfirmed |
 | CM1-10 | Cross-sectional and longitudinal comparison | Documented |
 | CM1-11 | Before and after comparison | Unconfirmed |
@@ -348,32 +348,32 @@ The catalogue lists 304 techniques: 236 analysis techniques in the first 12 fami
 
 | ID | Technique | Evidence status |
 |:-|:-|:-|
-| TC1-01 | Five whys | Practice |
+| TC1-01 | Five whys | Documented |
 | TC1-02 | Fishbone diagram | Documented |
 | TC1-03 | Fault tree analysis | Documented |
 | TC1-04 | Process tracing | Documented |
 | TC1-05 | Counterfactual analysis | Documented |
 | TC1-06 | Difference-in-differences | Documented |
-| TC1-07 | Quasi-experimental designs | Unconfirmed |
-| TC1-08 | Confounder identification with directed acyclic graphs | Unconfirmed |
+| TC1-07 | Quasi-experimental designs | Documented |
+| TC1-08 | Confounder identification with directed acyclic graphs | Documented |
 | TC1-09 | Logic model and theory of change | Documented |
 | TC1-10 | Contribution analysis | Documented |
 | TC1-11 | Realist evaluation | Documented |
 | TC1-12 | Process evaluation and impact evaluation | Documented |
 | TC1-13 | Analysis of competing hypotheses | Tested |
 | TC1-14 | Coherence correction and averaging of probability judgements | Tested |
-| TC1-15 | Bayesian updating | Unconfirmed |
+| TC1-15 | Bayesian updating | Documented |
 | TC1-16 | Disconfirmation search | Documented |
 | TC1-17 | Sensitivity analysis | Documented |
 | TC1-18 | Internal consistency check | Unconfirmed |
 | TC1-19 | Toulmin argument analysis | Documented |
-| TC1-20 | Argument mapping | Unconfirmed |
+| TC1-20 | Argument mapping | Documented |
 | TC1-21 | Fallacy analysis | Documented |
 | TC1-22 | Abduction and inference to the best explanation | Documented |
-| TC1-23 | Ladder of inference | Practice |
+| TC1-23 | Ladder of inference | Documented |
 | TC1-24 | Reflective equilibrium | Documented |
 | TC1-25 | First principles reasoning | Practice |
-| TC1-26 | Thought experiments | Unconfirmed |
+| TC1-26 | Thought experiments | Documented |
 | TC1-27 | Fermi estimation and order-of-magnitude checks | Tested |
 | TC1-28 | Dimensional and unit checks | Documented |
 | TC-01 | GRIM test | Documented |
@@ -421,30 +421,30 @@ The catalogue lists 304 techniques: 236 analysis techniques in the first 12 fami
 
 | ID | Technique | Evidence status |
 |:-|:-|:-|
-| PJ-01 | Trend extrapolation and time-series forecasting | Unconfirmed |
+| PJ-01 | Trend extrapolation and time-series forecasting | Documented |
 | PJ-02 | Reference class forecasting | Tested |
 | PJ-03 | Forecasting tournaments and superforecasting practice | Tested |
 | PJ-04 | Delphi technique | Documented |
 | PJ-05 | Prediction markets | Tested |
-| PJ-06 | Structured expert elicitation | Unconfirmed |
-| PJ-07 | Technology S-curve analysis | Unconfirmed |
+| PJ-06 | Structured expert elicitation | Documented |
+| PJ-07 | Technology S-curve analysis | Documented |
 | PJ-08 | Bass diffusion model | Documented |
 | PJ-09 | Hype cycle | Tested |
 | PJ-10 | Trajectory analysis | Unconfirmed |
 | PJ-11 | Agent-based modelling and Monte Carlo simulation | Unconfirmed |
 | PJ-12 | Scenario planning | Tested |
 | PJ-13 | Scenario matrix | Documented |
-| PJ-14 | Alternative futures archetypes | Unconfirmed |
-| PJ-15 | Futures wheel | Unconfirmed |
+| PJ-14 | Alternative futures archetypes | Documented |
+| PJ-15 | Futures wheel | Documented |
 | PJ-16 | Causal layered analysis | Documented |
 | PJ-17 | Cross-impact analysis | Documented |
 | PJ-18 | Backcasting | Documented |
 | PJ-19 | Policy stress-testing | Documented |
-| PJ-20 | Wargaming and simulation exercises | Unconfirmed |
-| PJ-21 | Robust decision making, adaptive pathways and info-gap analysis | Unconfirmed |
-| PJ-22 | Technology roadmapping | Unconfirmed |
+| PJ-20 | Wargaming and simulation exercises | Documented |
+| PJ-21 | Robust decision making, adaptive pathways and info-gap analysis | Documented |
+| PJ-22 | Technology roadmapping | Documented |
 | PJ-23 | Horizon scanning | Documented |
-| PJ-24 | Weak signal detection | Unconfirmed |
+| PJ-24 | Weak signal detection | Documented |
 | PJ-25 | Leading indicators and signposts | Documented |
 
 ### Assess actors, options and risks
@@ -457,14 +457,14 @@ The catalogue lists 304 techniques: 236 analysis techniques in the first 12 fami
 | AO-04 | Political economy analysis | Documented |
 | AO-05 | Customer journey mapping | Documented |
 | AO-06 | Personas | Documented |
-| AO-07 | Jobs to be done | Practice |
+| AO-07 | Jobs to be done | Documented |
 | AO-08 | Eightfold path | Documented |
 | AO-09 | Longlist-to-shortlist options analysis | Documented |
 | AO-10 | Cost-benefit analysis | Documented |
 | AO-11 | Cost-effectiveness and cost-utility analysis | Documented |
 | AO-12 | Multi-criteria decision analysis | Documented |
 | AO-13 | Decision tree and expected value | Documented |
-| AO-14 | Real options analysis | Unconfirmed |
+| AO-14 | Real options analysis | Documented |
 | AO-15 | Risk matrix | Documented |
 | AO-16 | Failure mode and effects analysis | Documented |
 | AO-17 | Bow-tie analysis | Documented |
@@ -482,7 +482,7 @@ The catalogue lists 304 techniques: 236 analysis techniques in the first 12 fami
 | CH-05 | Red team analysis | Documented |
 | CH-06 | High-impact and low-probability analysis | Documented |
 | CH-07 | What if analysis | Documented |
-| CH-08 | Premortem | Practice |
+| CH-08 | Premortem | Documented |
 | CH-09 | Structured self-critique | Documented |
 | CH-10 | Rapoport's rules | Documented |
 | CH-11 | Steelmanning | Practice |
@@ -543,7 +543,7 @@ The catalogue lists 304 techniques: 236 analysis techniques in the first 12 fami
 | IS-06 | Source dependence and copy detection | Documented |
 | IS-07 | Convergent comparison of qualitative and quantitative results | Documented |
 | IS-08 | Joint display | Documented |
-| IS-09 | Quantitising and qualitising | Unconfirmed |
+| IS-09 | Quantitising and qualitising | Documented |
 | IS-10 | Explanatory sequential integration | Documented |
 | IS-11 | Exploratory sequential integration | Documented |
 
@@ -579,7 +579,7 @@ The catalogue lists 304 techniques: 236 analysis techniques in the first 12 fami
 | CK-26 | Independent human review of model output | Documented |
 | CK-27 | Adversarial testing of an extraction pipeline | Documented |
 | CK-28 | Provenance tracking and audit logging | Documented |
-| CK-29 | Scripted reproducible workflow | Practice |
+| CK-29 | Scripted reproducible workflow | Documented |
 
 ### Combine findings into conclusions
 
@@ -623,7 +623,7 @@ The catalogue lists 304 techniques: 236 analysis techniques in the first 12 fami
 | SA-05 | 1:3:25 layered report | Documented |
 | SA-06 | Policy brief | Tested |
 | SA-07 | Headings and preview sentences | Tested |
-| SA-08 | Pyramid principle | Unconfirmed |
+| SA-08 | Pyramid principle | Documented |
 
 ### Design the display
 
