@@ -26,6 +26,7 @@ OUT = ROOT / "public"
 ASSETS_SRC = ROOT / "build" / "assets"
 
 SITE = "startthat.work"
+TAB_NAME = "STARTthat.WORK"  # the name as the logo writes it, used in browser tab titles only
 
 schema = json.loads((DATA / "schema.json").read_text(encoding="utf-8"))
 rows = list(csv.DictReader((DATA / "catalogue.csv").open(encoding="utf-8")))
@@ -933,7 +934,7 @@ def render(page):
     for n, blk in enumerate(blocks):
         body = body.replace(f"@@JSON{n}@@", blk)
     title = page["title"] if page["path"] != "/" else f"{SITE}: documentation"
-    full_title = f"{page['title']} | {SITE}" if page["path"] != "/" else f"{SITE}: documentation"
+    full_title = f"{page['title']} | {TAB_NAME}" if page["path"] != "/" else TAB_NAME
     html_out = TEMPLATE.format(
         title=esc(full_title), desc=esc(page["desc"][:200]), site=esc(SITE), nav=nav_html(page["path"]),
         crumbs=crumbs(page), h1=esc(page["title"] if page["path"] != "/" else SITE), body=body,
@@ -982,7 +983,7 @@ def main():
         render(p)
     make_search_index()
     (OUT / "404.html").write_text(
-        TEMPLATE.format(title="Page not found | " + SITE, desc="Page not found", site=SITE, nav=nav_html("/404"), crumbs="",
+        TEMPLATE.format(title="Page not found | " + TAB_NAME, desc="Page not found", site=SITE, nav=nav_html("/404"), crumbs="",
                         h1="Page not found", body='<p>This page does not exist. Use the search box or the menu, or go to the <a href="/">overview</a>.</p>',
                         pager="", toc="", bodycls="", scripts=""), encoding="utf-8")
     print(f"Wrote {len(PAGES)} pages and search index to {OUT}")
