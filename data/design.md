@@ -97,7 +97,7 @@ The process defines the states of a run so that whatever runs it (a chat, an age
 | A library check | Done. Not done, because it needs a person and the user did not review the sample (high stakes only). Left out, because it needs a person and the stakes are below high-stakes. |
 | The answer | Not yet given. Given. |
 
-A step is waiting for you only at one of the decision points: confirm the brief, confirm the request after 5.1, review a sample of the results (high stakes only), confirm that estimates measure the same thing, or ask for a follow-up round. The status names the decision point, so the application can show what the user needs to decide.
+A step is waiting for you only at one of the decision points: confirm the brief, parts the material cannot answer, confirm the request after 5.1, review a sample of the results (high stakes only), confirm that estimates measure the same thing, or ask for a follow-up round. The status names the decision point, so the application can show what the user needs to decide.
 
 Rules for the status:
 

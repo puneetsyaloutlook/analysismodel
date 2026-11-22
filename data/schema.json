@@ -4266,6 +4266,7 @@
    "definition": "A step is waiting for you only at one of the decision points in interaction.asks. The status names the point, so that the application can show what the user needs to decide.",
    "points": [
     "confirm the brief",
+    "parts the material cannot answer",
     "confirm the request after 5.1",
     "review a sample of the results",
     "confirm that estimates measure the same thing",
