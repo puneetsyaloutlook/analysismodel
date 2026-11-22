@@ -10,7 +10,7 @@ The most used techniques in the surveys are SWOT (strengths, weaknesses, opportu
 
 Practitioners use a handful of tools at a time. Consultancies publish named frameworks under their own brands and report wide use of them, and no independent count was found. The catalogue has gaps: five families were not extended to text and data, and many named methods for data, text and combining sources are missing because no source describing them could be opened.
 
-A third report added 68 techniques for combining findings and reporting the answer, which steps 7 and 8 use. Of these, 22 have a published test, 33 are documented and 13 are unconfirmed. The findings in this report describe the 236 analysis techniques. The list at the end covers all 304.
+A third report added 68 techniques for combining findings and reporting the answer, which steps 7 and 8 use. Of these, 22 have a published test, 42 are documented and 4 are unconfirmed. Nine of the 13 that were first unconfirmed were later confirmed from sources that opened. The findings in this report describe the 236 analysis techniques. The list at the end covers all 304.
 
 ## What the research shows
 
@@ -589,10 +589,10 @@ The catalogue lists 304 techniques: 236 analysis techniques in the first 12 fami
 | CF-02 | Following a thread | Documented |
 | CF-03 | Synthesis without meta-analysis reporting | Documented |
 | CF-04 | Weight of evidence assessment | Unconfirmed |
-| CF-05 | Non-pooling summaries of effects | Unconfirmed |
-| CF-06 | Best evidence synthesis | Unconfirmed |
-| CF-07 | Metainference | Unconfirmed |
-| CF-08 | Assurance case | Unconfirmed |
+| CF-05 | Non-pooling summaries of effects | Documented |
+| CF-06 | Best evidence synthesis | Documented |
+| CF-07 | Metainference | Documented |
+| CF-08 | Assurance case | Documented |
 | CF-09 | Nominal group technique and RAND/UCLA appropriateness method | Unconfirmed |
 
 ### State confidence and uncertainty
@@ -667,12 +667,12 @@ The catalogue lists 304 techniques: 236 analysis techniques in the first 12 fami
 | RA-02 | Recommendation strength labelling | Tested |
 | RA-03 | Cabinet business forms | Documented |
 | RA-04 | Impact analysis with a preferred option | Documented |
-| RA-05 | Five case model | Unconfirmed |
+| RA-05 | Five case model | Documented |
 | RA-06 | Audience analysis and use plan | Documented |
-| RA-07 | Implications statement | Unconfirmed |
-| RA-08 | Actionable messages | Unconfirmed |
+| RA-07 | Implications statement | Documented |
+| RA-08 | Actionable messages | Documented |
 | RA-09 | Knowledge brokering | Tested |
-| RA-10 | Knowledge to action framework | Unconfirmed |
+| RA-10 | Knowledge to action framework | Documented |
 
 ### Hold the report to its evidence
 
@@ -682,4 +682,4 @@ The catalogue lists 304 techniques: 236 analysis techniques in the first 12 fami
 | RC-02 | Limitations and caveats statement | Documented |
 | RC-03 | Registered report and pre-registration comparison | Tested |
 | RC-04 | Reporting guideline checklist | Unconfirmed |
-| RC-05 | Qualitative reporting standards | Unconfirmed |
+| RC-05 | Qualitative reporting standards | Documented |
