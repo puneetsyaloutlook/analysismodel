@@ -1,17 +1,24 @@
 {
- "method": "Agreement table across ten techniques, followed by a narrative summary",
+ "method": "Agreement table and narrative summary, with no pooling. Seven analysis techniques were compared cell by cell for each conclusion. Check results (key assumptions check, disconfirmation search, internal consistency check, source span check, spot check) and repeat runs were read for limits.",
  "techniques": [
-  "CM1-05",
-  "DM-02",
-  "HE1-13",
-  "HE1-14",
-  "HE1-15",
-  "MM-10",
-  "PE-02",
-  "TC1-13",
-  "TC1-16",
-  "TC1-17"
+  "FQ-03",
+  "TC1-19",
+  "TC1-21",
+  "CM1-01",
+  "CM1-14",
+  "DM-07",
+  "TC1-13"
  ],
+ "techniques_applied": [
+  "CF-04",
+  "UC-01",
+  "UC-06"
+ ],
+ "technique_notes": {
+  "CF-04": "Weighed each line of evidence for reliability and relevance, and counted the missing-source point that recurs in several findings once and not as several lines.",
+  "UC-01": "Stated each uncertainty by what limits it (one article, summaries only, definitions) and not by the number of techniques that agree.",
+  "UC-06": "Wrote each reason to link the label to the named techniques, the checks and the repeat runs that produced it."
+ },
  "legend": {
   "A": "agrees",
   "P": "partly agrees",
@@ -21,237 +28,256 @@
  "conclusions": [
   {
    "id": "C1",
-   "title": "The quotes do not show support for the three hypotheses as a set.",
-   "text": "H1 has a favourable direction from three participants but is not tested as a comparison. H2 and H3 receive no affirming statement, and each is contradicted only by the hypothetical statements of two participants. When 21 changes to the inclusion rules were tried, none produced support for H1 as a comparison, for H2 or for H3.",
+   "title": "The diagnosis is sound in narrow logic but not shown to be common; the point of view is partial.",
+   "text": "What a usage count cannot show follows from what it records, and the article states that part well. How common adoption reporting and workarounds are rests on assertion, and the wider claims (every workaround is a design failure, nobody adopts AI, tiered reporting as the fix) are less well supported than the narrow one. The reasoning is sound for the narrow usage-count argument and has internal tensions elsewhere. The material shows what the article offers for its view and cannot say whether the phenomenon is real.",
    "cells": {
-    "CM1-05": "A",
-    "DM-02": "A",
-    "HE1-13": "A",
-    "HE1-14": "A",
-    "HE1-15": "A",
-    "MM-10": "A",
-    "PE-02": "A",
-    "TC1-13": "A",
-    "TC1-16": "A",
-    "TC1-17": "A"
+    "FQ-03": "A",
+    "TC1-19": "A",
+    "TC1-21": "A",
+    "CM1-01": "P",
+    "CM1-14": "A",
+    "DM-07": "A",
+    "TC1-13": "A"
    },
-   "label": "high",
-   "reason": "All ten techniques agree on the direction. The techniques read the quotes in different ways: the case matrix, hypothesis tree and framework matrix lay the quotes out by participant, the content analysis, stance detection and word-cue count tally them, the thematic analysis reads them for meaning, the competing hypotheses matrix rates them against rival explanations, and the disconfirmation search looked for statements that would overturn the reading and found none. The sensitivity test found no reversal in 21 changed rows. The quotation and spot checks passed. All ten techniques read the same ten quotes and were run by the same model, so their agreement is not independent evidence, and none can see past the material."
+   "label": "medium",
+   "reason": "All seven techniques point the same way, but this conclusion is built from conclusions C4 to C8, which are each limited to medium. The internal consistency check found that the findings call the reasoning sound while also reporting tensions in it, so the statement is scoped to the narrow argument. The user did not confirm the request after the inference step, so the two-part reading (accuracy of the diagnosis, validity of the point of view) was accepted by the simulated run and not by the user. All techniques share one article of about 2,050 words and one model."
   },
   {
    "id": "C2",
-   "title": "No quote compares the voice AI with traditional voice automation, so H1 as worded is untested.",
-   "text": "The comparators named are website chat bots (P1), a robot voice (P2) and having to repeat yourself (P3). Only P2's remark that a robot \"sounds more like a robot voice\" refers to a voice system, and it is an indirect comparison. Satisfaction relative to traditional voice automation therefore cannot be read from these quotes.",
+   "title": "The article names no study, sample or count for its claims about organisations or its workaround examples.",
+   "text": "The only statement about evidence is \"These are actual observations from research on tools and agentic automation.\" It names no study, setting or date. The opening claims that \"Boards mostly point AI at cost reduction and customer service, and executives report productivity gains.\" and that vendors and consultancies follow adoption carry no source or count either.",
    "cells": {
-    "CM1-05": "A",
-    "DM-02": "A",
-    "HE1-13": "A",
-    "HE1-14": "A",
-    "HE1-15": "A",
-    "MM-10": "A",
-    "PE-02": "A",
-    "TC1-13": "A",
-    "TC1-16": "P",
-    "TC1-17": "A"
+    "FQ-03": "A",
+    "TC1-19": "A",
+    "TC1-21": "A",
+    "CM1-01": "A",
+    "CM1-14": "A",
+    "DM-07": "A",
+    "TC1-13": "A"
    },
-   "label": "high",
-   "reason": "Nine techniques agree, and the disconfirmation search partly agrees: it found that P2's remark is one indirect voice comparison, so the wording here says no direct comparison and not no comparison at all. The techniques read the quotes in different ways (tabulation by participant, word-cue counting, stance labels, a search for disconfirming statements, and a re-run with a stricter rule for the comparator). The checks passed. The stance detection repeat run gave the same label on 28 of 30 targets, and the two differences (Q7 on H1, Q10 on H2) do not change which comparators were named. All ten techniques read the same ten quotes and were run by the same model, so their agreement is not independent evidence, and none can see past the material."
+   "label": "none",
+   "reason": "This is a fact about the text, read directly from it. All seven findings report it, and the disconfirmation search found no lines containing the words survey or study. The spot check found 10 of 10 sampled quotations exactly in the article."
   },
   {
    "id": "C3",
-   "title": "Quoted participants are split on the voice AI, with three favourable and three unfavourable at least once.",
-   "text": "P1, P2 and P3 speak well of it, and P4 reaches approval after initial reluctance. P5 and P10 object, and P1 also records annoyance in a second quote. Depending on how P1, P4 and the context-specific complaints are coded, the split is a tie or four favourable against two unfavourable.",
+   "title": "The article uses \"adoption\" for counted use in one place and for effective use in another.",
+   "text": "Early on it says adoption \"counts use: how many people use an app or agent, how often they use its AI features, and how many tokens they consume\". Later it says \"If adoption means anything at work, it means the tool works well enough, as designed, for people to get the job done with it.\" The line \"adoption is itself a workaround\" uses the word in a third sense, as a way of coping while the effect of AI on work is unclear.",
    "cells": {
-    "CM1-05": "A",
-    "DM-02": "A",
-    "HE1-13": "A",
-    "HE1-14": "A",
-    "HE1-15": "A",
-    "MM-10": "A",
-    "PE-02": "P",
-    "TC1-13": "A",
-    "TC1-16": "S",
-    "TC1-17": "P"
+    "FQ-03": "A",
+    "TC1-19": "P",
+    "TC1-21": "A",
+    "CM1-01": "S",
+    "CM1-14": "S",
+    "DM-07": "S",
+    "TC1-13": "S"
    },
-   "label": "medium",
-   "reason": "Eight techniques agree on the split, using different readings (participant matrix, tree of sub-claims, themes, stance labels, content codes and a rival-hypotheses rating). The word-cue count only partly agrees because its lexicon wrongly counted the word robot in Q2 as negative. The sensitivity test shows the exact balance changes with the coding. In the stance detection repeat run, the label for Q7 on H1 differed on one of two runs, and Q7 is one of the unfavourable quotes. The label is medium for these reasons, although the checks passed. All ten techniques read the same ten quotes and were run by the same model, so their agreement is not independent evidence, and none can see past the material."
+   "label": "none",
+   "reason": "This is a fact about the text, read directly from it. Definitional analysis listed five usages of the word and fallacy analysis flagged the second as a stipulated definition. Toulmin argument analysis noted the stipulation only as a partly stated warrant."
   },
   {
    "id": "C4",
-   "title": "H2 is untested as worded: no quote links a hang-up to learning that it is an AI.",
-   "text": "P10 says \"I would've definitely have hung up at the intro\" and gives the reason as \"way too long\". P5 would probably have hung up only if no human was provided. No quote says a participant would stay on the line, and P4's move from reluctance to approval is at most weak support. The material does not say where the AI is disclosed.",
+   "title": "A usage count cannot separate designed use from a workaround that keeps the tool open.",
+   "text": "A count of users, frequency and tokens records that a tool was used and not how the work was completed, so parallel running, repeated attempts followed by finishing by hand, and daily opening to log usage all look like active use. The article's sentence \"A workaround does not show up as non-use.\" is wider than its own examples, because \"Or the approved tool is slow, so people use a personal one instead.\" would appear as low use of the approved tool, and abandonment would too. The claim is also partly true by definition, because the article defines adoption as the opposite of a workaround, which leaves open how often the two diverge.",
    "cells": {
-    "CM1-05": "D",
-    "DM-02": "A",
-    "HE1-13": "A",
-    "HE1-14": "D",
-    "HE1-15": "A",
-    "MM-10": "D",
-    "PE-02": "D",
-    "TC1-13": "P",
-    "TC1-16": "P",
-    "TC1-17": "A"
+    "FQ-03": "A",
+    "TC1-19": "A",
+    "TC1-21": "P",
+    "CM1-01": "S",
+    "CM1-14": "A",
+    "DM-07": "A",
+    "TC1-13": "P"
    },
    "label": "medium",
-   "reason": "The techniques agree on the facts but differ in the label they give H2, and the cause is a difference in definition. Where hanging up counts as evidence against H2 whatever its cause (stance detection, word-cue count, framework matrix and the case matrix), H2 is contradicted for two participants. Where the cause must be learning it is an AI, or where hypothetical statements are excluded, H2 is untested (hypothesis tree, thematic analysis, content analysis, and the sensitivity test in rows 8, 12 and 21). This conclusion takes the stricter definition because it is the wording of H2. The stance detection repeat run gave a different label on Q10 for H2 on one of two runs. One verification finding limits it: the disconfirmation search found that P5's reference to \"AI in its current state\" means the disclosure cannot be ruled out as a driver. All ten techniques read the same ten quotes and were run by the same model, so their agreement is not independent evidence, and none can see past the material."
+   "reason": "Definitional analysis, Toulmin argument analysis, absence analysis and the lens sort agree, and they read the text in different ways (definitions, argument parts, expected items, category counts). Fallacy analysis accepted the factual part but called the definitional step circular, and competing hypotheses rated it consistent with every hypothesis, so it does not discriminate. The label is medium because the internal consistency check found that a call that it is the strongest argument and a call that its definition is circular conflict unless scoped, and the cause is that they judge different parts (the factual count and the definition). This text is scoped that way. The disconfirmation search narrowed the claim to some workarounds and not all, which is applied here. The absence analysis rests on a search summary of the DeLone and McLean model. Both repeat runs agreed on this point. All techniques share one article and one model."
   },
   {
    "id": "C5",
-   "title": "H3 is not supported, and two participants say they would ask for a human, as hedged intentions.",
-   "text": "P4 says they would probably want to speak to someone \"at first\" and, about asking at the introduction, \"If I was gonna do it, that's probably where I would do it\". P5 says \"I would've asked for a human.\" with no timing. No quote says a participant would decline to ask, and the silence of P1, P2 and P3 is not evidence of a view.",
+   "title": "That organisations mostly report adoption as AI progress is plausible but not shown.",
+   "text": "The reason the article gives, that adoption \"can be counted from the first week of a rollout\", is consistent with its claim that value is slow to show in results. It states one direction of influence (vendors and consultancies follow programs), and the text fits the reverse equally well, where seat and usage data arrive with the product. The Microsoft and LinkedIn survey reports that 79% of leaders agree AI adoption is critical to stay competitive, which shows a priority on adoption and says nothing about how progress is measured.",
    "cells": {
-    "CM1-05": "A",
-    "DM-02": "A",
-    "HE1-13": "A",
-    "HE1-14": "A",
-    "HE1-15": "A",
-    "MM-10": "A",
-    "PE-02": "A",
-    "TC1-13": "A",
-    "TC1-16": "P",
-    "TC1-17": "P"
+    "FQ-03": "A",
+    "TC1-19": "P",
+    "TC1-21": "A",
+    "CM1-01": "P",
+    "CM1-14": "A",
+    "DM-07": "A",
+    "TC1-13": "P"
    },
    "label": "medium",
-   "reason": "Eight techniques agree that H3 is contradicted for P4 and P5 and that nothing supports it, reading the quotes in different ways (matrix, tree, themes, stance labels, counts and ratings). The disconfirmation search limits the conclusion: P4's statement is hedged twice, the note naming the introduction is the compiler's gloss and not P4's words, and P5 gives no timing, so \"immediately\" is not confirmed. The sensitivity test shows the contradiction rests on one participant each in several rows and becomes untested when hypothetical statements are excluded. The checks passed. All ten techniques read the same ten quotes and were run by the same model, so their agreement is not independent evidence, and none can see past the material."
+   "reason": "Definitional analysis, fallacy analysis, absence analysis and the lens sort find no support for prevalence, and they differ in method. Toulmin argument analysis, historical analogy and competing hypotheses find it plausible and do not exclude the rival that organisations already measure outcomes too. The difference is in what each tests (plausibility against support) and is not a conflict of facts. The label is medium because the survey is a vendor source read only as a search summary, so it shows what the vendor reports and not what is true of the world, and the historical comparator is also a search summary. Both are named as limits on this conclusion."
   },
   {
    "id": "C6",
-   "title": "Participants tie reservations to the voice, a stressful setting, a long introduction and earlier experience, but not separably from the AI itself.",
-   "text": "P10 objects that the voice is American and \"sounds very much like an AI voice\", P5 calls the voice \"very cold in clinical\" and imagines a car accident, P10 calls the introduction too long, and P1 refers to earlier experiences with AI agents. Several techniques read these as context and not as rejection of voice AI. The disconfirmation search points out that P5 also names \"AI in its current state\", and that the link between Q7 and the motor claim scenario is inferred, not recorded.",
+   "title": "The heading that every workaround shows a design failure is wider than the article's own team and leadership examples.",
+   "text": "In the team example nobody has had time to train, so the team agrees to open the tool each day and \"then carry on working the old way\". In the leadership example a manager makes sure the team records enough usage to stay compliant but not enough to suggest a smaller team. The fixes given for these two are training time and a statement of how figures will be used, which are not changes to the tool. The heading \"Each workaround shows where the design failed\" holds only if design includes workload and incentives, which the article does not say in this text.",
    "cells": {
-    "CM1-05": "A",
-    "DM-02": "P",
-    "HE1-13": "A",
-    "HE1-14": "A",
-    "HE1-15": "A",
-    "MM-10": "P",
-    "PE-02": "P",
-    "TC1-13": "A",
-    "TC1-16": "P",
-    "TC1-17": "A"
+    "FQ-03": "A",
+    "TC1-19": "A",
+    "TC1-21": "A",
+    "CM1-01": "P",
+    "CM1-14": "P",
+    "DM-07": "A",
+    "TC1-13": "S"
    },
    "label": "medium",
-   "reason": "Most techniques agree that reservations point to named features, and they read the quotes in different ways. The conflict is between findings worded as context and not the AI (case matrix, thematic analysis, framework matrix) and the disconfirmation search, which shows that Q4 and Q7 name the AI and that one driver does not cover Q4 and Q6. The cause is the wording of those two quotes combined with the absence of any record of where the AI is disclosed, so the conflict is resolved only by stating several drivers and leaving the AI's own role open, which this conclusion does. A verification finding therefore limits it to medium. All ten techniques read the same ten quotes and were run by the same model, so their agreement is not independent evidence, and none can see past the material."
+   "reason": "Definitional analysis, Toulmin argument analysis, fallacy analysis and the lens sort agree, and they read the text in different ways. Historical analogy and absence analysis agree only partly, because they raise other causes (tool performance, lack of training, a workaround that fixes a real fault) without testing these two examples. The label is medium because the internal consistency check found that the findings use the word design in different senses (tool design and a wider sense), so the conclusion depends on which sense is meant. It is stated here for the tool sense. The cause of the conflict is the meaning of design, and the article does not settle it. Both repeat runs agreed that the heading overreaches."
   },
   {
    "id": "C7",
-   "title": "Every hang-up and human-request statement is hypothetical, so no behaviour was observed.",
-   "text": "Participants heard prerecorded scenarios, and each relevant statement uses \"would\" or \"if I was\". P1's Q6 reports that a human could be requested, which describes what the scenario offered. The quotes therefore show intentions, which may overstate or understate what customers do in a live call.",
+   "title": "The article's claim that adoption cannot record removed-work value holds for usage counts, not for measurement in general.",
+   "text": "The article says \"An adoption measure has no way to record this value.\" and this follows for usage counts. It also says \"there is no earlier version of the work to compare it with\", while its medium-term tier asks programs to track time, quality and errors \"compared with how it was done before\". A baseline for removed work may exist in earlier request volumes or checking workload, which the article does not mention. Whether the two statements conflict is unresolved, because the findings offer three readings: a defect, a difference of scale (one removed task against a whole piece of work) and sequencing (removed work belongs to the end-state tier).",
    "cells": {
-    "CM1-05": "A",
-    "DM-02": "A",
-    "HE1-13": "A",
-    "HE1-14": "A",
-    "HE1-15": "A",
-    "MM-10": "A",
-    "PE-02": "A",
-    "TC1-13": "A",
-    "TC1-16": "A",
-    "TC1-17": "A"
+    "FQ-03": "A",
+    "TC1-19": "A",
+    "TC1-21": "P",
+    "CM1-01": "S",
+    "CM1-14": "A",
+    "DM-07": "P",
+    "TC1-13": "S"
    },
-   "label": "high",
-   "reason": "All ten techniques agree, using different readings, including a tense check in the disconfirmation search (no observed behaviour found) and a sensitivity row that removes every hypothetical statement. The checks passed. All ten techniques read the same ten quotes and were run by the same model, so their agreement is not independent evidence, and none can see past the material."
+   "label": "medium",
+   "reason": "Definitional analysis, Toulmin argument analysis and absence analysis agree, and they differ in method. Fallacy analysis questioned only the claim that this is the \"largest\" gap, and the lens sort in its first run overstated the comparison problem by applying it to the longer-term tier as well, as the internal consistency check found. The label is medium because of that finding and because the three readings are unresolved. The repeat of Toulmin argument analysis read the two statements as reconcilable, while the first run called it an inconsistency, so the runs disagree on whether it is a defect. They agree that the claim holds for usage counts."
   },
   {
    "id": "C8",
-   "title": "Where leaving or asking for a human is imagined, it is placed at the start of the call.",
-   "text": "P10 places the hang-up \"at the intro\", and P4's remark about asking for a human is about the introduction. P5 gives no timing, and P4 says the wish to speak to someone changes as the process goes on. The pattern is therefore about the opening moments, and it should not be netted against the favourable reactions, which concern the whole experience.",
+   "title": "The claim that people do not adopt AI is the weakest step, and the diagnosis does not need it.",
+   "text": "The article offers two cases, a tool with AI built in and a new job, and says \"Neither case is adopting AI.\" It supports this with comparisons to ecommerce, the cloud and web search, and with the statement that AI is \"becoming a component of everything\", which is a prediction written as present fact. It does not argue that the two cases are complete, and a person who chooses a standalone AI assistant and answers for its output fits neither. The article's own title uses the word it argues against.",
    "cells": {
-    "CM1-05": "P",
-    "DM-02": "P",
-    "HE1-13": "A",
-    "HE1-14": "A",
-    "HE1-15": "A",
-    "MM-10": "P",
-    "PE-02": "P",
-    "TC1-13": "P",
-    "TC1-16": "P",
-    "TC1-17": "P"
+    "FQ-03": "S",
+    "TC1-19": "A",
+    "TC1-21": "A",
+    "CM1-01": "P",
+    "CM1-14": "S",
+    "DM-07": "P",
+    "TC1-13": "P"
    },
    "label": "medium",
-   "reason": "Three techniques (thematic analysis, framework matrix and content analysis) state the pattern directly, and the others agree in part or list it as an alternative explanation. The wording of the introduction link rests on one explicit quote (Q8) and one quote whose timing comes from the compiler's note (Q9), and the disconfirmation search found that P5 gives no timing. The sensitivity test shows the pattern is not reversed when timing is required, but it then rests on one participant for each behaviour. The checks passed. All ten techniques read the same ten quotes and were run by the same model, so their agreement is not independent evidence, and none can see past the material."
+   "reason": "Toulmin argument analysis and fallacy analysis agree, and they differ in method (argument parts against defect patterns). Historical analogy, the lens sort and competing hypotheses agree only in part, because they note that the claim rests on analogy and do not test it. The label is medium because the internal consistency check found that Toulmin argument analysis treated this as a weak link in a chain while fallacy analysis said the point stands without it. The cause is whether the argument is separable. It is treated here as separable from the diagnosis and relevant to the recommendation, which the key assumptions check also concluded. The repeat of Toulmin argument analysis agreed that this is the least supported argument."
   },
   {
    "id": "C9",
-   "title": "Two of the eight participants have no quote, and the basis for choosing the quotes is not given.",
-   "text": "P8 and P9 are not quoted, and the material says only that some participants are quoted. Every finding therefore covers six participants and ten selected quotes. If the selection favoured strong reactions, the split between favourable and unfavourable views would be exaggerated.",
+   "title": "The article gives no evidence that its proposed tiers work, and no case where usage matched value.",
+   "text": "It supports the tiers by saying \"none of these tiers is new\" and that they come from established practice, with no example or result. Its only cases of usage and effective work are cases where the two diverge. It describes no organisation that already measures outcomes and no case where high usage went with good results.",
    "cells": {
-    "CM1-05": "A",
-    "DM-02": "A",
-    "HE1-13": "A",
-    "HE1-14": "A",
-    "HE1-15": "A",
-    "MM-10": "A",
-    "PE-02": "A",
-    "TC1-13": "A",
-    "TC1-16": "A",
-    "TC1-17": "A"
+    "FQ-03": "A",
+    "TC1-19": "A",
+    "TC1-21": "A",
+    "CM1-01": "P",
+    "CM1-14": "A",
+    "DM-07": "A",
+    "TC1-13": "A"
+   },
+   "label": "none",
+   "reason": "This is a fact about the text, read directly from it. The disconfirmation search looked for a counterexample in the article and found none. Historical analogy agrees only in part, because it addresses the closing claim about methods that still work and not the tiers directly."
+  },
+  {
+   "id": "C10",
+   "title": "The article's first measurement tier counts workarounds found, which staff who shape their recorded use could distort.",
+   "text": "The short-term tier says \"Workarounds found and removed can be reported from the first weeks of a rollout\", which is the same early availability the article gives as the reason programs use adoption counts. Its own team and leadership examples describe staff shaping what is recorded, yet the tier does not say how observation and questions would reach workarounds under those conditions. Fewer workarounds could mean a better tool or staff who have learned not to show them. The leadership fix, a statement of how figures will be used, addresses part of this at that level only.",
+   "cells": {
+    "FQ-03": "A",
+    "TC1-19": "A",
+    "TC1-21": "A",
+    "CM1-01": "P",
+    "CM1-14": "A",
+    "DM-07": "P",
+    "TC1-13": "P"
    },
    "label": "high",
-   "reason": "All ten techniques report the gap, and the sensitivity test bounded it by assuming invented positions for P8 and P9, which could produce at most a tie. This is a finding about what the material contains, and the checks passed. All ten techniques read the same ten quotes and were run by the same model, so their agreement is not independent evidence, and none can see past the material."
+   "reason": "Definitional analysis (what counts as a repeatable measure), Toulmin argument analysis (the unstated warrant), fallacy analysis (a double standard) and absence analysis (how workarounds are found without the honesty problem) agree, and they read the text in different ways. Historical analogy and competing hypotheses add only weak support and lean on the METR trial and the vendor survey, which are not relied on for this label. The first run of the lens sort did not raise concealment and its repeat did, which is a difference of scope and not of direction. The repeat of Toulmin argument analysis rated this tier the strongest part of the remedy for being reportable early, while also calling it untested, so it differs in emphasis from the first run, which treated the link from workaround counts to value as the weak point. The internal consistency check found the files consistent on this point and no check failed. All techniques share one article and one model, and the key assumptions check notes that their agreement is one observation seen from several angles."
+  },
+  {
+   "id": "C11",
+   "title": "The article's tiers name no measure of data quality or of training and support for the work.",
+   "text": "The tiers are tools working as designed, work getting better (time, quality, errors and the experience of staff and customers), people able to do new jobs, and an end state. Data quality appears only as one of the things usage cannot show (\"how good its data is\"), and training appears as a fix for team workarounds and not as a measure. The article does not claim to give a full account of AI success, so this may be a matter of scope and not an omission.",
+   "cells": {
+    "FQ-03": "S",
+    "TC1-19": "S",
+    "TC1-21": "S",
+    "CM1-01": "S",
+    "CM1-14": "P",
+    "DM-07": "A",
+    "TC1-13": "S"
+   },
+   "label": "none",
+   "reason": "This is a fact about the text, read directly from it. The lens sort found it in both runs, with counts that differ because the items were split differently (information quality had one primary item in the first run and none in the repeat). Absence analysis rated the related absences weak."
+  },
+  {
+   "id": "C12",
+   "title": "The outside sources fit parts of the article but do not test its workaround claims.",
+   "text": "The METR trial, a randomised study of 16 developers on 246 tasks, found tasks took 19% longer with AI while developers believed it had saved about 20%, so belief and measured result can diverge, in one task type. The Microsoft and LinkedIn survey reports that 78% of AI users bring their own AI tools to work, which fits the article's personal-tool example, and that 39% have had company training. The review of the information technology productivity paradox found evidence inconclusive partly because measures were inadequate, which fits measures being part of the problem and says nothing about workarounds.",
+   "cells": {
+    "FQ-03": "S",
+    "TC1-19": "S",
+    "TC1-21": "S",
+    "CM1-01": "A",
+    "CM1-14": "S",
+    "DM-07": "S",
+    "TC1-13": "A"
+   },
+   "label": "medium",
+   "reason": "Historical analogy and competing hypotheses use these sources and agree, and the lens sort and absence analysis use only the DeLone and McLean model. The METR trial and the productivity review are research that does not gain from the claim and show what is true of the world, within the limits of 16 developers and one summary. The Microsoft and LinkedIn survey is a vendor source and shows only what the vendor reports. All were read as search summaries, so their wording could not be checked by code, and the label is limited to medium."
   }
  ],
  "insights": [
   {
    "id": "I1",
-   "title": "The praise for the voice AI is a comparison with worse systems, not with traditional voice automation.",
-   "expected": "The favourable quotes would show that customers find voice AI more satisfying than the voice automation they know.",
-   "found": "The favourable comparators are website chat bots, a robot voice and repeating yourself, and no quote names a phone menu or interactive voice response system.",
-   "why_it_matters": "A favourable reaction in these interviews cannot be used as evidence that voice AI beats the voice automation it would replace.",
+   "title": "The article's main claim is partly true by definition, because it defines adoption as the opposite of a workaround.",
+   "expected": "A reader would expect an empirical diagnosis that evidence could confirm or refute.",
+   "found": "Under the article's own definition, adoption and workaround exclude each other, so the claim that adoption measures miss workarounds follows from the words. What stays open is how often counted use and effective use diverge, and the article does not show that.",
+   "why_it_matters": "The diagnosis is hard to refute and says less about practice than it first appears to.",
    "based_on": [
-    "C2",
-    "C3"
+    "C3",
+    "C4"
    ],
    "label": "medium",
-   "reason": "C2 is high and C3 is medium, so the insight takes the lower label. The same comparators may also reflect a low baseline from earlier tools, which the quotes cannot separate from real satisfaction."
+   "reason": "Rests on C4, which is medium, and on C3, a fact about the text."
   },
   {
    "id": "I2",
-   "title": "Wanting a human may be a first reaction that fades as the call goes on.",
-   "expected": "H3 assumes that customers either ask for a human straight away or do not.",
-   "found": "P4 says they would probably want to speak to someone at first, then finds it \"a really good process\" as it goes on, so the same participant is on both sides at different points.",
-   "why_it_matters": "A route to a human at the start may matter more than whether customers keep using it later.",
+   "title": "Usage counts do show some of the workarounds that the article says they hide.",
+   "expected": "The request and the article assume usage figures hide workarounds in general.",
+   "found": "A personal tool used in place of a slow approved tool, and abandonment, would appear as low use of the approved tool. Usage counts hide only workarounds that keep the tool open.",
+   "why_it_matters": "The blind spot is narrower than the article states, so its size needs evidence.",
    "based_on": [
-    "C5",
-    "C8"
+    "C4"
    ],
    "label": "medium",
-   "reason": "C5 and C8 are both medium. The fading is stated by one participant in one quote, and no technique had a second participant to compare it with."
+   "reason": "Rests on C4, which is medium."
   },
   {
    "id": "I3",
-   "title": "The stated reasons for hanging up are about the introduction and a refused human, not about learning it is an AI.",
-   "expected": "H2 assumes that the moment of learning it is an AI is what triggers a hang-up.",
-   "found": "P10 gives the length of the introduction and P5 makes the hang-up conditional on not getting a human, and the material does not say when the AI is disclosed.",
-   "why_it_matters": "The contradiction of H2 depends on counting any early exit as evidence, and a design change to the introduction could address both stated reasons.",
+   "title": "Two of the article's five workaround levels describe gaming a measure, not routing work around a tool.",
+   "expected": "All five levels would show the tool failing the person.",
+   "found": "The team and leadership examples come from workload and incentives, and the article's fixes for them are training time and a statement on how figures will be used.",
+   "why_it_matters": "Redesigning the tool would not remove the workarounds at those two levels.",
    "based_on": [
-    "C4",
     "C6"
    ],
    "label": "medium",
-   "reason": "C4 and C6 are both medium. The disconfirmation search shows that the AI itself cannot be ruled out as a driver for P5 and P10."
+   "reason": "Rests on C6, which is medium."
   },
   {
    "id": "I4",
-   "title": "The split is within people as well as between them.",
-   "expected": "The favourable and unfavourable quotes would come from two kinds of customer, enthusiasts and sceptics.",
-   "found": "P1 is favourable in Q1 and annoyed in Q6, and P4 moves from reluctance to approval in Q5, so the quotes attach to features and moments more than to types of customer.",
-   "why_it_matters": "Sorting participants into accepting and rejecting groups would misrepresent these interviews.",
+   "title": "The article's proposed replacement has the early availability and exposure to shaping that it faults in adoption counts.",
+   "expected": "A replacement measure would be expected to answer the weakness it is offered against.",
+   "found": "Workarounds found and removed can be reported in the first weeks, as adoption can, and the article's own examples show staff shaping what is recorded.",
+   "why_it_matters": "The first tier could report progress that staff have shaped, and the article does not say how it would avoid this.",
    "based_on": [
-    "C3",
-    "C6"
+    "C10"
    ],
-   "label": "medium",
-   "reason": "C3 and C6 are both medium. The pattern rests on two participants, and the favourable and unfavourable groups may differ in the question each was answering and not in feeling."
+   "label": "high",
+   "reason": "Rests on C10, which is high."
   }
  ],
  "narrative": {
   "paragraphs": [
-   "Do the eight interviews support the three hypotheses? Not as a set. Of the ten quotes from six participants, the clearest result is that none of the hypotheses is shown in the form it was written, although the evidence leans towards a favourable view of the voice AI for H1 and against H3. Ten techniques, which read the quotes by tabulating, counting, theme reading, stance labelling, rival-hypothesis rating, a search for disconfirming statements and a re-run under changed rules, reached the same overall reading, and no change to the inclusion rules reversed it.",
-   "H1 is partly supported in direction. P1, P2 and P3 speak well of the AI and P4 comes round to it, while P5 and P10 object and P1 is annoyed in a second quote, so the quoted participants are split. No quote compares the AI with traditional voice automation. The comparators are chat bots, a robot voice and having to repeat yourself, so the hypothesis cannot be tested as written, and the praise is better read as relief from worse experiences. The split is a tie or four against two depending on coding, and one repeat run of the stance detection gave a different label for Q7, so the balance is medium confidence.",
-   "H2 and H3 are where the techniques disagreed on the label and agreed on the facts. P10 would have hung up at the intro and P5 would probably have hung up if no human was offered. P4 would probably ask for a human at the introduction and P5 would ask. If any early exit or request counts, H2 and H3 are contradicted for two participants each. If the cause of the hang-up must be learning it is an AI, or if hypothetical statements are excluded, both become untested. The cause of the conflict is therefore the definition used, not a difference in what the participants said. H2 and H3 are both medium confidence because P4's statement is hedged, P5 gives no timing and the material does not say where the AI is disclosed.",
-   "The reasons participants give are specific: the American voice, a cold voice, a stressful car accident, a long introduction and earlier experience with AI agents. These point to context and delivery more than to rejection of voice AI, but the disconfirmation search shows that P5 and P10 also name the AI, and the link between Q7 and the motor claim scenario is inferred. Whether the AI itself, as distinct from these features, drives the reactions is unresolved. Where leaving or asking is imagined, it is at the start of the call, and P4's wish for a human fades.",
-   "For the decision, the findings describe six participants and ten selected quotes. P8 and P9 have no quote, the basis for choosing the quotes is unknown, and every hang-up and human-request statement is hypothetical, from people who heard prerecorded scenarios. All techniques read the same material and were run by the same model, so their agreement is a check on method and not independent evidence. The quotation and spot checks passed, and no person reviewed the results. The findings show a link between a human-sounding voice and approval, and between the opening of the call and the wish to leave or reach a person, and they cannot show how common either pattern is."
+   "The request asked whether the article \"Adopt an AI, today: a workaround for measuring AI transformation\" accurately diagnoses its phenomenon (organisations measure AI transformation by adoption, and adoption measures miss workarounds and value) and whether its point of view is valid. The user did not confirm this request after the inference step. The request and its two parts (accuracy of the diagnosis, validity of the point of view) were accepted as inferred, and outside evidence was allowed, by decision of this simulated run. No person reviewed the results, which fits the exploratory stakes.",
+   "The narrow diagnosis holds. A count of users, frequency and tokens cannot show how work was completed, so parallel running, repeated attempts and token use without effective work all look like adoption (C4). It holds for workarounds that keep the tool open and not for a personal tool used in place of the approved one, or for abandonment, which show as low use. It is also partly true by definition, because the article uses \"adoption\" for counted use in one place and for effective use in another (C3).",
+   "What the article does not show is how common any of this is. It names no study, sample or count for what organisations do or for its workaround examples (C2), and it gives no case where usage matched value or evidence that its tiers work (C9). The claim that organisations mostly report adoption is plausible and unconfirmed (C5). The wider claims are weaker than the narrow one: the heading that every workaround shows a design failure is wider than its own team and leadership examples (C6), the claim that people do not adopt AI is the weakest step but is not needed by the diagnosis (C8), and the statement about removed work holds for usage counts and not for measurement in general (C7).",
+   "The point of view is strongest where it says what a usage measure cannot show and weaker as it moves to causes and to a remedy. The first tier of the remedy counts workarounds found, and the article's own examples show staff shaping what is recorded, so that count could be distorted in the same way as a usage figure (C10). The tiers also name no measure of data quality or of training and support (C11).",
+   "Conflicts between findings had named causes. Calling the reasoning sound while reporting tensions in it was a difference of scope, narrow argument against wider claims. Calling one argument both strongest and circular was a difference between its factual part and its definitional step. Calling the claim that people do not adopt AI both a weak link and separable was a difference in whether the argument is a chain, treated here as separable. Whether the statement on removed work conflicts with the medium-term tier is unresolved, with three readings (defect, difference of scale, sequencing). The repeat runs agreed on the main points. The repeat lens sort listed 38 items against 35, with use at 16 items against 10, because items were split and assigned differently, and both found information quality and user satisfaction thin and no evidence given for any claim. The repeat argument map found five arguments against six, read the removed-work statements as reconcilable where the first run saw an inconsistency, and rated the first tier the strongest part of the remedy where the first run stressed its weak link to value. Both agreed that the heading on design failure overreaches and that the claim about adopting AI is the least supported.",
+   "The outside sources fit parts of the article and test none of its workaround claims (C12). All four were read as search summaries, so conclusions that depend on them are limited to medium, and the vendor survey shows only what the vendor reports. The source-span check by code matched most spans, and its failures were labels, search terms and text from outside sources, not article quotations. The spot check found 10 of 10 sampled quotations exactly in the article. All techniques share one article of unknown date and publisher, supplied as text, and one model."
   ]
  }
 }

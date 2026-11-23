@@ -1,0 +1,4 @@
+Source E2. 2024 Work Trend Index: AI at work is here, now comes the hard part. Publisher: Microsoft and LinkedIn (a vendor survey report). Date: 8 May 2024. Link: https://www.microsoft.com/en-us/worklab/work-trend-index/ai-at-work-is-here-now-comes-the-hard-part
+Read: search summary (not the full report).
+What it reports: 75% of knowledge workers surveyed use AI at work. 78% of AI users bring their own AI tools to work. 39% of users have received AI training from their company. 79% of leaders agree AI adoption is critical to stay competitive, and 60% say their company lacks a vision and plan to implement it. 53% of AI users worry that revealing AI use signals they are replaceable (reported by Axios from the same report).
+Note: the publisher sells AI products and the survey method was not read.

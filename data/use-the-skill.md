@@ -1,6 +1,6 @@
 The skill runs the startthat.work process on your question and your material. It is named `analysis`. It works in Claude and in GitHub Copilot, because both read the same skill format: a folder with a `SKILL.md` file, reference files and scripts.
 
-<p><a class="button" href="/downloads/analysis.zip" download>Download analysis.zip</a> Version 1.5.1, 286 KB. It unzips to one folder named <code>analysis</code>.</p>
+<p><a class="button" href="/downloads/analysis.zip" download>Download analysis.zip</a> Version 1.5.2, 287 KB. It unzips to one folder named <code>analysis</code>.</p>
 
 If you cannot install a skill, or want to see what the process does, you can follow the same steps yourself: see [Use by hand](/by-hand/).
 
@@ -73,7 +73,7 @@ Where the application can create a document, the answer is delivered as a docume
 
 ## What has and has not been tested
 
-The skill has run once on ten interview quotes, with each technique as a separate agent, and once inside Claude on an article. It has not run in GitHub Copilot. These parts have not been run anywhere: the high-stakes review of a sample, delivery of the answer as a document, the personal information waiver, and a follow-up round. The confidence rule is a design choice, and the tags that decide which techniques fit are inference unless a catalogue row says otherwise. The open items on the [status page](/status/#open-items) list the rest.
+The skill has run once end to end on an article, with each technique as a separate agent, and once inside Claude on the same article under an earlier version. It has not run in GitHub Copilot. These parts have not been run anywhere: the high-stakes review of a sample, delivery of the answer as a document, the personal information waiver, and a follow-up round. The confidence rule is a design choice, and the tags that decide which techniques fit are inference unless a catalogue row says otherwise. The open items on the [status page](/status/#open-items) list the rest.
 
 ## Updating
 

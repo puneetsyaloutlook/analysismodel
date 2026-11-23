@@ -1,0 +1,38 @@
+{
+ "picks": [
+  {
+   "id": "CF-04",
+   "reason": "Weighs the lines of evidence (the article read closely, the outside studies and the vendor survey) by reliability and relevance, so the conclusion on prevalence rests on the better lines."
+  },
+  {
+   "id": "UC-01",
+   "reason": "Rates each qualitative conclusion on methodological limits, relevance, coherence and adequacy of data, which adds a stated reason beyond the agreement count."
+  },
+  {
+   "id": "UC-06",
+   "reason": "Records in the text how the evidence and the agreement between techniques were evaluated, so a reader can retrace each stated confidence."
+  }
+ ],
+ "dropped": [
+  {
+   "id": "UC-02",
+   "reason": "Gives probability words for probabilistic judgements; these conclusions are not probabilities."
+  },
+  {
+   "id": "UC-05",
+   "reason": "Duplicates the confidence label with a second two-metric scheme."
+  },
+  {
+   "id": "UC-04",
+   "reason": "Does the same job as the fixed confidence rule."
+  },
+  {
+   "id": "CF-08",
+   "reason": "An assurance case builds a claim tree; the argument analyses already did this."
+  },
+  {
+   "id": "CF-09",
+   "reason": "Needs a panel, which the brief does not hold."
+  }
+ ]
+}

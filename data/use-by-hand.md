@@ -110,7 +110,7 @@ Do not judge whether the material is representative or large enough. You chose i
 
 ## An example from the stored run
 
-The [simulator](/simulator/) replays one run. The request was whether eight interviews support three hypotheses, at decision-informing stakes, wanting to show a link between things, looking for a pattern or a contradiction. Of the 236 analysis techniques, 142 could work on the material. Ten were chosen: the hypothesis tree to examine the question, six primary techniques for the interviews and three techniques to test the findings. The process added one preparation technique, preprocessing sensitivity testing, because stance detection needs a cleaned dataset. The run ended with nine conclusions (four well supported and five with weaker support) and four insights.
+The [simulator](/simulator/) replays one run. The request was whether an article on measuring AI adoption diagnoses its subject accurately and whether its point of view is valid, at exploratory stakes, with a description as the strongest statement needed. The request has two parts: the first needs evidence from outside the article and the second can be answered from it. Of the 236 analysis techniques, 141 could work on the article. Ten were chosen: one to examine the question, six to analyse the article and three to test the findings. Four outside sources were found for the techniques that needed them. The run ended with twelve conclusions (four facts about the text, one well supported and seven with weaker support) and four insights.
 
 ## What you lose compared with the skill
 

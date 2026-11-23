@@ -1,0 +1,3 @@
+Source E3. The Productivity Paradox of Information Technology: Review and Assessment. Author: Erik Brynjolfsson, MIT Sloan School of Management. Published in Communications of the ACM, December 1993. Link: https://ccs.mit.edu/papers/CCSWP130/ccswp130.html
+Read: search summary (abstract and introduction).
+What it reports: a review of studies of information technology and productivity. It found that earlier studies generally did not identify significant productivity gains, and it judged that the evidence was inconclusive, partly because productivity from IT was almost impossible to assess with the measures then available. A later paper by Brynjolfsson and Hitt (1998, Communications of the ACM) reported positive results from new data.

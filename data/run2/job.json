@@ -1,6 +1,6 @@
 {
- "name": "Do the eight interviews support the three hypotheses H1 to H",
- "question": "Do the eight interviews support the three hypotheses H1 to H3 about voice AI customer support?",
+ "name": "Does the article accurately diagnose the phenomenon it descr",
+ "question": "Does the article accurately diagnose the phenomenon it describes (organisations measure AI transformation by adoption, and adoption measures miss workarounds and value) and is its point of view valid: are its claims supported by its own evidence, is its reasoning sound, and what does it assume or leave out?",
  "material_profile": {
   "content_type": [
    "text"
@@ -23,20 +23,32 @@
    "unknown"
   ]
  },
- "claim_level_needed": "associate",
- "stakes_tier": "decision-informing",
- "insight_wanted": [
-  "pattern",
-  "contradiction"
+ "claim_level_needed": "describe",
+ "stakes_tier": "exploratory",
+ "insight_wanted": "yes",
+ "parts": [
+  {
+   "text": "Does the article accurately diagnose the phenomenon it describes (organisations measure AI transformation by adoption, and adoption measures miss workarounds and value)",
+   "scope": {
+    "value": "topic",
+    "basis": "stated"
+   }
+  },
+  {
+   "text": "is its point of view valid: are its claims supported by its own evidence, is its reasoning sound, and what does it assume or leave out?",
+   "scope": {
+    "value": "material",
+    "basis": "stated"
+   }
+  }
  ],
+ "topic_parts": 1,
+ "outside_evidence": "yes",
  "basis": {
   "question": "stated",
-  "claim_level_needed": "inferred",
-  "stakes_tier": "inferred",
+  "claim_level_needed": "stated",
+  "stakes_tier": "stated",
   "insight_wanted": "inferred"
  },
- "unconfirmed": [
-  "stakes_tier",
-  "claim_level_needed"
- ]
+ "unconfirmed": []
 }

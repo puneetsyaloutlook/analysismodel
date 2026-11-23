@@ -1,27 +1,51 @@
 {
- "MM-10": {
-  "compared": 30,
-  "same": 28,
+ "DM-07": {
+  "compared": 20,
+  "same": 14,
   "different": [
    [
-    "Q7",
-    "H1",
-    "none",
-    "oppose"
+    "L5",
+    "Net benefits and Use",
+    "Use"
    ],
    [
-    "Q10",
-    "H2",
-    "oppose",
-    "neutral"
+    "L8",
+    "Information quality, Net benefits, System quality and User satisfaction",
+    "Net benefits and System quality"
+   ],
+   [
+    "L17",
+    "Outside the lens",
+    "Use"
+   ],
+   [
+    "L27",
+    "Outside the lens",
+    "Use"
+   ],
+   [
+    "L32",
+    "Outside the lens",
+    "Use and User satisfaction"
+   ],
+   [
+    "L41",
+    "Outside the lens",
+    "Use"
    ]
   ],
-  "note": "Targets compared: the three that correspond to H1, H2 and H3. The original also labelled a general stance (T1), which the repeat run did not."
+  "note": "Compared the dimensions given to each article line that both runs sorted (20 lines). The first run listed 35 items and the repeat 38, so only lines that both runs sorted were compared. The runs differ mostly on whether a line about the article's own reasoning is outside the model or about use."
  },
- "HE1-15": {
-  "compared": 4,
-  "same": 4,
-  "different": [],
-  "note": "Compared the quotes coded favourable, unfavourable, would hang up and would ask for a human. Both runs coded the same quotes in all four."
+ "TC1-19": {
+  "compared": 6,
+  "same": 5,
+  "different": [
+   [
+    "Argument 1 (organisations report adoption because it can be counted early)",
+    "separate argument",
+    "not treated as a separate argument"
+   ]
+  ],
+  "note": "Compared the arguments the two runs diagrammed. The first run found six. The repeat found five and folded the reporting claim into its first argument. The other five arguments match on claim."
  }
 }

@@ -1,0 +1,39 @@
+{
+ "question": {
+  "value": "Does the article accurately diagnose the phenomenon it describes (organisations measure AI transformation by adoption, and adoption measures miss workarounds and value) and is its point of view valid: are its claims supported by its own evidence, is its reasoning sound, and what does it assume or leave out?",
+  "basis": "stated"
+ },
+ "claim_level_needed": {
+  "value": "describe",
+  "basis": "stated"
+ },
+ "stakes_tier": {
+  "value": "exploratory",
+  "basis": "stated"
+ },
+ "insight_wanted": {
+  "value": "yes",
+  "basis": "inferred"
+ },
+ "overrides": {
+  "privacy": "no personal information"
+ },
+ "parts": [
+  {
+   "text": "Does the article accurately diagnose the phenomenon it describes (organisations measure AI transformation by adoption, and adoption measures miss workarounds and value)",
+   "scope": {
+    "value": "topic",
+    "basis": "inferred"
+   }
+  },
+  {
+   "text": "is its point of view valid: are its claims supported by its own evidence, is its reasoning sound, and what does it assume or leave out?",
+   "scope": {
+    "value": "material",
+    "basis": "inferred"
+   }
+  }
+ ],
+ "scope_answer": "accept",
+ "outside_evidence": "yes"
+}

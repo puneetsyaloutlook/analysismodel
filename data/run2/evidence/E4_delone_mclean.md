@@ -1,0 +1,3 @@
+Source E4. The DeLone and McLean Model of Information Systems Success: A Ten-Year Update. Authors: William H. DeLone and Ephraim R. McLean. Journal of Management Information Systems, volume 19, number 4, 2003, pages 9 to 30. Link: https://jmis-web.org/articles/271
+Read: search summary (abstract, and descriptions in other papers).
+What it contains (reference structure): the updated model has six interrelated dimensions of information system success: information quality, system quality, service quality, use (or intention to use), user satisfaction and net benefits. In the model, use is a separate dimension from net benefits. Use and user satisfaction influence the net benefits, and net benefits feed back into later use and satisfaction.

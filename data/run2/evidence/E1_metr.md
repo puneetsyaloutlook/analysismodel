@@ -1,0 +1,4 @@
+Source E1. Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity. Publisher: METR (a non-profit research group). Date: 10 July 2025. Link: https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/
+Read: search summary (not the full paper).
+What it reports: a randomised controlled trial with 16 experienced open-source developers who completed 246 real tasks in repositories they knew well. Each task was randomly assigned to allow or disallow AI tools. When AI was allowed, tasks took 19% longer. Before the tasks the developers forecast AI would cut completion time by 24%. After the tasks they still believed it had cut time by 20%.
+Limits stated by the source: it studies software development only, early-2025 tools and a small group of experienced developers.

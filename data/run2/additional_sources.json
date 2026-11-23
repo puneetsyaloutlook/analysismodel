@@ -1,0 +1,46 @@
+[
+ {
+  "item": "Randomised trial of AI tools and developer time (19% slower; forecast 24% faster; still believed 20% faster)",
+  "source": "https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/",
+  "source_type": "research",
+  "technique": "TC1-13, TC1-16",
+  "file": "evidence/E1_metr.md",
+  "read": "search summary",
+  "shows": "what is true of the world",
+  "gains_from_claim": "no",
+  "code_checkable": false
+ },
+ {
+  "item": "Survey: 78% of AI users bring their own AI tools to work; 39% trained by their company",
+  "source": "https://www.microsoft.com/en-us/worklab/work-trend-index/ai-at-work-is-here-now-comes-the-hard-part",
+  "source_type": "vendor",
+  "technique": "TC1-13, TC1-16",
+  "file": "evidence/E2_worktrend.md",
+  "read": "search summary",
+  "shows": "what it says or does",
+  "gains_from_claim": "unknown",
+  "code_checkable": false
+ },
+ {
+  "item": "Comparator: the productivity paradox of information technology",
+  "source": "https://ccs.mit.edu/papers/CCSWP130/ccswp130.html",
+  "source_type": "research",
+  "technique": "CM1-01",
+  "file": "evidence/E3_brynjolfsson.md",
+  "read": "search summary",
+  "shows": "what is true of the world",
+  "gains_from_claim": "no",
+  "code_checkable": false
+ },
+ {
+  "item": "Reference structure: DeLone and McLean information systems success model (use separate from net benefits)",
+  "source": "https://jmis-web.org/articles/271",
+  "source_type": "research",
+  "technique": "CM1-14, DM-07",
+  "file": "evidence/E4_delone_mclean.md",
+  "read": "search summary",
+  "shows": "what it says or does",
+  "gains_from_claim": "no",
+  "code_checkable": false
+ }
+]

@@ -2,15 +2,15 @@ This page says what startthat.work does not do, what has not been tested and whe
 
 ## What has been tested
 
-The process has run completely once, on a short set of interview quotes (507 words) with a question about three hypotheses. Steps 7 and 8 were then run again on that run to show later versions of the answer. The skill has been run once inside Claude, by its author, on an article. It has not been run in GitHub Copilot. Following the process by hand, as described on [Use by hand](/by-hand/), has not been tested by anyone. The page restates the process. The stored run is the evidence for every claim on this site about how the process behaves, and it is one run on one small brief. The changes of version 1.5.0 (the scope question, the pause for parts the material cannot answer, outside evidence in step 5.2 and the label for facts about the text) have been tested only on the scripts. They have not been run end to end.
+The process has run completely once, on an article of about 2,050 words with a two-part question, under version 1.5.1, with each technique as a separate agent. The run's author answered the questions the process asks of a user, so the user's side of the process has not been tested. The skill has also been run once inside Claude, by its author, on the same article, under an earlier version. It has not been run in GitHub Copilot. Following the process by hand, as described on [Use by hand](/by-hand/), has not been tested by anyone. The page restates the process. The stored run is the evidence for every claim on this site about how the process behaves, and it is one run on one article. The outside sources in that run were read as search summaries, so code could not check their wording, and the conclusions that depend on them are limited to medium.
 
 Not run at all:
 
 - The high-stakes path: the pause at the end of step 6 that asks a person to review a sample of the results.
 - The rule that keeps personal information out of techniques that cannot take it, and the waiver that keeps a technique when de-identification runs first.
-- Step 5.2 with an additional source. The stored run needed none.
+- Step 5.2 when no source can be found for a technique that needs one. The stored run found all four it needed, and found none for one question.
 - The follow-up round.
-- The edit option after 5.1. The user kept the request in the stored run.
+- The edit option after 5.1, and a user's own answers to the scope and outside evidence questions. The run's author kept the request and accepted both in place of the user.
 
 ## What the answer rests on
 
@@ -18,13 +18,13 @@ Every technique in a run reads the same material and is run by the same language
 
 The grouping of conclusions into well supported and weaker support follows that rule. Treat the groups as how well the techniques support a conclusion as it is written, and not as the likelihood that it is true.
 
-The process does not judge whether your material is representative or large enough, because you chose it and know its limits. A well supported conclusion can still rest on eight interviews.
+The process does not judge whether your material is representative or large enough, because you chose it and know its limits. A well supported conclusion can still rest on one short article.
 
 ## Checks that need a person
 
 Checks that need a person apply at high stakes only. Below high stakes the plan leaves them out and the answer says that no person reviewed the results. For a decision that is costly or hard to reverse, set the stakes to high-stakes and review the sample you are shown. That path has not been run.
 
-Checks by code cover few cases for some techniques. In the stored run the spot check compared 0 to 3 quote and participant pairs for four of the techniques, which says little about them.
+Checks by code cover few cases for some techniques. In the stored run the spot check compared 2 to 10 quotations for each of three techniques. The technique that quotes the article least, lens application, was checked on two.
 
 ## The catalogue
 

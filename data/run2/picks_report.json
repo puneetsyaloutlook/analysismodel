@@ -1,0 +1,26 @@
+{
+ "picks": [
+  {
+   "id": "RC-02",
+   "reason": "States what the analysis cannot show and which conclusion each limit affects, which makes the not-covered part and the caveats specific."
+  }
+ ],
+ "dropped": [
+  {
+   "id": "RA-01",
+   "reason": "The request asks for no recommendation and names no audience."
+  },
+  {
+   "id": "SA-04",
+   "reason": "The fixed summary already answers the request in plain language."
+  },
+  {
+   "id": "VD-14",
+   "reason": "The answer shows no numbers or charts."
+  },
+  {
+   "id": "RU-08",
+   "reason": "No outcome estimates to tabulate."
+  }
+ ]
+}

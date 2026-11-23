@@ -149,6 +149,8 @@ def make_simulator():
     _mat = re.sub(r"^# .*\n", "", (DATA / "run2" / "source_material.md").read_text(encoding="utf-8"), count=1)
     run["material_html"] = md_block(demote(_mat))
     run["results_html"] = {k: md_block(demote(v)) for k, v in run.pop("results").items()}
+    for _a in run["additional"]:
+        _a["html"] = md_block(demote(_a.pop("text")))
     for pk in run["picks"]:
         pk["ceiling"] = BY_ID[pk["id"]]["claim_ceiling"].strip()
     for _k, _items in run["stages"].items():
@@ -191,7 +193,7 @@ def make_simulator():
 """
     mat = (DATA / "run2" / "source_material.md").read_text(encoding="utf-8")
     mat = re.sub(r"^# .*\n", "", mat, count=1)
-    add_page("/simulator/material/", "Submitted content: voice AI interviews", "Overview",
+    add_page("/simulator/material/", "Submitted content: article on measuring AI adoption", "Overview",
              "<p>This is the content submitted for the run in the simulator. <a href=\"/simulator/\">Back to the simulator</a>.</p>" + md_block(demote(mat)),
              "The content submitted for the simulator run.", toc=False, wide=True)
     add_page("/simulator/", "Simulator", "Overview", body,

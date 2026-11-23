@@ -1,601 +1,943 @@
 {
- "CM1-05": [
+ "CM1-01": [
   [
-   "this one seems to be pretty dynamic",
+   "we've done this before with methods that still work",
    true
   ],
   [
-   "never work",
-   true
-  ],
-  [
-   "a little bit annoyed",
-   true
-  ],
-  [
-   "at the beginning",
-   true
-  ],
-  [
-   "It seemed like talking to a real person",
-   true
-  ],
-  [
-   "really excellent",
-   true
-  ],
-  [
-   "really seamless",
-   true
-  ],
-  [
-   "a really good process",
-   true
-  ],
-  [
-   "to speak to someone",
-   true
-  ],
-  [
-   "I would do it",
-   true
-  ],
-  [
-   "extremely frustrated",
-   true
-  ],
-  [
-   "very cold in clinical",
-   true
-  ],
-  [
-   "I probably would've hung up",
-   true
-  ],
-  [
-   "I would've asked for a human.",
-   true
-  ],
-  [
-   "AI voice",
-   true
-  ],
-  [
-   "American",
-   true
-  ],
-  [
-   "local experience",
-   true
-  ],
-  [
-   "I would've definitely have hung up at the intro.",
-   true
-  ],
-  [
-   "way too long",
-   true
-  ],
-  [
-   "robot voice",
-   true
-  ],
-  [
-   "repeat yourself",
-   true
-  ],
-  [
-   "would",
-   true
-  ],
-  [
-   "no evidence",
+   "found that earlier studies generally did not identify significant productivity gains, and it judged that the evidence was inconclusive, partly because productivity from IT was almost impossible to assess with the measures then available.",
    false
   ],
   [
-   "would",
-   true
-  ]
- ],
- "DM-02": [
-  [
-   "this one seems to be pretty dynamic",
-   true
-  ],
-  [
-   "it knew exactly what it needed to ask",
-   true
-  ],
-  [
-   "really seamless",
-   true
-  ],
-  [
-   "a really good process",
-   true
-  ],
-  [
-   "I felt a little bit annoyed",
-   true
-  ],
-  [
-   "I would be extremely frustrated",
-   true
-  ],
-  [
-   "it's American",
-   true
-  ],
-  [
-   "it was way too long",
-   true
-  ],
-  [
-   "those never work",
-   true
-  ],
-  [
-   "sometimes when you are talking to a more of a robot, it sounds more like a robot voice",
-   true
-  ],
-  [
-   "you have to repeat yourself",
-   true
-  ],
-  [
-   "parsed, um, articles from their own website",
-   true
-  ],
-  [
-   "an AI voice",
-   true
-  ],
-  [
-   "I would've definitely have hung up at the intro.",
-   true
-  ],
-  [
-   "I probably would've hung up and then tried to do it manually online",
-   true
-  ],
-  [
-   "it was way too long",
-   true
-  ],
-  [
-   "If I was gonna do it, that's probably where I would do it",
-   true
-  ],
-  [
-   "I would've asked for a human.",
-   true
-  ],
-  [
-   "I'd be probably wanting to speak to someone",
-   true
-  ],
-  [
-   "immediately",
-   true
-  ],
-  [
-   "immediately",
-   true
-  ],
-  [
-   "would've",
-   true
-  ],
-  [
-   "if I was",
-   true
-  ],
-  [
-   "a really good process",
-   true
-  ]
- ],
- "HE1-13": [
-  [
-   "This AI definitely seems a bit more, uh, advanced.",
-   true
-  ],
-  [
-   "just parsed, um, articles from their own website",
-   true
-  ],
-  [
-   "this one seems to be pretty dynamic.",
-   true
-  ],
-  [
-   "It seemed like talking to a real person.",
-   true
-  ],
-  [
-   "knew exactly what it needed to ask.",
-   true
-  ],
-  [
-   "that was really excellent. It was like really seamless.",
-   true
-  ],
-  [
-   "to repeat yourself and stuff.",
-   true
-  ],
-  [
-   "at first. I mean, if it was myself, I'd be probably wanting to speak to someone, but then as the process goes on, you realise it's actually, um, a really good process.",
-   true
-  ],
-  [
-   "I definitely felt, um. I felt a little bit annoyed 'cause I've had pre uh, previous experiences with AI agents especially...",
-   true
-  ],
-  [
-   "First of all, this sounds very much like an AI voice. Um, and second of all, it's American. So I want, you know, that local experience.",
-   true
-  ],
-  [
-   "if I was in a car accident and then immediately spoke to an AI assistant, I would be extremely frustrated... It's a stressful environment and AI in its current state, and especially with the, the voice that's been decided to be used in that scenario as very cold in clinical.",
-   true
-  ],
-  [
-   "I would've definitely have hung up at the intro. This one? At the intro. Okay. Yeah, it was way too long.",
-   true
-  ],
-  [
-   "If I was gonna do it, that's probably where I would do it",
-   true
-  ],
-  [
-   "I would've asked for a human. Yeah. If I didn't get that, then. I probably would've hung up and then tried to do it manually online.",
-   true
-  ],
-  [
-   "I would've definitely have hung up at the intro.",
-   true
-  ],
-  [
-   "if you wanted to, um, get a human. Agent on the line, you could as well at the beginning.",
-   true
-  ],
-  [
-   "I would've definitely have hung up at the intro",
-   true
-  ],
-  [
-   "some participants say they would leave early",
+   "reported positive results from new data.",
    false
   ],
   [
-   "when they learn",
-   true
-  ],
-  [
-   "positive",
+   "measures were inadequate",
    false
   ],
   [
-   "negative",
-   false
-  ]
- ],
- "HE1-14": [
-  [
-   "No coded data",
+   "does not show up quickly in financial results",
    false
   ],
   [
-   "a bit more, uh, advanced",
-   true
-  ],
-  [
-   "pretty dynamic",
-   true
-  ],
-  [
-   "Like those never work",
-   true
-  ],
-  [
-   "a little bit annoyed",
-   true
-  ],
-  [
-   "if you wanted to, um, get a human. Agent on the line, you could as well at the beginning",
-   true
-  ],
-  [
-   "It seemed like talking to a real person",
-   true
-  ],
-  [
-   "it knew exactly what it needed to ask",
-   true
-  ],
-  [
-   "robot voice",
-   true
-  ],
-  [
-   "really excellent",
-   true
-  ],
-  [
-   "really seamless",
-   true
-  ],
-  [
-   "kind of like he was talking to an actual person",
-   true
-  ],
-  [
-   "you realise it's actually, um, a really good process",
-   true
-  ],
-  [
-   "at first",
-   true
-  ],
-  [
-   "probably",
-   true
-  ],
-  [
-   "that's probably where I would do it",
-   true
-  ],
-  [
-   "extremely frustrated",
-   true
-  ],
-  [
-   "I probably would've hung up",
-   true
-  ],
-  [
-   "I would've asked for a human.",
-   true
-  ],
-  [
-   "very cold in clinical",
-   true
-  ],
-  [
-   "local experience",
-   true
-  ],
-  [
-   "way too long",
-   true
-  ],
-  [
-   "I would've definitely have hung up at the intro.",
-   true
-  ],
-  [
-   "this sounds very much like an AI voice",
-   true
-  ],
-  [
-   "robot voice",
-   true
-  ]
- ],
- "HE1-15": [
-  [
-   "at first",
-   true
-  ],
-  [
-   "a really good process",
-   true
-  ],
-  [
-   "robot voice",
-   true
-  ],
-  [
-   "to repeat yourself",
-   true
-  ],
-  [
-   "chat bots",
-   true
-  ],
-  [
-   "satisfying",
-   true
-  ],
-  [
-   "I would've definitely have hung up at the intro",
-   true
-  ],
-  [
-   "If I was gonna do it, that's probably where I would do it",
-   true
-  ],
-  [
-   "I would've asked for a human",
-   true
-  ],
-  [
-   "Only some participants are quoted",
-   true
-  ]
- ],
- "MM-10": [
-  [
-   "would have",
+   "removes the need for the work",
    false
   ],
   [
-   "pretty dynamic",
+   "These are actual observations from research on tools and agentic automation",
    true
   ],
   [
-   "really excellent",
+   "check against mechanism",
+   false
+  ],
+  [
+   "shows up quickly in financial results",
    true
   ],
   [
-   "really seamless",
+   "partly because",
+   false
+  ],
+  [
+   "cannot show",
    true
   ],
   [
-   "a really good process",
+   "partly",
+   false
+  ],
+  [
+   "measures are a contributing problem",
+   false
+  ],
+  [
+   "measures are the problem",
+   false
+  ],
+  [
+   "the value of AI takes time to show up in the numbers",
    true
   ],
   [
-   "a little bit annoyed",
+   "as a stand-in for headcount",
    true
   ],
   [
-   "extremely frustrated",
+   "ordinary parts of the tools people use for their work",
    true
   ],
   [
-   "very cold in clinical",
+   "no earlier version of the work to compare it with",
    true
   ],
   [
-   "way too long",
+   "we've done this before with methods that still work",
    true
   ],
   [
-   "I would've asked for a human.",
+   "partly",
+   false
+  ],
+  [
+   "actual observations",
    true
   ],
   [
-   "a really good process",
+   "actual observations from research",
    true
   ],
   [
-   "immediately",
+   "seems to have gone mainstream",
    true
   ]
  ],
- "PE-02": [
+ "CM1-14": [
   [
-   "seamless",
+   "Adopt an AI, today: a workaround for measuring AI transformation",
    true
   ],
   [
-   "seamles",
+   "adopt",
    true
   ],
   [
-   "process",
+   "workaround",
    true
   ],
   [
-   "proces",
+   "measure",
    true
   ],
   [
-   "this one seems to be pretty dynamic",
+   "value",
    true
   ],
   [
-   "seemed like talking to a real person",
+   "interface",
    true
   ],
   [
-   "that was really excellent",
+   "training",
    true
   ],
   [
-   "a really good process",
+   "outcome",
    true
   ],
   [
-   "robot",
+   "trust",
    true
   ],
   [
-   "this sounds very much like an AI voice",
+   "evidence",
    true
   ],
   [
-   "I would've definitely have hung up at the intro.",
+   "research",
    true
   ],
   [
-   "I probably would've hung up and then tried to do it manually online.",
+   "quality",
    true
   ],
   [
-   "I'd be probably wanting to speak to someone",
+   "data",
    true
   ],
   [
-   "If I was gonna do it, that's probably where I would do it",
+   "cost",
    true
   ],
   [
-   "I would've asked for a human.",
+   "satisf",
+   false
+  ],
+  [
+   "survey",
+   false
+  ],
+  [
+   "study",
+   false
+  ],
+  [
+   "baseline",
+   false
+  ],
+  [
+   "benefit",
+   false
+  ],
+  [
+   "govern",
+   false
+  ],
+  [
+   "safety",
+   false
+  ],
+  [
+   "security",
+   false
+  ],
+  [
+   "privacy",
+   false
+  ],
+  [
+   "feedback",
+   false
+  ],
+  [
+   "counts use",
    true
   ],
   [
-   "human",
+   "whether the work is done better, faster or more reliably, which is what the original investment was for",
    true
   ],
   [
-   " and ",
+   "acceptable speed",
    true
   ],
   [
-   "robot",
+   "how good its data is",
    true
   ],
   [
-   "robot",
+   "the experience of staff and customers",
    true
   ],
   [
-   "only some participants are quoted",
+   "Boards mostly point AI at cost reduction",
    true
   ],
   [
-   "immediately",
+   "vendors set their pricing based on seats and usage",
+   true
+  ],
+  [
+   "These are actual observations from research on tools and agentic automation.",
+   true
+  ],
+  [
+   "use and effective work can move in opposite directions",
+   true
+  ],
+  [
+   "none of these tiers is new",
+   true
+  ],
+  [
+   "does not show up quickly in financial results",
+   false
+  ],
+  [
+   "how it was done before",
+   true
+  ],
+  [
+   "can be counted from the first week",
+   true
+  ],
+  [
+   "where the design failed",
+   true
+  ]
+ ],
+ "DM-07": [
+  [
+   "outside the lens",
+   false
+  ],
+  [
+   "These are actual observations from research on tools and agentic automation.",
+   true
+  ],
+  [
+   "Adoption seems to have gone mainstream",
+   true
+  ],
+  [
+   "adoption",
+   true
+  ],
+  [
+   "cannot see workarounds",
+   true
+  ],
+  [
+   "workaround present",
+   false
+  ],
+  [
+   "design failed",
+   true
+  ]
+ ],
+ "FQ-03": [
+  [
+   "evidence",
+   true
+  ],
+  [
+   "Adoption",
+   true
+  ],
+  [
+   "counts use: how many people use an app or agent, how often they use its AI features, and how many tokens they consume",
+   true
+  ],
+  [
+   "High usage suggests the same work could be done by fewer people",
+   true
+  ],
+  [
+   "People use a tool as designed or work around it",
+   true
+  ],
+  [
+   "If adoption means anything at work, it means the tool works well enough, as designed, for people to get the job done with it.",
+   true
+  ],
+  [
+   "AI adoption assumes that people actually ",
+   true
+  ],
+  [
+   ". Taken literally, they do not.",
+   true
+  ],
+  [
+   "adoption is itself a workaround",
+   true
+  ],
+  [
+   "not adopting AI",
+   false
+  ],
+  [
+   "learns a new job",
+   true
+  ],
+  [
+   "a workaround for measuring AI transformation",
+   true
+  ],
+  [
+   "What an AI program should measure and do instead",
+   true
+  ],
+  [
+   "end state",
+   true
+  ],
+  [
+   "the future it set out to reach",
+   true
+  ],
+  [
+   "work that is no longer needed",
+   true
+  ],
+  [
+   "getting value from the AI-based solutions they deploy",
+   true
+  ],
+  [
+   "a component of everything",
+   true
+  ],
+  [
+   "increase in AI use",
+   false
+  ],
+  [
+   "is being used more than it was before",
+   true
+  ],
+  [
+   "they find a workaround that gets the job done",
+   true
+  ],
+  [
+   "adoption is itself a workaround",
+   true
+  ],
+  [
+   "because they are responsible for getting the work done and the tool as designed did not let them do it",
+   true
+  ],
+  [
+   "each workaround shows where the design failed",
+   true
+  ],
+  [
+   "Each workaround shows where the design failed",
+   true
+  ],
+  [
+   "does one of two things",
+   true
+  ],
+  [
+   "value that adoption cannot see",
+   true
+  ],
+  [
+   "cost reduction and customer service",
+   true
+  ],
+  [
+   "productivity gains",
+   true
+  ],
+  [
+   "the same work now takes less time and can be compared with last year's figures",
+   true
+  ],
+  [
+   "They remove the need for it.",
+   true
+  ],
+  [
+   "is done better, faster or more reliably, which is what the original investment was for",
+   true
+  ],
+  [
+   "there is no earlier version of the work to compare it with",
+   true
+  ],
+  [
+   "cannot happen",
+   true
+  ],
+  [
+   "has no way to record this value",
+   true
+  ],
+  [
+   "time, quality, errors",
+   true
+  ],
+  [
+   "how it was done before",
+   true
+  ],
+  [
+   "adoption measure",
+   true
+  ],
+  [
+   "AI programs report adoption instead",
+   true
+  ],
+  [
+   "Observe the work as it is done, ask people what they do",
+   true
+  ],
+  [
+   "Leadership workarounds need measures based on the outcomes of the work rather than on usage",
+   true
+  ],
+  [
+   "workarounds found and removed",
+   true
+  ],
+  [
+   "supported by its own evidence",
+   false
+  ],
+  [
+   "These are actual observations from research on tools and agentic automation.",
+   true
+  ],
+  [
+   "none of these tiers is new",
+   true
+  ],
+  [
+   "miss workarounds",
+   false
+  ],
+  [
+   "value",
+   true
+  ],
+  [
+   "workaround",
+   true
+  ],
+  [
+   "evidence",
+   true
+  ],
+  [
+   "point of view valid",
+   false
+  ],
+  [
+   "adoption",
+   true
+  ],
+  [
+   "If adoption means anything at work...",
+   true
+  ],
+  [
+   "Each workaround shows where the design failed",
+   true
+  ],
+  [
+   "no earlier version",
+   true
+  ],
+  [
+   "how it was done before",
    true
   ]
  ],
  "TC1-13": [
   [
-   "really excellent",
+   "These are actual observations from research on tools and agentic automation.",
    true
   ],
   [
-   "really seamless",
+   "A program measured by adoption rates cannot see workarounds, so when the work does not improve it has no evidence about the design and looks for the cause in people instead.",
    true
   ],
   [
-   "a little bit annoyed",
+   "none of these tiers is new",
+   true
+  ]
+ ],
+ "TC1-19": [
+  [
+   "Adopt an AI, today: a workaround for measuring AI transformation",
    true
   ],
   [
-   "extremely frustrated",
+   "not stated",
+   false
+  ],
+  [
+   "implied",
+   false
+  ],
+  [
+   "Neither shows up quickly in financial results, and few organisations can trace either back to AI specifically.",
    true
   ],
   [
-   "very cold in clinical",
+   "Adoption seems to have gone mainstream as the way organisations describe their progress with AI",
    true
   ],
   [
-   "would've definitely have hung up at the intro",
+   "seems",
    true
   ],
   [
-   "I would've asked for a human",
+   "So AI programs report adoption instead, because it can be counted from the first week of a rollout.",
    true
   ],
   [
-   "previous experiences with AI agents",
+   "Following their lead, vendors set their pricing based on seats and usage, and consultancies build their frameworks around it",
    true
   ],
   [
-   "Traditional voice automation",
+   "A workaround does not show up as non-use.",
+   true
+  ],
+  [
+   "The person still has the licence, still opens the tool and still counts as an active user, so on paper the tool has found a home.",
+   true
+  ],
+  [
+   "These are actual observations from research on tools and agentic automation.",
+   true
+  ],
+  [
+   "If adoption means anything at work, it means the tool works well enough, as designed, for people to get the job done with it. A workaround is its opposite.",
+   true
+  ],
+  [
+   "actual observations from research",
+   true
+  ],
+  [
+   "Faced with any tool at work, a person does one of two things. They use it as designed, or they find a workaround that gets the job done.",
+   true
+  ],
+  [
+   "nobody has to request them, process the request or answer the follow-up call",
+   true
+  ],
+  [
+   "the team that checked for that error has nothing left to check.",
+   true
+  ],
+  [
+   "nothing in it is being used more than it was before, in fact there is no earlier version of the work to compare it with.",
+   true
+  ],
+  [
+   "If a customer's documents update...",
+   true
+  ],
+  [
+   "If a product is built...",
+   true
+  ],
+  [
+   "some of the most valuable changes",
+   true
+  ],
+  [
+   "An adoption measure has no way to record this value.",
+   true
+  ],
+  [
+   "track time, quality, errors, and the experience of staff and customers for each piece of work the program changes, compared with how it was done before",
+   true
+  ],
+  [
+   "including work that is no longer needed",
+   true
+  ],
+  [
+   "Nobody describes booking a flight online as adopting ecommerce, or describes a new project management app as adopting the cloud.",
+   true
+  ],
+  [
+   "followed this path.",
+   true
+  ],
+  [
+   "adopting",
+   true
+  ],
+  [
+   "Taken literally, they do not.",
+   true
+  ],
+  [
+   "literally",
+   true
+  ],
+  [
+   "AI adoption assumes that people actually ",
+   true
+  ],
+  [
+   ". Taken literally, they do not.",
+   true
+  ],
+  [
+   "what people do with those tools falls into two cases",
+   true
+  ],
+  [
+   "AI is not a single thing that a person chooses and takes responsibility for",
+   true
+  ],
+  [
+   "A program built around adopting AI is organised around a technology that is becoming a component of everything",
+   true
+  ],
+  [
+   "bringing the AI home",
+   true
+  ],
+  [
+   "People build workarounds because they are responsible for getting the work done and the tool as designed did not let them do it.",
+   true
+  ],
+  [
+   "When an adoption does not work out, the common explanations are that staff are resisting, that leaders are not engaged enough, or that the organisation did not follow the program.",
+   true
+  ],
+  [
+   "Each explanation attributes the failure to people. None of them questions the measures the program used or the design of the tools it introduced.",
+   true
+  ],
+  [
+   "Treating it as resistance discards that information.",
+   true
+  ],
+  [
+   "Training people to use the tool as designed will not help when the design is the reason they work around it.",
+   true
+  ],
+  [
+   "when the design is the reason",
+   true
+  ],
+  [
+   "Each workaround shows where the design failed",
+   true
+  ],
+  [
+   "A program measured by adoption rates cannot see workarounds, so when the work does not improve it has no evidence about the design and looks for the cause in people instead.",
+   true
+  ],
+  [
+   "time to learn",
+   true
+  ],
+  [
+   "a clear statement of how adoption figures will and will not be used",
+   true
+  ],
+  [
+   "design in the broad sense, including work organisation",
+   false
+  ],
+  [
+   "A program still needs early evidence, because the value of AI takes time to show up in the numbers.",
+   true
+  ],
+  [
+   "Workarounds found and removed can be reported from the first weeks of a rollout.",
+   true
+  ],
+  [
+   "Each comes from established practice in building valuable solutions: observe how the work is really done, design for the result rather than the tool, make sure people can do what is asked of them, and start from a clear picture of what is being built.",
+   true
+  ],
+  [
+   "established practice",
+   true
+  ],
+  [
+   "it can report value in tiers",
+   true
+  ],
+  [
+   "can",
+   true
+  ],
+  [
+   "obvious",
+   true
+  ],
+  [
+   "One look at that list, and it's obvious: none of these tiers is new",
+   true
+  ],
+  [
+   "implied",
+   false
+  ],
+  [
+   "actual observations from research",
+   true
+  ],
+  [
+   "not stated",
+   false
+  ],
+  [
+   "design",
+   true
+  ],
+  [
+   "which steps people do and which steps are automated, what context passes at each handover",
+   true
+  ]
+ ],
+ "TC1-21": [
+  [
+   "Adopt an AI, today: a workaround for measuring AI transformation",
+   true
+  ],
+  [
+   "People use tools and learn new jobs",
+   true
+  ],
+  [
+   "People use a tool as designed or work around it",
+   true
+  ],
+  [
+   "Workarounds happen at every level, from the interface to team leadership",
+   true
+  ],
+  [
+   "Each workaround shows where the design failed",
+   true
+  ],
+  [
+   "What an AI program should measure and do instead",
+   true
+  ],
+  [
+   "adopt AI",
+   true
+  ],
+  [
+   "Boards mostly point AI at cost reduction and customer service, and executives report productivity gains.",
+   true
+  ],
+  [
+   "seems to have gone mainstream",
+   true
+  ],
+  [
+   "Following their lead, vendors set their pricing based on seats and usage, and consultancies build their frameworks around it.",
+   true
+  ],
+  [
+   "These are actual observations from research on tools and agentic automation.",
+   true
+  ],
+  [
+   "Staff who see the review as unnecessary change details in the underlying records so that the case no longer triggers it...",
+   true
+  ],
+  [
+   "Use and effective work can move in opposite directions.",
+   true
+  ],
+  [
+   "adopt",
+   true
+  ],
+  [
+   "AI adoption assumes that people actually ",
+   true
+  ],
+  [
+   ". Taken literally, they do not.",
+   true
+  ],
+  [
+   "Nobody describes booking a flight online as adopting ecommerce, or describes a new project management app as adopting the cloud.",
+   true
+  ],
+  [
+   "Nobody",
+   true
+  ],
+  [
+   "borrowed from earlier software rollouts, where success meant getting people to use the new system",
+   true
+  ],
+  [
+   "Web search followed this path.",
+   true
+  ],
+  [
+   "A program built around adopting AI is organised around a technology that is becoming a component of everything.",
+   true
+  ],
+  [
+   "is learning a job, with new tasks, judgements and accountabilities",
+   true
+  ],
+  [
+   "Faced with any tool at work, a person does one of two things. They use it as designed, or they find a workaround that gets the job done.",
+   true
+  ],
+  [
+   "A workaround is its opposite.",
+   true
+  ],
+  [
+   "does not show up as non-use",
+   true
+  ],
+  [
+   "If adoption means anything at work, it means the tool works well enough, as designed, for people to get the job done with it.",
+   true
+  ],
+  [
+   "Each workaround shows which part of the design failed, for whom, and what people do instead.",
+   true
+  ],
+  [
+   "Each explanation attributes the failure to people. None of them questions the measures the program used or the design of the tools it introduced.",
+   true
+  ],
+  [
+   "so when the work does not improve it has no evidence about the design and looks for the cause in people instead.",
+   true
+  ],
+  [
+   "The organisation did not follow the program",
+   true
+  ],
+  [
+   "few organisations can trace either back to AI specifically",
+   true
+  ],
+  [
+   "When AI speeds up the steps of an existing process, the gain can be measured",
+   true
+  ],
+  [
+   "The largest gap is value that adoption cannot see at all.",
+   true
+  ],
+  [
+   "AI may be part of how either change works, but nothing in it is being used more than it was before, in fact there is no earlier version of the work to compare it with.",
+   true
+  ],
+  [
+   "being used more than it was before",
+   true
+  ],
+  [
+   "Workarounds found and removed can be reported from the first weeks of a rollout, which is when adoption figures are reported now.",
+   true
+  ],
+  [
+   "Observe the work as it is done, ask people what they do when a tool does not give them what they need",
+   true
+  ],
+  [
+   "One look at that list, and it's obvious: none of these tiers is new.",
+   true
+  ],
+  [
+   "we've done this before with methods that still work",
+   true
+  ],
+  [
+   "AI is changing work in ways that are hard to picture in advance.",
+   true
+  ],
+  [
+   "Task workarounds need checks that ask for real judgement, not approval.",
+   true
+  ],
+  [
+   "are responsible for getting the work done",
+   true
+  ],
+  [
+   "A workaround does not show up as non-use",
+   true
+  ],
+  [
+   "cannot show what makes an app or agent useful",
+   true
+  ],
+  [
+   "is itself a workaround",
+   true
+  ],
+  [
+   "design",
+   true
+  ],
+  [
+   "measure",
+   true
+  ],
+  [
+   "each workaround shows where the design failed",
    true
   ]
  ]

@@ -1,0 +1,11 @@
+{
+ "part": "Does the article accurately diagnose the phenomenon it describes",
+ "questions": [
+  "Q1: Do measures of AI use match what AI tools do to results?",
+  "Q2: Do employees use AI outside the programs their organisations deploy?",
+  "Q3: Has the pattern of measuring a technology by use rather than results appeared before?"
+ ],
+ "unanswered_questions": [
+  "Q4: How do boards and executives measure AI programs? No source found that shows how organisations measure their programs, so the article's claim about reporting adoption could not be checked directly."
+ ]
+}
