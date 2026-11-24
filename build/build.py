@@ -211,6 +211,7 @@ def make_simulator():
 """
     mat = (DATA / "run2" / "source_material.md").read_text(encoding="utf-8")
     mat = re.sub(r"^# .*\n", "", mat, count=1)
+    mat = mat.replace("https://medium.com/p/86c8e7b6c7c9/edit", "https://medium.com/@puneetsyal/adopt-an-ai-today-why-adoption-counts-use-not-value-86c8e7b6c7c9")
     add_page("/simulator/material/", "Submitted content: article on measuring AI adoption", "Overview",
              "<p>This is the content submitted for the run in the simulator. Puneet Syal wrote the article, and it is licensed under CC BY 4.0 like the rest of this site. <a href=\"/simulator/\">Back to the simulator</a>.</p>" + md_block(demote(mat)),
              "The content submitted for the simulator run.", toc=False, wide=True)
