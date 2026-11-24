@@ -1,4 +1,4 @@
-This page lists what changed in each version of the design, in plain terms, newest first. The numbers in the last column are decisions on the [decisions page](/project/decisions/), which gives the reason for each. The current version is 1.5.2.
+This page lists what changed in each version of the design, in plain terms, newest first. The numbers in the last column are decisions on the [decisions page](/project/decisions/), which gives the reason for each. The current version is 1.5.3.
 
 To check which version your copy of the skill follows, open `references/design.md` in the skill folder. The version is stated near the top. The download on the [skill page](/skill/) states the version it carries.
 
@@ -6,6 +6,7 @@ Versions that change only the website say so. The skill is unchanged by them.
 
 | Version | Date | What changed | Decisions |
 |---|---|---|---|
+| 1.5.3 | 24 Nov 2026 | Every page carries a preview image and preview tags, so a shared link shows the image, title and description. The tags use the address https://startthat.work. Website only. | 68 |
 | 1.5.2 | 23 Nov 2026 | The simulator replays a run of version 1.5.1 on the article that exposed the faults of version 1.5.0, in place of the run on interview quotes. It shows the parts of the request, outside sources, repeat runs and facts about the text. Website only. | 67 |
 | 1.5.1 | 23 Nov 2026 | In the navigation, Try it is now Skill, Use by hand, Simulator. Website only. | 66 |
 | 1.5.0 | 22 Nov 2026 | Found by running the skill on an article: it checked the article against itself and never examined the topic. The request is now split into parts, each marked as answerable from the material or needing outside evidence. A technique counts for a part only if it can answer it. A part nothing can answer pauses the run with one question. Step 5.2 can gather outside evidence from any source type, recorded by what each source is used to show. A new catalogue column, question scope, orders the list. Facts about the text show first with no confidence label. | 65 |

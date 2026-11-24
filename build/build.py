@@ -27,6 +27,9 @@ ASSETS_SRC = ROOT / "build" / "assets"
 
 SITE = "startthat.work"
 TAB_NAME = "STARTthat.WORK"  # the name as the logo writes it, used in browser tab titles only
+SITE_URL = "https://startthat.work"  # absolute address used in link preview tags
+OG_IMAGE = "/assets/og-image.png"  # 1200 by 630 preview image shown when a page is shared
+OG_ALT = "Coloured shapes spreading from the left and narrowing to a few shapes on the right, with the text: Your topic and your material, matched to the right analysis methods. STARTthat.WORK"
 
 schema = json.loads((DATA / "schema.json").read_text(encoding="utf-8"))
 rows = list(csv.DictReader((DATA / "catalogue.csv").open(encoding="utf-8")))
@@ -905,6 +908,20 @@ TEMPLATE = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STARTthat.WORK">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{img}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{imgalt}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{desc}">
+<meta name="twitter:image" content="{img}">
+<meta name="twitter:image:alt" content="{imgalt}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap">
@@ -953,6 +970,7 @@ def render(page):
     full_title = f"{page['title']} | {TAB_NAME}" if page["path"] != "/" else TAB_NAME
     html_out = TEMPLATE.format(
         title=esc(full_title), desc=esc(page["desc"][:200]), site=esc(SITE), nav=nav_html(page["path"]),
+        url=esc(SITE_URL + page["path"]), img=esc(SITE_URL + OG_IMAGE), imgalt=esc(OG_ALT),
         crumbs=crumbs(page), h1=esc(page["title"] if page["path"] != "/" else SITE), body=body,
         pager=prev_next(page) if not page.get("wide") else "", toc=toc_html(body) if page["toc"] else "",
         bodycls="wide" if page.get("wide") else "", scripts="".join(f'<script src="{u}" defer></script>' for u in page.get("scripts", ())))
@@ -1001,7 +1019,8 @@ def main():
     (OUT / "404.html").write_text(
         TEMPLATE.format(title="Page not found | " + TAB_NAME, desc="Page not found", site=SITE, nav=nav_html("/404"), crumbs="",
                         h1="Page not found", body='<p>This page does not exist. Use the search box or the menu, or go to the <a href="/">overview</a>.</p>',
-                        pager="", toc="", bodycls="", scripts=""), encoding="utf-8")
+                        pager="", toc="", bodycls="", scripts="", url=SITE_URL + "/",
+                        img=SITE_URL + OG_IMAGE, imgalt=esc(OG_ALT)), encoding="utf-8")
     print(f"Wrote {len(PAGES)} pages and search index to {OUT}")
 
 
