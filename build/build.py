@@ -102,9 +102,9 @@ for p in parts[1:]:
     m = re.match(r"(\d+)\.\s+(.*)", head)
     sections[int(m.group(1))] = (m.group(2).strip(), body.strip())
 
-# Mechanisms: a subsection of section 2, shown on its own page and removed from the process page
-_m = re.search(r"### Mechanisms\n(.*?)(?=\n### |\Z)", sections[2][1], flags=re.S)
-assert _m, "design.md section 2 has no Mechanisms subsection"
+# Mechanisms: section 13, shown on its own page
+_m = re.search(r"^(.*?)(?=\n### )", sections[13][1] + "\n### ", flags=re.S)
+assert _m, "design.md has no section 13 Mechanisms"
 MECH_INTRO = _m.group(1).split("\n|", 1)[0].strip()
 MECH = []
 for _l in _m.group(1).splitlines():
@@ -113,7 +113,6 @@ for _l in _m.group(1).splitlines():
         assert len(_c) == 7, _l
         MECH.append(dict(id=_c[0], name=_c[1], step=_c[2], what=_c[3], example=_c[4], by=_c[5],
                          used=[] if _c[6] == "none" else [x.strip() for x in _c[6].split(",")]))
-sections[2] = (sections[2][0], sections[2][1].replace(_m.group(0), "").replace("### Mechanisms\n", "").strip())
 _ids = {m["id"] for m in MECH}
 assert len(MECH) == len(_ids) and all(u in _ids for m in MECH for u in m["used"]), "mechanism links do not resolve"
 
@@ -138,6 +137,7 @@ SECTION_PAGE = {
     10: "/status/#open-items",
     11: "/project/files-and-change-rule/",
     12: "/project/files-and-change-rule/",
+    13: "/mechanisms/",
 }
 
 
@@ -222,7 +222,7 @@ def make_simulator():
 # ---------------------------------------------------------------- pages
 def make_process_pages():
     # Overview of the process: section 2
-    add_page("/process/", "The process", "Process", section_html(2) + '<p>The mechanisms that the process applies, and how they connect, are on the page <a href="/process/mechanisms/">Mechanisms</a>.</p>',
+    add_page("/process/", "The process", "Process", section_html(2) + '<p>The rules that act across these steps are on the page <a href="/mechanisms/">Mechanisms</a>.</p>',
              "Eight steps from the user's request to the answer, the terms used, the seven kinds of technique and the rules that apply throughout.")
     add_page("/process/intake/", "Step 1: Intake", "Process", section_html(3),
              "How four kinds of input become a brief, and which questions the user is asked.")
@@ -316,8 +316,8 @@ def make_mechanisms_page():
             used = ", ".join(f'<a href="#{u.lower()}">{u}</a>' for u in m["used"]) or "none"
             body.append(f'<tr id="{m["id"].lower()}"><td>{m["id"]}</td><th scope="row">{esc(m["name"])}</th><td>{esc(m["what"])}</td><td>{esc(m["example"])}</td><td>{esc(m["by"])}</td><td>{used}</td></tr>')
         body.append("</tbody></table></div>")
-    add_page("/process/mechanisms/", "Mechanisms", "Process", "".join(body),
-             f"The {len(MECH)} mechanisms that the process applies, grouped by step, with a map of how each one connects to the mechanisms that use its output.",
+    add_page("/mechanisms/", "Mechanisms", "The model", "".join(body),
+             f"The {len(MECH)} mechanisms of the design, grouped by step, with a map of how each one connects to the mechanisms that use its output.",
              wide=True, scripts=("/assets/mechanisms.js",))
 
 
@@ -870,8 +870,8 @@ NAV = [
     ("The model", [
         ("/process/", "Process", [("/process/intake/", "1. Intake"), ("/process/choosing-techniques/", "2 and 3. Rule out and choose"),
                                   ("/process/planning-the-sequence/", "4. Plan analysis sequence"), ("/process/running-the-techniques/", "5. Run the techniques"),
-                                  ("/process/checks-and-answer/", "6 to 8. Check, combine and answer"),
-                                  ("/process/mechanisms/", "Mechanisms")]),
+                                  ("/process/checks-and-answer/", "6 to 8. Check, combine and answer")]),
+        ("/mechanisms/", "Mechanisms", []),
         ("/catalogue/", "Techniques", [(f"/catalogue/{FAM_SLUG[f]}/", f"{f} ({len(FAMILIES[f])})") for f in FAMILY_ORDER]),
         ("/reference/", "Dictionary", [("/reference/fields/", "Fields"), ("/reference/artefact-types/", "Working document types"),
                                        ("/reference/checks/", "Check library"), ("/reference/phases-and-tiers/", "Steps, kinds, stakes and relations")]),
