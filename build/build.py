@@ -102,6 +102,21 @@ for p in parts[1:]:
     m = re.match(r"(\d+)\.\s+(.*)", head)
     sections[int(m.group(1))] = (m.group(2).strip(), body.strip())
 
+# Mechanisms: a subsection of section 2, shown on its own page and removed from the process page
+_m = re.search(r"### Mechanisms\n(.*?)(?=\n### |\Z)", sections[2][1], flags=re.S)
+assert _m, "design.md section 2 has no Mechanisms subsection"
+MECH_INTRO = _m.group(1).split("\n|", 1)[0].strip()
+MECH = []
+for _l in _m.group(1).splitlines():
+    if re.match(r"\| M\d+ \|", _l):
+        _c = [x.strip() for x in _l.strip().strip("|").split(" | ")]
+        assert len(_c) == 7, _l
+        MECH.append(dict(id=_c[0], name=_c[1], step=_c[2], what=_c[3], example=_c[4], by=_c[5],
+                         used=[] if _c[6] == "none" else [x.strip() for x in _c[6].split(",")]))
+sections[2] = (sections[2][0], sections[2][1].replace(_m.group(0), "").replace("### Mechanisms\n", "").strip())
+_ids = {m["id"] for m in MECH}
+assert len(MECH) == len(_ids) and all(u in _ids for m in MECH for u in m["used"]), "mechanism links do not resolve"
+
 # Page registry: path -> dict(title, group, kind)
 PAGES = []
 
@@ -207,7 +222,7 @@ def make_simulator():
 # ---------------------------------------------------------------- pages
 def make_process_pages():
     # Overview of the process: section 2
-    add_page("/process/", "The process", "Process", section_html(2),
+    add_page("/process/", "The process", "Process", section_html(2) + '<p>The mechanisms that the process applies, and how they connect, are on the page <a href="/process/mechanisms/">Mechanisms</a>.</p>',
              "Eight steps from the user's request to the answer, the terms used, the seven kinds of technique and the rules that apply throughout.")
     add_page("/process/intake/", "Step 1: Intake", "Process", section_html(3),
              "How four kinds of input become a brief, and which questions the user is asked.")
@@ -219,6 +234,91 @@ def make_process_pages():
              "Examine the question, prepare the material and analyse it, and how one technique is run.")
     add_page("/process/checks-and-answer/", "Steps 6 to 8: Check, combine and answer", "Process", section_html(7),
              "How findings are checked and combined, how support for each conclusion is judged, and what the answer states.")
+
+
+MECH_STEPS = [("1", "Step 1: Intake"), ("2", "Step 2: Rule out techniques"), ("3", "Step 3: Choose analysis techniques"),
+              ("4", "Step 4: Plan analysis sequence"), ("5.1", "Step 5.1: Examine the question"), ("5.2", "Step 5.2: Prepare the material"),
+              ("5.3", "Step 5.3: Analyse the material"), ("6", "Step 6: Check the findings"), ("7", "Step 7: Combine the findings"),
+              ("8", "Step 8: Answer")]
+MECH_CLASS = {"1": "g1", "2": "g2", "3": "g3", "4": "g4", "5.1": "g5", "5.2": "g5", "5.3": "g5", "6": "g6", "7": "g7", "8": "g1"}
+
+
+def wrap_words(text, width):
+    lines, cur = [], ""
+    for w in text.split():
+        if cur and len(cur) + 1 + len(w) > width:
+            lines.append(cur); cur = w
+        else:
+            cur = (cur + " " + w).strip()
+    if cur:
+        lines.append(cur)
+    return lines
+
+
+def mechanisms_svg():
+    NW, NH, GX, GY, TOP, LEFT = 156, 70, 40, 14, 58, 12
+    col = {k: i for i, (k, _) in enumerate(MECH_STEPS)}
+    pos, rowc = {}, {}
+    for m in MECH:
+        c = col[m["step"]]
+        r = rowc.get(c, 0); rowc[c] = r + 1
+        pos[m["id"]] = (LEFT + c * (NW + GX), TOP + r * (NH + GY), c)
+    W = LEFT * 2 + len(MECH_STEPS) * NW + (len(MECH_STEPS) - 1) * GX
+    H = TOP + max(rowc.values()) * (NH + GY) + 6
+    out = [f'<svg class="mp-svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="group" aria-label="Map of the {len(MECH)} mechanisms, in columns by step, with a line from each mechanism to the mechanisms that use its output">']
+    for k, label in MECH_STEPS:
+        x = LEFT + col[k] * (NW + GX)
+        out.append(f'<g class="{MECH_CLASS[k]}"><text class="mp-colhead" x="{x + NW / 2}" y="22" text-anchor="middle">{esc(label.split(":")[0])}</text>'
+                   f'<text class="mp-colsub" x="{x + NW / 2}" y="40" text-anchor="middle">{esc(label.split(": ", 1)[1])}</text></g>')
+    edges = []
+    for m in MECH:
+        x1, y1, c1 = pos[m["id"]]
+        for u in m["used"]:
+            x2, y2, c2 = pos[u]
+            if c1 == c2:
+                ax, ay, bx, by = x1 + NW, y1 + NH / 2, x2 + NW, y2 + NH / 2
+                path = f"M{ax},{ay} C{ax + 34},{ay} {bx + 34},{by} {bx},{by}"
+            else:
+                ax, ay, bx, by = x1 + NW, y1 + NH / 2, x2, y2 + NH / 2
+                dx = max(30, (bx - ax) / 2)
+                path = f"M{ax},{ay} C{ax + dx},{ay} {bx - dx},{by} {bx},{by}"
+            edges.append(f'<path class="mp-edge" data-from="{m["id"]}" data-to="{u}" d="{path}"/>')
+    out.append('<g class="mp-edges" aria-hidden="true">' + "".join(edges) + "</g>")
+    for m in MECH:
+        x, y, _ = pos[m["id"]]
+        lines = wrap_words(m["name"], 21)[:3]
+        t = "".join(f'<tspan x="{x + 10}" dy="{14 if i else 0}">{esc(l)}</tspan>' for i, l in enumerate(lines))
+        out.append(f'<g class="mp-node {MECH_CLASS[m["step"]]}" data-id="{m["id"]}" tabindex="0" role="button" aria-pressed="false" '
+                   f'aria-label="{esc(m["id"] + " " + m["name"])}"><rect x="{x}" y="{y}" width="{NW}" height="{NH}" rx="7"/>'
+                   f'<text class="mp-id" x="{x + 10}" y="{y + 18}">{esc(m["id"])}</text>'
+                   f'<text class="mp-name" x="{x + 10}" y="{y + 36}">{t}</text></g>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def make_mechanisms_page():
+    intro = md_inline(MECH_INTRO.replace("(decision 72)", "([decision 72](/project/decisions/))"))
+    blob = json.dumps({m["id"]: dict(name=m["name"], step=m["step"], what=m["what"], example=m["example"], by=m["by"], used=m["used"]) for m in MECH})
+    body = [f"<p>{intro}</p>",
+            '<h2 id="map">Map</h2>',
+            '<p>Each box is one mechanism, in a column for the step where it acts. A line runs from a mechanism to each mechanism that uses its output. Select a box to show its lines and its description. Use the tab key and the enter key to select a box with the keyboard. The table after the map has the same information in full.</p>',
+            '<div class="mp-legend" aria-hidden="true"><span class="mp-key mp-out"></span> mechanisms that use the output of the selected one <span class="mp-key mp-in"></span> mechanisms whose output the selected one uses</div>',
+            '<div class="mp-scroll" tabindex="0" role="region" aria-label="Mechanism map, scrolls sideways">' + mechanisms_svg() + "</div>",
+            '<div id="mp-info" class="mp-info" aria-live="polite"><p>Select a mechanism to see what it does.</p></div>',
+            f'<script type="application/json" id="mp-data">{blob}</script>',
+            '<h2 id="table">Mechanisms by step</h2>']
+    for k, label in MECH_STEPS:
+        items = [m for m in MECH if m["step"] == k]
+        if not items:
+            continue
+        body.append(f'<h3 id="step-{k.replace(".", "-")}">{esc(label)}</h3><div class="table-wrap"><table class="mp-table"><thead><tr><th>ID</th><th>Mechanism</th><th>What it does</th><th>Example</th><th>Delivered by</th><th>Used by</th></tr></thead><tbody>')
+        for m in items:
+            used = ", ".join(f'<a href="#{u.lower()}">{u}</a>' for u in m["used"]) or "none"
+            body.append(f'<tr id="{m["id"].lower()}"><td>{m["id"]}</td><th scope="row">{esc(m["name"])}</th><td>{esc(m["what"])}</td><td>{esc(m["example"])}</td><td>{esc(m["by"])}</td><td>{used}</td></tr>')
+        body.append("</tbody></table></div>")
+    add_page("/process/mechanisms/", "Mechanisms", "Process", "".join(body),
+             f"The {len(MECH)} mechanisms that the process applies, grouped by step, with a map of how each one connects to the mechanisms that use its output.",
+             wide=True, scripts=("/assets/mechanisms.js",))
 
 
 def make_project_pages():
@@ -770,7 +870,8 @@ NAV = [
     ("The model", [
         ("/process/", "Process", [("/process/intake/", "1. Intake"), ("/process/choosing-techniques/", "2 and 3. Rule out and choose"),
                                   ("/process/planning-the-sequence/", "4. Plan analysis sequence"), ("/process/running-the-techniques/", "5. Run the techniques"),
-                                  ("/process/checks-and-answer/", "6 to 8. Check, combine and answer")]),
+                                  ("/process/checks-and-answer/", "6 to 8. Check, combine and answer"),
+                                  ("/process/mechanisms/", "Mechanisms")]),
         ("/catalogue/", "Techniques", [(f"/catalogue/{FAM_SLUG[f]}/", f"{f} ({len(FAMILIES[f])})") for f in FAMILY_ORDER]),
         ("/reference/", "Dictionary", [("/reference/fields/", "Fields"), ("/reference/artefact-types/", "Working document types"),
                                        ("/reference/checks/", "Check library"), ("/reference/phases-and-tiers/", "Steps, kinds, stakes and relations")]),
@@ -1005,6 +1106,7 @@ def main():
 
     make_home()
     make_process_pages()
+    make_mechanisms_page()
     make_catalogue_index()
     make_family_pages()
     for r in rows:
