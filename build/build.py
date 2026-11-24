@@ -868,14 +868,14 @@ def make_reference():
 NAV = [
     ("Try it", [("/skill/", "Skill", []), ("/by-hand/", "Use by hand", []), ("/simulator/", "Simulator", [])]),
     ("The model", [
+        ("/catalogue/", "Techniques", [(f"/catalogue/{FAM_SLUG[f]}/", f"{f} ({len(FAMILIES[f])})") for f in FAMILY_ORDER]),
         ("/process/", "Process", [("/process/intake/", "1. Intake"), ("/process/choosing-techniques/", "2 and 3. Rule out and choose"),
                                   ("/process/planning-the-sequence/", "4. Plan analysis sequence"), ("/process/running-the-techniques/", "5. Run the techniques"),
                                   ("/process/checks-and-answer/", "6 to 8. Check, combine and answer")]),
         ("/mechanisms/", "Mechanisms", []),
-        ("/catalogue/", "Techniques", [(f"/catalogue/{FAM_SLUG[f]}/", f"{f} ({len(FAMILIES[f])})") for f in FAMILY_ORDER]),
+        ("/limits/", "Limits", []),
         ("/reference/", "Dictionary", [("/reference/fields/", "Fields"), ("/reference/artefact-types/", "Working document types"),
                                        ("/reference/checks/", "Check library"), ("/reference/phases-and-tiers/", "Steps, kinds, stakes and relations")]),
-        ("/limits/", "Limits", []),
     ]),
     ("The project", [
         ("/status/", "Status", []),

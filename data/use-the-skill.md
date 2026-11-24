@@ -1,6 +1,6 @@
 The skill runs the startthat.work process on your question and your material. It is named `analysis`. It works in Claude and in GitHub Copilot, because both read the same skill format: a folder with a `SKILL.md` file, reference files and scripts.
 
-<p><a class="button" href="/downloads/analysis.zip" download>Download analysis.zip</a> Version 1.5.8, 292 KB. It unzips to one folder named <code>analysis</code>.</p>
+<p><a class="button" href="/downloads/analysis.zip" download>Download analysis.zip</a> Version 1.5.9, 292 KB. It unzips to one folder named <code>analysis</code>.</p>
 
 If you cannot install a skill, or want to see what the process does, you can follow the same steps yourself: see [Use by hand](/by-hand/).
 
