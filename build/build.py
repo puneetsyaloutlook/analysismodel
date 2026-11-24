@@ -922,6 +922,9 @@ TEMPLATE = """<!doctype html>
 <meta name="twitter:description" content="{desc}">
 <meta name="twitter:image" content="{img}">
 <meta name="twitter:image:alt" content="{imgalt}">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap">
@@ -996,6 +999,7 @@ def main():
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)
     shutil.copytree(ASSETS_SRC, OUT / "assets", dirs_exist_ok=True)
+    shutil.copy(ASSETS_SRC / "favicon.ico", OUT / "favicon.ico")
     (OUT / "downloads").mkdir()
     shutil.copy(DATA / "analysis.zip", OUT / "downloads" / "analysis.zip")
 

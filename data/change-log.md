@@ -1,4 +1,4 @@
-This page lists what changed in each version of the design, in plain terms, newest first. The numbers in the last column are decisions on the [decisions page](/project/decisions/), which gives the reason for each. The current version is 1.5.4.
+This page lists what changed in each version of the design, in plain terms, newest first. The numbers in the last column are decisions on the [decisions page](/project/decisions/), which gives the reason for each. The current version is 1.5.5.
 
 To check which version your copy of the skill follows, open `references/design.md` in the skill folder. The version is stated near the top. The download on the [skill page](/skill/) states the version it carries.
 
@@ -6,6 +6,7 @@ Versions that change only the website say so. The skill is unchanged by them.
 
 | Version | Date | What changed | Decisions |
 |---|---|---|---|
+| 1.5.5 | 24 Nov 2026 | The site has a favicon, shown in browser tabs and bookmarks. Website only. | 70 |
 | 1.5.4 | 24 Nov 2026 | The site header uses a new logo. Website only. | 69 |
 | 1.5.3 | 24 Nov 2026 | Every page carries a preview image and preview tags, so a shared link shows the image, title and description. The tags use the address https://startthat.work. Website only. | 68 |
 | 1.5.2 | 23 Nov 2026 | The simulator replays a run of version 1.5.1 on the article that exposed the faults of version 1.5.0, in place of the run on interview quotes. It shows the parts of the request, outside sources, repeat runs and facts about the text. Website only. | 67 |
