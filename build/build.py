@@ -212,7 +212,7 @@ def make_simulator():
     mat = (DATA / "run2" / "source_material.md").read_text(encoding="utf-8")
     mat = re.sub(r"^# .*\n", "", mat, count=1)
     add_page("/simulator/material/", "Submitted content: article on measuring AI adoption", "Overview",
-             "<p>This is the content submitted for the run in the simulator. <a href=\"/simulator/\">Back to the simulator</a>.</p>" + md_block(demote(mat)),
+             "<p>This is the content submitted for the run in the simulator. Puneet Syal wrote the article, and it is licensed under CC BY 4.0 like the rest of this site. <a href=\"/simulator/\">Back to the simulator</a>.</p>" + md_block(demote(mat)),
              "The content submitted for the simulator run.", toc=False, wide=True)
     add_page("/simulator/", "Simulator", "Overview", body,
              "The eight steps of the process on one screen, replayed from an actual run.", toc=False, wide=True,
