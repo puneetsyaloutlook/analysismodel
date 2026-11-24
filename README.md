@@ -30,3 +30,7 @@ When the design changes, change `data/design.md` and `data/schema.json` first an
 ## Deploy on Vercel
 
 Import the repository. `vercel.json` sets the output directory to `public` and turns off the build and install commands. Fonts (Public Sans, Lora) load from Google Fonts.
+
+## Licence
+
+The work in this repository is licensed under Creative Commons Attribution 4.0 International (CC BY 4.0). Anyone may share and adapt it, including commercially, if they credit Puneet Syal and say what they changed. The full text is in `LICENSE`.

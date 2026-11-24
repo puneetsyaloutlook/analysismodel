@@ -1,4 +1,4 @@
-This page lists what changed in each version of the design, in plain terms, newest first. The numbers in the last column are decisions on the [decisions page](/project/decisions/), which gives the reason for each. The current version is 1.5.9.
+This page lists what changed in each version of the design, in plain terms, newest first. The numbers in the last column are decisions on the [decisions page](/project/decisions/), which gives the reason for each. The current version is 1.5.10.
 
 To check which version your copy of the skill follows, open `references/design.md` in the skill folder. The version is stated near the top. The download on the [skill page](/skill/) states the version it carries.
 
@@ -6,6 +6,7 @@ Versions that change only the website say so. The skill is unchanged by them.
 
 | Version | Date | What changed | Decisions |
 |---|---|---|---|
+| 1.5.10 | 24 Nov 2026 | The repository has a licence (Creative Commons Attribution 4.0), so that others may reuse and adapt it. Repository only. | 75 |
 | 1.5.9 | 24 Nov 2026 | The group The model in the site navigation lists Techniques, Process, Mechanisms, Limits and Dictionary, in that order. Website only. | 74 |
 | 1.5.8 | 24 Nov 2026 | The mechanisms are their own section of the design and their own page on the site, separate from the process. The skill is unchanged. | 73 |
 | 1.5.7 | 24 Nov 2026 | The design has a table of the mechanisms the process applies, and the site has a page with a map of how they connect. The skill is unchanged. | 72 |
